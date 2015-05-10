@@ -1,0 +1,3 @@
+class BackLabel < PackagingComponent
+  
+end

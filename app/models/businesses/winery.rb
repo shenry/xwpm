@@ -1,0 +1,3 @@
+class Winery < Business
+  
+end

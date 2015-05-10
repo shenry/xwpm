@@ -1,0 +1,3 @@
+class Screwcap < PackagingComponent
+  
+end

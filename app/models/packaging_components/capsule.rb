@@ -1,0 +1,3 @@
+class Capsule < PackagingComponent
+  
+end

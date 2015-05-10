@@ -1,0 +1,3 @@
+class Bottler < Winery
+  
+end
