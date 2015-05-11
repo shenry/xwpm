@@ -31,6 +31,11 @@ X::Application.routes.draw do
   get "home", to: "pages#home", as: "home"
   get "inside", to: "pages#inside", as: "inside"
   
+  resources :customers do
+    resources :projects, shallow: true
+  end
+  
+  resources :packages, :packaging_components, :businesses
   
   devise_for :users
 
