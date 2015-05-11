@@ -1,18 +1,23 @@
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to 'Home', root_path, class: 'navbar-brand' %>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <%= render 'layouts/navigation_links' %>
-      </ul>
-    </div>
-  </div>
-</nav>
+<%= nav_bar responsive: true, brand: "X Winery PM" do %>
+	<%= menu_group do %>
+		<% if user_signed_in? %>
+			<%= menu_item 'Home', root_path %>
+			<%= menu_item	'Wines', wines_path %>
+			<%= menu_item 'Customers', customers_path %>
+			<%= menu_item	'Packages', packages_path %>
+			<%= menu_item	'Packaging Components', packaging_components_path %>
+		<% end %>
+	<% end %>
+	<% if current_user && current_user.admin? %>
+		<%= menu_group do %>
+			<%= menu_item "Admin", admin_root_path %>
+		<% end %>
+	<% end %>
+	<%= menu_group pull: :right do %>
+		<% if user_signed_in? %>
+			<%= menu_item 'Sign Out', destroy_user_session_path, data:{method: :delete} %>
+		<% else %>
+			<%= menu_item 'Sign in', new_user_session_path %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -28,20 +28,11 @@
 
 X::Application.routes.draw do
   
-  get 'projects/show'
-
-  get 'projects/index'
-
-  get 'projects/new'
-
-  get 'projects/edit'
-
   resources :customers do
     resources :projects, shallow: true
   end
-  resources :projects
   
-  resources :packages, :packaging_components, :businesses
+  resources :packages, :packaging_components, :firms, :wines, :customers, :projects
   
   devise_for :users
   
