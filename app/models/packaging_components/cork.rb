@@ -1,3 +1,0 @@
-class Cork < PackagingComponent
-  
-end

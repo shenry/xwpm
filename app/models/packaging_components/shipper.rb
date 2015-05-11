@@ -1,3 +1,0 @@
-class Shipper < PackagingComponent
-  
-end

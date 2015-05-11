@@ -1,3 +1,0 @@
-class FrontLabel < PackagingComponent
-  
-end

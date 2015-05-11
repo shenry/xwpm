@@ -1,3 +1,0 @@
-class Bottle < PackagingComponent
-  
-end
