@@ -1,3 +1,0 @@
-class Screwcap < Closure
-  
-end
