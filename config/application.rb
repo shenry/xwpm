@@ -31,5 +31,7 @@ module X
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/app/models/closures)
     config.autoload_paths += %W(#{config.root}/app/models/labels)
+    config.autoload_paths += %W(#{config.root}/app/models/firms)
+
   end
 end

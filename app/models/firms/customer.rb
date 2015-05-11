@@ -1,0 +1,3 @@
+class Customer < Firm
+  
+end

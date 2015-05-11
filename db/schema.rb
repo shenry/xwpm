@@ -11,7 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511043120) do
+ActiveRecord::Schema.define(version: 20150511171540) do
+
+  create_table "bottles", force: :cascade do |t|
+    t.string   "mould"
+    t.string   "shape"
+    t.integer  "vendor_id"
+    t.string   "color"
+    t.string   "name",             default: "", null: false
+    t.string   "description",      default: "", null: false
+    t.string   "height"
+    t.string   "height_units"
+    t.string   "diameter"
+    t.string   "diameter_units"
+    t.string   "fill_point"
+    t.string   "fill_point_units"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "bottles", ["vendor_id"], name: "index_bottles_on_vendor_id"
+
+  create_table "capsules", force: :cascade do |t|
+    t.integer  "vendor_id"
+    t.string   "name",           default: "",    null: false
+    t.string   "description",    default: "",    null: false
+    t.string   "color"
+    t.string   "height"
+    t.string   "height_units"
+    t.string   "diameter"
+    t.string   "diameter_units"
+    t.boolean  "has_artwork",    default: false, null: false
+    t.string   "material"
+    t.string   "item_code"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "capsules", ["vendor_id"], name: "index_capsules_on_vendor_id"
 
   create_table "closures", force: :cascade do |t|
     t.string   "type"
@@ -32,6 +69,24 @@ ActiveRecord::Schema.define(version: 20150511043120) do
   add_index "closures", ["type"], name: "index_closures_on_type"
   add_index "closures", ["vendor_id"], name: "index_closures_on_vendor_id"
 
+  create_table "firms", force: :cascade do |t|
+    t.string   "type"
+    t.string   "name",           default: "", null: false
+    t.string   "description",    default: "", null: false
+    t.string   "contact_name"
+    t.string   "contact_email"
+    t.string   "contact_phone"
+    t.string   "address_line_1"
+    t.string   "address_line_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "bond"
+    t.string   "account_number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -45,26 +100,8 @@ ActiveRecord::Schema.define(version: 20150511043120) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "labels", force: :cascade do |t|
-    t.integer  "vendor_id"
-    t.string   "name",         default: "", null: false
-    t.string   "description",  default: "", null: false
-    t.string   "art_source"
-    t.string   "width"
-    t.string   "width_units"
-    t.string   "length"
-    t.string   "length_units"
-    t.string   "material"
-    t.string   "treatment"
-    t.string   "die_cut"
-    t.string   "upc"
-    t.string   "label_alc"
-    t.string   "type"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "labels", ["vendor_id"], name: "index_labels_on_vendor_id"
+# Could not dump table "labels" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "packages", force: :cascade do |t|
     t.string   "name",           default: "", null: false
@@ -90,12 +127,33 @@ ActiveRecord::Schema.define(version: 20150511043120) do
     t.string   "name"
     t.integer  "package_id"
     t.integer  "wine_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "customer_id"
   end
 
+  add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
   add_index "projects", ["package_id"], name: "index_projects_on_package_id"
   add_index "projects", ["wine_id"], name: "index_projects_on_wine_id"
+
+  create_table "shippers", force: :cascade do |t|
+    t.integer  "vendor_id"
+    t.string   "name",            default: "",    null: false
+    t.string   "description",     default: "",    null: false
+    t.boolean  "has_artwork",     default: false, null: false
+    t.integer  "bottle_capacity"
+    t.string   "height"
+    t.string   "height_units"
+    t.string   "width"
+    t.string   "width_units"
+    t.string   "depth"
+    t.string   "depth_units"
+    t.string   "treatments"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "shippers", ["vendor_id"], name: "index_shippers_on_vendor_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
