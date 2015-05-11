@@ -1,3 +1,0 @@
-class Vendor < Business
-  
-end
