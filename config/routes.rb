@@ -27,17 +27,25 @@
 #
 
 X::Application.routes.draw do
-  root "pages#home"
-  get "home", to: "pages#home", as: "home"
-  get "inside", to: "pages#inside", as: "inside"
   
+  get 'projects/show'
+
+  get 'projects/index'
+
+  get 'projects/new'
+
+  get 'projects/edit'
+
   resources :customers do
     resources :projects, shallow: true
   end
+  resources :projects
   
   resources :packages, :packaging_components, :businesses
   
   devise_for :users
+  
+  root "projects#index"
 
   namespace :admin do
     root "base#index"

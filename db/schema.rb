@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511202805) do
+ActiveRecord::Schema.define(version: 20150511223519) do
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -96,12 +96,16 @@ ActiveRecord::Schema.define(version: 20150511202805) do
   add_index "packaging_components", ["vendor_id"], name: "index_packaging_components_on_vendor_id"
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
     t.integer  "package_id"
     t.integer  "wine_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "customer_id"
+    t.string   "qb_code"
+    t.string   "project_number"
+    t.integer  "target_cases"
+    t.string   "name",           default: "", null: false
+    t.string   "description",    default: "", null: false
   end
 
   add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
@@ -132,5 +136,21 @@ ActiveRecord::Schema.define(version: 20150511202805) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "wines", force: :cascade do |t|
+    t.string   "name",                default: "", null: false
+    t.string   "description",         default: "", null: false
+    t.string   "appellation"
+    t.string   "appellation_percent"
+    t.string   "variety"
+    t.string   "variety_percent"
+    t.string   "vintage"
+    t.string   "vintage_percent"
+    t.string   "alc"
+    t.string   "winemaker"
+    t.string   "sample_number"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
 
 end
