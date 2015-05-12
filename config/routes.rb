@@ -32,7 +32,12 @@ X::Application.routes.draw do
     resources :projects, shallow: true
   end
   
-  resources :packages, :packaging_components, :firms, :wines, :customers, :projects
+  concern :firm do
+    resources :customers
+    resources :vendors
+  end
+  
+  resources :packages, :packaging_components, :wines, :projects, :customers, :vendors
   
   devise_for :users
   

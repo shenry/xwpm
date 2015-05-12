@@ -8,3 +8,31 @@
 		<%= link_to "New Project", new_project_path %>
 	</div>
 </div>
+<div class='row'>
+	<table class='table'>
+		<tr>
+			<th>Project Number</th>
+			<th>Customer</th>
+			<th>Contact</th>
+			<th>Brand</th>
+			<th>Bottling Date</th>
+			<th>Cases</th>
+			<th>Actions</th>
+			<th>Status</th>
+		</tr>
+		<tbody>
+			<% for project in @projects %>
+			<tr class='table-striped'>
+				<td><%= project.project_number %></td>
+				<td><%= project.customer.name %></td>
+				<td><a link_to="mailto:#{<%= project.customer.contact_email %>}"><%= project.customer.contact_name %></a></td>
+				<td><%= project.brand %></td>
+				<td><%= project.bottling_date %></td>
+				<td><%= project.target_cases %></td>
+				<td>#TODO</td>
+				<td>#TODO</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

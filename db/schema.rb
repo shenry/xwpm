@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511223519) do
+ActiveRecord::Schema.define(version: 20150512160330) do
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -104,8 +104,9 @@ ActiveRecord::Schema.define(version: 20150511223519) do
     t.string   "qb_code"
     t.string   "project_number"
     t.integer  "target_cases"
-    t.string   "name",           default: "", null: false
+    t.string   "brand",          default: "", null: false
     t.string   "description",    default: "", null: false
+    t.datetime "bottling_date"
   end
 
   add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
