@@ -32,14 +32,6 @@ X::Application.routes.draw do
     resources :projects, shallow: true
   end
   
-  resources :vendors do
-    resources :bottles,   shallow: true
-    resources :closures,  shallow: true
-    resources :capsules,  shallow: true
-    resources :labels,    shallow: true
-    resources :shippers,  shallow: true
-  end
-  
   concern :firm do
     resources :customers
     resources :vendors

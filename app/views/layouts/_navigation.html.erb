@@ -15,13 +15,9 @@
 			<%= menu_item	'Vendors', vendors_path %>
 		<% end %>
 	<% end %>
-	<% if current_user && current_user.admin? %>
-		<%= menu_group do %>
-			<%= menu_item "Admin", admin_root_path %>
-		<% end %>
-	<% end %>
 	<%= menu_group pull: :right do %>
 		<% if user_signed_in? %>
+			<%= menu_item "Admin", admin_root_path %>
 			<%= menu_item 'Sign Out', destroy_user_session_path, data:{method: :delete} %>
 		<% else %>
 			<%= menu_item 'Sign in', new_user_session_path %>

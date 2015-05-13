@@ -1,0 +1,58 @@
+<div class='row'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Vendor</th>
+			<th>Type</th>			
+			<th>Size</th>
+			<th>Taper/Cut</th>
+			<th>Treatments</th>
+			<th>Designer</th>
+			<th>Rewind</th>
+			<th>Position</th>
+		</tr>
+		<% for front_label in @components[:front_labels] %>
+		<tr>
+			<td><%= link_to front_label.vendor.name, vendor_path(front_label.vendor) %></td>
+			<td><%= front_label.material %></td>
+			<td><%= front_label.specs %></td>
+			<td><%= front_label.label_cut %></td>
+			<td><%= front_label.label_treatment %></td>
+			<td><%= front_label.artwork_source %></td>
+			<td><%= front_label.label_rewind %></td>
+			<td><%= front_label.label_position %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+
+<div class='row'>
+	<div class='col-xs-12'>
+		<h1>Back Labels</h1>
+	</div>
+</div>
+<div class='row'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Vendor</th>
+			<th>Type</th>			
+			<th>Size</th>
+			<th>Taper/Cut</th>
+			<th>Treatments</th>
+			<th>Designer</th>
+			<th>Rewind</th>
+			<th>Position</th>
+		</tr>
+		<% for back_label in @components[:back_labels] %>
+		<tr>
+			<td><%= link_to back_label.vendor.name, vendor_path(back_label.vendor) %></td>
+			<td><%= back_label.material %></td>
+			<td><%= back_label.specs %></td>
+			<td><%= back_label.label_cut %></td>
+			<td><%= back_label.label_treatment %></td>
+			<td><%= back_label.artwork_source %></td>
+			<td><%= back_label.label_rewind %></td>
+			<td><%= back_label.label_position %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

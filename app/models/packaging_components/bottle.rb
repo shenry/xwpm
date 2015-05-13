@@ -33,4 +33,12 @@
 class Bottle < PackagingComponent
   belongs_to  :vendor
   has_many    :packages
+  
+  def self.spec_select_options
+    ['mm', 'in']
+  end
+  
+  def self.capacity_select_options
+    ['mL', 'L', 'oz']
+  end
 end

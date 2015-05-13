@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513174652) do
+ActiveRecord::Schema.define(version: 20150513210430) do
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -90,6 +90,10 @@ ActiveRecord::Schema.define(version: 20150513174652) do
     t.string   "artwork_source"
     t.string   "label_type"
     t.string   "units"
+    t.string   "label_rewind"
+    t.string   "label_treatment"
+    t.string   "label_cut"
+    t.string   "label_position"
   end
 
   add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"

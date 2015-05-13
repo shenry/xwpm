@@ -4,7 +4,7 @@
 			<h1><%= @klass.to_s.humanize.pluralize %></h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
-			<%= link_to "New #{@klass.to_s.humanize}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
+			<%= link_to "New #{@klass.to_s}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
 		</div>
 	</div>
 </div>

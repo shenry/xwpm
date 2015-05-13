@@ -39,3 +39,5 @@ header { margin-bottom: 60px; }
 .dropdown-menu a:hover {
 	background-color: #e6e6e6 !important;
 }
+
+.bold { font-weight: bold; }
