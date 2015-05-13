@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.page(params[:page] || 1)
+    @projects = Project.includes(:customer).page(params[:page] || 1)
   end
 
   def new

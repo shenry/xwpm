@@ -5,7 +5,7 @@
 </div>
 <div class='row'>
 	<div class='col-xs-12'>
-		<%= link_to 'New Customer', new_customer_path %>
+		<%= link_to "New #{@klass.to_s.humanize}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
 	</div>
 </div>
 <div class='row'>
@@ -15,16 +15,22 @@
 			<th>Contact</th>
 			<th>Phone</th>
 			<th>Address</th>
-			<th>Active Projects</th>
+			<% if @klass == Customer %>
+				<th>Active Projects</th>
+				<th>&nbsp;</th>
+			<% end %>
 		</tr>
 		<tbody>
-		<% for customer in @customers %>
+		<% for firm in @firms %>
 			<tr class='table-striped'>
-				<td><%= customer.name %></td>
-				<td><a href="mailto:#{<%= customer.contact_email %>}"><%= customer.contact_name %></a></td>
-				<td><%= customer.contact_phone %></td>
-				<td><%= customer.one_line_address %></td>
-				<td><%= customer.projects.count %></td>
+				<td><%= link_to firm.name, controller: @klass.to_s.downcase.pluralize, action: 'show', id: firm %></td>
+				<td><a href="mailto:<%= firm.contact_email %>"><%= firm.contact_name %></a></td>
+				<td><%= firm.contact_phone %></td>
+				<td><%= firm.one_line_address %></td>
+				<% if @klass == Customer %>
+					<td><%= firm.projects.count %></td>
+					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
+				<% end %>
 			</tr>			
 		<% end %>
 		</tbody>

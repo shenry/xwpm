@@ -23,11 +23,4 @@
 class Customer < Firm
   has_many  :projects
   
-  validates :name, :contact_name, :contact_email, :contact_phone, presence: true
-  validates :contact_email, :email => true
-  #TODO - validations on address components
-  
-  def one_line_address
-    
-  end
 end

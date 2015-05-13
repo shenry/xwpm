@@ -4,7 +4,11 @@ class FirmsController < ApplicationController
   # GET /firms
   # GET /firms.xml
   def index
-    @customers = @klass.page(params[:page] || 1)
+    if @klass == Customer
+      @firms = @klass.includes(:projects).order(:name).page(params[:page] || 1)
+    else
+      @firms = @klass.order(:name).page(params[:page] || 1)
+    end
 
     respond_to do |wants|
       wants.html # index.html.erb
@@ -24,7 +28,7 @@ class FirmsController < ApplicationController
   # GET /firms/new
   # GET /firms/new.xml
   def new
-    @firm = Firm.new
+    @firm = @klass.new
 
     respond_to do |wants|
       wants.html # new.html.erb
@@ -39,18 +43,27 @@ class FirmsController < ApplicationController
   # POST /firms
   # POST /firms.xml
   def create
-    @firm = Firm.new(params[:firm])
+    @firm = @klass.new(firm_params)
+    @firm.type = @klass.to_s
+    puts "@firm = #{@firm.inspect}"
 
-    respond_to do |wants|
-      if @firm.save
-        flash[:notice] = 'Firm was successfully created.'
-        wants.html { redirect_to(@firm) }
-        wants.xml  { render :xml => @firm, :status => :created, :location => @firm }
-      else
-        wants.html { render :action => "new" }
-        wants.xml  { render :xml => @firm.errors, :status => :unprocessable_entity }
-      end
+    if @firm.save
+      flash[:notice] = 'You did it!'
+      redirect_to action: 'index'
+    else
+      render action: 'new', :firm => @firm
     end
+
+    # respond_to do |wants|
+    #   if @firm.save
+    #     flash[:notice] = 'Firm was successfully created.'
+    #     wants.html { redirect_to(@firm) }
+    #     wants.xml  { render :xml => @firm, :status => :created, :location => @firm }
+    #   else
+    #     wants.html { render :action => "new" }
+    #     wants.xml  { render :xml => @firm.errors, :status => :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /firms/1
@@ -81,10 +94,12 @@ class FirmsController < ApplicationController
 
   private
     def get_type
-      puts "request is #{request.path.split('/')}"
       resource  = request.path.split('/')[1]
-      puts "resource is #{resource.inspect}"
       @klass    = resource.singularize.capitalize.constantize
+    end
+    
+    def firm_params
+      params[:customer].permit(:name, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
     end
 
 end

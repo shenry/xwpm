@@ -1,11 +1,12 @@
 <%= nav_bar responsive: true, brand: "X Winery PM" do %>
 	<%= menu_group do %>
 		<% if user_signed_in? %>
-			<%= menu_item 'Home', root_path %>
+			<%= menu_item 'Projects', root_path %>
 			<%= menu_item	'Wines', wines_path %>
-			<%= menu_item 'Customers', customers_path %>
 			<%= menu_item	'Packages', packages_path %>
 			<%= menu_item	'Packaging Components', packaging_components_path %>
+			<%= menu_item 'Customers', customers_path %>
+			<%= menu_item	'Vendors', vendors_path %>
 		<% end %>
 	<% end %>
 	<% if current_user && current_user.admin? %>
