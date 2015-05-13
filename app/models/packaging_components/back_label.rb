@@ -30,7 +30,10 @@
 #  artwork_source   :string
 #
 
-class BackLabel < PackagingComponent
-  belongs_to  :vendor
-  has_many    :packages
+class BackLabel < Label
+
+  def initialize(params=nil)
+    super
+    self.label_type = "BackLabel"
+  end
 end

@@ -32,4 +32,21 @@
 
 class PackagingComponent < ActiveRecord::Base
 
+  def specs
+    output = "#{height}#{units} x #{width}#{units}"
+    if self.is_a? Shipper
+      output << " x #{depth}#{units}"
+    end
+    output
+  end
+  
+  def capacity_string
+    if self.is_a? Bottle 
+      "#{capacity} #{capacity_units}"
+    elsif self.is_a? Shipper
+      "#{capacity} x #{capacity_units}"    
+    else
+      raise "Only Bottles and Shippers can have a capacity."
+    end
+  end
 end

@@ -1,0 +1,2 @@
+module PackagingComponentsHelper
+end

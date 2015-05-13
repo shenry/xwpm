@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512160330) do
+ActiveRecord::Schema.define(version: 20150513174652) do
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150512160330) do
     t.string   "account_number"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "projects_count"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -73,11 +74,8 @@ ActiveRecord::Schema.define(version: 20150512160330) do
     t.string   "shape"
     t.string   "color"
     t.string   "height"
-    t.string   "height_units"
     t.string   "width"
-    t.string   "width_units"
     t.string   "depth"
-    t.string   "depth_units"
     t.string   "fill_point"
     t.string   "fill_point_units"
     t.string   "material"
@@ -90,8 +88,12 @@ ActiveRecord::Schema.define(version: 20150512160330) do
     t.string   "upc"
     t.string   "closure_type"
     t.string   "artwork_source"
+    t.string   "label_type"
+    t.string   "units"
   end
 
+  add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"
+  add_index "packaging_components", ["label_type"], name: "index_packaging_components_on_label_type"
   add_index "packaging_components", ["type"], name: "index_packaging_components_on_type"
   add_index "packaging_components", ["vendor_id"], name: "index_packaging_components_on_vendor_id"
 

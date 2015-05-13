@@ -1,0 +1,3 @@
+class CapsulesController < PackagingComponentsController
+  
+end

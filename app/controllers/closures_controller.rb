@@ -1,0 +1,3 @@
+class ClosuresController < PackagingComponentsController
+  
+end

@@ -19,6 +19,7 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.xml
   def show
+    @firm = @klass.find(params[:id])
     respond_to do |wants|
       wants.html # show.html.erb
       wants.xml  { render :xml => @firm }
@@ -38,6 +39,7 @@ class FirmsController < ApplicationController
 
   # GET /firms/1/edit
   def edit
+    @firm = @klass.find(params[:id])
   end
 
   # POST /firms
@@ -48,30 +50,20 @@ class FirmsController < ApplicationController
     puts "@firm = #{@firm.inspect}"
 
     if @firm.save
-      flash[:notice] = 'You did it!'
+      flash[:notice] = "New #{@klass.to_s.downcase} successfully created."
       redirect_to action: 'index'
     else
       render action: 'new', :firm => @firm
     end
-
-    # respond_to do |wants|
-    #   if @firm.save
-    #     flash[:notice] = 'Firm was successfully created.'
-    #     wants.html { redirect_to(@firm) }
-    #     wants.xml  { render :xml => @firm, :status => :created, :location => @firm }
-    #   else
-    #     wants.html { render :action => "new" }
-    #     wants.xml  { render :xml => @firm.errors, :status => :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PUT /firms/1
   # PUT /firms/1.xml
   def update
     respond_to do |wants|
-      if @firm.update_attributes(params[:firm])
-        flash[:notice] = 'Firm was successfully updated.'
+      @firm = @klass.find(params[:id])
+      if @firm.update_attributes(firm_params)
+        flash[:notice] = "#{@klass.to_s} was successfully updated."
         wants.html { redirect_to(@firm) }
         wants.xml  { head :ok }
       else
@@ -93,13 +85,13 @@ class FirmsController < ApplicationController
   end
 
   private
-    def get_type
-      resource  = request.path.split('/')[1]
-      @klass    = resource.singularize.capitalize.constantize
-    end
+    # def get_type
+    #   resource  = request.path.split('/')[1]
+    #   @klass    = resource.singularize.capitalize.constantize
+    # end
     
     def firm_params
-      params[:customer].permit(:name, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
+      params[:customer].permit(:name, :description, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
     end
 
 end

@@ -1,0 +1,41 @@
+<div class='row'>
+	<div class='row-same-height'>
+		<div class='col-xs-8 col-xs-height'>
+			<h1><%= @firm.name %><br/><small><%= @firm.description %></small></h1>
+		</div>
+		<div class='col-xs-4 col-xs-height text-right'>
+			<%= link_to "Edit #{@klass.to_s}", controller: @klass.to_s.downcase.pluralize, action: 'edit' %>
+			<% if @klass == Customer %>
+						&nbsp;|&nbsp;
+				<%= link_to "Create New Project", new_customer_project_path(@firm) %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div class='row spacer'>
+	<div class='col-xs-2 l'>
+		Contact
+	</div>
+	<div class='col-xs-2 r'>
+		<address>
+			<%= @firm.contact_name %><br/>
+			<%= @firm.contact_phone %><br />
+			<a href="mailto:<%= @firm.contact_email %>"><%= @firm.contact_email %></a>
+		</address>
+	</div>
+	<div class='col-xs-2 l'>
+		Address
+	</div>
+	<div class='col-xs-2 r'>
+		<address>
+			<%= @firm.address_line_1 %><br/>
+			<% unless @firm.address_line_2.blank? %>
+				<%= @firm.address_line_2 %></br/>
+			<% end %>
+			<%= @firm.city %>, <%= @firm.state.upcase %> <%= @firm.zip %>
+			<% unless @firm.bond.nil? %>
+				<%= @firm.bond %>
+			<% end %>
+		</address>
+	</div>
+</div>

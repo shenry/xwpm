@@ -18,5 +18,5 @@
 class Project < ActiveRecord::Base
   belongs_to  :package
   belongs_to  :wine
-  belongs_to  :customer, class_name: "Firm"
+  belongs_to  :customer, class_name: "Firm", counter_cache: true
 end

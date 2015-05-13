@@ -8,3 +8,34 @@
 
 .table { margin-top: 20px; }
 .form-horizontal { margin-top: 40px; }
+
+h3.description { color: #909090; margin-top: 0px;}
+
+.row-same-height {
+  display: table;
+  width: 100%;
+  /* fix overflow */
+  table-layout: fixed;
+}
+
+.col-xs-height {
+  display: table-cell;
+  float: none !important;
+}
+
+.spacer { margin-top: 40px; }
+.l { text-align: right; color: #808080;}
+
+.navbar-brand { font-weight: bold;}
+
+header { margin-bottom: 60px; }
+
+.dropdown-menu {
+	background-color: #f8f8f8 !important;
+	border-color: #b6b6b6 !important;
+	width: 100% !important;
+}
+
+.dropdown-menu a:hover {
+	background-color: #e6e6e6 !important;
+}

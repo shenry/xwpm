@@ -1,0 +1,24 @@
+<div class='row'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Vendor</th>
+			<th>Name</th>
+			<th>Specs</th>
+			<th>Capacity</th>
+			<th>Shape</th>
+			<th>Mould</th>
+			<th>Color</th>
+		</tr>
+		<% for component in @components %>
+		<tr>
+			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
+			<td><%= component.name %></td>
+			<td><%= component.specs %></td>
+			<td><%= component.capacity_string %></td>
+			<td><%= component.shape %></td>
+			<td><%= component.mould %></td>
+			<td><%= component.color %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

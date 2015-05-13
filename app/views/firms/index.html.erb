@@ -1,15 +1,15 @@
 <div class='row'>
-	<div class='col-xs-12'>
-		<h1><%= @klass.to_s.humanize %></h1>
+	<div class='row-same-height'>
+		<div class='col-xs-8 col-xs-height'>
+			<h1><%= @klass.to_s.humanize.pluralize %></h1>
+		</div>
+		<div class='col-xs-4 col-xs-height text-right'>
+			<%= link_to "New #{@klass.to_s.humanize}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
+		</div>
 	</div>
 </div>
 <div class='row'>
-	<div class='col-xs-12'>
-		<%= link_to "New #{@klass.to_s.humanize}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
-	</div>
-</div>
-<div class='row'>
-	<table class='table'>
+	<table class='table table-striped'>
 		<tr>
 			<th>Name</th>
 			<th>Contact</th>
@@ -20,7 +20,6 @@
 				<th>&nbsp;</th>
 			<% end %>
 		</tr>
-		<tbody>
 		<% for firm in @firms %>
 			<tr class='table-striped'>
 				<td><%= link_to firm.name, controller: @klass.to_s.downcase.pluralize, action: 'show', id: firm %></td>
@@ -28,11 +27,11 @@
 				<td><%= firm.contact_phone %></td>
 				<td><%= firm.one_line_address %></td>
 				<% if @klass == Customer %>
-					<td><%= firm.projects.count %></td>
+					<td><%= firm.projects.size %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
 				<% end %>
 			</tr>			
 		<% end %>
-		</tbody>
 	</table>
+	<%= paginate @firms %>
 </div>

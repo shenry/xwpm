@@ -1,0 +1,3 @@
+class ShippersController < PackagingComponentsController
+  
+end

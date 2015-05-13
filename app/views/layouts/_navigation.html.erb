@@ -4,7 +4,13 @@
 			<%= menu_item 'Projects', root_path %>
 			<%= menu_item	'Wines', wines_path %>
 			<%= menu_item	'Packages', packages_path %>
-			<%= menu_item	'Packaging Components', packaging_components_path %>
+			<%= drop_down 'Packaging Components' do %>
+				<%= menu_item 'Bottles', bottles_path %>
+				<%= menu_item 'Closures', closures_path %>
+				<%= menu_item 'Capsules', capsules_path %>
+				<%= menu_item 'Labels', labels_path %>
+				<%= menu_item 'Shippers', shippers_path %>
+			<% end %>
 			<%= menu_item 'Customers', customers_path %>
 			<%= menu_item	'Vendors', vendors_path %>
 		<% end %>

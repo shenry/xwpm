@@ -33,14 +33,16 @@ class Firm < ActiveRecord::Base
   
   def contact_phone
     num   = read_attribute(:contact_phone)
-    group = num.match(/(\d{3}?)(\d{3})(\d{4})/)
-    group[1] == "" ? "#{group[2]}-#{group[3]}" : "(#{group[1]}) #{group[2]}-#{group[3]}"
+    if num
+      group = num.match(/(\d{3}?)(\d{3})(\d{4})/)
+      group[1] == "" ? "#{group[2]}-#{group[3]}" : "(#{group[1]}) #{group[2]}-#{group[3]}"
+    end
   end
   
   def one_line_address
     line_1 = address_line_1
     line_2 = address_line_2
     
-    "#{line_1} #{line_2 if line_2} #{city}, #{state} #{zip}"
+    "#{line_1}, #{line_2 if line_2} #{city}, #{state.upcase} #{zip}"
   end
 end

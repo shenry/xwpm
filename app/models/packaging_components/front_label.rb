@@ -30,7 +30,10 @@
 #  artwork_source   :string
 #
 
-class FrontLabel < PackagingComponent
-  belongs_to  :vendor
-  has_many    :packages
+class FrontLabel < Label
+
+  def initialize(params=nil)
+    super
+    self.label_type = "FrontLabel"
+  end
 end

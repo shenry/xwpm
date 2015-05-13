@@ -51,5 +51,11 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :require_admin!
+  
+  private
+  def get_type
+    resource  = request.path.split('/')[1]
+    @klass    = resource.singularize.capitalize.constantize
+  end
 
 end
