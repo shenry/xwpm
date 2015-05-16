@@ -16,3 +16,15 @@
 //= require turbolinks
 //= require bootstrap 
 //= require common
+
+$(function() {
+	if($("#has_artwork_false").attr("checked", "checked")) {
+		$("#has-artwork-upload").hide();	
+	}
+})
+
+$(function() {
+	$("#has_artwork_true").click(function() {
+		$("#has-artwork-upload").toggle();
+	});
+})

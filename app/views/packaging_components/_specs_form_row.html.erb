@@ -1,0 +1,21 @@
+<div class='form-group'>
+	<span class='col-xs-2 control-label bold'>Specs</span>
+	<div class='col-xs-2'>
+		<input type='text' class='form-control col-xs-2' name='packaging_component[width]' placeholder="<%= @klass.width_or_diameter.humanize %>">
+	</div>
+	<div class='col-xs-2'>
+		<input type='text' class='form-control col-xs-2' name='packaging_component[height]' placeholder='Height'>				
+	</div>
+	<% if @klass.has_depth? %>
+	<div class='col-xs-2'>
+		<input type='text' class='form-control col-xs-2' name='packaging_component[depth]' placeholder='Depth'>				
+	</div>
+	<% end %>
+	<div class='col-xs-2'>
+		<select class='form-control' name='packaging_component[units]'>
+			<% @klass.spec_select_options.each do |option| %>
+				<option><%= option %></option>
+			<% end %>
+		</select>
+	</div>
+</div>

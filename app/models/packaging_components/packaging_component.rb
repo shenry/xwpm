@@ -31,6 +31,28 @@
 #
 
 class PackagingComponent < ActiveRecord::Base
+  belongs_to :vendor
+  validates :type, presence: true
+  
+  def self.width_or_diameter
+    return "diameter" if [Cork, Capsule, Bottle].include? self
+    "width"
+  end
+  
+  def self.has_depth?
+    return true if self == Shipper
+    false
+  end
+  
+  def self.capacity_description
+    if self == Bottle
+      "volume"
+    elsif self == Shipper
+      "bottles"
+    else
+      nil
+    end
+  end
 
   def specs
     output = "#{height}#{units} x #{width}#{units}"

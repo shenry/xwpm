@@ -31,8 +31,11 @@
 #
 
 class Bottle < PackagingComponent
-  belongs_to  :vendor
+  # belongs_to  :vendor
   has_many    :packages
+  
+  validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, :capacity, :capacity_units, presence: true
+  validates_presence_of :vendor
   
   def self.spec_select_options
     ['mm', 'in']

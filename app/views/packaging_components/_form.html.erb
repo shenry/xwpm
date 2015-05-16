@@ -1,50 +1,28 @@
 <%= f.error_notification %>
+<%= f.input :vendor_id, :collection => Vendor.order(:name).map { |v| [v.name, v.id] }, :include_blank => false %>
 <%= f.input :name %>
-<% if klass == Bottle %>
+<% if @klass == Bottle %>
 	<%= f.input :mould %>
 	<%= f.input :color %>
 	<%= f.input :shape %>
-	<div class='form-group'>
-		<span class='col-xs-2 control-label bold'>Specs</span>
-		<div class='col-xs-2'>
-			<input type='text' class='form-control col-xs-2' id='packaging_component[width]' placeholder='Diameter'>
-		</div>
-		<div class='col-xs-2'>
-			<input type='text' class='form-control col-xs-2' id='packaging_component[height]' placeholder='Height'>				
-		</div>
-		<div class='col-xs-2'>
-			<select class='form-control' id='packaging_component[units]'>
-				<% @klass.spec_select_options.each do |option| %>
-					<option><%= option %></option>
-				<% end %>
-			</select>
-		</div>
-	</div>
-	<div class='form-group'>
-		<span class='col-xs-2 control-label bold'>Capacity</span>
-		<div class='col-xs-2'>
-			<input type='text' class='form-control col-xs-2' id='packaging_component[capacity]' placeholder='Volume'>
-		</div>
-		<div class='col-xs-2'>
-			<select class='form-control' id='packaging_component[capacity_units]'>
-				<% @klass.capacity_select_options.each do |option| %>
-					<option><%= option %></option>
-				<% end %>
-			</select>
-		</div>
-	</div>
+	<%= render partial: "specs_form_row", locals: { :klass => @klass } %>
+	<%= render partial: "capacity_form_row", locals: { :klass => @klass } %>
 	<div class='form-group'>
 		<span class='col-xs-2 control-label bold'>Fill Point</span>
 		<div class='col-xs-2'>
-			<input type='text' class='form-control col-xs-2' id='packaging_component[fill_point]' placeholder=''>
+			<input type='text' class='form-control col-xs-2' name='packaging_component[fill_point]' placeholder=''>
 		</div>
 		<div class='col-xs-2'>
-			<select class='form-control' id='packaging_component[fill_point_units]'>
+			<select class='form-control' name='packaging_component[fill_point_units]'>
 				<% @klass.spec_select_options.each do |option| %>
 					<option><%= option %></option>
 				<% end %>
 			</select>
 		</div>
 	</div>
+<% elsif @klass == Capsule %>
+	<%= f.input :color %>
+	<%= f.input :material %>
+	<%= render partial: "/packaging_components/has_artwork", locals: { :klass => @klass } %>
 <% end %>
 <%= f.button :submit, "Create New #{klass.to_s}", class: 'col-xs-offset-2' %>

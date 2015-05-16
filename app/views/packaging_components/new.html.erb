@@ -5,5 +5,5 @@
 </div>
 
 <%= simple_form_for(@packaging_component, url: { action: "create" }, html: { class: 'form-horizontal' }) do |f| %>
-	<%= render partial: "form", locals: { :f => f, :klass => @klass } %>
+	<%= render partial: "form", locals: { :f => f, :klass => @klass, :packaging_component => @packaging_component } %>
 <% end %>

@@ -1,0 +1,13 @@
+<div class='form-group'>
+	<span class='col-xs-2 control-label bold'>Capacity</span>
+	<div class='col-xs-2'>
+		<input type='text' class='form-control col-xs-2' name='packaging_component[capacity]' placeholder="<%= @klass.capacity_description.humanize %>">
+	</div>
+	<div class='col-xs-2'>
+		<select class='form-control' name='packaging_component[capacity_units]'>
+			<% @klass.capacity_select_options.each do |option| %>
+				<option><%= option %></option>
+			<% end %>
+		</select>
+	</div>
+</div>

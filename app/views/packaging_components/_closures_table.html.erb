@@ -6,6 +6,7 @@
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
+			<th>&nbsp;</th>
 		</tr>
 		<% for cork in @components[:corks] %>
 		<tr>
@@ -14,6 +15,11 @@
 			<td><%= cork.specs %></td>
 			<td><%= cork.material %></td>
 			<td><%= cork.color %></td>
+			<td>
+				<a href="<%= closure_path(cork) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
 		</tr>
 		<% end %>
 	</table>
@@ -32,6 +38,7 @@
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
+			<th>&nbsp;</th>
 		</tr>
 		<% for screwcap in @components[:screwcaps] %>
 		<tr>
@@ -40,6 +47,11 @@
 			<td><%= screwcap.specs %></td>
 			<td><%= screwcap.material %></td>
 			<td><%= screwcap.color %></td>
+			<td>
+				<a href="<%= closure_path(screwcap) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
 		</tr>
 		<% end %>
 	</table>

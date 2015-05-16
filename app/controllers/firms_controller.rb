@@ -19,7 +19,20 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.xml
   def show
-    @firm = @klass.find(params[:id])
+    if @klass == Vendor
+      association = :packaging_components
+    elsif @klass == Customer
+      association = :projects
+    else
+      raise "Unrecognized Firm category"
+    end
+    @firm       = @klass.includes(association).find(params[:id])
+    objects     = @firm.send(association)
+    types       = objects.collect(&:type).uniq
+    @associated_collection = Hash.new
+    types.each do |type|
+      @associated_collection[type] = objects.select { |c| c.type == type }
+    end
     respond_to do |wants|
       wants.html # show.html.erb
       wants.xml  { render :xml => @firm }
@@ -47,7 +60,6 @@ class FirmsController < ApplicationController
   def create
     @firm = @klass.new(firm_params)
     @firm.type = @klass.to_s
-    puts "@firm = #{@firm.inspect}"
 
     if @firm.save
       flash[:notice] = "New #{@klass.to_s.downcase} successfully created."

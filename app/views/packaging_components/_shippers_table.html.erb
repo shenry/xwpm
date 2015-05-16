@@ -6,6 +6,7 @@
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
+			<th>&nbsp;</th>
 		</tr>
 		<% for component in @components %>
 		<tr>
@@ -14,6 +15,11 @@
 			<td><%= component.specs %></td>
 			<td><%= component.material %></td>
 			<td><%= component.color %></td>
+			<td>
+				<a href="<%= shipper_path(component) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
 		</tr>
 		<% end %>
 	</table>

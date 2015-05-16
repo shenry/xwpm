@@ -39,3 +39,16 @@
 		</address>
 	</div>
 </div>
+<% i = 0 %>
+<% @associated_collection.each do |key, value| %>
+	<% @components = value %>
+	<div class="row spacer <%= i == 0 ? 'break' : '' %>">
+		<div class='col-xs-12'>
+			<h1><%= key.pluralize %></h1>
+		</div>
+	</div>
+	<div class='row'>
+		<%= render partial: "/packaging_components/#{key.downcase.pluralize}_table", locals: { components: @components } %>
+	</div>
+	<% i += 1 %>
+<% end %>
