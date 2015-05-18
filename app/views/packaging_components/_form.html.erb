@@ -35,6 +35,10 @@
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 <% elsif [FrontLabel, BackLabel].include? @klass %>
 	<%= f.input :name %>
+	<% if @klass == FrontLabel %>
+		<%= f.input :label_alc, label: "Label Alc" %>
+		<%= f.input :upc, label: "UPC" %>
+	<% end %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 	<%= f.input :material, label: "Paper Stock" %>
 	<%= f.input :label_treatment, label: "Treatment" %>
@@ -45,7 +49,9 @@
 		<div class='col-xs-2'>
 			<%= f.text_field :label_position, class: 'form-control col-xs-2' %>
 		</div>
-		<div class='col-xs-2 text-left x-spacer' id='label-position-units'></div>
+		<div class='col-xs-2' id='label-position-units'>
+			<%= f.select :units, @klass.spec_select_options, {}, class: 'form-control', id: 'mirror-units', disabled: true %>
+		</div>
 	</div>
 	<%=  %>
 <% end %>

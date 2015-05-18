@@ -32,7 +32,7 @@ $(function() {
 $(function() {
 	$("#specs-form-control").change(function(){
 		var text = $("#specs-form-control option:selected").text();
-		$("#label-position-units").html(text);
+		$("#mirror-units").val(text);
 	});
 })
 
