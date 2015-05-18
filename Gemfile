@@ -13,6 +13,8 @@ gem 'bcrypt', '3.1.10'
 gem 'twitter-bootstrap-rails'
 gem 'email_validator', :require => 'email_validator/strict'
 gem 'simple_form'
+gem 'carrierwave'
+gem 'cloudinary'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
