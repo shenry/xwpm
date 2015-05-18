@@ -2,22 +2,11 @@ class PackagingComponentsController < ApplicationController
   before_filter :get_type
   
   def index
-    if @klass == Closure
-      corks     = Cork.includes(:vendor).order(:created_at)
-      screwcaps = Screwcap.includes(:vendor).order(:created_at)
-      @components = { :corks => corks, :screwcaps => screwcaps, :head => "Corks" }
-    elsif @klass == Label
-      front_labels  = FrontLabel.includes(:vendor).order(:created_at)
-      back_labels   = BackLabel.includes(:vendor).order(:created_at)
-      @components   = { :front_labels => front_labels, :back_labels => back_labels, :head => "Front Labels"}
-    else
-      @components = @klass.includes(:vendor).order(:created_at).page(params[:page] || 1)
-    end
-    @components
+    @components = @klass.includes(:vendor).order(:created_at).page(params[:page] || 1)
   end
 
   def show
-    puts "why are we here?"
+    @packaging_component = PackagingComponent.includes(:vendor).find(params[:id])
   end
   
   def new
@@ -25,11 +14,26 @@ class PackagingComponentsController < ApplicationController
     @vendors = Vendor.order(:name).map { |v| [v.id, v.name] }
   end
   
+  def edit
+    @packaging_component = PackagingComponent.find(params[:id])
+    render action: 'new'
+  end
+  
   def create
     @packaging_component = @klass.new(packaging_component_params)
     
     if @packaging_component.save
       flash[:notice] = "New #{@klass.to_s} successfully created."
+      redirect_to action: 'index'
+    else
+      render action: 'new', :packaging_component => @packaging_component
+    end
+  end
+  
+  def update
+    @packaging_component = PackagingComponent.find(params[:id])
+    if @packaging_component.update_attributes(packaging_component_params)
+      flash[:notice] = "#{@klass.to_s} successfully updated."
       redirect_to action: 'index'
     else
       render action: 'new', :packaging_component => @packaging_component

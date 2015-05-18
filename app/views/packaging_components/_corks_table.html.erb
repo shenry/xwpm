@@ -1,0 +1,26 @@
+<div class='row'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Vendor</th>
+			<th>Name</th>
+			<th>Specs</th>
+			<th>Material</th>
+			<th>Color</th>
+			<th>&nbsp;</th>
+		</tr>
+		<% for cork in @components%>
+		<tr>
+			<td><%= link_to cork.vendor.name, vendor_path(cork.vendor) %></td>
+			<td><%= link_to cork.name, cork_path(cork) %></td>
+			<td><%= cork.specs %></td>
+			<td><%= cork.material %></td>
+			<td><%= cork.color %></td>
+			<td>
+				<a href="<%= cork_path(cork) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+</div>

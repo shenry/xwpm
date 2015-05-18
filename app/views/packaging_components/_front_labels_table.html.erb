@@ -1,0 +1,32 @@
+<div class='row spacer'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Vendor</th>
+			<th>Type</th>			
+			<th>Size</th>
+			<th>Taper/Cut</th>
+			<th>Treatments</th>
+			<th>Designer</th>
+			<th>Rewind</th>
+			<th>Position</th>
+			<th>&nbsp;</th>
+		</tr>
+		<% for front_label in @components %>
+		<tr>
+			<td><%= link_to front_label.vendor.name, vendor_path(front_label.vendor) %></td>
+			<td><%= front_label.material %></td>
+			<td><%= front_label.specs %></td>
+			<td><%= front_label.label_cut %></td>
+			<td><%= front_label.label_treatment %></td>
+			<td><%= front_label.artwork_source %></td>
+			<td><%= front_label.label_rewind %></td>
+			<td><%= front_label.label_position %></td>
+			<td>
+				<a href="<%= front_label_path(front_label) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+</div>

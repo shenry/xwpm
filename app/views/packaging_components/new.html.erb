@@ -1,9 +1,9 @@
 <div class='row'>
 	<div class='col-xs-12'>
-		<h1>New <%= @klass.to_s %></h1>
+		<h1><%= @packaging_component.new_record? ? 'New' : 'Update' %> <%= @klass.to_s.titleize	 %></h1>
 	</div>
 </div>
 
-<%= simple_form_for(@packaging_component, url: { action: "create" }, html: { class: 'form-horizontal' }) do |f| %>
+<%= simple_form_for(@packaging_component, url: { action: @packaging_component.new_record? ? 'create' : 'update' }, html: { class: 'form-horizontal' }) do |f| %>
 	<%= render partial: "form", locals: { :f => f, :klass => @klass, :packaging_component => @packaging_component } %>
 <% end %>

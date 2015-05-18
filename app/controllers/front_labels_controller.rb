@@ -1,0 +1,3 @@
+class FrontLabelsController < PackagingComponentsController
+  
+end

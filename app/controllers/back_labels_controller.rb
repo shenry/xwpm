@@ -1,0 +1,3 @@
+class BackLabelsController < PackagingComponentsController
+  
+end

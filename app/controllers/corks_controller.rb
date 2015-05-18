@@ -1,4 +1,4 @@
-class ClosuresController < PackagingComponentsController
+class CorksController < PackagingComponentsController
   
   private
   def packaging_component_params

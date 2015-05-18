@@ -14,7 +14,7 @@
 		<% for component in @components %>
 		<tr>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
-			<td><%= component.name %></td>
+			<td><%= link_to component.name, controller: @klass.to_s.downcase.pluralize, action: 'show', id: component %></td>
 			<td><%= component.specs %></td>
 			<td><%= component.capacity_string %></td>
 			<td><%= component.shape %></td>

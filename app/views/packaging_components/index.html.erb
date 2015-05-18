@@ -1,11 +1,11 @@
 <div class='row'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1><%= @components.class == Hash ? @components[:head] : @klass.to_s.pluralize %></h1>
+			<h1><%= @components.class == Hash ? @components[:head] : @klass.to_s.titleize.pluralize %></h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
-			<%= link_to "New #{@klass.to_s}", controller: @klass.to_s.downcase.pluralize, action: "new" %>
+			<%= link_to "New #{@klass.to_s.titleize}", controller: @klass.to_s.underscore.downcase.pluralize, action: "new" %>
 		</div>
 	</div>
 </div>
-<%= render :partial => "#{@klass.to_s.downcase.pluralize}_table", :locals => { :components => @components } %>
+<%= render :partial => "#{@klass.to_s.underscore.downcase.pluralize}_table", :locals => { :components => @components } %>

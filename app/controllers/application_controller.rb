@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   private
   def get_type
     resource  = request.path.split('/')[1]
-    @klass    = resource.singularize.capitalize.constantize
+    @klass    = resource.singularize.split('_').each { |w| w.capitalize! }.join('').constantize
   end
 
 end

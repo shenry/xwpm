@@ -31,6 +31,20 @@
 #
 
 class Shipper < PackagingComponent
-  belongs_to  :vendor
-  has_many    :packages
+  belongs_to    :vendor
+  has_many      :packages
+  before_create :set_defaults
+  
+  def self.spec_select_options
+    ['mm', 'in']
+  end
+  
+  def self.capacity_select_options
+    ['375mL', '750mL', '1.5L', '3L']
+  end
+  
+  private
+  def set_defaults
+    capacity_units = '750mL'
+  end
 end

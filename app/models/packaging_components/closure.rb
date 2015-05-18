@@ -33,4 +33,8 @@
 class Closure < PackagingComponent
   belongs_to  :vendor
   has_many    :packages
+  
+  def self.spec_select_options
+    ['mm', 'in']
+  end
 end

@@ -28,3 +28,11 @@ $(function() {
 		$("#has-artwork-upload").toggle();
 	});
 })
+
+$(function() {
+	$("#specs-form-control").change(function(){
+		var text = $("#specs-form-control option:selected").text();
+		$("#label-position-units").html(text);
+	});
+})
+

@@ -1,0 +1,3 @@
+class ScrewcapsController < PackagingComponentsController
+  
+end

@@ -39,6 +39,10 @@ class PackagingComponent < ActiveRecord::Base
     "width"
   end
   
+  def closure_select_options
+    ['Cork', 'Screwcap']
+  end
+  
   def self.has_depth?
     return true if self == Shipper
     false
@@ -70,5 +74,14 @@ class PackagingComponent < ActiveRecord::Base
     else
       raise "Only Bottles and Shippers can have a capacity."
     end
+  end
+  
+  def fill_point_string
+    raise 'Incompatible Packaging Component Type' unless self.is_a? Bottle
+    "#{fill_point}#{fill_point_units}"
+  end
+  
+  def self.spec_select_options
+    ['mm', 'in']
   end
 end

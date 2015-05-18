@@ -1,28 +1,52 @@
 <%= f.error_notification %>
 <%= f.input :vendor_id, :collection => Vendor.order(:name).map { |v| [v.name, v.id] }, :include_blank => false %>
-<%= f.input :name %>
 <% if @klass == Bottle %>
+	<%= f.input :name %>
 	<%= f.input :mould %>
 	<%= f.input :color %>
 	<%= f.input :shape %>
-	<%= render partial: "specs_form_row", locals: { :klass => @klass } %>
-	<%= render partial: "capacity_form_row", locals: { :klass => @klass } %>
+	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
+	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 	<div class='form-group'>
 		<span class='col-xs-2 control-label bold'>Fill Point</span>
 		<div class='col-xs-2'>
-			<input type='text' class='form-control col-xs-2' name='packaging_component[fill_point]' placeholder=''>
+			<%= f.text_field :fill_point, class: 'form-control col-xs-2' %>
 		</div>
 		<div class='col-xs-2'>
-			<select class='form-control' name='packaging_component[fill_point_units]'>
-				<% @klass.spec_select_options.each do |option| %>
-					<option><%= option %></option>
-				<% end %>
-			</select>
+			<%= f.select :fill_point_units, @klass.spec_select_options, {}, class: 'form-control' %>
 		</div>
 	</div>
 <% elsif @klass == Capsule %>
-	<%= f.input :color %>
+	<%= f.input :name %>
 	<%= f.input :material %>
-	<%= render partial: "/packaging_components/has_artwork", locals: { :klass => @klass } %>
+	<%= f.input :color %>
+	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
+	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
+<% elsif @klass == Shipper %>
+	<%= f.input :name %>
+	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
+	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
+	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
+	<%= render partial: "product_assets", locals: { :klass => @klass, :f => f } %>
+<% elsif [Cork, Screwcap].include? @klass %>
+	<%= f.input :name %>
+	<%= f.input :material %>
+	<%= f.input :color %>
+	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
+<% elsif [FrontLabel, BackLabel].include? @klass %>
+	<%= f.input :name %>
+	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
+	<%= f.input :material, label: "Paper Stock" %>
+	<%= f.input :label_treatment, label: "Treatment" %>
+	<%= f.input :label_rewind, label: "Rewind" %>
+	<%= f.input :label_cut, label: "Cut" %>
+	<div class='form-group'>
+		<span class='col-xs-2 control-label bold'>Label Position</span>
+		<div class='col-xs-2'>
+			<%= f.text_field :label_position, class: 'form-control col-xs-2' %>
+		</div>
+		<div class='col-xs-2 text-left x-spacer' id='label-position-units'></div>
+	</div>
+	<%=  %>
 <% end %>
-<%= f.button :submit, "Create New #{klass.to_s}", class: 'col-xs-offset-2' %>
+<%= f.button :submit, "#{@packaging_component.new_record? ? 'Create' : 'Update'} #{klass.to_s.titleize}", class: 'col-xs-offset-2 spacer' %>

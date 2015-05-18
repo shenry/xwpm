@@ -38,7 +38,7 @@ X::Application.routes.draw do
   end
   
   resources :packages, :packaging_components, :wines, :projects, :customers, :vendors,
-            :bottles, :closures, :capsules, :labels, :shippers
+            :bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels, :shippers
   
   devise_for :users
   
