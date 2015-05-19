@@ -1,6 +1,7 @@
 <div class='row'>
 	<table class='table table-striped'>
 		<tr>
+			<th>&nbsp;</th>
 			<th>Vendor</th>
 			<th>Code</th>
 			<th>Specs</th>
@@ -8,15 +9,16 @@
 			<th>Color</th>
 			<th>&nbsp;</th>
 		</tr>
-		<% for screwcap in @components %>
+		<% for component in @components %>
 		<tr>
-			<td><%= link_to screwcap.vendor.name, vendor_path(screwcap.vendor) %></td>
-			<td><%= link_to screwcap.code, screwcap_path(screwcap) %></td>
-			<td><%= screwcap.specs %></td>
-			<td><%= screwcap.material %></td>
-			<td><%= screwcap.color %></td>
+			<td><%= render partial: '/partials/avatar_thumbnail', locals: { :object => component } %></td>
+			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
+			<td><%= link_to component.code, screwcap_path(component) %></td>
+			<td><%= component.specs %></td>
+			<td><%= component.material %></td>
+			<td><%= component.color %></td>
 			<td>
-				<a href="<%= screwcap_path(screwcap) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+				<a href="<%= screwcap_path(component) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
 					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				</a>
 			</td>

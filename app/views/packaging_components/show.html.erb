@@ -8,57 +8,87 @@
 		</div>
 	</div>
 </div>
-<% if @klass == Bottle %>
-	<div class='row spacer'>
-		<div class='col-xs-2 l'>Mould</div>
-		<div class='col-xs-2 r'><%= @packaging_component.mould %></div>
+<div class='row spacer'>
+	<div class='col-xs-8'>
+		<% if @klass == Bottle %>
+			<div class='row'>
+				<div class='col-xs-2 l'>Mould</div>
+				<div class='col-xs-2 r'><%= @packaging_component.mould %></div>
+				<div class='col-xs-2 l'>Capacity</div>
+				<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2 l'>Color</div>
+				<div class='col-xs-2 r'><%= @packaging_component.color %></div>
+				<div class='col-xs-2 l'>Fill Point</div>
+				<div class='col-xs-2 r'><%= @packaging_component.fill_point_string %></div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2 l'>Shape</div>
+				<div class='col-xs-2 r'><%= @packaging_component.shape %></div>
+				<div class='col-xs-2 l'>Specs</div>
+				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
+			</div>
+		<% elsif @klass == Capsule %>
+			<div class='row'>
+				<div class='col-xs-2 l'>Color</div>
+				<div class='col-xs-2 r'><%= @packaging_component.color %></div>
+				<div class='col-xs-2 l'>Specs</div>
+				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2 l'>Material</div>
+				<div class='col-xs-2 r'><%= @packaging_component.material %></div>
+			</div>
+		<% elsif @klass == Shipper %>
+			<div class='row spacer'>
+				<div class='col-xs-2 l'>Material</div>
+				<div class='col-xs-2 r'><%= @packaging_component.material %></div>
+				<div class='col-xs-2 l'>Specs</div>
+				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2 l'>Capacity</div>
+				<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
+			</div>
+		<% elsif [Cork, Screwcap].include? @klass %>
+			<div class='row spacer'>
+				<div class='col-xs-2 l'>Material</div>
+				<div class='col-xs-2 r'><%= @packaging_component.material %></div>
+				<div class='col-xs-2 l'>Specs</div>
+				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-2 l'>Color</div>
+				<div class='col-xs-2 r'><%= @packaging_component.color %></div>
+			</div>
+		<% end %>
+		<div class='row spacer break'>
+			<div class='col-xs-12'>
+				<% if @packaging_component.assets? %>
+					<div class='row'>
+						<div class='col-xs-8'>
+							<h2>Component Assets</h2>
+						</div>
+					</div>
+					<% @packaging_component.assets.in_groups_of(2) do |group| %>
+						<div class='row'>
+							<% group.compact.each do |asset| %>
+								<div class='col-xs-4'>
+									<%= cl_image_tag(asset.path, { width: '250', crop: :fit, class: 'asset-show' }) %>
+								</div>
+							<% end %>							
+						</div>
+					<% end %>
+				<% else %>
+					<h2><small>No assets exist for this component.</small></h2>
+				<% end %>
+			</div>
+		</div>
 	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Color</div>
-		<div class='col-xs-2 r'><%= @packaging_component.color %></div>
+	<div class='col-xs-4'>
+		<% if @packaging_component.avatar? %>
+			<%= cl_image_tag(@packaging_component.avatar.path, { width: '390', crop: :fit, class: 'avatar-show' }) %>
+		<% end %>
 	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Shape</div>
-		<div class='col-xs-2 r'><%= @packaging_component.shape %></div>
-	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Capacity</div>
-		<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
-	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Fill Point</div>
-		<div class='col-xs-2 r'><%= @packaging_component.fill_point_string %></div>
-	</div>
-<% elsif @klass == Capsule %>
-	<div class='row'>
-		<div class='col-xs-2 l'>Color</div>
-		<div class='col-xs-2 r'><%= @packaging_component.color %></div>
-	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Material</div>
-		<div class='col-xs-2 r'><%= @packaging_component.material %></div>
-	</div>
-<% elsif @klass == Shipper %>
-	<div class='row spacer'>
-		<div class='col-xs-2 l'>Material</div>
-		<div class='col-xs-2 r'><%= @packaging_component.material %></div>
-	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Capacity</div>
-		<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
-	</div>
-	
-<% elsif [Cork, Screwcap].include? @klass %>
-	<div class='row spacer'>
-		<div class='col-xs-2 l'>Material</div>
-		<div class='col-xs-2 r'><%= @packaging_component.material %></div>
-	</div>
-	<div class='row'>
-		<div class='col-xs-2 l'>Color</div>
-		<div class='col-xs-2 r'><%= @packaging_component.color %></div>
-	</div>
-<% end %>
-<div class='row'>
-	<div class='col-xs-2 l'>Specs</div>
-	<div class='col-xs-2 r'><%= @packaging_component.specs %></div>
 </div>

@@ -1,6 +1,7 @@
 <div class='row spacer'>
 	<table class='table table-striped'>
 		<tr>
+			<th>&nbsp;</th>
 			<th>Vendor</th>
 			<th>Type</th>			
 			<th>Size</th>
@@ -13,6 +14,7 @@
 		</tr>
 		<% for back_label in @components %>
 		<tr>
+			<td><%= render partial: '/partials/avatar_thumbnail', locals: { :object => back_label } %></td>
 			<td><%= link_to back_label.vendor.name, vendor_path(back_label.vendor) %></td>
 			<td><%= back_label.material %></td>
 			<td><%= back_label.specs %></td>

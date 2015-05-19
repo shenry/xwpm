@@ -1,6 +1,7 @@
-<div class='row'>
+<div class='row spacer'>
 	<table class='table table-striped'>
 		<tr>
+			<th>&nbsp;</th>
 			<th>Vendor</th>
 			<th>Code</th>
 			<th>Specs</th>
@@ -10,8 +11,9 @@
 		</tr>
 		<% for component in @components %>
 		<tr>
+			<td><%= render partial: '/partials/avatar_thumbnail', locals: { :object => component } %></td>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
-			<td><%= link_to component.code, controller: @klass.to_s.downcase.pluralize, action: 'show', id: component %></td>
+			<td><%= link_to component.code, controller: component.class.to_s.downcase.pluralize, action: 'show', id: component %></td>
 			<td><%= component.specs %></td>
 			<td><%= component.material %></td>
 			<td><%= component.color %></td>

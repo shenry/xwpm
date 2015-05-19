@@ -49,5 +49,7 @@ header { margin-bottom: 60px; }
 .subordinate h1 { font-size: 200%; }
 
 .avatar-table { float: left; border: 1px solid gray;}
+.avatar-show { border: 1px solid gray; }
+.asset-show { border: 1px solid gray; }
 
 .table td { vertical-align: middle !important; }

@@ -1,0 +1,9 @@
+	<div class='form-group'>
+		<span class='col-xs-2 control-label bold'>Product Image</span>
+			<% if object.avatar? %>
+				<%= render partial: '/partials/avatar_thumbnail', locals: { :object => object } %>
+			<% end %>
+			<div class='col-xs-2'>
+				<%= f.attachinary_file_field :avatar %>
+			</div>
+	</div>

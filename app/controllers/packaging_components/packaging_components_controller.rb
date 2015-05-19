@@ -32,6 +32,8 @@ class PackagingComponentsController < ApplicationController
   
   def update
     @packaging_component = PackagingComponent.find(params[:id])
+    puts "current_images = #{@packaging_component.assets.inspect}"
+    puts "params = #{params.inspect}"
     if @packaging_component.update_attributes(packaging_component_params)
       flash[:notice] = "#{@klass.to_s} successfully updated."
       redirect_to action: 'index'

@@ -5,7 +5,8 @@
 	<%= f.input :mould %>
 	<%= f.input :color %>
 	<%= f.input :shape %>
-	<%= f.input :avatar, as: :attachinary %>
+	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
+	<%= f.input :assets, as: :attachinary %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 	<div class='form-group'>
@@ -21,10 +22,12 @@
 	<%= f.input :item_identifier, label: "Item Identifier" %>
 	<%= f.input :material %>
 	<%= f.input :color %>
+	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
 <% elsif @klass == Shipper %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
+	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
@@ -33,6 +36,7 @@
 	<%= f.input :item_identifier, label: "Item Identifier" %>
 	<%= f.input :material %>
 	<%= f.input :color %>
+	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 <% elsif [FrontLabel, BackLabel].include? @klass %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
@@ -42,6 +46,7 @@
 	<% end %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 	<%= f.input :material, label: "Paper Stock" %>
+	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
 	<%= f.input :label_treatment, label: "Treatment" %>
 	<%= f.input :label_rewind, label: "Rewind" %>
 	<%= f.input :label_cut, label: "Cut" %>
