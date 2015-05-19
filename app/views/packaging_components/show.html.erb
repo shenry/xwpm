@@ -1,7 +1,7 @@
 <div class='row'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1><%= @packaging_component.name %><br/><small><%= link_to @packaging_component.vendor.name, vendor_path(@packaging_component.vendor) %></small></h1>
+			<h1><%= @packaging_component.code %><% unless @packaging_component.item_identifier.blank? %> &nbsp;<small>(<%= @packaging_component.item_identifier %>)</small><% end %><br/><small><%= link_to @packaging_component.vendor.name, vendor_path(@packaging_component.vendor) %></small></h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
 			<%= link_to "Edit #{@klass.to_s}", controller: @klass.to_s.downcase.pluralize, action: 'edit', id: @packaging_component %>

@@ -42,7 +42,6 @@ class PackagingComponentsController < ApplicationController
   
   def destroy
     packaging_component = @klass.find(params[:id])
-    puts "packaging_component = #{packaging_component.inspect}"
     
     packaging_component.destroy
     redirect_to action: :index

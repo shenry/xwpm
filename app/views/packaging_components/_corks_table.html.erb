@@ -2,7 +2,7 @@
 	<table class='table table-striped'>
 		<tr>
 			<th>Vendor</th>
-			<th>Name</th>
+			<th>Code</th>
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
@@ -11,7 +11,7 @@
 		<% for cork in @components%>
 		<tr>
 			<td><%= link_to cork.vendor.name, vendor_path(cork.vendor) %></td>
-			<td><%= link_to cork.name, cork_path(cork) %></td>
+			<td><%= link_to cork.code, cork_path(cork) %></td>
 			<td><%= cork.specs %></td>
 			<td><%= cork.material %></td>
 			<td><%= cork.color %></td>

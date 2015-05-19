@@ -1,0 +1,34 @@
+<div class='row'>
+	<div class='row-same-height'>
+		<div class='col-xs-8 col-xs-height'>
+			<h1>Wines</h1>
+		</div>
+		<div class='col-xs-4 col-xs-height text-right'>
+			<%= link_to "New Wine", new_wine_path %>
+		</div>
+	</div>
+</div>
+<div class='row spacer'>
+	<table class='table table-striped'>
+		<tr>
+			<th>Name</th>
+			<th>Sample Code</th>
+			<th>Vintage</th>
+			<th>Variety</th>
+			<th>Appellation</th>
+			<th>Alc</th>
+			<th>$/Gal</th>
+		</tr>
+		<% for wine in @wines %>
+			<tr>
+				<td><%= wine.name %></td>
+				<td><%= wine.sample_code %></td>
+				<td><%= wine.vintage %> (<%= wine.vintage_percent %>)</td>
+				<td><%= wine.variety %> (<%= wine.variety_percent %>)</td>
+				<td><%= wine.appellation %> (<%= wine.appellation_percent %>)</td>
+				<td><%= wine.alc %> %</td>
+				<td></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

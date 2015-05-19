@@ -20,4 +20,7 @@
 
 class Wine < ActiveRecord::Base
   has_many :projects
+  
+  validates :name, :appellation, :appellation_percent, :variety, :variety_percent, :vintage, :vintage_percent,
+            :alc, :sample_number, :cost_per_gal
 end

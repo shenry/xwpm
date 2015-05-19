@@ -25,6 +25,9 @@ class Firm < ActiveRecord::Base
   validates :name, :contact_name, :contact_email, :contact_phone, 
             :address_line_1, :city, :state, :zip, presence: true
   validates :contact_email, :email => true
+  validates :zip, numericality: { only_integer: true }
+  validates :contact_phone, format: { with: /\A\(?\d{3}\)?(\s?|-?)\d{3}(\s?|-?)\d{4}\z/,
+                                      message: "Valid formats are (555) 123-4567 or simply 5551234567"}
   #TODO - validations on address components
   
   def contact_phone=(contact_phone)

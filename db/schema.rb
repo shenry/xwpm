@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513210430) do
+ActiveRecord::Schema.define(version: 20150519043418) do
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150513210430) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "projects_count"
+    t.string   "code"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -67,8 +68,6 @@ ActiveRecord::Schema.define(version: 20150513210430) do
 
   create_table "packaging_components", force: :cascade do |t|
     t.string   "type"
-    t.string   "name",             default: "",    null: false
-    t.string   "description",      default: "",    null: false
     t.integer  "vendor_id"
     t.string   "mould"
     t.string   "shape"
@@ -94,6 +93,9 @@ ActiveRecord::Schema.define(version: 20150513210430) do
     t.string   "label_treatment"
     t.string   "label_cut"
     t.string   "label_position"
+    t.string   "code"
+    t.string   "brand"
+    t.string   "item_identifier",  default: "",    null: false
   end
 
   add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 20150513210430) do
     t.string   "sample_number"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.float    "cost_per_gallon"
   end
 
 end

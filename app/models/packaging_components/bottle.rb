@@ -34,11 +34,13 @@ class Bottle < PackagingComponent
   # belongs_to  :vendor
   has_many    :packages
   
-  validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, :capacity, :capacity_units, presence: true
+  validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, 
+            :capacity, :capacity_units, presence: true
   validates_presence_of :vendor
   
-  def self.spec_select_options
-    ['mm', 'in']
+  def spec_code
+    return self.capacity if self.capacity_units == "mL"
+    return self.capacity.gsub('.', '') + self.capacity_units.upcase
   end
   
   def self.capacity_select_options

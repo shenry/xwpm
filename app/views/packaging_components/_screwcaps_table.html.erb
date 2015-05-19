@@ -2,7 +2,7 @@
 	<table class='table table-striped'>
 		<tr>
 			<th>Vendor</th>
-			<th>Name</th>
+			<th>Code</th>
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
@@ -11,7 +11,7 @@
 		<% for screwcap in @components %>
 		<tr>
 			<td><%= link_to screwcap.vendor.name, vendor_path(screwcap.vendor) %></td>
-			<td><%= link_to screwcap.name, screwcap_path(screwcap) %></td>
+			<td><%= link_to screwcap.code, screwcap_path(screwcap) %></td>
 			<td><%= screwcap.specs %></td>
 			<td><%= screwcap.material %></td>
 			<td><%= screwcap.color %></td>

@@ -22,9 +22,14 @@
 
 class Vendor < Firm
   has_many :packaging_components
-  # has_many  :closures
-  # has_many  :labels
-  # has_many  :bottles
-  # has_many  :capsules
-  # has_many  :shippers
+  
+  validates :code, presence: true
+  
+  before_save :upcase_code
+  
+  private
+  def upcase_code
+    self.code = self.code.upcase
+  end
+
 end

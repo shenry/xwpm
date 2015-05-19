@@ -1,10 +1,10 @@
 <div class='row'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1><%= @firm.name %><br/><small><%= @firm.description %></small></h1>
+			<h1><%= @firm.name %><% if @klass == Vendor %> &nbsp;<small>(<%= @firm.code %>)</small><% end %><br/><small><%= @firm.description %></small></h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
-			<%= link_to "Edit #{@klass.to_s}", controller: @klass.to_s.downcase.pluralize, action: 'edit' %>
+			<%= link_to "Edit #{@klass.to_s.titleize}", controller: @klass.to_s.underscore.downcase.pluralize, action: 'edit' %>
 			<% if @klass == Customer %>
 						&nbsp;|&nbsp;
 				<%= link_to "Create New Project", new_customer_project_path(@firm) %>
@@ -39,16 +39,18 @@
 		</address>
 	</div>
 </div>
-<% i = 0 %>
-<% @associated_collection.each do |key, value| %>
-	<% @components = value %>
-	<div class="row spacer <%= i == 0 ? 'break' : '' %>">
-		<div class='col-xs-12'>
-			<h1><%= key.pluralize %></h1>
+<div class='row subordinate'>
+	<% i = 0 %>
+	<% @associated_collection.each do |key, value| %>
+		<% @components = value %>
+		<div class="row spacer <%= i == 0 ? 'break' : '' %>">
+			<div class='col-xs-12'>
+				<h1><%= key.titleize.pluralize %></h1>
+			</div>
 		</div>
-	</div>
-	<div class='row'>
-		<%= render partial: "/packaging_components/#{key.downcase.pluralize}_table", locals: { components: @components } %>
-	</div>
-	<% i += 1 %>
-<% end %>
+		<div class='row'>
+			<%= render partial: "/packaging_components/#{key.underscore.downcase.pluralize}_table", locals: { components: @components } %>
+		</div>
+		<% i += 1 %>
+	<% end %>
+</div>

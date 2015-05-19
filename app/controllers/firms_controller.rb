@@ -76,7 +76,7 @@ class FirmsController < ApplicationController
       @firm = @klass.find(params[:id])
       if @firm.update_attributes(firm_params)
         flash[:notice] = "#{@klass.to_s} was successfully updated."
-        wants.html { redirect_to(@firm) }
+        wants.html { redirect_to controller: @klass.to_s.titleize.downcase.pluralize, action: "index" }
         wants.xml  { head :ok }
       else
         wants.html { render :action => "edit" }
@@ -104,7 +104,7 @@ class FirmsController < ApplicationController
     
     def firm_params
       klass = @klass.to_s.downcase.intern
-      params[klass].permit(:name, :description, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
+      params[klass].permit(:code, :description, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
     end
 
 end

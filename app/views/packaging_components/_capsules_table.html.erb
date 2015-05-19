@@ -2,7 +2,7 @@
 	<table class='table table-striped'>
 		<tr>
 			<th>Vendor</th>
-			<th>Name</th>
+			<th>Code</th>
 			<th>Specs</th>
 			<th>Material</th>
 			<th>Color</th>
@@ -11,7 +11,7 @@
 		<% for component in @components %>
 		<tr>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
-			<td><%= link_to component.name, controller: @klass.to_s.downcase.pluralize, action: 'show', id: component %></td>
+			<td><%= link_to component.code, controller: @klass.to_s.downcase.pluralize, action: 'show', id: component %></td>
 			<td><%= component.specs %></td>
 			<td><%= component.material %></td>
 			<td><%= component.color %></td>
