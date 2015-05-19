@@ -32,6 +32,9 @@
 
 class PackagingComponent < ActiveRecord::Base
   belongs_to :vendor
+  has_attachment  :avatar, accept: [:jpg, :png, :gif, :pdf]
+  has_attachments :assets, accept: [:jpg, :png, :gif, :pdf]
+  
   validates  :type, presence: true
   
   before_save :upcase_item_identifier, :generate_code

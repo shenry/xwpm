@@ -1,6 +1,7 @@
 <div class='row'>
 	<table class='table table-striped'>
 		<tr>
+			<th>&nbsp;</th>
 			<th>Vendor</th>
 			<th>Code</th>
 			<th>Specs</th>
@@ -13,6 +14,9 @@
 		<% puts "@components = #{@components.inspect}"%>
 		<% for component in @components %>
 		<tr>
+			<td><% if component.avatar? %>
+							<%= cl_image_tag(component.avatar.path, { size: '44x44', crop: :thumb, gravity: :north, class: "avatar-table" }) %>
+						<% end %></td>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
 			<td><%= link_to component.code, controller: @klass.to_s.downcase.pluralize, action: 'show', id: component %></td>
 			<td><%= component.specs %></td>

@@ -28,6 +28,8 @@
 
 X::Application.routes.draw do
   
+  mount Attachinary::Engine => "/attachinary"
+  
   resources :customers do
     resources :projects, shallow: true
   end

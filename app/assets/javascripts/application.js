@@ -16,6 +16,14 @@
 //= require turbolinks
 //= require bootstrap 
 //= require common
+	
+//= require jquery.ui.widget
+//= require jquery.iframe-transport
+//= require jquery.fileupload
+//= require cloudinary/jquery.cloudinary
+//= require attachinary
+	
+$('.attachinary-input').attachinary()
 
 $(function() {
 	if($("#has_artwork_false").attr("checked", "checked")) {
