@@ -1,0 +1,68 @@
+<div class='row'>
+	<table class='table table-striped'>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Vendor</th>
+			<% unless controller_name.include? 'labels' %>
+				<th>Code</th>
+			<% end %>
+			<% if controller_name == 'bottles' %>
+				<th>Shape</th>
+				<th>Mould</th>
+			<% end %>
+			<% unless controller_name.include? 'labels'%>
+				<th>Color</th>
+			<% end %>
+			<% if ['bottles', 'shippers'].include? controller_name %>
+				<th>Capacity</th>
+			<% end %>
+			<% unless controller_name == 'bottles' %>
+				<th><%= controller_name.include?('labels') ? 'Type' : 'Material' %></th>
+			<% end %>
+			<% if controller_name.include? 'labels' %>
+				<th>Taper/Cut</th>
+				<th>Treatments</th>
+				<th>Designer</th>
+				<th>Position</th>
+				<th>Rewind</th>
+			<% end %>
+			<th><%= controller_name.include?('labels') ? 'Size' : 'Specs' %></th>
+			<th>&nbsp;</th>
+		</tr>
+		<% for component in @components %>
+		<tr>
+			<td><%= render partial: '/partials/avatar_thumbnail', locals: { :object => component } %></td>
+			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
+			<% unless controller_name.include? 'labels' %>
+				<td><%= link_to component.code, controller: component.class.to_s.downcase.pluralize, action: 'show', id: component %></td>
+			<% end %>
+			<% if controller_name == 'bottles' %>
+				<td><%= component.shape %></td>
+				<td><%= component.mould %></td>
+			<% end %>
+			<% unless controller_name.include? 'labels' %>
+				<td><%= component.color %></td>
+			<% end %>
+			<% if ['bottles', 'shippers'].include? controller_name %>
+				<td><%= component.capacity_string %></td>
+			<% end %>
+			<% unless controller_name == 'bottles' %>
+				<td><%= component.material %></td>
+			<% end %>
+			<% if controller_name.include? 'labels' %>
+				<td><%= component.label_cut %></td>
+				<td><%= component.label_treatment %></td>
+				<td><%= component.artwork_source %></td>
+				<td><%= component.label_position %></td>
+				<td><%= component.label_rewind %></td>
+			<% end %>
+			<td><%= component.specs %></td>	
+			<td>
+				<a href="<%= bottle_path(component) %>" method="_delete" data-method="delete" class="btn btn-default btn-xs" data-confirm="Are you sure you want to delete this <%= @klass.to_s.downcase %>?">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</a>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+</div>
