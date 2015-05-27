@@ -6,6 +6,7 @@
 	<%= f.input :color %>
 	<%= f.input :shape %>
 	<%= f.file_field :image %>
+	<%= f.file_field :attachments, multiple: true, name: 'bottle[attachments_attributes][]' %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 	<div class='form-group'>

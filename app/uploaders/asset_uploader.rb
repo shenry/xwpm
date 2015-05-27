@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class AssetUploader < CarrierWave::Uploader::Base
+class AssetUploader < CarrierWave::Uploader::Base  
   include Cloudinary::CarrierWave
 
   # Include RMagick or MiniMagick support:

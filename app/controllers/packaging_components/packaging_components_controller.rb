@@ -10,7 +10,7 @@ class PackagingComponentsController < ApplicationController
   end
   
   def new
-    @packaging_component = PackagingComponent.new
+    @packaging_component = @klass.new
     @vendors = Vendor.order(:name).map { |v| [v.id, v.name] }
   end
   
@@ -32,10 +32,14 @@ class PackagingComponentsController < ApplicationController
   
   def update
     @packaging_component = PackagingComponent.find(params[:id])
-    puts "current_images = #{@packaging_component.assets.inspect}"
-    puts "params = #{params.inspect}"
+
     if @packaging_component.update_attributes(packaging_component_params)
-      flash[:notice] = "#{@klass.to_s} successfully updated."
+      if true
+        params[@klass.to_s.underscore.downcase.intern][:attachments_attributes].each do |attachment|
+          @packaging_component.attachments.create(asset: attachment)
+        end
+      end
+      flash[:notice] = "#{@klass.to_s.titleize} successfully updated."
       redirect_to action: 'index'
     else
       render action: 'new', :packaging_component => @packaging_component

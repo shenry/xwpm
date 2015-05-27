@@ -31,8 +31,11 @@
 #
 
 class PackagingComponent < ActiveRecord::Base
-  belongs_to :vendor
-  mount_uploader :image, ImageUploader
+  belongs_to  :vendor
+  has_many    :attachments, as: :parent, dependent: :destroy
+  accepts_nested_attributes_for :attachments
+  
+  mount_uploader  :image, ImageUploader
   
   validates  :type, presence: true
   

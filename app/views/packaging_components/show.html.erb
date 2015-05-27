@@ -65,17 +65,17 @@
 		<% end %>
 		<div class='row spacer break'>
 			<div class='col-xs-12'>
-				<% if @packaging_component.assets? %>
+				<% unless @packaging_component.attachments.empty? %>
 					<div class='row'>
 						<div class='col-xs-8'>
 							<h2>Component Assets</h2>
 						</div>
 					</div>
-					<% @packaging_component.assets.in_groups_of(2) do |group| %>
+					<% @packaging_component.attachments.in_groups_of(2) do |group| %>
 						<div class='row'>
-							<% group.compact.each do |asset| %>
+							<% group.compact.each do |attachment| %>
 								<div class='col-xs-4'>
-									<%= cl_image_tag(asset.path, { width: '250', crop: :fit, class: 'asset-show' }) %>
+									<%= cl_image_tag(attachment.asset_url) %>
 								</div>
 							<% end %>							
 						</div>

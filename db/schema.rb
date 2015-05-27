@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527025845) do
+ActiveRecord::Schema.define(version: 20150527220733) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.string   "asset"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -66,8 +76,45 @@ ActiveRecord::Schema.define(version: 20150527025845) do
   add_index "packages", ["front_label_id"], name: "index_packages_on_front_label_id"
   add_index "packages", ["shipper_id"], name: "index_packages_on_shipper_id"
 
-# Could not dump table "packaging_components" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "packaging_components", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "vendor_id"
+    t.string   "mould"
+    t.string   "shape"
+    t.string   "color"
+    t.string   "height"
+    t.string   "width"
+    t.string   "depth"
+    t.string   "fill_point"
+    t.string   "fill_point_units"
+    t.string   "neck_diameter"
+    t.string   "neck_diamter_units"
+    t.string   "material"
+    t.boolean  "has_artwork"
+    t.string   "capacity"
+    t.string   "capacity_units"
+    t.string   "label_alc"
+    t.string   "upc"
+    t.string   "closure_type"
+    t.string   "artwork_source"
+    t.string   "label_type"
+    t.string   "units"
+    t.string   "label_rewind"
+    t.string   "label_treatment"
+    t.string   "label_cut"
+    t.string   "label_position"
+    t.string   "code"
+    t.string   "brand"
+    t.string   "item_identifier"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"
+  add_index "packaging_components", ["label_type"], name: "index_packaging_components_on_label_type"
+  add_index "packaging_components", ["type"], name: "index_packaging_components_on_type"
+  add_index "packaging_components", ["vendor_id"], name: "index_packaging_components_on_vendor_id"
 
   create_table "projects", force: :cascade do |t|
     t.integer  "package_id"
