@@ -26,10 +26,7 @@
 #                       DELETE /admin/users/:id(.:format)        admin/users#destroy
 #
 
-X::Application.routes.draw do
-  
-  mount Attachinary::Engine => "/attachinary"
-  
+X::Application.routes.draw do  
   resources :customers do
     resources :projects, shallow: true
   end

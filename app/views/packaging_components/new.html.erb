@@ -4,6 +4,6 @@
 	</div>
 </div>
 
-<%= simple_form_for(@packaging_component, url: { action: @packaging_component.new_record? ? 'create' : 'update' }, html: { class: 'form-horizontal' }) do |f| %>
+<%= simple_form_for(@packaging_component, url: { action: @packaging_component.new_record? ? 'create' : 'update' }, html: { class: 'form-horizontal', mulitpart: true }) do |f| %>
 	<%= render partial: "form", locals: { :f => f, :klass => @klass, :packaging_component => @packaging_component } %>
 <% end %>

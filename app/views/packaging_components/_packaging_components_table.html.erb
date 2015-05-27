@@ -31,7 +31,7 @@
 		</tr>
 		<% for component in @components %>
 		<tr>
-			<td><%= render partial: '/partials/avatar_thumbnail', locals: { :object => component } %></td>
+			<td><%= cl_image_tag(component.image_url(:thumb)) %></td>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
 			<% unless controller_name.include? 'labels' %>
 				<td><%= link_to component.code, controller: component.class.to_s.downcase.pluralize, action: 'show', id: component %></td>

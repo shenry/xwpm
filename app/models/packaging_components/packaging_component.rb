@@ -32,8 +32,7 @@
 
 class PackagingComponent < ActiveRecord::Base
   belongs_to :vendor
-  has_attachment  :avatar, accept: [:jpg, :png, :gif, :pdf]
-  has_attachments :assets, accept: [:jpg, :png, :gif, :pdf]
+  mount_uploader :image, ImageUploader
   
   validates  :type, presence: true
   

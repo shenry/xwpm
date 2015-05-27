@@ -21,22 +21,7 @@
 //= require jquery.iframe-transport
 //= require jquery.fileupload
 //= require cloudinary/jquery.cloudinary
-//= require attachinary
 	
-$('.attachinary-input').attachinary()
-
-$(function() {
-	if($("#has_artwork_false").attr("checked", "checked")) {
-		$("#has-artwork-upload").hide();	
-	}
-})
-
-$(function() {
-	$("#has_artwork_true").click(function() {
-		$("#has-artwork-upload").toggle();
-	});
-})
-
 $(function() {
 	$("#specs-form-control").change(function(){
 		var text = $("#specs-form-control option:selected").text();

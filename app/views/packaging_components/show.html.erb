@@ -87,8 +87,8 @@
 		</div>
 	</div>
 	<div class='col-xs-4'>
-		<% if @packaging_component.avatar? %>
-			<%= cl_image_tag(@packaging_component.avatar.path, { width: '390', crop: :fit, class: 'avatar-show' }) %>
+		<% if @packaging_component.image? %>
+			<%= cl_image_tag(@packaging_component.image_url(:sidebar)) %>
 		<% end %>
 	</div>
 </div>

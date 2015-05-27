@@ -5,8 +5,7 @@
 	<%= f.input :mould %>
 	<%= f.input :color %>
 	<%= f.input :shape %>
-	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
-	<%= f.input :assets, as: :attachinary %>
+	<%= f.file_field :image %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 	<div class='form-group'>
