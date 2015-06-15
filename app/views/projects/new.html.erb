@@ -1,2 +1,62 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<div class="row">
+	<div class="col-xs-12">
+		<h1>New <%= @project.customer.name %> Project</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 container">
+		<%= simple_form_for @project, html: { class: "form-horizontal" } do |f| %>
+			<div class="panel panel-default">
+				<div class="panel-heading">Project Attributes</div>
+				<div class="panel-body">
+					<%= f.error_notification %>
+					<%= f.input :project_number %>
+					<%= f.input :brand, input_html: {class: "chosen-select", id: "autocomplete-brand"} %>
+					<%= f.input :variety %>
+					<%= f.input :winemaker %>
+					<%= f.input :target_cases, label: "Target Cases" %>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Wine Attributes</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<span class="col-xs-2 control-label bold">Wine</span>
+						<div class="col-xs-4">
+							<%= f.input_field :wine_id, collection: Wine.order(:sample_number).map { |w| [w.to_s, w.id] }, include_blank: false, prompt: "Select Wine", class: "form-control", id: "wine-select" %>
+						</div><span class="control-label pull-left">Or <a href="#" id="create-wine-link">Create New Wine</a></span>
+					</div>
+					<div id="create-wine-form">
+						<%= f.fields_for @project.wine do |wine| %>
+							<%= wine.input :sample_number, label: "Sample Number" %>
+							<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :vintage } %>
+							<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :variety } %>
+							<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :appellation } %>
+							<%= wine.input :treatments, placeholder: "Pre-bottling additions" %>
+							<%= wine.input :description, placeholder: "Notes for back-label copy" %>
+							<%= wine.input :cost_per_gallon, label: "$/Gal" %>
+						<% end %>
+					</div>
+				<% end %>
+		</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var brands 				= <%= raw @brands.to_json %>
+	var varieties 		= <%= raw @varieties.to_json %>
+	var appellations 	= <%= raw @appellations.to_json %>
+	$(document).ready(function(){
+		$("#autocomplete-brand").autocomplete({
+			lookup: brands
+		});
+		$("#autocomplete-variety").autocomplete({
+			lookup: varieties
+		});
+		$("#autocomplete-appellation").autocomplete({
+			lookup: appellations
+		});
+	});
+</script>

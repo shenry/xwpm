@@ -2,6 +2,14 @@
 
 class AssetUploader < CarrierWave::Uploader::Base  
   include Cloudinary::CarrierWave
+  
+  version :small do
+    process :resize_to_fit => [50, 50]
+  end
+  
+  version :thumb do
+    process :resize_to_fit => [100, 100]
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick

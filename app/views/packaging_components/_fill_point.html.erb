@@ -1,0 +1,9 @@
+<div class='form-group'>
+	<span class='col-xs-2 control-label bold'>Fill Point</span>
+	<div class='col-xs-2'>
+		<%= f.text_field :fill_point, class: 'form-control col-xs-2' %>
+	</div>
+	<div class='col-xs-2'>
+		<%= f.select :fill_point_units, @klass.spec_select_options, {}, class: 'form-control' %>
+	</div>
+</div>

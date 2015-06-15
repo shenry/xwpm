@@ -27,7 +27,7 @@
 #
 
 X::Application.routes.draw do  
-  resources :customers do
+  resources :customer do
     resources :projects, shallow: true
   end
   

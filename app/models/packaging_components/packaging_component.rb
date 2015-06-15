@@ -33,7 +33,7 @@
 class PackagingComponent < ActiveRecord::Base
   belongs_to  :vendor
   has_many    :attachments, as: :parent, dependent: :destroy
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
   
   mount_uploader  :image, ImageUploader
   

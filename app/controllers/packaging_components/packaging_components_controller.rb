@@ -16,6 +16,7 @@ class PackagingComponentsController < ApplicationController
   
   def edit
     @packaging_component = PackagingComponent.find(params[:id])
+    @packaging_component.attachments.build
     render action: 'new'
   end
   
@@ -31,12 +32,16 @@ class PackagingComponentsController < ApplicationController
   end
   
   def update
-    @packaging_component = PackagingComponent.find(params[:id])
+    @packaging_component  = PackagingComponent.find(params[:id])
+    component_class       = @klass.to_s.underscore.downcase.intern
+    new_assets            = params[component_class].delete("new_assets")
 
     if @packaging_component.update_attributes(packaging_component_params)
-      if true
-        params[@klass.to_s.underscore.downcase.intern][:attachments_attributes].each do |attachment|
-          @packaging_component.attachments.create(asset: attachment)
+      if new_assets && !(new_assets.empty?)
+        new_assets.each do |asset|
+          attachment = @packaging_component.attachments.build
+          attachment.asset = asset
+          @packaging_component.save
         end
       end
       flash[:notice] = "#{@klass.to_s.titleize} successfully updated."

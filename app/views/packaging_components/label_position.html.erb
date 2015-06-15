@@ -1,0 +1,9 @@
+<div class='form-group'>
+	<span class='col-xs-2 control-label bold'>Label Position</span>
+	<div class='col-xs-2'>
+		<%= f.text_field :label_position, class: 'form-control col-xs-2' %>
+	</div>
+	<div class='col-xs-2' id='label-position-units'>
+		<%= f.select :units, @klass.spec_select_options, {}, class: 'form-control', id: 'mirror-units', disabled: true %>
+	</div>
+</div>

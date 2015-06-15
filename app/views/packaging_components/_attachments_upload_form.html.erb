@@ -1,0 +1,39 @@
+<div class='form-group'>
+	<div class="col-xs-2 control-label">
+		<span class="bold">Attachments</span><br/>
+		<span class="minor">Check box to delete</span>
+	</div>
+	<div class='col-xs-4'>
+		<div class="input-group file-input">
+			<span class="input-group-btn">
+				<span class="btn btn-default btn-file">Browse&hellip;<%= f.file_field :attachment, name:"bottle[new_assets][]", multiple: true %></span>
+			</span>
+			<input type="text" class="form-control" readonly>
+		</div>
+	</div>
+</div>
+<div class="form-group">
+	<div class='col-xs-offset-2 col-xs-4'>
+		<table id="attachments-table-edit">
+			<%= f.fields_for :attachments, @packaging_component.attachments.reverse do |attachment| %>
+				<% unless attachment.object.new_record? %>
+					<tr>
+						<td rowspan="2" class='image-table-thumb top-cell'>
+							<%= cl_image_tag(attachment.object.asset_url(:thumb)) %>
+							<div class="delete-checkbox"><%= attachment.check_box :_destroy, class: 'thumb-delete', id: "attachment-#{attachment.object.id}" %>&nbsp;<span id="attachment-<%= attachment.object.id %>">Delete?</span></div>
+						</td>
+						<td colspan="2" class="top-cell field-cell"><%= attachment.text_field :title, class: 'form-control', placeholder: "Title" %></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="field-cell">
+							<%= attachment.text_area :description, class: 'form-control', placeholder: "Description" %>
+						</td>
+					</tr>
+					<tr>
+						<td class='edit-table-label' colspan="2"></td>
+					</tr>
+				<% end %>
+		<% end%>
+		</table>
+	</div>
+</div>

@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527220733) do
+ActiveRecord::Schema.define(version: 20150615170722) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
     t.integer  "parent_id"
     t.string   "parent_type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "title",       default: ""
+    t.text     "description", default: ""
   end
 
   add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
@@ -128,10 +130,14 @@ ActiveRecord::Schema.define(version: 20150527220733) do
     t.string   "brand",          default: "", null: false
     t.string   "description",    default: "", null: false
     t.datetime "bottling_date"
+    t.string   "variety"
+    t.string   "winemaker"
   end
 
+  add_index "projects", ["brand"], name: "index_projects_on_brand"
   add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
   add_index "projects", ["package_id"], name: "index_projects_on_package_id"
+  add_index "projects", ["project_number"], name: "index_projects_on_project_number", unique: true
   add_index "projects", ["wine_id"], name: "index_projects_on_wine_id"
 
   create_table "users", force: :cascade do |t|
@@ -160,8 +166,6 @@ ActiveRecord::Schema.define(version: 20150527220733) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "wines", force: :cascade do |t|
-    t.string   "name",                default: "", null: false
-    t.string   "description",         default: "", null: false
     t.string   "appellation"
     t.string   "appellation_percent"
     t.string   "variety"
@@ -169,11 +173,16 @@ ActiveRecord::Schema.define(version: 20150527220733) do
     t.string   "vintage"
     t.string   "vintage_percent"
     t.string   "alc"
-    t.string   "winemaker"
     t.string   "sample_number"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.float    "cost_per_gallon"
+    t.text     "treatments"
+    t.text     "description"
   end
+
+  add_index "wines", ["appellation"], name: "index_wines_on_appellation"
+  add_index "wines", ["sample_number"], name: "index_wines_on_sample_number", unique: true
+  add_index "wines", ["variety"], name: "index_wines_on_variety"
 
 end

@@ -11,8 +11,7 @@
 <div class='row spacer'>
 	<table class='table table-striped'>
 		<tr>
-			<th>Name</th>
-			<th>Sample Code</th>
+			<th>Sample Number</th>
 			<th>Vintage</th>
 			<th>Variety</th>
 			<th>Appellation</th>
@@ -21,12 +20,11 @@
 		</tr>
 		<% for wine in @wines %>
 			<tr>
-				<td><%= wine.name %></td>
-				<td><%= wine.sample_code %></td>
-				<td><%= wine.vintage %> (<%= wine.vintage_percent %>)</td>
-				<td><%= wine.variety %> (<%= wine.variety_percent %>)</td>
-				<td><%= wine.appellation %> (<%= wine.appellation_percent %>)</td>
-				<td><%= wine.alc %> %</td>
+				<td><%= wine.sample_number %></td>
+				<td><%= wine.vintage %> (<%= wine.vintage_percent %>%)</td>
+				<td><%= wine.variety %> (<%= wine.variety_percent %>%)</td>
+				<td><%= wine.appellation %> (<%= wine.appellation_percent %>%)</td>
+				<td><%= wine.alc %>%</td>
 				<td></td>
 			</tr>
 		<% end %>

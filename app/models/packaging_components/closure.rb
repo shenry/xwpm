@@ -34,4 +34,9 @@ class Closure < PackagingComponent
   belongs_to  :vendor
   has_many    :packages
   
+  validates :material, :color, presence: true
+  
+  def spec_code
+    item_identifier || ""
+  end
 end

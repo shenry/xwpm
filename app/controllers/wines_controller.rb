@@ -1,7 +1,7 @@
 class WinesController < ApplicationController
   
   def index
-    @wines = Wine.includes(:projects).order("name ASC, created_at DESC").page(params[:page] || 1)
+    @wines = Wine.includes(:projects).order("sample_number DESC").page(params[:page] || 1)
   end
   
   

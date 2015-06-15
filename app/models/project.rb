@@ -19,4 +19,6 @@ class Project < ActiveRecord::Base
   belongs_to  :package
   belongs_to  :wine
   belongs_to  :customer, class_name: "Firm", counter_cache: true
+  
+  accepts_nested_attributes_for :wine, allow_destroy: false
 end

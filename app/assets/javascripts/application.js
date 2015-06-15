@@ -15,13 +15,15 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require bootstrap 
-//= require common
+//= require jquery.autocomplete.min
+//= require autocomplete.js
 	
 //= require jquery.ui.widget
 //= require jquery.iframe-transport
 //= require jquery.fileupload
 //= require cloudinary/jquery.cloudinary
 	
+
 $(function() {
 	$("#specs-form-control").change(function(){
 		var text = $("#specs-form-control option:selected").text();
@@ -29,3 +31,48 @@ $(function() {
 	});
 })
 
+$(function() {
+	$(".thumb-delete").change(function(){
+		var id 		= $(this).attr('id');
+		var span	= $("span#" + id)
+		span.toggleClass("thumb-delete-warning");
+		if (span.text() == "Delete?") {
+			span.text("Delete!")
+		} else {
+			span.text("Delete?")
+		}
+	});
+})
+
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+		$("#create-wine-link").click(function(){
+			$("#create-wine-form").show();
+			$("#wine-select")[0].selectedIndex = 0
+		});
+		$("#wine-select").change(function(){
+			if ($(this).val() == null) {
+				
+			} else {
+				$("#create-wine-form").hide();
+			}
+		});
+});

@@ -5,38 +5,30 @@
 	<%= f.input :mould %>
 	<%= f.input :color %>
 	<%= f.input :shape %>
-	<%= f.file_field :image %>
-	<%= f.file_field :attachments, multiple: true, name: 'bottle[attachments_attributes][]' %>
+	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
+	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
-	<div class='form-group'>
-		<span class='col-xs-2 control-label bold'>Fill Point</span>
-		<div class='col-xs-2'>
-			<%= f.text_field :fill_point, class: 'form-control col-xs-2' %>
-		</div>
-		<div class='col-xs-2'>
-			<%= f.select :fill_point_units, @klass.spec_select_options, {}, class: 'form-control' %>
-		</div>
-	</div>
+	<%= render partial: 'fill_point', locals: { :klass => @klass, :f => f } %>
 <% elsif @klass == Capsule %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
 	<%= f.input :material %>
 	<%= f.input :color %>
-	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
+	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
+	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
-	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
 <% elsif @klass == Shipper %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
-	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
+	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
+	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
 	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
-	<%= render partial: "/packaging_components/product_image_form_row", locals: { :klass => @klass, :f => f } %>
-	<%= render partial: "product_assets", locals: { :klass => @klass, :f => f } %>
 <% elsif [Cork, Screwcap].include? @klass %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
 	<%= f.input :material %>
 	<%= f.input :color %>
-	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
+	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
+	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 <% elsif [FrontLabel, BackLabel].include? @klass %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
@@ -44,21 +36,14 @@
 		<%= f.input :label_alc, label: "Label Alc" %>
 		<%= f.input :upc, label: "UPC" %>
 	<% end %>
+	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
+	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 	<%= f.input :material, label: "Paper Stock" %>
-	<%= render partial: "/partials/avatar_form_upload", :locals => { :object => @packaging_component, :f => f } %>
 	<%= f.input :label_treatment, label: "Treatment" %>
 	<%= f.input :label_rewind, label: "Rewind" %>
 	<%= f.input :label_cut, label: "Cut" %>
-	<div class='form-group'>
-		<span class='col-xs-2 control-label bold'>Label Position</span>
-		<div class='col-xs-2'>
-			<%= f.text_field :label_position, class: 'form-control col-xs-2' %>
-		</div>
-		<div class='col-xs-2' id='label-position-units'>
-			<%= f.select :units, @klass.spec_select_options, {}, class: 'form-control', id: 'mirror-units', disabled: true %>
-		</div>
-	</div>
+	<%= render partial: 'label_position', locals: { :klass => @klass, :f => f } %>
 	<%=  %>
 <% end %>
 <%= f.button :submit, "#{@packaging_component.new_record? ? 'Create' : 'Update'} #{klass.to_s.titleize}", class: 'col-xs-offset-2 spacer' %>
