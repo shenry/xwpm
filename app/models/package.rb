@@ -17,12 +17,12 @@
 
 class Package < ActiveRecord::Base
   has_many    :projects
-  belongs_to  :closure
+  belongs_to  :closure, -> { includes :vendor }
 
-  belongs_to  :front_label, class_name: "Label", foreign_key: "front_label_id"
-  belongs_to  :back_label,  class_name: "Label", foreign_key: "back_label_id"
+  belongs_to  :front_label, -> { includes :vendor }, class_name: "Label", foreign_key: "front_label_id"
+  belongs_to  :back_label,  -> { includes :vendor }, class_name: "Label", foreign_key: "back_label_id"
   
-  belongs_to  :capsule
-  belongs_to  :bottle
-  belongs_to  :shipper
+  belongs_to  :capsule, -> { includes :vendor }
+  belongs_to  :bottle,  -> { includes :vendor }
+  belongs_to  :shipper, -> { includes :vendor }
 end

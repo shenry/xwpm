@@ -31,12 +31,14 @@ X::Application.routes.draw do
     resources :projects, shallow: true
   end
   
+  resources :projects, only: [:index, :show]
+  
   concern :firm do
     resources :customers
     resources :vendors
   end
   
-  resources :packages, :packaging_components, :wines, :projects, :customers, :vendors,
+  resources :packaging_components, :wines, :customers, :vendors,
             :bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels, :shippers
   
   devise_for :users

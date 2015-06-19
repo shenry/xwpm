@@ -31,7 +31,7 @@
 				<td><%= firm.contact_phone %></td>
 				<td><%= firm.one_line_address %></td>
 				<% if @klass == Customer %>
-					<td><%= firm.projects.size %></td>
+					<td><%= firm.projects.active.count %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
 				<% end %>
 			</tr>			

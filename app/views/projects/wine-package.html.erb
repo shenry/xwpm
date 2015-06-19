@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Wine Attributes</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<span class="col-xs-2 control-label bold">Wine</span>
+			<div class="col-xs-4">
+				<%= f.input_field :wine_id, collection: Wine.order(:sample_number).map { |w| [w.to_s, w.id] }, include_blank: "Select Wine", class: "form-control", id: "wine-select" %>
+			</div><span class="control-label pull-left">Or <a href="#" id="create-wine-link">Create New Wine</a></span>
+		</div>
+		<div id="create-wine-form">
+			<%= f.fields_for :wine, Wine.new do |wine| %>
+				<%= wine.input :sample_number, label: "Sample Number" %>
+				<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :vintage } %>
+				<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :variety } %>
+				<%= render partial: "wines/wine_attributes", locals: { :wine => wine, :attribute => :appellation } %>
+				<%= wine.input :treatments, placeholder: "Pre-bottling additions" %>
+				<%= wine.input :description, placeholder: "Notes for back-label copy" %>
+				<%= wine.input :cost_per_gallon, label: "$/Gal" %>
+			<% end %>
+		</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">Package Attributes</div>
+<div class="panel-body">
+	<div class="form-group">
+		<span class="col-xs-2 control-label bold">Package</span>
+		<div class="col-xs-4">
+			<%= f.input_field :package_id, collection: Package.order(:created_at).map { |p| [p.description, p.id] }, include_blank: "Select Package", class: "form-control", id: "package-select" %>
+		</div><span class="control-label pull-left">Or <a href="#" id="create-package-link">Create New Package</a></span>
+	</div>
+	<div id="create-package-form">
+		<%= f.fields_for :package, Package.new do |package| %>
+			<%= package.input :bottle_id, collection: Bottle.all.includes(:vendor).map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>
+			<div class="form-group">
+				<span class="col-xs-2 control-label bold">Closure</span>
+				<div class="col-xs-4">
+					<%= package.select :closure_id, grouped_options_for_select(Closure.grouped_children), {include_blank: "Select Closure"}, class: "form-control" %>
+				</div>
+			</div>
+			<%= package.input :capsule_id, collection: Capsule.all.map { |c| [c.to_s, c.id] }, include_blank: "Select Capsule" %>
+			<%= package.input :front_label_id, collection: FrontLabel.all.map { |f| [f.to_s, f.id] }, include_blank: "Select Front Label" %>
+			<%= package.input :back_label_id, collection: BackLabel.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Back Label" %>
+			<%= package.input :shipper_id, collection: Shipper.all.map { |s| [s.to_s, s.id] }, include_blank: "Select Shipper" %>
+		<% end %>
+	</div>
+</div>
+</div>
+
+				<label class="control-label bold pull-left pad-right" for="project_has_capsule">No Capsule?</label>
+				<div class="col-xs-2">
+					<%= f.input :has_capsule, label: "" %>
+				</div>

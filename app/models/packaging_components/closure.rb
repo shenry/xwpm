@@ -32,11 +32,24 @@
 
 class Closure < PackagingComponent
   belongs_to  :vendor
-  has_many    :packages
+  has_many    :projects
   
   validates :material, :color, presence: true
+  
+  def self.grouped_children(sort=nil)
+    sort ||= :created_at
+    corks = Cork.order(sort)
+    screwcaps = Screwcap.order(sort)
+    output = []
+    cork_array = corks.map { |c| [c.to_s, c.id] }
+    screwcap_array = screwcaps.map { |s| [s.to_s, s.id] }
+    output << ["Corks", cork_array]
+    output << ["Screwcaps", screwcap_array]
+    output
+  end
   
   def spec_code
     item_identifier || ""
   end
+  
 end

@@ -40,17 +40,21 @@
 	</div>
 </div>
 <div class='row subordinate'>
-	<% i = 0 %>
-	<% @associated_collection.each do |key, value| %>
-		<% @components = value %>
-		<div class="row spacer <%= i == 0 ? 'break' : '' %>">
-			<div class='col-xs-12'>
-				<h1><%= key.titleize.pluralize %></h1>
+	<% if @associated_collection.is_a? Hash %>
+		<% i = 0 %>
+		<% @associated_collection.each do |key, value| %>
+			<% @components = value %>
+			<div class="row spacer <%= i == 0 ? 'break' : '' %>">
+				<div class='col-xs-12'>
+					<h1><%= key.titleize.pluralize %></h1>
+				</div>
 			</div>
-		</div>
-		<div class='row'>
-			<%= render partial: "/packaging_components/packaging_components_table", locals: { components: @components } %>
-		</div>
-		<% i += 1 %>
+			<div class='row'>
+				<%= render partial: "/packaging_components/packaging_components_table", locals: { components: @components } %>
+			</div>
+			<% i += 1 %>
+		<% end %>
+	<% else %>
+	
 	<% end %>
 </div>

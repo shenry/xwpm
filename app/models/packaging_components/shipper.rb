@@ -32,7 +32,7 @@
 
 class Shipper < PackagingComponent
   belongs_to    :vendor
-  has_many      :packages
+  has_many      :projects
   before_create :set_defaults
   
   def self.capacity_select_options

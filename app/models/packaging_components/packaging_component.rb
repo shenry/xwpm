@@ -31,7 +31,7 @@
 #
 
 class PackagingComponent < ActiveRecord::Base
-  belongs_to  :vendor
+  belongs_to  :vendor, inverse_of: :packaging_components
   has_many    :attachments, as: :parent, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true
   
@@ -114,6 +114,10 @@ class PackagingComponent < ActiveRecord::Base
   def material_code
     return "" unless self.material
     material_code_table[self.material.downcase] || self.material[0..2].upcase
+  end
+  
+  def to_s
+    vendor.name + " - " + code
   end
   
   private

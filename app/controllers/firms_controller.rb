@@ -28,10 +28,14 @@ class FirmsController < ApplicationController
     end
     @firm       = @klass.includes(association).find(params[:id])
     objects     = @firm.send(association)
-    types       = objects.collect(&:type).uniq
-    @associated_collection = Hash.new
-    types.each do |type|
-      @associated_collection[type] = objects.select { |c| c.type == type }
+    if association == :packaging_components
+      types       = objects.collect(&:type).uniq
+      @associated_collection = Hash.new
+      types.each do |type|
+        @associated_collection[type] = objects.select { |c| c.type == type }
+      end
+    else
+      @associated_collection = objects
     end
     respond_to do |wants|
       wants.html # show.html.erb

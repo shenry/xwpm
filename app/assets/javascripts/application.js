@@ -23,6 +23,9 @@
 //= require jquery.fileupload
 //= require cloudinary/jquery.cloudinary
 	
+//= require moment
+//= require bootstrap-datetimepicker
+	
 
 $(function() {
 	$("#specs-form-control").change(function(){
@@ -74,5 +77,8 @@ $(document).ready( function() {
 			} else {
 				$("#create-wine-form").hide();
 			}
+		});
+		$("#project_has_capsule").change(function(){
+			$("#project_capsule_id").prop("disabled", function(i, v) { return !v });
 		});
 });

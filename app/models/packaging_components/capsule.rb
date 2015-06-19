@@ -1,4 +1,5 @@
 class Capsule < PackagingComponent
+  has_many  :projects
   
   def spec_code
     if self.height == "55" && self.units == "mm"

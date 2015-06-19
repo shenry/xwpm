@@ -1,38 +1,44 @@
 <div class='row'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1>Projects</h1>
+			<h1><%= @customer ? @customer.name : "All" %> Projects</h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
-			<%= link_to "New Project", new_project_path %>
+			<% if @customer %>
+				<%= link_to "New #{@customer.name} Project", new_customer_project_path(@customer) %>
+			<% end %>
 		</div>
 	</div>
 </div>
 <div class='row'>
-	<table class='table'>
+	<table class='table table-striped'>
 		<tr>
 			<th>Project Number</th>
-			<th>Customer</th>
-			<th>Contact</th>
+			<% unless @customer %>
+				<th>Customer</th>
+			<% end %>
 			<th>Brand</th>
-			<th>Bottling Date</th>
+			<th>Variety</th>
 			<th>Cases</th>
+			<th>Bottling Date</th>
+			<th>Wine</th>
 			<th>Actions</th>
 			<th>Status</th>
 		</tr>
-		<tbody>
-			<% for project in @projects %>
-			<tr class='table-striped'>
-				<td><%= project.project_number %></td>
-				<td><%= project.customer.name %></td>
-				<td><a link_to="mailto:#{<%= project.customer.contact_email %>}"><%= project.customer.contact_name %></a></td>
-				<td><%= project.brand %></td>
-				<td><%= project.bottling_date %></td>
-				<td><%= project.target_cases %></td>
-				<td>#TODO</td>
-				<td>#TODO</td>
-			</tr>
+		<% for project in @projects %>
+		<tr class='table-striped'>
+			<td><%= link_to project.project_number, project_path(project) %></td>
+			<% unless @customer %>
+				<td><%= link_to project.customer.name, controller: "customers", action: "show", id: project.customer %></td>
 			<% end %>
-		</tbody>
+			<td><%= project.brand %></td>
+			<td><%= project.variety %></td>
+			<td><%= project.target_cases %></td>
+			<td><%= project.bottling_date %></td>
+			<td><%= project.wine.to_s %></td>
+			<td>#TODO</td>
+			<td>#TODO</td>
+		</tr>
+		<% end %>
 	</table>
 </div>

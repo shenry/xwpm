@@ -21,7 +21,7 @@
 #
 
 class Vendor < Firm
-  has_many :packaging_components
+  has_many :packaging_components, inverse_of: :vendor
   
   validates :code, presence: true
   
