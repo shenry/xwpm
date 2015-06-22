@@ -16,6 +16,7 @@
 #
 
 class Project < ActiveRecord::Base
+  include ProjectsHelper
   # belongs_to  :package
   belongs_to  :closure
   belongs_to  :capsule
@@ -30,12 +31,18 @@ class Project < ActiveRecord::Base
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, presence: true
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
+  validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past
 
   scope     :active, -> { where("bottling_date >= ?", Date.today) }
   
+  def materials
+    arr = [self.bottle, self.closure, self.capsule, self.front_label, self.back_label, self.shipper]
+    arr.compact!
+  end
+    
   def formatted_bottling_date
-    bottling_date.strftime("%m/%d/%y")
+    bottling_date.strftime(BOTTLING_DATE_FORMAT_STRING)
   end
   
   def to_s
@@ -47,7 +54,26 @@ class Project < ActiveRecord::Base
     front_label.label_alc
   end
   
+  def front_label_position
+    formatted_label_position(:front_label)
+  end
+  
+  def back_label_position
+    formatted_label_position(:back_label)
+  end
+  
+  def label_info_for_type(type)
+    return "N/A" if self.send(type).nil?
+    self.send(type).material + " - " + self.send(type).specs
+  end
+  
   private
+  
+  def formatted_label_position(type)
+    return "N/A" if self.send(type).nil?
+    self.send(type).label_position + "mm"
+  end
+  
   def format_project_number
     unless project_number.match(/\A\d{2}\-\d{2}\w?\z/)
       match = project_number.match(/\A(\d{2})\-?(\d{2})(\w?)\z/)

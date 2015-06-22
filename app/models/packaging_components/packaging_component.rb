@@ -41,6 +41,10 @@ class PackagingComponent < ActiveRecord::Base
   
   before_save :upcase_item_identifier, :generate_code
   
+  def description
+    [vendor.name, material, self.model_name.to_s.titleize, specs, capacity_string(false)].join(" ")
+  end
+  
   def self.width_or_diameter
     return "diameter" if [Cork, Capsule, Bottle].include? self
     "width"
@@ -77,12 +81,12 @@ class PackagingComponent < ActiveRecord::Base
     output
   end
   
-  def capacity_string
+  def capacity_string(option=true)
     if self.is_a? Bottle 
       "#{capacity} #{capacity_units}"
     elsif self.is_a? Shipper
       "#{capacity} x #{capacity_units}"    
-    else
+    elsif option == true
       raise "Only Bottles and Shippers can have a capacity."
     end
   end
@@ -107,6 +111,10 @@ class PackagingComponent < ActiveRecord::Base
     shape_code_table[self.shape.downcase] || self.shape[0..2].upcase
   end
   
+  def color_class
+    
+  end
+  
   def spec_code
     super
   end
@@ -120,7 +128,17 @@ class PackagingComponent < ActiveRecord::Base
     vendor.name + " - " + code
   end
   
+  def controller_class
+    self.class.to_s.underscore.downcase.pluralize
+  end
+  
   private
+  
+  def save_corks_and_screwcaps_as_closures
+    self.type = "Closure" if self.is_a? Cork
+    self.type = "Closure" if self.is_a? Screwcap
+  end
+  
   def upcase_item_identifier
     self.item_identifier.upcase!
   end

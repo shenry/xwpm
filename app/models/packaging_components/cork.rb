@@ -4,4 +4,8 @@ class Cork < Closure
     super
     self.closure_type = "Cork"
   end
+  
+  def color_class
+    "bg-warning" # yellow
+  end
 end

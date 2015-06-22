@@ -43,6 +43,8 @@ X::Application.routes.draw do
   
   devise_for :users
   
+  get "/projects/:id/remove/:association", to: "projects#remove", as: :remove_component
+  
   root "projects#index"
 
   namespace :admin do

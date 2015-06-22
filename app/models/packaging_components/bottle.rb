@@ -47,6 +47,10 @@ class Bottle < PackagingComponent
     ['mL', 'L', 'oz']
   end
   
+  def color_class
+    "bg-success" #green
+  end
+  
   # def to_s
   #   vendor.name + " - " + code
   # end

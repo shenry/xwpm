@@ -8,6 +8,10 @@
 		<td><%= link_to @project.customer.name, customer_path(@project.customer) %></td>
 	</tr>
 	<tr>
+		<td>Bottling Date</td>
+		<td><%= @project.formatted_bottling_date %></td>
+	</tr>
+	<tr>
 		<td>Bottling Location</td>
 		<td>#TODO</td>
 	</tr>
@@ -17,7 +21,7 @@
 	</tr>
 	<tr>
 		<td>Cases to Bottle</td>
-		<td><%= @project.target_cases %></td>
+		<td><%= number_with_delimiter(@project.target_cases, delimiter: ",") %></td>
 	</tr>
 	<tr>
 		<td>Brand Name</td>

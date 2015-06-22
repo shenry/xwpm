@@ -1,3 +1,3 @@
 class LabelsController < PackagingComponentsController
-  
+
 end

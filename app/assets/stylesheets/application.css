@@ -76,6 +76,8 @@ table.no-top-border th { border-top: none !important;}
 .thumb-delete-warning { color: red; }
 .table-head-link { vertical-align: bottom !important; font-weight: normal; }
 h3.title { margin-bottom: 0px; }
+table .form-group { margin-bottom: 0px; }
+tr.tinted-row td { border-color: #fff !important;}
 
 .btn-file {
   position: relative;

@@ -4,4 +4,8 @@ class Screwcap < Closure
     super
     self.closure_type = "Screwcap"
   end
+  
+  def color_class
+    "bg-warning" # yellow
+  end
 end

@@ -1,15 +1,41 @@
-<div class="row">
+<div class="row spacer">
 	<div class="row-same-height">
 		<div class="col-xs-8 col-xs-height"><h1><%= @project.to_s %></h1></div>
 		<div class="col-xs-4 col-xs-height pull-right"></div>
 	</div>
 </div>
-<div class="row">
+<div class="row spacer">
 	<div class="col-xs-6">
 		<%= render partial: "general_info_table", locals: { :project => @project } %>
 	</div>
 	<div class="col-xs-6">
 		<%= render partial: "wine_info_table", locals: { :project => @project } %>
 		<%= render partial: "label_info_table", locals: { :project => @project } %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<th class="col-xs-3"><h3 class="title">Materials</h3></th>
+				<th class="col-xs-6">&nbsp;</th>
+				<th class="col-xs-3">&nbsp;</th>
+			</tr>
+			<tr>
+				<td class="bold">Item Code</td>
+				<td class="bold">Description</td>
+				<td class="bold">Actions</td>
+			</tr>
+			<% @project.materials.each do |item| %>
+				<tr class="tinted-row <%= item.color_class %>">
+					<td><%= link_to item.code, controller: item.controller_class, action: "show", id: item.id %></td>
+					<td><%= item.description %></td>
+					<td>
+						<%= link_to "Edit", controller: item.controller_class, action: "edit", id: item.id %> | 
+						<%= link_to "Remove", remove_component_path(@project, item.model_name.to_s.underscore.downcase) %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
 	</div>
 </div>

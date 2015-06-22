@@ -1,6 +1,54 @@
 <table class="table table-responsive no-top-border">
 	<tr>
-		<th class="col-xs-3"><h3>Label Info</h3></th>
-		<th class="col-xs-3 table-head-link"></th>
+		<th class="col-xs-3"><h3 class="title">Label Info</h3></th>
+		<th class="col-xs-3 table-head-link">
+			<span class="pull-right">
+			<% if @project.front_label %>
+				<%= link_to "Edit Front", edit_front_label_path(@project.front_label) %>
+			<% end %>
+			<% if @project.front_label && @project.back_label %> | <% end %>
+			<% if @project.back_label %>
+				<%= link_to "Edit Back", edit_back_label_path(@project.back_label) %>
+			<% end %>
+			</span>
+		</th>
 	</tr>
+	<% if @project.front_label %>
+		<tr>
+			<td>Front Label Placement</td>
+			<td><%= @project.front_label_position %></td>
+		</tr>
+	<% end %>
+	<% if @project.back_label %>
+		<tr>
+			<td>Back Label Placement</td>
+			<td><%= @project.back_label_position %></td>
+		</tr>
+	<% end %>
+	<% if @project.front_label.nil? %>
+		<tr>
+			<td colspan="2">
+				<div class="col-xs-9 form-group">
+					<%= simple_form_for @project, url: project_path(@project), wrapper: :inline_form do |f| %>
+						<%= f.input :front_label_id, collection: FrontLabel.all.map { |l| [l.to_s, l.id] }, include_blank: "Select Front Label",
+							 					label: :false, method: :put %>
+				</div>
+					<%= f.button :submit %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	<% if @project.back_label.nil? %>
+		<tr>
+			<td colspan="2">
+				<div class="col-xs-9 form-group">
+					<%= simple_form_for @project, url: project_path(@project), wrapper: :inline_form do |f| %>
+						<%= f.input :back_label_id, collection: BackLabel.all.map { |l| [l.to_s, l.id] }, include_blank: "Select Back Label",
+							 					label: :false, method: :put %>
+				</div>
+					<%= f.button :submit %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
 </table>

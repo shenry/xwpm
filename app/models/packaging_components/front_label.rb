@@ -32,8 +32,19 @@
 
 class FrontLabel < Label
 
+  validates :vendor_id, :label_alc, :height, :width, :units, :label_position, :label_treatment, :label_rewind, :label_cut, 
+            :artwork_source, presence: true
+
   def initialize(params=nil)
     super
     self.label_type = "FrontLabel"
+  end
+  
+  def spec_code
+    "specspec"
+  end
+  
+  def color_class
+    "bg-danger"
   end
 end

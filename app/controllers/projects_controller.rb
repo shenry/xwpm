@@ -45,12 +45,25 @@ class ProjectsController < ApplicationController
   
   def update
     @project = Project.find(params[:id])
+    date     = params[:project][:bottling_date]
     @project.update_attributes(project_params)
+    puts "updated projct = #{@project.inspect}"
+    @project.bottling_date = Date.strptime(date, ProjectsHelper::BOTTLING_DATE_FORMAT_STRING) if date
     if @project.save
       redirect_to project_path(@project)
     else
+      puts "errors: #{@project.errors.inspect}"
       render action: :edit
     end
+  end
+  
+  def remove
+    @project = Project.find(params[:id])
+    association = params[:association]
+    @project.send("#{association}=", nil)
+    @project.save
+    
+    redirect_to project_path(@project)
   end
   
   private
@@ -61,8 +74,8 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id, :package_id,
-                                    wine_attributes: [:sample_number, :vintage, :vintage_percent, :variety, :variety_percent, :appellation,
-                                      :appellation_percent, :treatments, :description, :cost_per_gallon])
+    params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
+                                    :bottle_id, :shipper_id, :closure_id, :capsule_id, :front_label_id, :back_label_id,
+                                    :bottling_date, :qb_code)
   end
 end

@@ -11,7 +11,6 @@ class PackagingComponentsController < ApplicationController
   
   def new
     @packaging_component = @klass.new
-    puts "image = #{@packaging_component.image.methods}"
     @vendors = Vendor.order(:name).map { |v| [v.id, v.name] }
   end
   
@@ -23,8 +22,10 @@ class PackagingComponentsController < ApplicationController
   
   def create
     @packaging_component = @klass.new(packaging_component_params)
-    
+    puts "packaging_component is a #{@packaging_component.class}"
     if @packaging_component.save
+      puts "................"
+      puts "now packaging_component is a #{@packaging_component.class}"
       flash[:notice] = "New #{@klass.to_s} successfully created."
       redirect_to action: 'index'
     else

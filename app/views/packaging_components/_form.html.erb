@@ -32,6 +32,7 @@
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
 <% elsif [FrontLabel, BackLabel].include? @klass %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
+	<%= f.input :artwork_source, label: "Artwork Source" %>
 	<% if @klass == FrontLabel %>
 		<%= f.input :label_alc, label: "Label Alc" %>
 		<%= f.input :upc, label: "UPC" %>
@@ -39,7 +40,7 @@
 	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'specs_form_row', locals: { :klass => @klass, :f => f } %>
-	<%= f.input :material, label: "Paper Stock" %>
+	<%= f.input :material, label: "Paper Type" %>
 	<%= f.input :label_treatment, label: "Treatment" %>
 	<%= f.input :label_rewind, label: "Rewind" %>
 	<%= f.input :label_cut, label: "Cut" %>

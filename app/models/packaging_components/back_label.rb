@@ -31,9 +31,17 @@
 #
 
 class BackLabel < Label
+  
+  def spec_code
+    "backback"
+  end
 
   def initialize(params=nil)
     super
     self.label_type = "BackLabel"
+  end
+  
+  def color_class
+    "bg-danger" #pink
   end
 end

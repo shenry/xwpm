@@ -10,4 +10,8 @@ class Capsule < PackagingComponent
     end
     output
   end
+  
+  def color_class
+    "bg-info" # light blue
+  end
 end

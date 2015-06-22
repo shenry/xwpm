@@ -25,27 +25,6 @@
 	
 //= require moment
 //= require bootstrap-datetimepicker
-	
-
-$(function() {
-	$("#specs-form-control").change(function(){
-		var text = $("#specs-form-control option:selected").text();
-		$("#mirror-units").val(text);
-	});
-})
-
-$(function() {
-	$(".thumb-delete").change(function(){
-		var id 		= $(this).attr('id');
-		var span	= $("span#" + id)
-		span.toggleClass("thumb-delete-warning");
-		if (span.text() == "Delete?") {
-			span.text("Delete!")
-		} else {
-			span.text("Delete?")
-		}
-	});
-})
 
 $(document).on('change', '.btn-file :file', function() {
   var input = $(this),
@@ -82,3 +61,22 @@ $(document).ready( function() {
 			$("#project_capsule_id").prop("disabled", function(i, v) { return !v });
 		});
 });
+$(function() {
+	$("#specs-form-control").change(function(){
+		var text = $("#specs-form-control option:selected").text();
+		$("#mirror-units").val(text);
+	});
+})
+
+$(function() {
+	$(".thumb-delete").change(function(){
+		var id 		= $(this).attr('id');
+		var span	= $("span#" + id)
+		span.toggleClass("thumb-delete-warning");
+		if (span.text() == "Delete?") {
+			span.text("Delete!")
+		} else {
+			span.text("Delete?")
+		}
+	});
+})
