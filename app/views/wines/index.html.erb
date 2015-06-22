@@ -20,7 +20,7 @@
 		</tr>
 		<% for wine in @wines %>
 			<tr>
-				<td><%= wine.sample_number %></td>
+				<td><%= link_to wine.sample_number, wine_path(wine) %></td>
 				<td><%= wine.vintage %> (<%= wine.vintage_percent %>%)</td>
 				<td><%= wine.variety %> (<%= wine.variety_percent %>%)</td>
 				<td><%= wine.appellation %> (<%= wine.appellation_percent %>%)</td>

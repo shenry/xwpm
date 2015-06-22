@@ -1,13 +1,13 @@
 <div class='form-group'>
 	<span class='col-xs-2 control-label bold'><%= controller_name.titleize.singularize %> Image</span>
 	<div class='col-xs-4'>
-		<% if @packaging_component.image %>
+		<% if @packaging_component.image.present? %>
 			<%= cl_image_tag(@packaging_component.image_url(:thumb), class: 'float-left pad-bottom file-input') %><br/>
 		<% end %>
 		<div class="input-group file-input">
 			<span class="input-group-btn">
 				<span class="btn btn-default btn-file">
-					<%= @packaging_component.image ? 'Replace' : 'Browse' %>&hellip;<%= f.file_field :image %>
+					<%= @packaging_component.image.present? ? 'Replace' : 'Browse' %>&hellip;<%= f.file_field :image %>
 				</span>
 			</span>
 			<input type="text" class="form-control" readonly>

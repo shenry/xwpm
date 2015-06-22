@@ -1,0 +1,7 @@
+<%= f.error_notification %>
+<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :vintage } %>
+<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :appellation } %>
+<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :variety } %>
+<%= f.input :alc %>
+<%= f.input :treatments %>
+<%= f.input :description %>

@@ -1,0 +1,35 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<th class="col-xs-3"><h3 class="title">Wine Info</h3></th>
+		<th class="col-xs-3 table-head-link">
+			<% if @project.wine %>
+				<%= link_to "Edit Wine", edit_wine_path(@project.wine), class: "pull-right" %></th>
+			<% end %>
+	</tr>
+	<% if @project.wine %>
+		<tr>
+			<td>Vintage</td>
+			<td><%= @project.wine.vintage %> (<%= @project.wine.vintage_percent %>%)</td>
+		</tr>
+		<tr>
+			<td>Varietal</td>
+			<td><%= @project.wine.variety %> (<%= @project.wine.variety_percent %>%)</td>
+		</tr>
+		<tr>
+			<td>Appellation</td>
+			<td><%= @project.wine.appellation %> (<%= @project.wine.appellation_percent %>%)</td>
+		</tr>
+	<% else %>
+		<tr>
+			<td colspan="2">
+				<div class="form-group col-xs-9">
+					<%= simple_form_for @project, url: project_path(@project), wrapper: :inline_form do |f| %>
+						<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
+							 	include_blank: "Select Wine", label: false, method: :put %>
+				</div>
+				<%= f.button :submit	 %>
+			</td>
+		</tr>
+		<% end %>
+	<% end %>
+</table>

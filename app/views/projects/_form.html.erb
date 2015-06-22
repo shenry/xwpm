@@ -1,0 +1,64 @@
+<%= f.error_notification %>
+<%= f.input :project_number %>
+<%= f.input :brand, input_html: {class: "chosen-select", id: "autocomplete-brand"} %>
+<%= f.input :variety %>
+<%= f.input :winemaker %>
+<%= f.input :target_cases, label: "Target Cases" %>
+<div class="form-group">
+	<div class="col-xs-2 control-label bold">Bottling Date</div>
+	<div class="col-xs-4">
+		<div class="input-group date" id="date-picker">
+			<%= f.input_field :bottling_date, as: :string, class: "form-control" %>
+			<span class="input-group-addon">
+				<span class="glyphicon glyphicon-calendar"></span>
+			</span>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function () {
+			$("#date-picker").datetimepicker({
+				format: "MM/DD/YY"
+			});
+		});
+	</script>
+</div>
+<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
+	 					include_blank: "Select Wine", label: "Wine" %>
+<%= f.input :qb_code, label: "QB Code" %>
+<%= f.input :bottle_id, collection: Bottle.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>
+<div class="form-group">
+	<span class="col-xs-2 control-label bold">Closure</span>
+	<div class="col-xs-4">
+		<%= f.select :closure_id, grouped_options_for_select(Closure.grouped_children), {include_blank: "Select Closure"}, class: "form-control" %>
+	</div>
+</div>
+<div class="form-group">
+	<span class="col-xs-2 control-label bold">Capsule</span>
+	<div class="col-xs-4">
+		<%= f.input_field :capsule_id, collection: Capsule.all.map { |c| [c.to_s, c.id] }, include_blank: "Select Capsule",
+			 	class: "form-control" %>
+	</div>
+	<div class="checkbox col-xs-2">
+		<label>
+			<input type="checkbox" name="project[has_capsule]" id="project_has_capsule">No Capsule?
+		</label>
+	</div>
+</div>
+<%= f.input :front_label_id, collection: FrontLabel.all.map { |f| [f.to_s, f.id] }, include_blank: "Select Front Label" %>
+<%= f.input :back_label_id, collection: BackLabel.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Back Label" %>
+<script type="text/javascript">
+	var brands 				= <%= raw @brands.to_json %>
+	var varieties 		= <%= raw @varieties.to_json %>
+	var appellations 	= <%= raw @appellations.to_json %>
+	$(document).ready(function(){
+		$("#autocomplete-brand").autocomplete({
+			lookup: brands
+		});
+		$("#autocomplete-variety").autocomplete({
+			lookup: varieties
+		});
+		$("#autocomplete-appellation").autocomplete({
+			lookup: appellations
+		});
+	});
+</script>		

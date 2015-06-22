@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619202519) do
+ActiveRecord::Schema.define(version: 20150619223300) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 20150619202519) do
     t.integer  "back_label_id"
     t.integer  "shipper_id"
     t.boolean  "has_capsule",    default: false, null: false
+    t.string   "vintage"
+    t.string   "appellation"
   end
 
   add_index "projects", ["back_label_id"], name: "index_projects_on_back_label_id"

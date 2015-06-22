@@ -75,7 +75,11 @@
 						<div class='row'>
 							<% group.compact.each do |attachment| %>
 								<div class='col-xs-4'>
-									<%= cl_image_tag(attachment.asset_url) %>
+									<%= link_to cl_image_tag(attachment.asset_url), attachment.asset_url %>
+									<div class="attachment-attr">
+										<span class="attachment-title"><%= attachment.title %>&nbsp;</span>
+										<%= attachment.description %>
+									</div>
 								</div>
 							<% end %>							
 						</div>
@@ -88,7 +92,7 @@
 	</div>
 	<div class='col-xs-4'>
 		<% if @packaging_component.image? %>
-			<%= cl_image_tag(@packaging_component.image_url(:sidebar)) %>
+			<%= link_to cl_image_tag(@packaging_component.image_url(:sidebar)), @packaging_component.image_url %>
 		<% end %>
 	</div>
 </div>

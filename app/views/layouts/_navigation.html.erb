@@ -1,4 +1,4 @@
-<%= nav_bar responsive: true, brand: "X Winery PM" do %>
+<%= nav_bar responsive: true, fixed: :top, brand: "X Winery PM" do %>
 	<%= menu_group do %>
 		<% if user_signed_in? %>
 			<%= menu_item 'Projects', root_path %>

@@ -1,2 +1,14 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<div class="row">
+	<div class="col-xs-12">
+		<h1>Edit <%= @project.customer.name %> Project</h1>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 container">
+		<%= simple_form_for @project, url: project_path(@project), html: { class: "form-horizontal" }, method: :put do |f| %>
+			<%= render partial: "form", locals: { :f => f } %>
+			<%= f.button :submit, "Update Project", class: "col-xs-offset-2 spacer" %>
+		<% end %>
+	</div>
+</div>

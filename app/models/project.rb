@@ -34,8 +34,17 @@ class Project < ActiveRecord::Base
 
   scope     :active, -> { where("bottling_date >= ?", Date.today) }
   
-  def bottling_date
-    read_attribute(:bottling_date).strftime("%m/%d/%y")
+  def formatted_bottling_date
+    bottling_date.strftime("%m/%d/%y")
+  end
+  
+  def to_s
+    "#{vintage} #{brand} #{variety}"
+  end
+  
+  def label_alc
+    return "TBD" if front_label.nil?
+    front_label.label_alc
   end
   
   private
@@ -43,7 +52,7 @@ class Project < ActiveRecord::Base
     unless project_number.match(/\A\d{2}\-\d{2}\w?\z/)
       match = project_number.match(/\A(\d{2})\-?(\d{2})(\w?)\z/)
       str   = "#{match[1]}-#{match[2]}#{match[3].upcase}"
-      project_number = str
+      self.project_number = str
     end
   end
   

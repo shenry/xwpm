@@ -11,6 +11,7 @@ class PackagingComponentsController < ApplicationController
   
   def new
     @packaging_component = @klass.new
+    puts "image = #{@packaging_component.image.methods}"
     @vendors = Vendor.order(:name).map { |v| [v.id, v.name] }
   end
   

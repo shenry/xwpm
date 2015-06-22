@@ -1,0 +1,50 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<th class="col-xs-3"><h3 class="title">General Info</h3></th>
+		<th class="col-xs-3 table-head-link"><%= link_to "Edit Project", edit_project_path(@project), class: "pull-right" %></th>
+	</tr>
+	<tr>
+		<td>Customer</td>
+		<td><%= link_to @project.customer.name, customer_path(@project.customer) %></td>
+	</tr>
+	<tr>
+		<td>Bottling Location</td>
+		<td>#TODO</td>
+	</tr>
+	<tr>
+		<td>Bottler</td>
+		<td>#TODO</td>
+	</tr>
+	<tr>
+		<td>Cases to Bottle</td>
+		<td><%= @project.target_cases %></td>
+	</tr>
+	<tr>
+		<td>Brand Name</td>
+		<td><%= @project.brand %></td>
+	</tr>
+	<tr>
+		<td>Project Number</td>
+		<td><%= @project.project_number %></td>
+	</tr>
+	<tr>
+		<td>QB Code</td>
+		<td><%= @project.qb_code %></td>
+	</tr>
+	<tr>
+		<td>Vintage</td>
+		<td><%= @project.vintage %></td>
+	</tr>
+	<tr>
+		<td>Varietal</td>
+		<td><%= @project.variety %></td>
+	</tr>
+	<tr>
+		<td>Appellation</td>
+		<td><%= @project.appellation %></td>
+	</tr>
+	<tr>
+		<td>Label/Actual %ABV</td>
+		<td><%= @project.label_alc %>% / <%= @project.wine.alc %>%</td>
+	</tr>
+</table>

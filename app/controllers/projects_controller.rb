@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
+    @project = Project.includes(:wine, :customer).find(params[:id])
   end
 
   def index
@@ -37,6 +38,19 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = Project.find(params[:id])
+    @project.bottling_date = @project.formatted_bottling_date
+    puts "@project = #{@project.inspect}"
+  end
+  
+  def update
+    @project = Project.find(params[:id])
+    @project.update_attributes(project_params)
+    if @project.save
+      redirect_to project_path(@project)
+    else
+      render action: :edit
+    end
   end
   
   private

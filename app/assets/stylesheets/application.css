@@ -67,12 +67,15 @@ td.image-table-thumb img { float: left; padding-bottom: 4px; }
 
 table#attachments-table-edit { width: 100%; }
 table#attachments-table-edit td { vertical-align: top;}
+table.no-top-border th { border-top: none !important;}
 .file-input { margin-top: 7px; }
 .top-cell { padding: 20px 0px 8px 0px; border-top: 1px solid #cdcdcd; }
 .field-cell { padding-left: 8px; }
 .attachments-upload-row { padding-bottom: 20px; }
 .delete-checkbox { width: 100%; text-align: center; margin-top: 8px; clear: left; }
 .thumb-delete-warning { color: red; }
+.table-head-link { vertical-align: bottom !important; font-weight: normal; }
+h3.title { margin-bottom: 0px; }
 
 .btn-file {
   position: relative;
@@ -101,7 +104,5 @@ input[readonly] {
 
 #create-wine-form { display: none; }
 
-/*.thumb-tile { padding: 5px 5px 10px 5px; border: 1px solid #aaa; margin-right: 20px; float: left; line-height: 0px; text-align: center; }
-.thumb-tile img { margin-bottom: 5px; border: 1px solid #888; }
-.thumb-delete-warning { background: #ff9980; border: 1px solid #E68A73; }
-.thumb-delete-warning img { border: 1px solid #E68A73; }*/
+.attachment-attr { color: #707070;}
+.attachment-title { color: #505050; font-weight: bold; }

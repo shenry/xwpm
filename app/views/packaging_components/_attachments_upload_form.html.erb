@@ -1,7 +1,9 @@
 <div class='form-group'>
 	<div class="col-xs-2 control-label">
 		<span class="bold">Attachments</span><br/>
-		<span class="minor">Check box to delete</span>
+		<% unless @packaging_component.attachments.empty? %>
+			<span class="minor">Check box to delete</span>
+		<% end %>
 	</div>
 	<div class='col-xs-4'>
 		<div class="input-group file-input">

@@ -1,2 +1,15 @@
-<h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+<div class="row">
+	<div class="row-same-height">
+		<div class="col-xs-8 col-xs-height"><h1><%= @project.to_s %></h1></div>
+		<div class="col-xs-4 col-xs-height pull-right"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<%= render partial: "general_info_table", locals: { :project => @project } %>
+	</div>
+	<div class="col-xs-6">
+		<%= render partial: "wine_info_table", locals: { :project => @project } %>
+		<%= render partial: "label_info_table", locals: { :project => @project } %>
+	</div>
+</div>

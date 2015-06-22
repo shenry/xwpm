@@ -4,6 +4,36 @@ class WinesController < ApplicationController
     @wines = Wine.includes(:projects).order("sample_number DESC").page(params[:page] || 1)
   end
   
+  def show
+    @wine = Wine.find(params[:id])
+  end
+  
+  def new
+    @wine = Wine.new
+  end
+  
+  def create
+    @wine = Wine.new(wine_params)
+    if @wine.save
+      render action: :index
+    else
+      redirect_to new_wine_path(@wine)
+    end
+  end
+  
+  def edit
+    @wine = Wine.find(params[:id])
+  end
+  
+  def update
+    @wine = Wine.find(params[:id])
+    if @wine.save
+      redirect_to action: :index
+    else
+      render edit_wine_path(@wine)
+    end
+  end
+  
   
   private
   def wine_params

@@ -13,14 +13,16 @@
 <div class='row'>
 	<table class='table table-striped'>
 		<tr>
-			<th>Project Number</th>
+			<th class="col-sm-1">Project Number</th>
 			<% unless @customer %>
 				<th>Customer</th>
 			<% end %>
 			<th>Brand</th>
+			<th>Vintage</th>
 			<th>Variety</th>
+			<th>Appellation</th>
 			<th>Cases</th>
-			<th>Bottling Date</th>
+			<th class="col-sm-1">Bottling Date</th>
 			<th>Wine</th>
 			<th>Actions</th>
 			<th>Status</th>
@@ -32,9 +34,11 @@
 				<td><%= link_to project.customer.name, controller: "customers", action: "show", id: project.customer %></td>
 			<% end %>
 			<td><%= project.brand %></td>
+			<td><%= project.vintage %></td>
 			<td><%= project.variety %></td>
+			<td><%= project.appellation %></td>
 			<td><%= project.target_cases %></td>
-			<td><%= project.bottling_date %></td>
+			<td><%= project.formatted_bottling_date %></td>
 			<td><%= project.wine.to_s %></td>
 			<td>#TODO</td>
 			<td>#TODO</td>
