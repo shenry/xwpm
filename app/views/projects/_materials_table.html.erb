@@ -1,0 +1,24 @@
+<div class="col-xs-12">
+	<table class="table table-responsive no-top-border">
+		<tr>
+			<th class="col-xs-3"><h3 class="title">Materials</h3></th>
+			<th class="col-xs-6">&nbsp;</th>
+			<th class="col-xs-3">&nbsp;</th>
+		</tr>
+		<tr>
+			<td class="bold">Item Code</td>
+			<td class="bold">Description</td>
+			<td class="bold">Actions</td>
+		</tr>
+		<% @project.materials.each do |item| %>
+			<tr class="tinted-row <%= item.color_class %>">
+				<td><%= link_to item.code, controller: item.controller_class, action: "show", id: item.id %></td>
+				<td><%= item.description %></td>
+				<td>
+					<%= link_to "Edit", controller: item.controller_class, action: "edit", id: item.id %> | 
+					<%= link_to "Remove", remove_component_path(@project, item.model_name.to_s.underscore.downcase) %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>

@@ -2,15 +2,16 @@ class ProjectsController < ApplicationController
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
-    @project = Project.includes(:wine, :customer).find(params[:id])
+    @project = Project.includes(:wine, :customer, :comments).find(params[:id])
+    @comment = @project.comments.build(author_id: current_user.id)
   end
 
   def index
     if params[:customer_id]
-      @customer = Customer.includes(projects: [:wine]).find(params[:customer_id])
+      @customer = Customer.includes(:wine, :comments).find(params[:customer_id])
       @projects = @customer.projects
     else
-      @projects = Project.includes(:customer, :wine)
+      @projects = Project.includes(:customer, :wine, :comments)
     end
   end
 

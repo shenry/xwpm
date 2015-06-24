@@ -1,0 +1,7 @@
+$("#comments-list").append('<%= j render partial: 'projects/comment', :formats => :html, locals: { :comment => @comment } %>');
+$("#comment_body").val("");
+if ($("#comment_actionable").attr("checked", true)) {
+	$("#comment_actionable").attr("checked", false);
+	$("#new-comment-actionable").removeClass("text-success");
+	$("#new-comment-actionable").addClass("text-muted");
+}

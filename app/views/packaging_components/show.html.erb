@@ -4,7 +4,7 @@
 			<h1><%= @packaging_component.code %><% unless @packaging_component.item_identifier.blank? %> &nbsp;<small>(<%= @packaging_component.item_identifier %>)</small><% end %><br/><small><%= link_to @packaging_component.vendor.name, vendor_path(@packaging_component.vendor) %></small></h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
-			<%= link_to "Edit #{@klass.to_s.titleize}", controller: @klass.to_s.underscore.downcase.pluralize, action: 'edit', id: @packaging_component %>
+			<%= link_to "Edit #{@klass.to_s.titleize}", edit_polymorphic_path(@packaging_component) %>
 		</div>
 	</div>
 </div>

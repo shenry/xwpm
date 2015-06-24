@@ -27,6 +27,8 @@ class Project < ActiveRecord::Base
   belongs_to  :wine
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   
+  has_many    :comments, dependent: :destroy
+  
   before_save :format_project_number
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, presence: true

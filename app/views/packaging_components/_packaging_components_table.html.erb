@@ -32,10 +32,10 @@
 		</tr>
 		<% for component in @components %>
 		<tr>
-			<td><%= link_to cl_image_tag(component.image_url(:thumb)), controller: component.class.to_s.underscore.downcase.pluralize, action: "show", id: component.id %></td>
+			<td><%= link_to cl_image_tag(component.image_url(:thumb)), polymorphic_path(component) %></td>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
 			<% unless controller_name.include? 'labels' %>
-				<td><%= link_to component.code, controller: component.class.to_s.downcase.pluralize, action: 'show', id: component %></td>
+				<td><%= link_to component.code, polymorphic_path(component) %></td>
 			<% end %>
 			<% if controller_name == 'bottles' %>
 				<td><%= component.shape %></td>
@@ -58,9 +58,11 @@
 				<td><%= component.label_rewind %></td>
 			<% end %>
 			<td><%= component.specs %></td>	
-			<td><%= link_to "Edit", controller: component.class.to_s.underscore.downcase.pluralize, action: "edit", id: component.id %></td>
+			<td><%= link_to "Edit", edit_polymorphic_path(component) %></td>
 			<td>
-				<%= link_to "Delete", {controller: component.controller_class, action: "destroy", id: component.id}, {class: "btn btn-default btn-xs", method: :delete, data: { confirm: "Are you sure you want to delete this item? This cannot be undone."}} %>
+				<%= link_to "Delete", polymorphic_path(component), 
+						{class: "btn btn-default btn-xs", method: :delete, 
+						data: { confirm: "Are you sure you want to delete this item? This cannot be undone."}} %>
 			</td>
 		</tr>
 		<% end %>

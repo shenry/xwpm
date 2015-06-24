@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619223300) do
+ActiveRecord::Schema.define(version: 20150623033151) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -24,6 +24,22 @@ ActiveRecord::Schema.define(version: 20150619223300) do
   end
 
   add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "author_id"
+    t.text     "body",        default: "",    null: false
+    t.boolean  "actionable",  default: false, null: false
+    t.boolean  "resolved",    default: false, null: false
+    t.integer  "resolver_id"
+    t.datetime "resolved_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id"
+  add_index "comments", ["project_id"], name: "index_comments_on_project_id"
+  add_index "comments", ["resolver_id"], name: "index_comments_on_resolver_id"
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -174,6 +190,7 @@ ActiveRecord::Schema.define(version: 20150619223300) do
     t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name",                   default: "",    null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

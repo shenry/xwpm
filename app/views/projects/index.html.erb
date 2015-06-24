@@ -37,9 +37,9 @@
 			<td><%= project.vintage %></td>
 			<td><%= project.variety %></td>
 			<td><%= project.appellation %></td>
-			<td><%= project.target_cases %></td>
+			<td><%= number_with_delimiter(project.target_cases, delimiter: ",") %></td>
 			<td><%= project.formatted_bottling_date %></td>
-			<td><%= project.wine.to_s %></td>
+			<td><%= link_to project.wine.sample_number, wine_path(project.wine) %></td>
 			<td>#TODO</td>
 			<td>#TODO</td>
 		</tr>

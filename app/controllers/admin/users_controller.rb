@@ -25,6 +25,7 @@ class Admin::UsersController < Admin::BaseController
     new_params[:email] = new_params[:email].strip
 
     @user.email = new_params[:email]
+    @user.name  = new_params[:name]
     @user.password = new_params[:password] if new_params[:password].strip.length > 0
     @user.password_confirmation = new_params[:password_confirmation] if new_params[:password_confirmation].strip.length > 0
 
@@ -56,6 +57,7 @@ class Admin::UsersController < Admin::BaseController
   def user_params
     params.require(:user).permit(
     :email,
+    :name,
     :password,
     :password_confirmation,
     :admin,

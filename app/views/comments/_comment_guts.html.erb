@@ -1,0 +1,10 @@
+<span class="bold"><%= comment.author.name %></span>&nbsp;
+<span class="text-muted">(<%= comment.published_at %>)</span>&nbsp;
+<% if comment.resolved? %>
+	<span class="glyphicon glyphicon-check text-muted"></span>
+<% elsif comment.actionable?%>
+	<%= link_to "/clear-comment/#{comment.id}/from-project/#{@project.id}", :class => "complete-action", remote: true, :id => comment.id, :data => { :project_id => comment.project.id} do %>
+		<span class="glyphicon glyphicon-check text-success"></span>
+	<% end %>
+<% end %>
+<div class="clearfix"><%= comment.body %></div>

@@ -24,6 +24,8 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :authored_comments, class_name: "Comment", foreign_key: "author_id"
+  has_many :resolved_comments, class_name: "Comment", foreign_key: "resolver_id"
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

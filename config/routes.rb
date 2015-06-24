@@ -33,6 +33,10 @@ X::Application.routes.draw do
   
   # resources :projects, only: [:index, :show, :edit, :update]
   
+  get "/clear-comment/:comment_id/from-project/:project_id", controller: "comments", action: "complete_action"
+  
+  post "/clear-project-comment", controller: "comments", action: "complete_action"
+  
   concern :firm do
     resources :customers
     resources :vendors
@@ -40,6 +44,15 @@ X::Application.routes.draw do
   
   resources :packaging_components, :wines, :customers, :vendors,
             :bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels, :shippers
+            
+  resources :projects do
+    resources :comments
+  end
+  
+  resources :users do
+    resources :comments
+  end
+  
   
   devise_for :users
   
