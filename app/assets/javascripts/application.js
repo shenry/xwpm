@@ -26,7 +26,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 
-//= require comments
+
 
 $(document).on('change', '.btn-file :file', function() {
   var input = $(this),
@@ -65,14 +65,6 @@ $(document).ready( function() {
 		$("#comment_actionable").change(function(){
 			$("#new-comment-actionable").toggleClass("hidden");
 		});
-		// $(".complete-action").click(function(event){
-		// 	event.preventDefault();
-		// 	var commentID = $(this).attr("id");
-		// 	var projectID = $(this).attr("data-project-id");
-		// 	$.post("/clear-project-comment", { project_id: projectID, comment_id: commentID }).done(function(data){
-		// 		$("#comment-list").replaceWith("<p>what the fuck?!?!?!?!?!!?!?!??!</p>");
-		// 	});
-		// });
 	});
 $(function() {
 	$("#specs-form-control").change(function(){

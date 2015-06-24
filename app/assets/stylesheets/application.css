@@ -78,7 +78,9 @@ table.no-top-border th { border-top: none !important;}
 h3.title { margin-bottom: 0px; }
 table .form-group { margin-bottom: 0px; }
 tr.tinted-row td { border-color: #fff !important;}
-.comment { margin: 0 0 20px 0; } 
+.comment { margin: 0 0 20px 0; }
+.resolved-comment { text-decoration: line-through; }
+.comment-resolved-by { font-style: italic; font-size: 0.8em; float: right; }
 
 .btn-file {
   position: relative;

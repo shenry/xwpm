@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     if @comment.save
       respond_to do |wants|
         wants.html {redirect_to project_path(@project)}
-        wants.js { render partial: "complete_action" }
+        wants.js { render partial: "create_comment" }
       end
     else
       
@@ -16,17 +16,19 @@ class CommentsController < ApplicationController
     puts "********************************************************************************"
     puts "params are #{params.inspect}"
     @comment = Comment.find(params[:comment_id])
-    project = Project.find(params[:project_id])
-    if project.comments.include? @comment
+    @project = Project.find(params[:project_id])
+    if @project.comments.include? @comment
       begin
         @comment.actionable  = false
         @comment.resolved    = true
+        @comment.resolver    = current_user
+        @comment.resolved_at = Time.now
         @comment.save
       end
     end
     
     respond_to do |wants|
-      wants.js {}
+      wants.js { }
     end
   end
   

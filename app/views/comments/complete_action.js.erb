@@ -1,0 +1,6 @@
+var element = "#comment-<%= @comment.id %>-status";
+var parentDiv = "#comment-<%= @comment.id %>";
+var replace	= "<%= j render partial: '/projects/comment', :formats => :html, locals: { :comment => @comment } %>"
+$(element).removeClass("text-success");
+$(element).addClass("text-muted");
+$(parentDiv).replaceWith(replace);

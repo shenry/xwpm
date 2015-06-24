@@ -8,4 +8,7 @@ $(document).ready ->
 		).on "ajax:error", (e, xhr, status, error) ->
 			alert("error is " + error);
 			$("#comment-list").append "<p>Error</p>"
-			
+	
+$(".complete-action").on("ajax:success", (e, data, status, xhr) -> 
+	window.alert("data is " + data);
+);
