@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 
   def index
     if params[:customer_id]
-      @customer = Customer.includes(:wine, :comments).find(params[:customer_id])
+      @customer = Customer.includes(:projects).find(params[:customer_id])
       @projects = @customer.projects
     else
       @projects = Project.includes(:customer, :wine, :comments)
@@ -18,13 +18,10 @@ class ProjectsController < ApplicationController
   def new
     @customer = Customer.includes(:projects).find(params[:customer_id])
     @project = @customer.projects.build(:project_number => "")
-    # @project.wine = Wine.new
-    # @project.package = Package.new
   end
   
   def create
     @customer = Customer.find(params[:customer_id])
-    puts "Projects are #{Project.all.inspect}"
     unless params[:project][:wine_id].blank?
       params[:project].delete("wine_attributes")
     end
@@ -60,11 +57,15 @@ class ProjectsController < ApplicationController
   
   def remove
     @project = Project.find(params[:id])
-    association = params[:association]
-    @project.send("#{association}=", nil)
+    @association = params[:association]
+    @association = "closure" if ["cork", "screwcap"].include? @association
+    @project.send("#{@association}=", nil)
     @project.save
     
-    redirect_to project_path(@project)
+    respond_to do |wants|
+      wants.html { redirect_to project_path(@project) }
+      wants.js { }
+    end
   end
   
   private
@@ -76,7 +77,7 @@ class ProjectsController < ApplicationController
   
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
-                                    :bottle_id, :shipper_id, :closure_id, :capsule_id, :front_label_id, :back_label_id,
+                                    :bottle_id, :shipper_id, :closure, :closure_id, :capsule_id, :front_label_id, :back_label_id,
                                     :bottling_date, :qb_code)
   end
 end

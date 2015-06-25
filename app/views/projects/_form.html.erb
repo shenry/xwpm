@@ -26,12 +26,11 @@
 	 					include_blank: "Select Wine", label: "Wine" %>
 <%= f.input :qb_code, label: "QB Code" %>
 <%= f.input :bottle_id, collection: Bottle.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>
-<div class="form-group">
-	<span class="col-xs-2 control-label bold">Closure</span>
-	<div class="col-xs-4">
-		<%= f.select :closure_id, grouped_options_for_select(Closure.grouped_children), {include_blank: "Select Closure"}, class: "form-control" %>
-	</div>
-</div>
+<%= f.input :closure_id, 
+						as: :grouped_select, 
+						collection: PackagingComponent.grouped_closures, 
+						group_method: :last, 
+						include_blank: "Select Closure" %>
 <div class="form-group">
 	<span class="col-xs-2 control-label bold">Capsule</span>
 	<div class="col-xs-4">

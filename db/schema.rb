@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623033151) do
+ActiveRecord::Schema.define(version: 20150624152346) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20150623033151) do
     t.boolean  "has_capsule",    default: false, null: false
     t.string   "vintage"
     t.string   "appellation"
+    t.string   "closure_type"
   end
 
   add_index "projects", ["back_label_id"], name: "index_projects_on_back_label_id"

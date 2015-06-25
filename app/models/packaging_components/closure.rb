@@ -30,9 +30,11 @@
 #  artwork_source   :string
 #
 
-class Closure < PackagingComponent
-  belongs_to  :vendor
-  has_many    :projects
+class XClosure < PackagingComponent
+  # belongs_to  :vendor
+  # has_many    :projects
+  
+  before_save :set_type
   
   validates :material, :color, presence: true
   
@@ -50,6 +52,13 @@ class Closure < PackagingComponent
   
   def spec_code
     item_identifier || ""
+  end
+  
+  private
+  def set_type
+    # if [Cork, Screwcap].include? self.class
+    #   self.type = "Closure"
+    # end
   end
   
 end

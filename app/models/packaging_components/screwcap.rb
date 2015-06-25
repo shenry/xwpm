@@ -1,8 +1,9 @@
-class Screwcap < Closure
+class Screwcap < PackagingComponent
+  belongs_to  :vendor
+  has_many    :projects, as: :closure
   
-  def initialize(params=nil)
-    super
-    self.closure_type = "Screwcap"
+  def spec_code
+    
   end
   
   def color_class

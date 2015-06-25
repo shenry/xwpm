@@ -18,7 +18,7 @@
 class Project < ActiveRecord::Base
   include ProjectsHelper
   # belongs_to  :package
-  belongs_to  :closure
+  belongs_to  :closure, polymorphic: true
   belongs_to  :capsule
   belongs_to  :bottle
   belongs_to  :shipper
@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
   
   has_many    :comments, dependent: :destroy
   
-  before_save :format_project_number
+  before_save :format_project_number, :set_closure_type
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, presence: true
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
@@ -39,6 +39,7 @@ class Project < ActiveRecord::Base
   scope     :active, -> { where("bottling_date >= ?", Date.today) }
   
   def materials
+    puts "closure is #{self.closure}"
     arr = [self.bottle, self.closure, self.capsule, self.front_label, self.back_label, self.shipper]
     arr.compact!
   end
@@ -70,6 +71,12 @@ class Project < ActiveRecord::Base
   end
   
   private
+  
+  def set_closure_type
+    unless closure_id == nil
+      self.closure_type = "PackagingComponent"
+    end
+  end
   
   def formatted_label_position(type)
     return "N/A" if self.send(type).nil?

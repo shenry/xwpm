@@ -31,7 +31,7 @@
 		<tr class='table-striped'>
 			<td><%= link_to project.project_number, project_path(project) %></td>
 			<% unless @customer %>
-				<td><%= link_to project.customer.name, controller: "customers", action: "show", id: project.customer %></td>
+				<td><%= link_to project.customer.name, polymorphic_path(project.customer) %></td>
 			<% end %>
 			<td><%= project.brand %></td>
 			<td><%= project.vintage %></td>

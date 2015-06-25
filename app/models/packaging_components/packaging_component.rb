@@ -41,6 +41,24 @@ class PackagingComponent < ActiveRecord::Base
   
   before_save :upcase_item_identifier, :generate_code
   
+  def model_nickname
+    name = self.model_name.to_s
+    name = "Closure" if ["Cork", "Screwcap"].include? name
+    name.underscore.downcase
+  end
+  
+  def self.grouped_closures(sort=nil)
+    sort ||= :created_at
+    corks = Cork.order(sort)
+    screwcaps = Screwcap.order(sort)
+    output = []
+    cork_array = corks.map { |c| [c.to_s, c.id] }
+    screwcap_array = screwcaps.map { |s| [s.to_s, s.id] }
+    output << ["Corks", cork_array]
+    output << ["Screwcaps", screwcap_array]
+    output
+  end
+  
   def description
     [vendor.name, material, self.model_name.to_s.titleize, specs, capacity_string(false)].join(" ")
   end

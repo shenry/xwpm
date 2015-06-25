@@ -24,7 +24,7 @@
 		</tr>
 		<% for firm in @firms %>
 			<tr class='table-striped'>
-				<td><%= link_to firm.name, controller: @klass.to_s.downcase.pluralize, action: 'show', id: firm %></td>
+				<td><%= link_to firm.name, polymorphic_path(firm) %></td>
 				<td><%= firm.code %></td>
 				<td><%= firm.contact_name %></td>
 				<td><a href="mailto:<%= firm.contact_email %>"><%= firm.contact_email %></a></td>

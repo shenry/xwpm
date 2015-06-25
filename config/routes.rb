@@ -27,7 +27,9 @@
 #
 
 X::Application.routes.draw do  
-  resources :customer do
+  # resources :customers
+  
+  resources :customers do
     resources :projects, shallow: true
   end
   
@@ -37,13 +39,13 @@ X::Application.routes.draw do
   
   post "/clear-project-comment", controller: "comments", action: "complete_action"
   
-  concern :firm do
-    resources :customers
-    resources :vendors
-  end
+  # concern :firm do
+  #   resources :customers
+  #   resources :vendors
+  # end
   
-  resources :packaging_components, :wines, :customers, :vendors,
-            :bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels, :shippers
+  resources :packaging_components, :wines, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
+            :back_labels, :shippers, :vendors
             
   resources :projects do
     resources :comments

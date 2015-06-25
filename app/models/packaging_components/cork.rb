@@ -1,11 +1,12 @@
-class Cork < Closure
-  
-  def initialize(params=nil)
-    super
-    self.closure_type = "Cork"
-  end
+class Cork < PackagingComponent
+  belongs_to  :vendor
+  has_many    :projects, as: :closure
   
   def color_class
     "bg-warning" # yellow
+  end
+  
+  def spec_code
+    
   end
 end
