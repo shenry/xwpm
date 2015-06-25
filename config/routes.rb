@@ -29,6 +29,8 @@
 X::Application.routes.draw do  
   # resources :customers
   
+  devise_for :users
+  
   resources :customers do
     resources :projects, shallow: true
   end
@@ -56,7 +58,7 @@ X::Application.routes.draw do
   end
   
   
-  devise_for :users
+  
   
   get "/projects/:id/remove/:association", to: "projects#remove", as: :remove_component
   
