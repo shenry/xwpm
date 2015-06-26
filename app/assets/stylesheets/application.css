@@ -44,7 +44,7 @@ header { margin-bottom: 60px; }
 
 .break { border-top: 1px solid #b6b6b6; padding-top: 40px; }
 
-.x-spacer { float: left; padding-top: 8px; }
+.x-spacer { float: left; padding-top: 8px; margin-left: -3px; }
 
 .subordinate h1 { font-size: 200%; }
 
@@ -68,6 +68,7 @@ td.image-table-thumb img { float: left; padding-bottom: 4px; }
 table#attachments-table-edit { width: 100%; }
 table#attachments-table-edit td { vertical-align: top;}
 table.no-top-border th { border-top: none !important;}
+table th { vertical-align: bottom !important; }
 .file-input { margin-top: 7px; }
 .top-cell { padding: 20px 0px 8px 0px; border-top: 1px solid #cdcdcd; }
 .field-cell { padding-left: 8px; }
@@ -82,6 +83,18 @@ tr.tinted-row td { border-color: #fff !important;}
 .resolved-comment { text-decoration: line-through; }
 .comment-resolved-by { font-style: italic; font-size: 0.8em; float: right; }
 .title-row { text-align: center; }
+
+a.comments-actions { color: #aaa; }
+a.comments-actions:hover { text-decoration: none; color: #555; }
+a.comments-actions:hover .glyphicon-comment { color: #555 !important; }
+
+.form-subhead { border-bottom: 1px solid #aaa;}
+
+.component-show .row { margin: 10px 0px; }
+.component-attributes { margin-bottom: 40px; }
+
+.submit-spacer { margin-top: 50px; height: 38px;}
+.nudge-left { margin-left: -5px; }
 
 .btn-file {
   position: relative;

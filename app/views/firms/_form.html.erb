@@ -1,13 +1,14 @@
-<%= f.error_notification %>
-<%= f.input :name, label: "#{@klass.to_s.titleize} Name" %>
-<%= f.input :code, label: "#{@klass.to_s.titleize} Code" %>
-<%= f.input :description, label: "Description" %>
-<%= f.input :contact_name, label: "Contact Name" %>
-<%= f.input :contact_email, label: "Contact Email" %>
-<%= f.input :contact_phone, label: "Contact Phone", placeholder: "ex: (707) 555-1234" %>
-<%= f.input :address_line_1, label: "Address Line 1" %>
-<%= f.input :address_line_2, label: "Address Line 2" %>
-<%= f.input :city %>
-<%= f.input :state, collection: us_states, label_method: :first, value_method: :last, include_blank: false %>
-<%= f.input :zip %>
-<%= f.button :submit, :class => 'col-xs-offset-2 spacer' %>
+<div class="col-xs-6">
+	<%= f.error_notification %>
+	<%= f.input :name, label: "#{@klass.to_s.titleize} Name" %>
+	<%= f.input :code, label: "#{@klass.to_s.titleize} Code" %>
+	<%= f.input :contact_name, label: "Contact Name" %>
+	<%= f.input :contact_email, label: "Contact Email" %>
+	<%= f.input :contact_phone, label: "Contact Phone", placeholder: "ex: (707) 555-1234" %>
+	<%= f.input :address_line_1, label: "Address Line 1" %>
+	<%= f.input :address_line_2, label: "Address Line 2" %>
+	<%= f.input :city %>
+	<%= f.input :state, collection: us_states, label_method: :first, value_method: :last, include_blank: false %>
+	<%= f.input :zip %>
+	<%= f.button :submit, :class => 'col-xs-offset-4 col-xs-8 spacer' %>
+</div>

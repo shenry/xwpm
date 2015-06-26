@@ -1,11 +1,11 @@
 <div class="form-group">
-	<label class="col-xs-2 control-label bold required"><abbr>* </abbr><%= attribute.to_s.titleize %></label>
+	<label class="col-xs-4 control-label bold required"><abbr>* </abbr><%= attribute.to_s.titleize %></label>
 	<div class="col-xs-4">
 		<%= f.text_field attribute, class: "form-control col-xs-4" %>
 	</div>
 	<span class="control-label bold pull-left">@</span>
-	<div class="col-xs-2">
-		<%= f.text_field attribute.to_s.concat("_percent").intern, class: "form-control col-xs-2" %>
+	<div class="col-xs-3">
+		<%= f.text_field attribute.to_s.concat("_percent").intern, class: "form-control col-xs-1" %>
 	</div>
 	<div class="container">
 		<span class="control-label bold pull-left">%</span>

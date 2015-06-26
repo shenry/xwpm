@@ -14,7 +14,7 @@
 				<th>Color</th>
 			<% end %>
 			<% if controller_name == 'bottles' %>
-				<th>Bottle Capacity</th>
+				<th class="col-xs-1">Bottle Capacity</th>
 			<% end %>
 			<% unless controller_name == 'bottles' %>
 				<th><%= controller_name.include?('labels') ? 'Paper Type' : 'Material' %></th>
@@ -26,7 +26,7 @@
 				<th>Position</th>
 				<th>Rewind</th>
 			<% end %>
-			<th>
+			<th class="col-xs-1">
 				<% if controller_name == 'labels' %>
 					Size
 				<% elsif controller_name == 'bottles' %>
@@ -36,9 +36,8 @@
 				<% end %>
 			</th>
 			<% if controller_name == 'bottles' %>
-				<th>Bottles / Case</th>
+				<th class="col-xs-1">Bottles / Case</th>
 				<th>Carton Size</th>
-				<th>Case Weight</th>
 				<th>Config</th>
 			<% end %>
 			<th>&nbsp;</th>
@@ -74,8 +73,7 @@
 			<td><%= component.specs %></td>
 			<% if controller_name == "bottles" %>
 				<td><%= component.case_capacity %></td>
-				<td><%= component.carton_size %></td>
-				<td><%= component.case_weight %></td>
+				<td><%= component.formatted_carton_size %></td>
 				<td><%= component.pallet_configuration %></td>
 			<% end %>
 			<td><%= link_to "Edit", edit_polymorphic_path(component) %></td>

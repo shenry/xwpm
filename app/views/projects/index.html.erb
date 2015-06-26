@@ -40,7 +40,17 @@
 			<td><%= number_with_delimiter(project.target_cases, delimiter: ",") %></td>
 			<td><%= project.formatted_bottling_date %></td>
 			<td><%= link_to project.wine.sample_number, wine_path(project.wine) %></td>
-			<td>#TODO</td>
+			<td>
+				<%= link_to project_path(project) + "#comments", class: "comments-actions" do %>
+					<%= project.comments.size %>
+					<span class="glyphicon glyphicon-comment text-muted"></span>
+					<% if project.actionable_comments.size > 0 %>
+						/
+						<%= project.actionable_comments.size %>
+						<span class="glyphicon glyphicon-check text-success"></span>
+					<% end %>
+				<% end %>
+			</td>
 			<td>#TODO</td>
 		</tr>
 		<% end %>

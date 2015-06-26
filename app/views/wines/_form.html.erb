@@ -1,7 +1,11 @@
-<%= f.error_notification %>
-<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :vintage } %>
-<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :appellation } %>
-<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :variety } %>
-<%= f.input :alc %>
-<%= f.input :treatments %>
-<%= f.input :description %>
+<div class="col-xs-6">
+	<%= f.error_notification %>
+	<%= f.input :sample_number, label: "Sample Number" %>
+	<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :vintage } %>
+	<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :appellation } %>
+	<%= render partial: "wine_attributes", locals: { :f => f, :attribute => :variety } %>
+	<%= f.input :alc %>
+	<%= f.input :treatments %>
+	<%= f.input :description %>
+	<%= f.button :submit, class: "col-xs-offset-4 submit-spacer col-xs-8" %>
+</div>

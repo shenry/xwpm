@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row spacer">
 	<div class="col-xs-12">
 		<h1>Edit <%= @project.customer.name %> Project</h1>
 	</div>
@@ -8,7 +8,6 @@
 	<div class="col-xs-12 container">
 		<%= simple_form_for @project, url: project_path(@project), html: { class: "form-horizontal" }, method: :put do |f| %>
 			<%= render partial: "form", locals: { :f => f } %>
-			<%= f.button :submit, "Update Project", class: "col-xs-offset-2 spacer" %>
 		<% end %>
 	</div>
 </div>

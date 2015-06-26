@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row spacer">
 	<div class="col-xs-12">
 		<h1>New <%= @project.customer.name %> Project</h1>
 	</div>
@@ -6,9 +6,10 @@
 
 <div class="row">
 	<div class="col-xs-12 container">
-		<%= simple_form_for @project, url: customer_projects_path(@customer), html: { class: "form-horizontal" } do |f| %>
+		<%= simple_form_for @project, url: customer_projects_path(@customer), 
+												html: { class: "form-horizontal" }, 
+												defaults: { wrapper: :side_by_side }  do |f| %>
 			<%= render partial: "form", locals: { :f => f } %>
-			<%= f.button :submit, "Create Project", class: "col-xs-offset-2 spacer" %>
 		<% end %>
 	</div>
 </div>

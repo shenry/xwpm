@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626000233) do
+ActiveRecord::Schema.define(version: 20150626162058) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -164,6 +164,11 @@ ActiveRecord::Schema.define(version: 20150626000233) do
     t.string   "closure_type"
     t.string   "trucker"
     t.integer  "cases_to_customer", default: 0,     null: false
+    t.integer  "comments_count"
+    t.float    "fob"
+    t.string   "taxes"
+    t.string   "fso2_target"
+    t.string   "max_do"
   end
 
   add_index "projects", ["back_label_id"], name: "index_projects_on_back_label_id"
@@ -218,6 +223,8 @@ ActiveRecord::Schema.define(version: 20150626000233) do
     t.float    "cost_per_gallon"
     t.text     "treatments"
     t.text     "description"
+    t.integer  "gallons"
+    t.string   "vinx2_reference"
   end
 
   add_index "wines", ["appellation"], name: "index_wines_on_appellation"

@@ -42,6 +42,10 @@ class Project < ActiveRecord::Base
     target_cases - cases_to_customer
   end
   
+  def actionable_comments
+    comments.where(actionable: true)
+  end
+  
   def materials
     puts "closure is #{self.closure}"
     arr = [self.bottle, self.closure, self.capsule, self.front_label, self.back_label, self.shipper]

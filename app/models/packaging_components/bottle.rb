@@ -31,7 +31,8 @@
 #
 
 class Bottle < PackagingComponent
-  # belongs_to  :vendor
+  include BottlesHelper
+  
   has_many    :projects
   
   validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, 

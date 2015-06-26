@@ -18,7 +18,7 @@
 			<th>Phone</th>
 			<th>Address</th>
 			<% if @klass == Customer %>
-				<th>Active Projects</th>
+				<th class="col-xs-1">Active Projects</th>
 				<th>&nbsp;</th>
 			<% end %>
 		</tr>
@@ -31,7 +31,7 @@
 				<td><%= firm.contact_phone %></td>
 				<td><%= firm.one_line_address %></td>
 				<% if @klass == Customer %>
-					<td><%= firm.projects.active.count %></td>
+					<td><%= link_to firm.projects.active.count, customer_projects_path(firm) %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
 				<% end %>
 			</tr>			
