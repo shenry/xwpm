@@ -1,10 +1,47 @@
 <%= f.error_notification %>
 <%= f.input :vendor_id, :collection => Vendor.order(:name).map { |v| [v.name, v.id] }, :include_blank => false %>
 <% if @klass == Bottle %>
-	<%= f.input :item_identifier, label: "Item Identifier" %>
-	<%= f.input :mould %>
-	<%= f.input :color %>
-	<%= f.input :shape %>
+<div class="form-group">
+	<label class="control-label bold col-xs-2" for="bottle_item_identifier">Item Identifier</label>
+	<div class="col-xs-4">
+		<%= f.input_field :item_identifier, class:"form-control col-xs-4", id: "bottle_item_identifier" %>
+	</div>
+	<label class="col-xs-2 control-label bold" for="bottle_case_capacity">Bottles / Case</label>
+	<div class="col-xs-4">
+		<%= f.input_field :case_capacity, class: "form-control col-xs-4", id: "bottle_case_capacity" %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-2 control-label bold" for="bottle_mould">Mould</label>
+	<div class="col-xs-4">
+		<%= f.input_field :mould, class: "form-control col-xs-4", id: "bottle_mould" %>
+	</div>
+	<label class="col-xs-2 control-label bold" for="bottle_carton_size">Carton Size</label>
+	<div class="col-xs-4">
+		<%= f.input_field :carton_size, class: "form-control col-xs-4", id: "bottle_carton_size", placeholder: "L x W x H" %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-2 control-label bold" for="bottle_color">Color</label>
+	<div class="col-xs-4">
+		<%= f.input_field :color, class: "form-control col-xs-4", id: "bottle_color" %>
+	</div>
+	<label class="col-xs-2 control-label bold" for="bottle_case_weight">Case Weight (LBS)</label>
+	<div class="col-xs-4">
+		<%= f.input_field :case_weight, class: "form-control col-xs-4", id: "bottle_case_weight" %>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-2 control-label bold" for="bottle_shape">Shape</label>
+	<div class="col-xs-4">
+		<%= f.input_field :shape, class: "form-control col-xs-4", id: "bottle_shape" %>
+	</div>
+	<label class="col-xs-2 control-label bold" for="bottle_pallet_configuration">Pallet Configuration</label>
+	<div class="col-xs-4">
+		<%= f.input_field :pallet_configuration, class: "form-control col-xs-4", id: "bottle_pallet_configuration" %>
+	</div>
+</div>
+	
 	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>

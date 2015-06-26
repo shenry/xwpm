@@ -1,0 +1,30 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<th class="col-xs-3"><h3 class="title">Shipping</h3></th>
+		<th class="col-xs-3">&nbsp;</th>
+	</tr>
+	<tr>
+		<td>Bottles / Case</td>
+		<td><%= @project.bottle.case_capacity %></td>
+	</tr>
+	<tr>
+		<td>Pallet Configuration</td>
+		<td><%= @project.bottle.pallet_configuration %></td>
+	</tr>
+	<tr>
+		<td>Case Weight</td>
+		<td><%= @project.bottle.case_weight %> Lbs</td>
+	</tr>
+	<tr>
+		<td>Trucker</td>
+		<td><%= @project.trucker %></td>
+	</tr>
+	<tr>
+		<td>Cases to Customer</td>
+		<td><%= @project.cases_to_customer %></td>
+	</tr>
+	<tr>
+		<td>Cases to Warehouse</td>
+		<td><%= number_with_delimiter(@project.cases_to_warehouse) %></td>
+	</tr>
+</table>

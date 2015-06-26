@@ -38,6 +38,10 @@ class Project < ActiveRecord::Base
 
   scope     :active, -> { where("bottling_date >= ?", Date.today) }
   
+  def cases_to_warehouse
+    target_cases - cases_to_customer
+  end
+  
   def materials
     puts "closure is #{self.closure}"
     arr = [self.bottle, self.closure, self.capsule, self.front_label, self.back_label, self.shipper]

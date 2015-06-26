@@ -11,21 +11,39 @@
 <div class='row spacer'>
 	<div class='col-xs-8'>
 		<% if @klass == Bottle %>
+			<div class="row">
+				<div class="col-xs-4 title-row"><h4>Bottle Attributes</h4></div>
+				<div class="col-xs-4 title-row"><h4>Case Attributes</h4></div>
+			</div>
 			<div class='row'>
 				<div class='col-xs-2 l'>Mould</div>
 				<div class='col-xs-2 r'><%= @packaging_component.mould %></div>
-				<div class='col-xs-2 l'>Capacity</div>
-				<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
+				<div class="col-xs-2 l">Bottles / Case</div>
+				<div class="col-xs-2 r"><%= @packaging_component.case_capacity %></div>
 			</div>
 			<div class='row'>
 				<div class='col-xs-2 l'>Color</div>
 				<div class='col-xs-2 r'><%= @packaging_component.color %></div>
-				<div class='col-xs-2 l'>Fill Point</div>
-				<div class='col-xs-2 r'><%= @packaging_component.fill_point_string %></div>
+				<div class="col-xs-2 l">Carton Size</div>
+				<div class="col-xs-3 r"><%= @packaging_component.carton_size %></div>
 			</div>
 			<div class='row'>
 				<div class='col-xs-2 l'>Shape</div>
 				<div class='col-xs-2 r'><%= @packaging_component.shape %></div>
+				<div class="col-xs-2 l">Case Weight</div>
+				<div class="col-xs-2 r"><%= @packaging_component.case_weight %> Lbs</div>
+			</div>
+			<div class="row">
+				<div class='col-xs-2 l'>Capacity</div>
+				<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
+				<div class="col-xs-2 l">Configuration</div>
+				<div class="col-xs-2 r"><%= @packaging_component.pallet_configuration %></div>
+			</div>
+			<div class="row">
+				<div class='col-xs-2 l'>Fill Point</div>
+				<div class='col-xs-2 r'><%= @packaging_component.fill_point_string %></div>
+			</div>
+			<div class="row">
 				<div class='col-xs-2 l'>Specs</div>
 				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
 			</div>

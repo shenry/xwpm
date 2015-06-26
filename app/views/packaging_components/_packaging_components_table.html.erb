@@ -13,8 +13,8 @@
 			<% unless controller_name.include? 'labels'%>
 				<th>Color</th>
 			<% end %>
-			<% if ['bottles', 'shippers'].include? controller_name %>
-				<th>Capacity</th>
+			<% if controller_name == 'bottles' %>
+				<th>Bottle Capacity</th>
 			<% end %>
 			<% unless controller_name == 'bottles' %>
 				<th><%= controller_name.include?('labels') ? 'Paper Type' : 'Material' %></th>
@@ -26,7 +26,21 @@
 				<th>Position</th>
 				<th>Rewind</th>
 			<% end %>
-			<th><%= controller_name.include?('labels') ? 'Size' : 'Specs' %></th>
+			<th>
+				<% if controller_name == 'labels' %>
+					Size
+				<% elsif controller_name == 'bottles' %>
+					Bottle Specs
+				<% else %>
+					Specs
+				<% end %>
+			</th>
+			<% if controller_name == 'bottles' %>
+				<th>Bottles / Case</th>
+				<th>Carton Size</th>
+				<th>Case Weight</th>
+				<th>Config</th>
+			<% end %>
 			<th>&nbsp;</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -44,7 +58,7 @@
 			<% unless controller_name.include? 'labels' %>
 				<td><%= component.color %></td>
 			<% end %>
-			<% if ['bottles', 'shippers'].include? controller_name %>
+			<% if controller_name == 'bottles' %>
 				<td><%= component.capacity_string %></td>
 			<% end %>
 			<% unless controller_name == 'bottles' %>
@@ -57,7 +71,13 @@
 				<td><%= component.label_position %>mm</td>
 				<td><%= component.label_rewind %></td>
 			<% end %>
-			<td><%= component.specs %></td>	
+			<td><%= component.specs %></td>
+			<% if controller_name == "bottles" %>
+				<td><%= component.case_capacity %></td>
+				<td><%= component.carton_size %></td>
+				<td><%= component.case_weight %></td>
+				<td><%= component.pallet_configuration %></td>
+			<% end %>
 			<td><%= link_to "Edit", edit_polymorphic_path(component) %></td>
 			<td>
 				<%= link_to "Delete", polymorphic_path(component), 

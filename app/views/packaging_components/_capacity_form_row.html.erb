@@ -1,9 +1,9 @@
 <div class='form-group'>
-	<span class='col-xs-2 control-label bold'>Capacity</span>
+	<span class='col-xs-2 control-label bold'>Bottle Capacity</span>
 	<div class='col-xs-2'>
-		<%= f.text_field :capacity, class: 'form-control col-xs-2', placeholder: @klass.capacity_description.humanize %>
+		<%= f.text_field :bottle_capacity, class: 'form-control col-xs-2', placeholder: @klass.capacity_description.humanize %>
 	</div>
 	<div class='col-xs-2'>
-		<%= f.select :capacity_units, @klass.capacity_select_options, {}, class:'form-control' %>
+		<%= f.select :bottle_capacity_units, @klass.capacity_select_options, {}, class:'form-control' %>
 	</div>
 </div>

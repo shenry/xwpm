@@ -35,12 +35,12 @@ class Bottle < PackagingComponent
   has_many    :projects
   
   validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, 
-            :capacity, :capacity_units, presence: true
+            :bottle_capacity, :bottle_capacity_units, :case_capacity, :carton_size, :case_weight, presence: true
   validates_presence_of :vendor
   
   def spec_code
-    return self.capacity if self.capacity_units == "mL"
-    return self.capacity.gsub('.', '') + self.capacity_units.upcase
+    return self.bottle_capacity if self.bottle_capacity_units == "mL"
+    return self.bottle_capacity.gsub('.', '') + self.bottle_capacity_units.upcase
   end
   
   def self.capacity_select_options

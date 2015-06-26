@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624152346) do
+ActiveRecord::Schema.define(version: 20150626000233) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -109,8 +109,8 @@ ActiveRecord::Schema.define(version: 20150624152346) do
     t.string   "neck_diamter_units"
     t.string   "material"
     t.boolean  "has_artwork"
-    t.string   "capacity"
-    t.string   "capacity_units"
+    t.string   "bottle_capacity"
+    t.string   "bottle_capacity_units"
     t.string   "label_alc"
     t.string   "upc"
     t.string   "closure_type"
@@ -127,6 +127,10 @@ ActiveRecord::Schema.define(version: 20150624152346) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "case_capacity"
+    t.string   "carton_size"
+    t.float    "case_weight"
+    t.string   "pallet_configuration"
   end
 
   add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"
@@ -137,14 +141,14 @@ ActiveRecord::Schema.define(version: 20150624152346) do
   create_table "projects", force: :cascade do |t|
     t.integer  "package_id"
     t.integer  "wine_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "customer_id"
     t.string   "qb_code"
     t.string   "project_number"
     t.integer  "target_cases"
-    t.string   "brand",          default: "",    null: false
-    t.string   "description",    default: "",    null: false
+    t.string   "brand",             default: "",    null: false
+    t.string   "description",       default: "",    null: false
     t.datetime "bottling_date"
     t.string   "variety"
     t.string   "winemaker"
@@ -154,10 +158,12 @@ ActiveRecord::Schema.define(version: 20150624152346) do
     t.integer  "front_label_id"
     t.integer  "back_label_id"
     t.integer  "shipper_id"
-    t.boolean  "has_capsule",    default: false, null: false
+    t.boolean  "has_capsule",       default: false, null: false
     t.string   "vintage"
     t.string   "appellation"
     t.string   "closure_type"
+    t.string   "trucker"
+    t.integer  "cases_to_customer", default: 0,     null: false
   end
 
   add_index "projects", ["back_label_id"], name: "index_projects_on_back_label_id"
