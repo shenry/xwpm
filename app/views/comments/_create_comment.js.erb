@@ -1,4 +1,6 @@
-$("#comments-list").append('<%= j render partial: 'projects/comment', :formats => :html, locals: { :comment => @comment } %>');
+var newElement = '<%= j render partial: 'projects/comment', :formats => :html, locals: { :comment => @comment } %>'
+$(newElement).hide().prependTo("#comments-list-desc").show(200);
+$(newElement).hide().appendTo("#comments-list-asc").show(200);
 $("#comment_body").val("");
 if ($("#comment_actionable").attr("checked", true)) {
 	$("#comment_actionable").attr("checked", false);

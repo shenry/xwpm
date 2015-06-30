@@ -4,6 +4,29 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.includes(:wine, :customer, :comments).find(params[:id])
     @comment = @project.comments.build(author_id: current_user.id)
+    if params[:alt] == "true"
+      render :alt_show
+    else
+      render :show
+    end
+  end
+  
+  def show_component
+    @component  = params[:component]
+    if @component == "packaging_components"
+      @project = Project.find(params[:id])
+    elsif @component == "shipping"
+      @project = Project.find(params[:id])
+    elsif @component == "finance"
+      
+    else # a legit association, either :wine or :comments
+      @project    = Project.includes(@component.intern).find(params[:id])
+    end
+    @component_path = @component + "_content"
+    
+    respond_to do |wants|
+      wants.js {}
+    end
   end
 
   def index
@@ -30,7 +53,6 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to customer_projects_path(@customer)
     else
-      puts "nope!!!!!! errors on @project: #{@project.errors.inspect}"
       render :new, { :project => @project, :customer => @customer }
     end
   end
@@ -38,19 +60,16 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     @project.bottling_date = @project.formatted_bottling_date
-    puts "@project = #{@project.inspect}"
   end
   
   def update
     @project = Project.find(params[:id])
     date     = params[:project][:bottling_date]
     @project.update_attributes(project_params)
-    puts "updated projct = #{@project.inspect}"
     @project.bottling_date = Date.strptime(date, ProjectsHelper::BOTTLING_DATE_FORMAT_STRING) if date
     if @project.save
       redirect_to project_path(@project)
     else
-      puts "errors: #{@project.errors.inspect}"
       render action: :edit
     end
   end
@@ -78,6 +97,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
                                     :bottle_id, :shipper_id, :closure, :closure_id, :capsule_id, :front_label_id, :back_label_id,
-                                    :bottling_date, :qb_code, :trucker, :cases_to_customer)
+                                    :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do)
   end
 end

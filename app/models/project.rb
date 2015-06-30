@@ -17,19 +17,20 @@
 
 class Project < ActiveRecord::Base
   include ProjectsHelper
-  # belongs_to  :package
+  include CostHelper
+
   belongs_to  :closure, polymorphic: true
   belongs_to  :capsule
   belongs_to  :bottle
   belongs_to  :shipper
   belongs_to  :back_label
   belongs_to  :front_label
-  belongs_to  :wine
+  belongs_to  :wine, inverse_of: :projects
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   
-  has_many    :comments, dependent: :destroy
+  has_many    :comments, inverse_of: :project, dependent: :destroy
   
-  before_save :format_project_number, :set_closure_type
+  before_save :format_project_number, :set_closure_type, :set_capsule_status
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, presence: true
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
@@ -47,9 +48,8 @@ class Project < ActiveRecord::Base
   end
   
   def materials
-    puts "closure is #{self.closure}"
-    arr = [self.bottle, self.closure, self.capsule, self.front_label, self.back_label, self.shipper]
-    arr.compact!
+    arr = [self.front_label, self.back_label, self.capsule, self.bottle, self.closure]
+    arr.compact
   end
     
   def formatted_bottling_date
@@ -78,11 +78,25 @@ class Project < ActiveRecord::Base
     self.send(type).material + " - " + self.send(type).specs
   end
   
+  def missing(assoc)
+    "<em>No #{assoc.to_s.titleize} Present</em>".html_safe
+  end
+  
   private
   
   def set_closure_type
     unless closure_id == nil
       self.closure_type = "PackagingComponent"
+    end
+  end
+  
+  def set_capsule_status
+    unless capsule_id == nil
+      self.has_capsule = true
+    else 
+      if closure.is_a? Screwcap
+        self.has_capsule = false
+      end
     end
   end
   

@@ -5,6 +5,10 @@ module ApplicationHelper
     end
   end
   
+  def markup(string)
+    markdown = BlueCloth.new(string).to_html.html_safe
+  end
+  
   def us_states
       [
         ['Alabama', 'AL'],

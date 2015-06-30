@@ -1,0 +1,7 @@
+var listID = "li#<%= @component %>_li";
+$(listID).addClass("active");
+$(listID).siblings().removeClass("active");
+var newHtml = "<%= j render_component_partial(@component) %>";
+$("div#components-container").hide().html(newHtml).fadeIn("fast");
+// $("div#components-container").;
+// $("div#components-container").;

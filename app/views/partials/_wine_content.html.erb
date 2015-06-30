@@ -1,0 +1,59 @@
+<% if @project.wine %>
+	<div class="col-xs-12 border-bottom">
+		<h3><%= @project.send(@component.intern).to_s %></h3>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>Sample Number</td>
+				<td class="bold"><%= @project.wine.sample_number %></td>
+			</tr>
+			<tr>
+				<td>Vinx2 Referece</td>
+				<td><%= @project.wine.vinx2_reference %></td>
+			</tr>
+			<tr>
+				<td>Alc</td>
+				<td class="bold"><%= @project.wine.alc %>%</td>
+			</tr>
+			<tr>
+				<td>Gallons / Cases</td>
+				<td class="bold"><%= number_with_delimiter(@project.wine.gallons) %> gal / <%= number_with_delimiter(@project.wine.gallons / 2.4) %> cs</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>Vintage</td>
+				<td class="bold"><%= @project.wine.vintage %> (<%= @project.wine.vintage_percent %>%)</td>
+			</tr>
+			<tr>
+				<td>Appellation</td>
+				<td class="bold"><%= @project.wine.appellation %> (<%= @project.wine.appellation_percent %>%)</td>
+			</tr>
+			<tr>
+				<td>Variety</td>
+				<td class="bold"><%= @project.wine.variety %> (<%= @project.wine.vintage_percent %>%)</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<% unless @project.wine.description.blank? %>
+			<h3 class="title">Description</h3>
+			<p><%= @project.wine.description %></p>
+		<% else %>
+			<h3 class="title empty-category-title">No Description</h3>
+		<% end %>
+		<% unless @project.wine.treatments.blank? %>
+			<h3 class="title">Treatments</h3>
+			<p><%= markup(@project.wine.treatments) %></p>
+		<% else %>
+			<h3 class="title empty-category-title">No Treatments</h3>
+		<% end %>
+	</div>
+<% else %>
+	<div class="col-xs-12">
+		<h3 class="text-muted">No wine selected for this project</h3>
+	</div>
+<% end %>

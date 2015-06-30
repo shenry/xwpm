@@ -68,6 +68,7 @@ td.image-table-thumb img { float: left; padding-bottom: 4px; }
 table#attachments-table-edit { width: 100%; }
 table#attachments-table-edit td { vertical-align: top;}
 table.no-top-border th { border-top: none !important;}
+table.no-top-border tr:first-child td { border-top: none !important;}
 table th { vertical-align: bottom !important; }
 .file-input { margin-top: 7px; }
 .top-cell { padding: 20px 0px 8px 0px; border-top: 1px solid #cdcdcd; }
@@ -78,7 +79,11 @@ table th { vertical-align: bottom !important; }
 .table-head-link { vertical-align: bottom !important; font-weight: normal; }
 h3.title { margin-bottom: 0px; }
 table .form-group { margin-bottom: 0px; }
-tr.tinted-row td { border-color: #fff !important;}
+.tinted-material-row { border: 1px solid #fff !important; min-height: 44px; line-height: 44px; }
+.material-header { padding-left: 30px !important; }
+.material-details { min-height: 44px; background: #fff; border: 1px solid red; }
+table.top-align { margin-top: -10px; }
+
 .comment { margin: 0 0 20px 0; }
 .resolved-comment { text-decoration: line-through; }
 .comment-resolved-by { font-style: italic; font-size: 0.8em; float: right; }
@@ -88,13 +93,20 @@ a.comments-actions { color: #aaa; }
 a.comments-actions:hover { text-decoration: none; color: #555; }
 a.comments-actions:hover .glyphicon-comment { color: #555 !important; }
 
+.border-bottom h3 { border-bottom: 1px solid #777; margin-bottom: 40px; color: #777; }
+
+.empty-category-title { color: #999; padding-bottom: 0px; }
+
 .form-subhead { border-bottom: 1px solid #aaa;}
 
 .component-show .row { margin: 10px 0px; }
 .component-attributes { margin-bottom: 40px; }
 
-.submit-spacer { margin-top: 50px; height: 38px;}
+.submit-spacer { margin-top: 46px; height: 38px;}
 .nudge-left { margin-left: -5px; }
+
+#project-labels { margin-top: 15px; }
+#project-labels img { margin-bottom: 20px; }
 
 .btn-file {
   position: relative;
@@ -121,7 +133,20 @@ input[readonly] {
 	width: 275px !important;
 }
 
+.red { background-color: red; height: 50px; }
+
 #create-wine-form { display: none; }
 
 .attachment-attr { color: #707070;}
 .attachment-title { color: #505050; font-weight: bold; }
+
+.default-medium-image { 
+	height: 255px; 
+	width:255px; 
+	background-color: #ddd; 
+	border: 2px solid #ccc; 
+	line-height: 255px; 
+	text-align: center;
+	color: #888;
+	font-size: 1.5em;
+}

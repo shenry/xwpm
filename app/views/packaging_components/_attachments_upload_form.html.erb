@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="form-group">
-	<div class='col-xs-offset-4 col-xs-4'>
+	<div class='col-xs-offset-4 col-xs-8'>
 		<table id="attachments-table-edit">
 			<%= f.fields_for :attachments, @packaging_component.attachments.reverse do |attachment| %>
 				<% unless attachment.object.new_record? %>

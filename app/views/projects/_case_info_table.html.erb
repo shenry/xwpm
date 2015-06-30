@@ -5,15 +5,15 @@
 	</tr>
 	<tr>
 		<td>Bottles / Case</td>
-		<td><%= @project.bottle.case_capacity %></td>
+		<td><%= @project.bottle.try(:case_capacity) || @project.missing(:bottle) %></td>
 	</tr>
 	<tr>
 		<td>Pallet Configuration</td>
-		<td><%= @project.bottle.pallet_configuration %></td>
+		<td><%= @project.bottle.try(:pallet_configuration) || @project.missing(:bottle) %></td>
 	</tr>
 	<tr>
 		<td>Case Weight</td>
-		<td><%= @project.bottle.case_weight %> Lbs</td>
+		<td><%= @project.bottle.try(:case_weight).to_s.concat(" Lbs") || @project.missing(:bottle) %></td>
 	</tr>
 	<tr>
 		<td>Trucker</td>

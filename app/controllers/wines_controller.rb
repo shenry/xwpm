@@ -27,6 +27,7 @@ class WinesController < ApplicationController
   
   def update
     @wine = Wine.find(params[:id])
+    @wine.update_attributes(wine_params)
     if @wine.save
       redirect_to action: :index
     else
@@ -38,6 +39,6 @@ class WinesController < ApplicationController
   private
   def wine_params
     params.require(:wine).permit(:name, :description, :appellation, :appellation_percent, :variety, :variety_percent,
-                                 :vintage, :vintage_percent, :alc, :winemaker, :sample_number)
+                                 :vintage, :vintage_percent, :alc, :winemaker, :sample_number, :treatments)
   end
 end

@@ -1,0 +1,58 @@
+<div class="col-xs-6 border-bottom">
+	<h3>Bottling</h3>
+	<table class="table table-responsive no-top-border">
+		<tr>
+			<td>Total Cases</td>
+			<td class="bold"><%= number_with_delimiter(@project.target_cases) %></td>
+		</tr>
+		<tr>
+			<td>Front Label Rewind</td>
+			<td class="bold"><%= @project.front_label.try(:label_rewind) || @project.missing(:front_label) %></td>
+		</tr>
+		<tr>
+			<td>Back Label Rewind</td>
+			<td class="bold"><%= @project.back_label.try(:label_rewind) || @project.missing(:back_label) %></td>
+		</tr>
+		<tr>
+			<td>Bottle Mould</td>
+			<td class="bold"><%= @project.bottle.try(:mould) || @project.missing(:bottle) %></td>
+		</tr>
+		<tr>
+			<td>Bottle Specs</td>
+			<td class="bold"><%= @project.bottle.try(:specs) || @project.missing(:bottle) %></td>
+		</tr>
+		<tr>
+			<td>Case Dimensions</td>
+			<td class="bold"><%= @project.bottle.try(:formatted_carton_size) || @project.missing(:bottle) %></td>
+		</tr>
+	</table>
+</div>
+<div class="col-xs-6 border-bottom">
+	<h3>Shipping</h3>
+	<table class="table table-responsive no-top-border">
+		<tr>
+			<td>Quantity / Case</td>
+			<td class="bold"><%= @project.bottle.try(:format) || @project.missing(:bottle) %></td>
+		</tr>
+		<tr>
+			<td>Pallet Configuration</td>
+			<td class="bold"><%= @project.bottle.try(:pallet_configuration) || @project.missing(:bottle) %></td>
+		</tr>
+		<tr>
+			<td>Case Weight</td>
+			<td class="bold"><%= @project.bottle.try(:case_weight).to_s.concat(" Lbs") || @project.missing(:bottle) %></td>
+		</tr>
+		<tr>
+			<td>Trucker</td>
+			<td class="bold"><%= @project.trucker %></td>
+		</tr>
+		<tr>
+			<td>Cases to Customer</td>
+			<td class="bold"><%= @project.cases_to_customer %></td>
+		</tr>
+		<tr>
+			<td>Cases to Warehouse</td>
+			<td class="bold"><%= @project.cases_to_warehouse %></td>
+		</tr>
+	</table>
+</div>

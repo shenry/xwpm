@@ -12,14 +12,31 @@ class CommentsController < ApplicationController
     end
   end
   
+  def edit
+    @comment = Comment.find(params[:id])
+    respond_to do |wants|
+      wants.js { }
+    end
+  end
+  
+  def update
+    @comment = Comment.find(params[:id])
+    @project = @comment.project
+    if current_user == @comment.author
+      @comment.update_attributes(comment_params)
+      @comment.save
+    end
+    respond_to do |wants|
+      wants.js {}
+    end
+  end
+  
   def complete_action
-    puts "********************************************************************************"
-    puts "params are #{params.inspect}"
     @comment = Comment.find(params[:comment_id])
     @project = Project.find(params[:project_id])
     if @project.comments.include? @comment
       begin
-        @comment.actionable  = false
+        @comment.actionable  = true
         @comment.resolved    = true
         @comment.resolver    = current_user
         @comment.resolved_at = Time.now
@@ -34,6 +51,6 @@ class CommentsController < ApplicationController
   
   private
   def comment_params
-    params.require(:comment).permit(:body, :actionable, :author_id, :project_id)
+    params.require(:comment).permit(:body, :actionable, :author_id, :project_id, :resolved)
   end
 end

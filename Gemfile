@@ -17,6 +17,7 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+gem 'bluecloth'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]

@@ -6,7 +6,10 @@
 
 <div class="row">
 	<div class="col-xs-12 container">
-		<%= simple_form_for @project, url: project_path(@project), html: { class: "form-horizontal" }, method: :put do |f| %>
+		<%= simple_form_for @project, url: project_path(@project), 
+												html: { class: "form-horizontal" }, 
+												method: :put,
+												defaults: { wrapper: :side_by_side } do |f| %>
 			<%= render partial: "form", locals: { :f => f } %>
 		<% end %>
 	</div>

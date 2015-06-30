@@ -49,6 +49,6 @@
 	</tr>
 	<tr>
 		<td>Label/Actual %ABV</td>
-		<td><%= @project.label_alc %>% / <%= @project.wine.alc %>%</td>
+		<td><%= @project.label_alc %> / <%= @project.wine.try(:display_alc) %></td>
 	</tr>
 </table>

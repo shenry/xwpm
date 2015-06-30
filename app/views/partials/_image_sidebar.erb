@@ -1,0 +1,7 @@
+<div class="col-xs-6">
+	<% if object %>
+		<%= link_to(cl_image_tag(object.try(:image_url, :medium)), object.image_url, target: :_blank) %>
+	<% else %>
+		<%= render partial: "/partials/default_image" %>
+	<% end %>
+</div>

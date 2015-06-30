@@ -1,0 +1,14 @@
+<% if object %>
+	<div class="col-xs-6">
+		<table class="table table-responsive no-top-border top-align">
+			<% object.each do |obj| %>
+				<tr>
+					<td><%= obj[0] %></td>
+					<td class="bold"><%= obj[1] %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+<% else %>
+	<p><em>Packaging component not added to Project.</em></p>
+<% end %>

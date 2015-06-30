@@ -1,0 +1,3 @@
+var formHtml = "<%= j render partial: '/comments/edit', :formats=> :html, locals: { comment: @comment } %>";
+$("#comment-<%= @comment.id %>").html(formHtml);
+

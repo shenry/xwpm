@@ -7,30 +7,40 @@
 <div class="row spacer">
 	<div class="col-xs-6">
 		<%= render partial: "general_info_table", locals: { :project => @project } %>
+		<%= render partial: "wine_info_table", locals: { :project => @project } %>
 	</div>
 	<div class="col-xs-6">
-		<%= render partial: "wine_info_table", locals: { :project => @project } %>
 		<%= render partial: "label_info_table", locals: { :project => @project } %>
+		<%= render partial: "winemaking_info_table", locals: { :project => @project } %>
+		<%= render partial: "tax_info_table", locals: { :project => @project } %>
 		<%= render partial: "case_info_table", locals: { :project => @project } %>
 	</div>
 </div>
 <div class="row">
-	<%= render partial: "materials_table", locals: { :project => @project } %>
+	<%= render partial: "materials_div", locals: { project: @project } %>
 </div>
 <div class="row spacer">
 	<div class="col-xs-6">
-		&nbsp;
+		<h3>Labels</h3>
+		<div id="project-labels">
+			<% if @project.front_label %>
+				<%= link_to cl_image_tag(@project.front_label.image_url(:medium)), @project.front_label.image_url, target: "_blank" %>
+			<% end %>
+			<% if @project.back_label %>
+				<%= link_to cl_image_tag(@project.back_label.image_url(:medium)), @project.back_label.image_url, target: "_blank" %>
+			<% end %>
+		</div>
 	</div>
 	<div class="col-xs-6">
 		<a name="comments"></a>
 		<h3>Comments &amp; Actions</h3>
-		<div id="comments-list">
-		<% @project.comments.each do |comment| %>
+		<div id="comments-list-asc">
+		<% @project.comments(order: "created_at ASC").each do |comment| %>
 			<% unless comment.new_record? %>
 				<%= render partial: "comment", locals: { :comment => comment } %>
 			<% end %>
 		<% end %>
 		</div>
-		<%= render partial: "new_comment", locals: { :project => @project, :comment => Comment.new } %>
+		<%= render partial: "new_comment", locals: { :project => @project, :comment => @project.comments.build } %>
 	</div>
 </div>

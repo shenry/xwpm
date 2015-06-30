@@ -1,14 +1,4 @@
 <%= simple_form_for [@project, comment], remote: true do |f| %>
-	<div class="">		
-		<h4>Add a Comment</h4>
-		<span class="bold"><%= current_user.name %></span>&nbsp;
-		<%= f.input :author_id, as: :hidden, :input_html => { :value => current_user.id } %>
-		<span class="text-muted">(<%= comment.published_at(DateTime.now) %>)</span>&nbsp;
-		<span class="glyphicon glyphicon-check text-success hidden" id="new-comment-actionable"></span>
-	</div>
-	<%= f.input_field :body, label: false, class: "col-xs-12 form-control" %>
-	<div class="clearfix">
-			<%= f.input :actionable, as: :boolean, label: false, inline_label: true %>
-			<%= f.button :submit, value: "Add Comment" %>
-	</div>
+	<h4>Add a Comment</h4>
+	<%= render partial: "/partials/comment_form", locals: { f: f, comment: comment } %>
 <% end %>

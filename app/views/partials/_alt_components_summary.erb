@@ -1,0 +1,17 @@
+<div class="row">
+	<%= render partial: "/partials/front_label_summary", locals: { label: @project.front_label } %>
+	<%= render partial: "/partials/back_label_summary", locals: { label: @project.back_label } %>
+</div>
+<div class="row spacer">
+	<%= render partial: "/partials/bottle_summary", locals: { bottle: @project.bottle } %>
+	<% if @project.has_capsule? %>
+		<%= render partial: "/partials/capsule_summary", locals: { capsule: @project.capsule } %>
+	<% else %>
+		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
+	<% end %>
+</div>
+<% if @project.has_capsule? %>
+	<div class="row spacer">
+		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
+	</div>
+<% end %>

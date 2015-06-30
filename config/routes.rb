@@ -38,8 +38,11 @@ X::Application.routes.draw do
   # resources :projects, only: [:index, :show, :edit, :update]
   
   get "/clear-comment/:comment_id/from-project/:project_id", controller: "comments", action: "complete_action"
+  get "/projects/:id/component/:component", controller: "projects", action: "show_component", as: :show_project_component
   
   post "/clear-project-comment", controller: "comments", action: "complete_action"
+  get  "/comments/:id/edit", controller: "comments", action: "edit", as: :edit_comment
+  put  "/comments/:id/update", controller: "comments", action: "update", as: :update_comment
   
   # concern :firm do
   #   resources :customers
@@ -47,7 +50,7 @@ X::Application.routes.draw do
   # end
   
   resources :packaging_components, :wines, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
-            :back_labels, :vendors
+            :back_labels, :vendors, :comments
             
   resources :projects do
     resources :comments

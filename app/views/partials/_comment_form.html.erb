@@ -1,0 +1,17 @@
+<span class="bold"><%= current_user.name %></span>&nbsp;
+<%= f.input :author_id, as: :hidden, :input_html => { :value => current_user.id } %>
+<span class="text-muted">(<%= comment.new_record? ? comment.published_at(DateTime.now) : comment.published_at %>)</span>&nbsp;
+<span class="glyphicon glyphicon-check text-success hidden" id="<%= comment.new_record? ? 'new-comment-actionable' : "comment-#{comment.id}-actionable" %>"></span>
+<%= f.input_field :body, label: false, class: "col-xs-12 form-control" %>
+<div class="clearfix">
+	<%= f.input :actionable, as: :boolean, label: false, inline_label: true %>
+	<% if !comment.new_record? && comment.actionable %>
+		<%= f.input :resolved, as: :boolean, label: false, inline_label: true %>
+	<% end %>
+	<%= f.button :submit %>
+</div>
+<script type="text/javascript">
+	$("input#comment_actionable").change(function(){
+		$("span#new-comment-actionable").toggleClass("hidden");
+	});
+</script>

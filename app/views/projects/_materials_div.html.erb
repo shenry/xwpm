@@ -1,0 +1,23 @@
+<% unless @project.materials.blank? %>
+	<div class="col-xs-12">
+		<h3>Materials</h3>
+		<div class="tinted-material-row">
+			<div class="col-xs-3 bold">Item Code</div>
+			<div class="col-xs-6 bold">Item Description</div>
+			<div class="col-xs-3 bold">Actions</div>
+		</div>
+		<% @project.materials.each do |item| %>
+			<div class="tinted-material-row <%= item.color_class %>" id="<%= item.model_nickname %>_row">
+				<div class="col-xs-3"><%= link_to item.code, polymorphic_path(item) %></div>
+				<div class="col-xs-6"><%= item.description %></div>
+				<div class="col-xs-3">
+					<%= link_to "Show Details", polymorphic_path(item), remote: true %> &bull; 
+					<%= link_to "Edit", edit_polymorphic_path(item) %> &bull; 
+					<%= link_to "Remove", remove_component_path(@project, item.model_name.to_s.underscore.downcase), remote: true %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% else %>
+	<p>materials are blank</p>
+<% end %>

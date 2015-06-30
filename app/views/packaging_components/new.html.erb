@@ -4,7 +4,7 @@
 	</div>
 </div>
 <div class="row spacer">
-<%= simple_form_for(@packaging_component, url: { action: @packaging_component.new_record? ? 'create' : 'update' }, html: { class: 'form-horizontal', mulitpart: true, multiple: true }) do |f| %>
+<%= simple_form_for(@packaging_component, url: { action: @packaging_component.new_record? ? 'create' : 'update' }, html: { class: 'form-horizontal', mulitpart: true, multiple: true }, defaults: { wrapper: :side_by_side}) do |f| %>
 	<%= render partial: "form", locals: { :f => f, :klass => @klass, :packaging_component => @packaging_component } %>
 <% end %>
 </div>

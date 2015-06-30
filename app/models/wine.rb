@@ -19,12 +19,19 @@
 #
 
 class Wine < ActiveRecord::Base
-  has_many :projects
+  include CostHelper
+  
+  has_many :projects, inverse_of: :wine
   
   validates :appellation, :appellation_percent, :variety, :variety_percent, :vintage, :vintage_percent,
-            :alc, :sample_number, :cost_per_gallon, presence: true
+            :alc, :sample_number, :cogs, presence: true
   
   def to_s
     "[" + sample_number + "] " + vintage + " " + appellation + " " + variety
+  end
+  
+  def display_alc
+    return "N/A" if alc.nil?
+    return alc.to_s + "%"
   end
 end

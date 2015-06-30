@@ -59,6 +59,13 @@ class PackagingComponent < ActiveRecord::Base
     output
   end
   
+  # def case_weight
+  #   if self.is_a? Bottle
+  #     out = read_attribute(:case_weight)
+  #     return out.to_s + "Lbs"
+  #   end
+  # end
+  
   def description
     [vendor.name, material, self.model_name.to_s.titleize, specs, capacity_string(false)].join(" ")
   end
@@ -106,7 +113,6 @@ class PackagingComponent < ActiveRecord::Base
   
   def color_code
     return "" unless self.color
-    puts "color is #{self.color}"
     color_code_table[self.color.downcase] || self.color[0..2].upcase
   end
   

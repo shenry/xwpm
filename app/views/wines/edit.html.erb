@@ -2,7 +2,9 @@
 	<div class="col-xs-8"><h1>Update Wine</h1></div>
 </div>
 
-<%= simple_form_for(@wine, url: { action: :update }, html: { class: "form-horizontal" }) do |f| %>
+<%= simple_form_for(@wine, url: { action: :update }, 
+										html: { class: "form-horizontal" },
+										defaults: { wrapper: :side_by_side 	}) do |f| %>
 	<%= render partial: "form", locals: { :f => f } %>
 	<%= f.button :submit, class: "col-xs-offset-2 spacer" %>
 <% end %>

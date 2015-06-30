@@ -1,0 +1,100 @@
+<div class="row spacer">
+	<div class="row-same-height">
+		<div class="col-xs-8 col-xs-height"><h1><%= @project.to_s %></h1></div>
+		<div class="col-xs-4 col-xs-height pull-right"><%= link_to "Edit Project", edit_project_path(@project) %></div>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>Customer</td>
+				<td class="bold"><%= @project.customer.name %></td>
+			</tr>
+			<tr>
+				<td>Brand Name</td>
+				<td class="bold"><%= @project.brand %></td>
+			</tr>
+			<tr>
+				<td>Project Number</td>
+				<td class="bold"><%= @project.project_number %></td>
+			</tr>
+			<tr>
+				<td>Bottling Date</td>
+				<td class="bold"><%= @project.formatted_bottling_date %></td>
+			</tr>
+			<tr>
+				<td>Bottling Location</td>
+				<td class="bold">#TODO</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>Cases to Bottle</td>
+				<td class="bold"><%= number_with_delimiter(@project.target_cases) %></td>
+			</tr>
+			<tr>
+				<td>Label / Actual % Alc</td>
+				<td class="bold"><%= @project.wine.try(:alc) %> % / <%= @project.label_alc %> %</td>
+			</tr>
+			<tr>
+				<td>Vintage</td>
+				<td class="bold"><%= @project.vintage %></td>
+			</tr>
+			<tr>
+				<td>Appellation</td>
+				<td class="bold"><%= @project.appellation %></td>
+			</tr>
+			<tr>
+				<td>Variety</td>
+				<td class="bold"><%= @project.variety %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>QB Code</td>
+				<td class="bold"><%= @project.qb_code %></td>
+			</tr>
+			<tr>
+				<td>Vinx2 Reference</td>
+				<td class="bold"><%= @project.wine.try(:vinx2_reference) %></td>
+			</tr>
+			<tr>
+				<td>Taxes</td>
+				<td class="bold"><%= @project.taxes %></td>
+			</tr>
+			<tr>
+				<td>FOB / COGs</td>
+				<td class="bold"><%= number_to_currency(@project.price(:fob)) %> / <%= number_to_currency(@project.wine.try(:price, :cogs)) %></td>
+			</tr>
+			<tr>
+				<td>Bottler</td>
+				<td class="bold">#TODO</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-12">
+		<ul class="nav nav-tabs nav-justified" id="component-categories">
+			<li role="presentation" class="active" id="packaging_components_li">
+				<%= link_to "Packaging Components", show_project_component_path(@project, :packaging_components), remote: true %>
+			</li>
+			<li role="presentation" id="wine_li"><%= link_to "Wine", show_project_component_path(@project, :wine), remote: true %></li>
+			<li role="presentation" id="shipping_li"><%= link_to "Bottling / Shipping", show_project_component_path(@project, :shipping), remote: true %></li>
+			<li role="presentation"><a href="#finance">Finance</a></li>
+			<li role="presentation" id="comments_li">
+				<%= link_to "Comments (#{@project.comments.size - 1})", show_project_component_path(@project, :comments), remote: true %>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="row spacer">
+	<div id="components-container">
+		<%= render partial: "/partials/alt_components_summary", locals: { :project => @project } %>
+	</div>
+</div>

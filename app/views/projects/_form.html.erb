@@ -26,8 +26,11 @@
 		</script>
 	</div>
 	<%= f.input :qb_code, label: "QB Code" %>
+	<%= f.input :fob, label: "FOB" %>
 </div>
 <div class="col-xs-6">
+	<%= f.input :fso2_target, label: "FSO2 Target" %>
+	<%= f.input :max_do, label: "Max DO" %>
 	<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
 		 					include_blank: "Select Wine", label: "Wine" %>
 	<%= f.input :bottle_id, collection: Bottle.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>

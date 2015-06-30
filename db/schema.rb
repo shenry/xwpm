@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626162058) do
+ActiveRecord::Schema.define(version: 20150627042508) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 20150626162058) do
     t.string   "sample_number"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.float    "cost_per_gallon"
+    t.float    "cogs"
     t.text     "treatments"
     t.text     "description"
     t.integer  "gallons"

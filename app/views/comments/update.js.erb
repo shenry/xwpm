@@ -1,0 +1,2 @@
+var html = "<%= j render partial: '/projects/comment', :formats => :html, locals: { comment: @comment } %>";
+$("#comment-<%= @comment.id %>").html(html);

@@ -62,9 +62,9 @@ $(document).ready( function() {
 		$("#project_has_capsule").change(function(){
 			$("#project_capsule_id").prop("disabled", function(i, v) { return !v });
 		});
-		$("#comment_actionable").change(function(){
-			$("#new-comment-actionable").toggleClass("hidden");
-		});
+		// $("input#comment_actionable").change(function(){
+		// 	$("span#new-comment-actionable").toggleClass("hidden");
+		// });
 	});
 $(function() {
 	$("#specs-form-control").change(function(){

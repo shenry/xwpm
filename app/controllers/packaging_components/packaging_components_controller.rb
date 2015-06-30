@@ -7,6 +7,10 @@ class PackagingComponentsController < ApplicationController
 
   def show
     @packaging_component = PackagingComponent.includes(:vendor).find(params[:id])
+    respond_to do |wants|
+      wants.html { }
+      wants.js { render partial: "show" }
+    end
   end
   
   def new

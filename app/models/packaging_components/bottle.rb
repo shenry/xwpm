@@ -44,6 +44,10 @@ class Bottle < PackagingComponent
     return self.bottle_capacity.gsub('.', '') + self.bottle_capacity_units.upcase
   end
   
+  def format
+    case_capacity + " x " + bottle_capacity + " " + bottle_capacity_units
+  end
+  
   def self.capacity_select_options
     ['mL', 'L', 'oz']
   end

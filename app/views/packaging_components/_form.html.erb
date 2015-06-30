@@ -19,12 +19,6 @@
 	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
 	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
-<% elsif @klass == Shipper %>
-	<%= f.input :item_identifier, label: "Item Identifier" %>
-	<%= render partial: 'image_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
-	<%= render partial: 'attachments_upload_form', locals: { :packaging_component => @packaging_component, :f => f } %>
-	<%= render partial: "specs_form_row", locals: { :klass => @klass, :f => f } %>
-	<%= render partial: "capacity_form_row", locals: { :klass => @klass, :f => f } %>
 <% elsif [Cork, Screwcap].include? @klass %>
 	<%= f.input :item_identifier, label: "Item Identifier" %>
 	<%= f.input :material %>
