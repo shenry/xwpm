@@ -59,7 +59,7 @@ $(document).ready( function() {
 				$("#create-wine-form").hide();
 			}
 		});
-		$("#project_has_capsule").change(function(){
+		$("#project_no_capsule").change(function(){
 			$("#project_capsule_id").prop("disabled", function(i, v) { return !v });
 		});
 		// $("input#comment_actionable").change(function(){
@@ -71,7 +71,7 @@ $(function() {
 		var text = $("#specs-form-control option:selected").text();
 		$("#mirror-units").val(text);
 	});
-})
+});
 
 $(function() {
 	$(".thumb-delete").change(function(){
@@ -84,4 +84,4 @@ $(function() {
 			span.text("Delete?")
 		}
 	});
-})
+});

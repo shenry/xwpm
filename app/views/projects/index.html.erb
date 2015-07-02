@@ -6,6 +6,18 @@
 		<div class='col-xs-4 col-xs-height text-right'>
 			<% if @customer %>
 				<%= link_to "New #{@customer.name} Project", new_customer_project_path(@customer) %>
+			<% else %>
+				
+				<%= select_tag "", options_for_select(@customer_options), include_blank: "Select a Customer to create a Project...", 
+											id: "customer-project-select", class: "select optional form-control"  %>
+				<script type="text/javascript">
+					$(function(){
+						$("select#customer-project-select").change(function(){
+							var url = "/customers/" + $("option:selected", this).val() + "/projects/new";
+							window.location.href = url;
+						});
+					});
+				</script>
 			<% end %>
 		</div>
 	</div>
@@ -26,6 +38,8 @@
 			<th>Wine</th>
 			<th>Actions</th>
 			<th>Status</th>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
 		</tr>
 		<% for project in @projects %>
 		<tr class='table-striped'>
@@ -54,6 +68,8 @@
 				<% end %>
 			</td>
 			<td>#TODO</td>
+			<td><%= link_to "Edit", edit_project_path(project) %></td>
+			<td><%= link_to "Clone", clone_project_path(project) %></td>
 		</tr>
 		<% end %>
 	</table>

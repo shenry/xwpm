@@ -38,7 +38,7 @@ class FirmsController < ApplicationController
       @associated_collection = objects
     end
     respond_to do |wants|
-      wants.html # show.html.erb
+      wants.html { }
       wants.xml  { render :xml => @firm }
     end
   end
@@ -57,6 +57,19 @@ class FirmsController < ApplicationController
   # GET /firms/1/edit
   def edit
     @firm = @klass.find(params[:id])
+  end
+  
+  def update_firm_attribute
+    @firm = Firm.find(params[:firm_id])
+    param = params[:attr]
+    value = params[:value]
+    puts "param = #{param}, value = #{value}"
+    @firm.update_attributes({param.intern => value})
+    if @firm.save
+      respond_to do |wants|
+        wants.js
+      end
+    end
   end
 
   # POST /firms

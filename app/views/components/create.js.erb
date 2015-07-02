@@ -1,0 +1,13 @@
+var newComponentRow = "<%= j render partial: 'components/component', formats: :html, locals: { component: @component } %>";
+$("#new-component-form").before(newComponentRow);
+var newSumRow = "<%= j render partial: 'components/sum_row', formats: :html, locals: { wine: @wine } %>";
+$("#sum-row").replaceWith(newSumRow);
+<% @wine.component_percent_hash.each do |k, v| %>
+	$("#<%= k %>-cell").html("<%= number_to_percentage(v, precision: 1) %>")
+<% end %>
+$("#component_volume").val("");
+$("#component_cogs").val("");
+$("#component_vintage_percent").val("100.0");
+$("#component_appellation_percent").val("100.0");
+$("#component_variety_percent").val("100.0");
+$("#component_lot_number").val("").focus();

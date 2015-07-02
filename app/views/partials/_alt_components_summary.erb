@@ -4,13 +4,13 @@
 </div>
 <div class="row spacer">
 	<%= render partial: "/partials/bottle_summary", locals: { bottle: @project.bottle } %>
-	<% if @project.has_capsule? %>
+	<% unless @project.no_capsule? %>
 		<%= render partial: "/partials/capsule_summary", locals: { capsule: @project.capsule } %>
 	<% else %>
 		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
 	<% end %>
 </div>
-<% if @project.has_capsule? %>
+<% unless @project.no_capsule? %>
 	<div class="row spacer">
 		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
 	</div>

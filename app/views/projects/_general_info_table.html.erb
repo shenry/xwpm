@@ -1,7 +1,10 @@
 <table class="table table-responsive no-top-border">
 	<tr>
 		<th class="col-xs-3"><h3 class="title">General Info</h3></th>
-		<th class="col-xs-3 table-head-link"><%= link_to "Edit Project", edit_project_path(@project), class: "pull-right" %></th>
+		<th class="col-xs-3 table-head-link right">
+			<%= link_to "Edit Project", edit_project_path(@project), class: "" %> | 
+			<%= link_to "Spec Sheet", spec_sheet_path(@project, format: :pdf), target: :_blank %>
+		</th>
 	</tr>
 	<tr>
 		<td>Customer</td>
@@ -34,6 +37,10 @@
 	<tr>
 		<td>QB Code</td>
 		<td><%= @project.qb_code %></td>
+	</tr>
+	<tr>
+		<td>Vinx2 Reference</td>
+		<td><%= @project.wine.try(:vinx2_reference) %></td>
 	</tr>
 	<tr>
 		<td>Vintage</td>

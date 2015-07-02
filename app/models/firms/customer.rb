@@ -23,4 +23,13 @@
 class Customer < Firm
   has_many  :projects
   accepts_nested_attributes_for :projects, allow_destroy: true
+  
+  def self.select_options
+    grp = Customer.order(:name)
+    out = []
+    grp.each do |c|
+      out << [c.name, c.id]
+    end
+    out
+  end
 end

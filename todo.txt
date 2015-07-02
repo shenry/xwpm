@@ -1,0 +1,17 @@
+#TODO
+
+* add estimated cost to project
+* search projects, wines, customers? packaging components?
+* TIO Bottling Sheet
+* Authorization, flexible create w/ admin "Live"
+* track which customers have been sent wine samples, their feedback
+*** integrate customer preferences with wine styles ***
+	* tags?
+	
+* Project packet
+	* PO (applies to one or more projects)
+	* BOL (applies to one or more projects)
+	
+* 45 day threshold
+	* packaging materials associated
+	* wine sample associated

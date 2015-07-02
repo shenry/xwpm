@@ -1,0 +1,14 @@
+#header { background-color: #ea9fdc; text-align: center; }
+.lav { background-color: #fce8fc; }
+.flush-top { margin-top: 0px; }
+.table tr td { line-height: 7px !important; }
+.table tr td { border: 1px solid black !important; /*border-bottom: 1px solid black !important;*/}
+tr.blank td { border: none !important; }
+tr.big td { line-height: 20px !important; }
+td.lav { min-width: 50px;}
+.yellow { background-color: yellow; font-weight: bold; }
+.or { background-color: #ffcf6b; width: 50%;}
+.center { text-align: center; }
+.light-blue { background-color: #C2F0FF;}
+td.vert { font-size: 7px; line-height: 20px; }
+.notes-cell { border: 1px solid black; height: 120px; width: 405px; }

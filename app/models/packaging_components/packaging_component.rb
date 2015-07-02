@@ -41,6 +41,14 @@ class PackagingComponent < ActiveRecord::Base
   
   before_save :upcase_item_identifier, :generate_code
   
+  def self.width_name
+    "Width"
+  end
+  
+  def self.width_abbreviation
+    "Width"
+  end
+  
   def model_nickname
     name = self.model_name.to_s
     name = "Closure" if ["Cork", "Screwcap"].include? name
@@ -58,13 +66,6 @@ class PackagingComponent < ActiveRecord::Base
     output << ["Screwcaps", screwcap_array]
     output
   end
-  
-  # def case_weight
-  #   if self.is_a? Bottle
-  #     out = read_attribute(:case_weight)
-  #     return out.to_s + "Lbs"
-  #   end
-  # end
   
   def description
     [vendor.name, material, self.model_name.to_s.titleize, specs, capacity_string(false)].join(" ")
@@ -84,15 +85,12 @@ class PackagingComponent < ActiveRecord::Base
   end
   
   def self.has_depth?
-    return true if self == Shipper
     false
   end
   
   def self.capacity_description
     if self == Bottle
       "volume"
-    elsif self == Shipper
-      "bottles"
     else
       nil
     end

@@ -3,7 +3,8 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree .
+ *= require_tree
+ *= stub pdf
 */
 
 .table { margin-top: 20px; }
@@ -108,6 +109,9 @@ a.comments-actions:hover .glyphicon-comment { color: #555 !important; }
 #project-labels { margin-top: 15px; }
 #project-labels img { margin-bottom: 20px; }
 
+.align-right { text-align: right; }
+.align-left	 { text-align: left; }
+
 .btn-file {
   position: relative;
   overflow: hidden;
@@ -150,3 +154,14 @@ input[readonly] {
 	color: #888;
 	font-size: 1.5em;
 }
+
+#customer-project-select { color: #999; }
+.comment-style-link { margin-top: 10px; }
+input.addon { width: 96% !important; }
+label.for-addon { margin-right: 15px !important; }
+
+.fancyform-beard a { color: inherit !important; }
+.fancyform-beard a:hover { text-decoration: none; cursor: text; }
+
+.right { text-align: right; }
+tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }

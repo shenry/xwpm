@@ -10,7 +10,7 @@
 			</tr>
 			<tr>
 				<td>Vinx2 Referece</td>
-				<td><%= @project.wine.vinx2_reference %></td>
+				<td class="bold"><%= @project.wine.vinx2_reference %></td>
 			</tr>
 			<tr>
 				<td>Alc</td>
@@ -18,7 +18,11 @@
 			</tr>
 			<tr>
 				<td>Gallons / Cases</td>
-				<td class="bold"><%= number_with_delimiter(@project.wine.gallons) %> gal / <%= number_with_delimiter(@project.wine.gallons / 2.4) %> cs</td>
+				<td class="bold">
+					<% if @project.wine.blend_volume %>
+						<%= number_with_delimiter(@project.wine.blend_volume) %> gal / <%= number_with_delimiter(@project.wine.cases) %> cs
+					<% end %>
+				</td>
 			</tr>
 		</table>
 	</div>
@@ -26,15 +30,27 @@
 		<table class="table table-responsive no-top-border">
 			<tr>
 				<td>Vintage</td>
-				<td class="bold"><%= @project.wine.vintage %> (<%= @project.wine.vintage_percent %>%)</td>
+				<td class="bold"><%= @project.wine.vintage %>
+					<% if @project.wine.blend_volume %>
+						&nbsp;(<%= @project.wine.vintage_percent %>)
+					<% end %>
+				</td>
 			</tr>
 			<tr>
 				<td>Appellation</td>
-				<td class="bold"><%= @project.wine.appellation %> (<%= @project.wine.appellation_percent %>%)</td>
+				<td class="bold"><%= @project.wine.appellation %>
+					<% if @project.wine.blend_volume %>
+						&nbsp;(<%= @project.wine.appellation_percent %>)
+					<% end %>
+				</td>
 			</tr>
 			<tr>
 				<td>Variety</td>
-				<td class="bold"><%= @project.wine.variety %> (<%= @project.wine.vintage_percent %>%)</td>
+				<td class="bold"><%= @project.wine.variety %>
+					<% if @project.wine.blend_volume %>
+						&nbsp;(<%= @project.wine.vintage_percent %>%)
+					<% end %>
+				</td>
 			</tr>
 		</table>
 	</div>

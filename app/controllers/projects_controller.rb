@@ -7,7 +7,18 @@ class ProjectsController < ApplicationController
     if params[:alt] == "true"
       render :alt_show
     else
-      render :show
+      render :alt_show
+    end
+  end
+  
+  def show_spec_sheet
+    @project = Project.find(params[:id])
+    
+    respond_to do |wants|
+      wants.html
+      wants.pdf do
+        render  pdf: "spec-sheet-#{@project.to_s.downcase.gsub(" ", "-")}"
+      end
     end
   end
   
@@ -36,6 +47,7 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.includes(:customer, :wine, :comments)
     end
+    @customer_options = Customer.select_options
   end
 
   def new
@@ -43,16 +55,30 @@ class ProjectsController < ApplicationController
     @project = @customer.projects.build(:project_number => "")
   end
   
+  def clone
+    @project = Project.joins(:customer).find(params[:id])
+    @old_project_number = @project.project_number
+    @project.project_number = ""
+    @project.bottling_date  = nil
+    @customer = @project.customer
+    render :new
+  end
+  
   def create
     @customer = Customer.find(params[:customer_id])
     unless params[:project][:wine_id].blank?
       params[:project].delete("wine_attributes")
     end
+    puts "params are #{params.inspect}"
     @project = @customer.projects.new(project_params)
+    bottling_date = params[:project][:bottling_date]
+    puts "bottling_date = #{bottling_date}"
+    @project.bottling_date = Date.strptime(bottling_date, "%m/%d/%y")
     
     if @project.save
       redirect_to customer_projects_path(@customer)
     else
+      puts "Errors: #{@project.errors.messages}"
       render :new, { :project => @project, :customer => @customer }
     end
   end
@@ -97,6 +123,7 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
                                     :bottle_id, :shipper_id, :closure, :closure_id, :capsule_id, :front_label_id, :back_label_id,
-                                    :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do)
+                                    :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do,
+                                    :vintage, :appellation, :taxes, :no_capsule)
   end
 end

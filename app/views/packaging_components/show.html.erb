@@ -79,17 +79,6 @@
 				<div class='col-xs-2 l'>Material</div>
 				<div class='col-xs-2 r'><%= @packaging_component.material %></div>
 			</div>
-		<% elsif @klass == Shipper %>
-			<div class='row spacer'>
-				<div class='col-xs-2 l'>Material</div>
-				<div class='col-xs-2 r'><%= @packaging_component.material %></div>
-				<div class='col-xs-2 l'>Specs</div>
-				<div class='col-xs-3 r'><%= @packaging_component.specs %></div>
-			</div>
-			<div class='row'>
-				<div class='col-xs-2 l'>Capacity</div>
-				<div class='col-xs-2 r'><%= @packaging_component.capacity_string %></div>
-			</div>
 		<% elsif [Cork, Screwcap].include? @klass %>
 			<div class='row spacer'>
 				<div class='col-xs-2 l'>Material</div>

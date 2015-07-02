@@ -4,6 +4,8 @@
 	</div>
 </div>
 
-<%= simple_form_for(@firm, url: {action: :update}, html: { class: 'form-horizontal' }) do |f| %>	
+<%= simple_form_for(@firm, url: {action: :update}, 
+										html: { class: 'form-horizontal' },
+										defaults: { wrapper: :side_by_side }) do |f| %>	
 	<%= render :partial => 'form', :locals => { :f => f } %>
 <% end %>

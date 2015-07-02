@@ -1,0 +1,202 @@
+<!doctype html>
+	<head>
+		<meta charset='utf-8' />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<%= stylesheet_link_tag(asset_data_base64("application.css")) -%>
+		<%= stylesheet_link_tag(asset_data_base64("pdf.css")) -%>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="row">
+				<div id="header" class="col-xs-12 border bold">PRODUCT SPECIFICATION SHEET</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<table class="table">
+						<tr>
+							<td class="col-xs-3">CUSTOMER</td>
+							<td class="col-xs-3 lav"><%= @project.customer.name -%></td>
+						</tr>
+						<tr>
+							<td>BOTTLING LOCATION</td>
+							<td class="lav">#TODO</td>
+						</tr>
+						<tr>
+							<td>BOTTLER</td>
+							<td class="lav">#TODO</td>
+						</tr>
+						<tr>
+							<td>BOTTLING DATE</td>
+							<td class="lav"><%= @project.formatted_bottling_date -%></td>
+						</tr>
+						<tr>
+							<td>CASES TO BOTTLE</td>
+							<td class="lav"><%= number_with_delimiter(@project.target_cases) -%></td>
+						</tr>
+						<tr>
+							<td>BRAND NAME</td>
+							<td class="lav"><%= @project.brand -%></td>
+						</tr>
+						<tr>
+							<td>PROJECT NUMBER</td>
+							<td class="lav"><%= @project.project_number -%></td>
+						</tr>
+						<tr>
+							<td>QB CODE</td>
+							<td class="lav"><%= @project.qb_code -%></td>
+						</tr>
+						<tr>
+							<td>VINTAGE</td>
+							<td class="lav"><%= @project.vintage -%></td>
+						</tr>
+						<tr>
+							<td>VARIETAL</td>
+							<td class="lav"><%= @project.variety -%></td>
+						</tr>
+						<tr>
+							<td>APPELLATION</td>
+							<td class="lav"><%= @project.appellation -%></td>
+						</tr>
+						<tr>
+							<td>LABEL/ACTUAL %ABV</td>
+							<td class="lav"><span class="yellow"><%= @project.label_alc -%></span> / <%= @project.wine.try(:alc) -%></td>
+						</tr>
+						<tr>
+							<td>UPC CODE</td>
+							<td class="lav">#TODO</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-xs-6">
+					<table class="table">
+						<tr>
+							<td>FRONT LABEL PLACEMENT</td>
+							<td class="lav"><%= @project.front_label.label_position -%>mm</td>
+						</tr>
+						<tr>
+							<td>BACK LABEL PLACEMENT</td>
+							<td class="lav"><%= @project.back_label.label_position -%>mm</td>
+						</tr>
+						<tr>
+							<td>QUANTITY/CS</td>
+							<td class="lav"><%= @project.bottle.format -%></td>
+						</tr>
+						<tr>
+							<td>PALLET CONFIGURATION</td>
+							<td class="lav"><%= @project.bottle.pallet_configuration -%></td>
+						</tr>
+						<tr>
+							<td>CASE WEIGHT</td>
+							<td class="lav"><%= @project.bottle.case_weight -%>Lbs</td>
+						</tr>
+						<tr>
+							<td>SO2 TARGET</td>
+							<td class="lav"><%= @project.fso2_target -%></td>
+						</tr>
+						<tr>
+							<td>MAX DO TARGET</td>
+							<td class="lav"><%= @project.max_do -%></td>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td>TAX</td>
+							<td class="lav"><%= @project.taxes -%></td>
+						</tr>
+					</table>
+					<table class="table">
+						<tr>
+							<td>TRUCKER</td>
+							<td class="lav"><%= @project.trucker -%></td>
+						</tr>
+						<tr>
+							<td>CS TO CUSTOMER</td>
+							<td class="lav"><%= number_with_delimiter(@project.cases_to_customer) -%></td>
+						</tr>
+						<tr>
+							<td>CS TO WAREHOUSE</td>
+							<td class="lav"><%= number_with_delimiter(@project.cases_to_warehouse) -%></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="row-same-height">
+					<div class="col-xs-7 col-xs-height"><div class="notes-cell">&nbsp;Notes:&nbsp;#TODO</div></div>
+					<div class="col-xs-5 col-xs-height">
+						<table class="table flush-top">
+							<tr>
+								<td class="">BEGIN GAL</td>
+								<td class="or"></td>
+							</tr>
+							<tr>
+								<td>USED</td>
+								<td class="or"></td>
+							</tr>
+							<tr>
+								<td>END GAL</td>
+								<td class="or"></td>
+							</tr>
+							<tr class="blank"><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>FCG BREAKAGE</td>
+								<td class="or"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<table class="table flush-top">
+						<tr class="big">
+							<td class="light-blue center">MATERIALS</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-xs-6">
+					<table class="table flush-top">
+						<tr class="big">
+							<td rowspan="2">FINAL CASE COUNT</td>
+							<td class="or">&nbsp;</td>
+						</tr>
+					</table>
+				</div>				
+			</div>
+			<div class="col-xs-12">
+				<table class="table flush-top no-top-border">
+					<tr>
+						<th class="col-xs-7" colspan="2">ITEM CODE/DESCRIPTION</th>
+						<th class="col-xs-1s">INV</th>
+						<th class="col-xs-1s">ON PO</th>
+						<th class="col-xs-1s">PO#</th>
+						<th class="col-xs-1s">USED</th>
+					</tr>
+					<tr>
+						<td class="vert" rowspan="3">G<br/>L<br/>A<br/>S<br/>S</td>
+						<td>this is a very long item description</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

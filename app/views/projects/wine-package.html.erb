@@ -41,7 +41,6 @@
 			<%= package.input :capsule_id, collection: Capsule.all.map { |c| [c.to_s, c.id] }, include_blank: "Select Capsule" %>
 			<%= package.input :front_label_id, collection: FrontLabel.all.map { |f| [f.to_s, f.id] }, include_blank: "Select Front Label" %>
 			<%= package.input :back_label_id, collection: BackLabel.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Back Label" %>
-			<%= package.input :shipper_id, collection: Shipper.all.map { |s| [s.to_s, s.id] }, include_blank: "Select Shipper" %>
 		<% end %>
 	</div>
 </div>

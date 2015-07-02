@@ -26,7 +26,7 @@
 				<th>Position</th>
 				<th>Rewind</th>
 			<% end %>
-			<th class="col-xs-1">
+			<th class="col-xs-<%= controller_name == 'bottles' ? '1' : '2' %>">
 				<% if controller_name == 'labels' %>
 					Size
 				<% elsif controller_name == 'bottles' %>

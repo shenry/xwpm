@@ -2,13 +2,15 @@
 	<%= f.error_notification %>
 	<%= f.input :project_number %>
 	<%= f.input :brand, input_html: {class: "chosen-select", id: "autocomplete-brand"} %>
+	<%= f.input :vintage %>
+	<%= f.input :appellation %>
 	<%= f.input :variety %>
 	<%= f.input :winemaker %>
 	<%= f.input :target_cases, label: "Target Cases" %>
 	<%= f.input :cases_to_customer, label: "Cases to Customer" %>
 	<%= f.input :trucker %>
 	<div class="form-group">
-		<div class="col-xs-4 control-label bold">Bottling Date</div>
+		<label class="col-xs-4 control-label bold" for="project_bottling_date">Bottling Date</label>
 		<div class="col-xs-8">
 			<div class="input-group date" id="date-picker">
 				<%= f.input_field :bottling_date, as: :string, class: "form-control" %>
@@ -25,12 +27,20 @@
 			});
 		</script>
 	</div>
-	<%= f.input :qb_code, label: "QB Code" %>
-	<%= f.input :fob, label: "FOB" %>
+	<%= f.button :submit, class: "col-xs-offset-4 submit-spacer col-xs-8" %>
 </div>
 <div class="col-xs-6">
+	<%= f.input :qb_code, label: "QB Code" %>
+	<div class="form-group">
+		<label class="control-label bold col-xs-4 for-addon" for="wine_cogs">FOB</label>
+		<div class="input-group">
+			<div class="input-group-addon">$</div>
+			<%= f.input_field :fob, label: "FOB", class: "form-control col-xs-4 addon" %>
+		</div>
+	</div>
 	<%= f.input :fso2_target, label: "FSO2 Target" %>
 	<%= f.input :max_do, label: "Max DO" %>
+	<%= f.input :taxes %>
 	<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
 		 					include_blank: "Select Wine", label: "Wine" %>
 	<%= f.input :bottle_id, collection: Bottle.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>
@@ -39,6 +49,18 @@
 							collection: PackagingComponent.grouped_closures, 
 							group_method: :last, 
 							include_blank: "Select Closure" %>
+	<script type="text/javascript">
+		$("#project_closure_id").change(function(){
+			var type = $("#project_closure_id :selected").parent().attr("label");
+			if ( type == "Screwcaps" ) {
+				$("#project_capsule_id option[value='']").attr("selected", true);
+				$("#project_capsule_id").prop("disabled", true);
+				$("#project_no_capsule").prop("checked", true);
+			} else {
+				$("#project_capsule_id").prop("disabled", false);
+			}
+		});
+	</script>
 	<div class="form-group">
 		<span class="col-xs-4 control-label bold">Capsule</span>
 		<div class="col-xs-6">
@@ -47,13 +69,12 @@
 		</div>
 		<div class="checkbox col-xs-1 small">
 			<label>
-				<input type="checkbox" name="project[has_capsule]" id="project_has_capsule" class="control-form">No Capsule?
+				<input type="checkbox" name="project[no_capsule]" id="project_no_capsule" class="control-form">No Capsule?
 			</label>
 		</div>
 	</div>
 	<%= f.input :front_label_id, collection: FrontLabel.all.map { |f| [f.to_s, f.id] }, include_blank: "Select Front Label" %>
 	<%= f.input :back_label_id, collection: BackLabel.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Back Label" %>
-	<%= f.button :submit, class: "col-xs-offset-4 submit-spacer col-xs-8" %>
 	<script type="text/javascript">
 		var brands 				= <%= raw @brands.to_json %>
 		var varieties 		= <%= raw @varieties.to_json %>

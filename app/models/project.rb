@@ -32,7 +32,8 @@ class Project < ActiveRecord::Base
   
   before_save :format_project_number, :set_closure_type, :set_capsule_status
   
-  validates :project_number, :brand, :variety, :target_cases, :bottling_date, presence: true
+  validates :project_number, :brand, :variety, :target_cases, :bottling_date, 
+            :vintage, :appellation, presence: true
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
   validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past
@@ -84,6 +85,12 @@ class Project < ActiveRecord::Base
   
   private
   
+  # def dateify_bottling_date
+  #   unless bottling_date.blank?
+  #     self.bottling_date = Date.strptime(bottling_date, BOTTLING_DATE_FORMAT_STRING)
+  #   end
+  # end
+  
   def set_closure_type
     unless closure_id == nil
       self.closure_type = "PackagingComponent"
@@ -91,13 +98,19 @@ class Project < ActiveRecord::Base
   end
   
   def set_capsule_status
-    unless capsule_id == nil
-      self.has_capsule = true
-    else 
-      if closure.is_a? Screwcap
-        self.has_capsule = false
-      end
+    if closure.is_a?  Screwcap
+      self.no_capsule = true
+      self.capsule_id = nil
     end
+    
+    # unless capsule_id == nil
+    #   self.no_capsule = false
+    # else
+    #   if closure.is_a? Screwcap
+    #     self.no_capsule   = true
+    #     self.capsule_id   = nil
+    #   end
+    # end
   end
   
   def formatted_label_position(type)

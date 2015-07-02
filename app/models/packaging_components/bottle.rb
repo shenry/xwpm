@@ -36,8 +36,17 @@ class Bottle < PackagingComponent
   has_many    :projects
   
   validates :mould, :shape, :color, :height, :width, :units, :fill_point, :fill_point_units, 
-            :bottle_capacity, :bottle_capacity_units, :case_capacity, :carton_size, :case_weight, presence: true
+            :bottle_capacity, :bottle_capacity_units, :case_capacity, :carton_size, :case_weight, 
+            :pallet_configuration, presence: true
   validates_presence_of :vendor
+  
+  def self.width_name
+    "Diameter"
+  end
+  
+  def self.width_abbreviation
+    "Diam."
+  end
   
   def spec_code
     return self.bottle_capacity if self.bottle_capacity_units == "mL"

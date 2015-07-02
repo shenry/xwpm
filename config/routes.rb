@@ -39,17 +39,24 @@ X::Application.routes.draw do
   
   get "/clear-comment/:comment_id/from-project/:project_id", controller: "comments", action: "complete_action"
   get "/projects/:id/component/:component", controller: "projects", action: "show_component", as: :show_project_component
+  get "/projects/:id/spec_sheet", controller: "projects", action: "show_spec_sheet", as: :spec_sheet
   
   post "/clear-project-comment", controller: "comments", action: "complete_action"
   get  "/comments/:id/edit", controller: "comments", action: "edit", as: :edit_comment
   put  "/comments/:id/update", controller: "comments", action: "update", as: :update_comment
+  get  "/projects/:id/clone", controller: "projects", action: "clone", as: :clone_project
+  post "/firms/:firm_id/attribute/:attr/update", controller: "firms", action: "update_firm_attribute", as: :update_firm_attribute
   
   # concern :firm do
   #   resources :customers
   #   resources :vendors
   # end
   
-  resources :packaging_components, :wines, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
+  resources :wines do
+    resources :components
+  end
+  
+  resources :packaging_components, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
             :back_labels, :vendors, :comments
             
   resources :projects do

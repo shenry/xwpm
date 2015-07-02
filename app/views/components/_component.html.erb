@@ -1,0 +1,11 @@
+<tr id="component-<%= component.id %>-row">
+	<td><%= component.lot_number %></td>
+	<td><%= number_with_delimiter(component.volume) %></td>
+	<td class="pct-cell" id="<%= component.id %>-cell"><%= number_to_percentage(component.blend_percent, precision: 1) %></td>
+	<td><%= number_to_currency(component.cogs) %></td>
+	<td><%= number_to_percentage(component.vintage_percent, precision: 1) %></td>
+	<td><%= number_to_percentage(component.appellation_percent, precision: 1) %></td>
+	<td><%= number_to_percentage(component.variety_percent, precision: 1) %></td>		
+	<td><%= markup(component.description) %></td>
+	<td>actions</td>
+</tr>

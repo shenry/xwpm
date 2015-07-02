@@ -4,6 +4,7 @@
 <span class="glyphicon glyphicon-check text-success hidden" id="<%= comment.new_record? ? 'new-comment-actionable' : "comment-#{comment.id}-actionable" %>"></span>
 <%= f.input_field :body, label: false, class: "col-xs-12 form-control" %>
 <div class="clearfix">
+	<span class="pull-right comment-style-link"><%= link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: :_blank %></span>
 	<%= f.input :actionable, as: :boolean, label: false, inline_label: true %>
 	<% if !comment.new_record? && comment.actionable %>
 		<%= f.input :resolved, as: :boolean, label: false, inline_label: true %>

@@ -6,6 +6,7 @@ class WinesController < ApplicationController
   
   def show
     @wine = Wine.find(params[:id])
+    @wine.components.build
   end
   
   def new
@@ -15,9 +16,9 @@ class WinesController < ApplicationController
   def create
     @wine = Wine.new(wine_params)
     if @wine.save
-      render action: :index
+      redirect_to action: :index
     else
-      redirect_to new_wine_path(@wine)
+      render new_wine_path(@wine)
     end
   end
   
@@ -38,7 +39,7 @@ class WinesController < ApplicationController
   
   private
   def wine_params
-    params.require(:wine).permit(:name, :description, :appellation, :appellation_percent, :variety, :variety_percent,
-                                 :vintage, :vintage_percent, :alc, :winemaker, :sample_number, :treatments)
+    params.require(:wine).permit(:name, :description, :appellation, :variety, :vintage, :alc, :winemaker, 
+                                 :sample_number, :treatments, :vinx2_reference)
   end
 end

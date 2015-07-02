@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627042508) do
+ActiveRecord::Schema.define(version: 20150702190508) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -40,6 +40,22 @@ ActiveRecord::Schema.define(version: 20150627042508) do
   add_index "comments", ["author_id"], name: "index_comments_on_author_id"
   add_index "comments", ["project_id"], name: "index_comments_on_project_id"
   add_index "comments", ["resolver_id"], name: "index_comments_on_resolver_id"
+
+  create_table "components", force: :cascade do |t|
+    t.integer  "wine_id"
+    t.string   "lot_number"
+    t.integer  "volume"
+    t.string   "description"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.float    "cogs"
+    t.float    "appellation_percent", default: 100.0
+    t.float    "vintage_percent",     default: 100.0
+    t.float    "variety_percent",     default: 100.0
+  end
+
+  add_index "components", ["lot_number"], name: "index_components_on_lot_number"
+  add_index "components", ["wine_id"], name: "index_components_on_wine_id"
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -158,7 +174,7 @@ ActiveRecord::Schema.define(version: 20150627042508) do
     t.integer  "front_label_id"
     t.integer  "back_label_id"
     t.integer  "shipper_id"
-    t.boolean  "has_capsule",       default: false, null: false
+    t.boolean  "no_capsule",        default: false, null: false
     t.string   "vintage"
     t.string   "appellation"
     t.string   "closure_type"
@@ -211,19 +227,14 @@ ActiveRecord::Schema.define(version: 20150627042508) do
 
   create_table "wines", force: :cascade do |t|
     t.string   "appellation"
-    t.string   "appellation_percent"
     t.string   "variety"
-    t.string   "variety_percent"
     t.string   "vintage"
-    t.string   "vintage_percent"
     t.string   "alc"
     t.string   "sample_number"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.float    "cogs"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "treatments"
     t.text     "description"
-    t.integer  "gallons"
     t.string   "vinx2_reference"
   end
 
