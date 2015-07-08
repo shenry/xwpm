@@ -44,10 +44,18 @@ class ProjectsController < ApplicationController
     if params[:customer_id]
       @customer = Customer.includes(:projects).find(params[:customer_id])
       @projects = @customer.projects
+    elsif params[:vendor_id]
+      @projects = Project.joins(bottle: :vendor, capsule: :vendor, front_label: :vendor, back_label: :vendor).where("'packaging_components'.'vendor_id' = ?", params[:vendor_id])
+      puts "@projects = #{@projects.inspect}"
     else
       @projects = Project.includes(:customer, :wine, :comments)
+      @customer_options = Customer.select_options
     end
-    @customer_options = Customer.select_options
+    
+    respond_to do |wants|
+      wants.html
+      wants.js { render "project_vendors.js" }
+    end
   end
 
   def new
@@ -69,16 +77,13 @@ class ProjectsController < ApplicationController
     unless params[:project][:wine_id].blank?
       params[:project].delete("wine_attributes")
     end
-    puts "params are #{params.inspect}"
     @project = @customer.projects.new(project_params)
     bottling_date = params[:project][:bottling_date]
-    puts "bottling_date = #{bottling_date}"
     @project.bottling_date = Date.strptime(bottling_date, "%m/%d/%y")
     
     if @project.save
       redirect_to customer_projects_path(@customer)
     else
-      puts "Errors: #{@project.errors.messages}"
       render :new, { :project => @project, :customer => @customer }
     end
   end

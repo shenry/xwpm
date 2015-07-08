@@ -1,0 +1,40 @@
+<div class="row spacer">
+	<div class="col-xs-12"><h1><%= @purchase_order.to_s %></h1></div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-12">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<th class="col-xs-4">Project</th>
+				<th>Item</th>
+			</tr>
+			<% @purchase_order.line_items.each do |line_item| %>
+				<% if line_item.new_record? %>
+					<tr>
+						<%= simple_form_for line_item, defaults: { wrapper: :inline_form } do |f| %>
+							<td>
+								<%= f.input :project_id, collection: @associated_projects.map { |p|
+														[p.to_s, p.id] }, include_blank: "Select Project" %>
+							</td>
+							<td>
+								<%= f.input :packaging_component_id, collection: [], include_blank: "Select Component", disabled: true %>
+							</td>
+							<script type="text/javascript">
+								$(document).ready(function(){
+									var projectComponentsHash = <%= raw hash_project_components(@associated_projects) %>
+								});
+							</script>
+						<% end %>
+					</tr>
+				<% end %>
+			<% end %>
+		</table>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-12">
+		<table class="table table-responsive no-top-border">
+			
+		</table>
+	</div>
+</div>

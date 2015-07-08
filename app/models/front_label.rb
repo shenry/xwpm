@@ -1,0 +1,3 @@
+class FrontLabel < Label
+  
+end

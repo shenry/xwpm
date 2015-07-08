@@ -7,6 +7,7 @@ class WinesController < ApplicationController
   def show
     @wine = Wine.find(params[:id])
     @wine.components.build
+    @customer_options = Customer.select_options
   end
   
   def new

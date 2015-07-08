@@ -76,9 +76,14 @@
 					<th colspan="2">Customer Shipments</th>
 				</tr>
 				<tr>
-					<td class="text-muted">No Samples sent</td>
-					<td>&nbsp;</td>
+					<td colspan="2"><%= render partial: "partials/shipment_customer_select", locals: { wine: @wine } %></td>
 				</tr>
+				<% @wine.wine_shipments.each do |shipment| %>
+				<tr>
+					<td><%= shipment.customer.name %></td>
+					<td><%= shipment.formatted_ship_date %> - <%= link_to "Track" %></td>
+				</tr>
+				<% end %>
 			</table>
 		</div>
 	</div>

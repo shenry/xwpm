@@ -17,6 +17,8 @@
 //= require bootstrap 
 //= require jquery.autocomplete.min
 //= require autocomplete.js
+//= require bootstrap-editable.min
+//= require bootstrap-editable-rails
 	
 //= require jquery.ui.widget
 //= require jquery.iframe-transport

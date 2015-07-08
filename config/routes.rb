@@ -33,6 +33,8 @@ X::Application.routes.draw do
   
   resources :customers do
     resources :projects, shallow: true
+    resources :wine_shipments
+    resources :sampled_wines
   end
   
   # resources :projects, only: [:index, :show, :edit, :update]
@@ -52,8 +54,15 @@ X::Application.routes.draw do
   #   resources :vendors
   # end
   
+  resources :wine_shipments
+  
+  resources :purchase_orders
+  resources :packaging_component_orders, only: [:create, :update, :destroy]
+  
   resources :wines do
     resources :components
+    resources :wine_shipments
+    resources :reviewers
   end
   
   resources :packaging_components, :bottles, :corks, :screwcaps, :capsules, :front_labels, 

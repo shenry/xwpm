@@ -1,0 +1,36 @@
+<div class="col-xs-12 spacer">
+	<div class="col-xs-12">
+		<h1>Shipping sample <%= @wine_shipment.wine.sample_number %> to <%= @wine_shipment.customer.name %></h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6 spacer">
+		<%= simple_form_for @wine_shipment, html: { class: 'form-horizontal' }, defaults: { wrapper: :side_by_side } do |f| %>
+			<%= f.input :tracking_number %>
+			<%= f.input :wine_id, as: :hidden %>
+			<%= f.input :customer_id, as: :hidden %>
+			<%= f.input :carrier %>
+			<div class="form-group">
+				<label class="col-xs-4 control-label bold" for="wine_shipment_ship_date">Ship Date</label>
+				<div class="col-xs-8">
+					<div class="input-group date" id="date-picker">
+						<%= f.input_field :ship_date, as: :string, class: "form-control" %>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				<script type="text/javascript">
+					$(function () {
+						$("#date-picker").datetimepicker({
+							format: "MM/DD/YY"
+						});
+					});
+				</script>
+			</div>
+			<div class="col-xs-offset-4 col-xs-4">
+				<%= f.button :submit, value: "foo", class: "button-wide" %>
+			</div>
+		<% end %>
+	</div>
+</div>

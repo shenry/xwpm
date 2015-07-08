@@ -155,7 +155,7 @@ input[readonly] {
 	font-size: 1.5em;
 }
 
-#customer-project-select { color: #999; }
+#customer-project-select, #customer-shipment-select { color: #999; }
 .comment-style-link { margin-top: 10px; }
 input.addon { width: 96% !important; }
 label.for-addon { margin-right: 15px !important; }
@@ -165,3 +165,6 @@ label.for-addon { margin-right: 15px !important; }
 
 .right { text-align: right; }
 tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }
+
+.inline-spinner { line-height: 40px !important; }
+.button-wide { width: 100%; }

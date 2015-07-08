@@ -74,7 +74,7 @@
 				<td>FOB / COGs</td>
 				<td class="bold">
 					<%= number_to_currency(@project.fob) %>
-					<% if @project.wine.blend_volume %>
+					<% if @project.wine.try(:blend_volume) %>
 					 <% if @project.fob %> / <% end %><%= number_to_currency(@project.wine.weighted_avg(:cogs)) %>
 					<% end %>
 				</td>

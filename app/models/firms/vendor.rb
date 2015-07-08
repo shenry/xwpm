@@ -21,7 +21,11 @@
 #
 
 class Vendor < Firm
-  has_many :packaging_components, inverse_of: :vendor
+  # has_many :packaging_components, inverse_of: :vendor, dependent: :destroy
+  has_many :products, class_name: "VendorProduct"
+  has_many :bottles, through: :vendor_products, source: :vendable, source_type: "Bottle"
+  
+  has_many :purchase_orders, inverse_of: :vendor , dependent: :destroy
   
   validates :code, presence: true
   

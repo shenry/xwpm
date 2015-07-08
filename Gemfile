@@ -20,6 +20,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'bluecloth'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'tracking_number'
+gem 'active_shipping'
+gem 'bootstrap-editable-rails'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]

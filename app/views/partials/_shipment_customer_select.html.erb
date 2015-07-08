@@ -1,0 +1,10 @@
+<%= select_tag "", options_for_select(@customer_options), include_blank: "Select a Customer to create a Shipment...",
+	 							id: "customer-shipment-select", class: "select optional form-control" %>
+<script type="text/javascript">
+	$(function(){
+		$("select#customer-shipment-select").change(function(){
+			var url = "/wines/<%= @wine.id %>/wine_shipments/new?c_id="+ $("option:selected", this).val();
+			window.location.href = url;
+		});
+	});
+</script>

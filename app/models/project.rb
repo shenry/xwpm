@@ -19,18 +19,39 @@ class Project < ActiveRecord::Base
   include ProjectsHelper
   include CostHelper
 
-  belongs_to  :closure, polymorphic: true
-  belongs_to  :capsule
-  belongs_to  :bottle
-  belongs_to  :shipper
-  belongs_to  :back_label
-  belongs_to  :front_label
+  # belongs_to  :closure, polymorphic: true
+  # belongs_to  :capsule
+  # belongs_to  :bottle
+  # belongs_to  :back_label
+  # belongs_to  :front_label
   belongs_to  :wine, inverse_of: :projects
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   
-  has_many    :comments, inverse_of: :project, dependent: :destroy
+  has_many    :components, class_name: "ComponentRequirement"
+  has_one     :bottle_requirement, -> { where(packageable_type: "Bottle") }, class_name: "ComponentRequirement"
+  has_one     :bottle, through: :bottle_requirement, source: :packageable, source_type: "Bottle"
   
-  before_save :format_project_number, :set_closure_type, :set_capsule_status
+  has_one     :capsule_requirement, -> { where(packageable_type: "Capsule") }, class_name: "ComponentRequirement"
+  has_one     :capsule, through: :capsule_requirement, source: :packageable, source_type: "Capsule"
+  
+  has_one     :closure_requirement, -> { where(packageable_type: "Closure") }, class_name: "ComponentRequirement"
+  has_one     :closure, through: :closure_requirement, source: :packageable, source_type: "Closure"
+  
+  has_one     :front_label_requirement, -> { where(packageable_type: "FrontLabel") }, class_name: "ComponentRequirement"
+  has_one     :front_label, through: :front_label_requirement, source: :packageable, source_type: "BackLabel"
+  
+  has_one     :back_label_requirement, -> { where(packageable_type: "BackLabel") }, class_name: "ComponentRequirement"
+  has_one     :back_label, through: :back_label_requirement, source: :packageable, source_type: "BackLabel"
+  
+
+  
+  has_many    :comments, inverse_of: :project, dependent: :destroy
+  has_many    :packaging_component_orders, inverse_of: :project, dependent: :destroy
+  has_many    :purchase_orders, through: :packaging_component_orders
+  has_many    :events, class_name: "ProjectEvent", inverse_of: :project, dependent: :destroy
+  
+  before_create :set_initial_state
+  # before_save   :format_project_number, :set_closure_type, :set_capsule_status
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, 
             :vintage, :appellation, presence: true
@@ -38,7 +59,35 @@ class Project < ActiveRecord::Base
   validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past
 
-  scope     :active, -> { where("bottling_date >= ?", Date.today) }
+  scope     :active,  -> { where("bottling_date >= ?", Date.today) }
+  
+  STATES = %w(in_development live bottled qb_entered costed cancelled)
+  delegate :in_development?, :live?, :bottled?, :qb_entered?, :costed?, :cancelled?, to: :current_state
+  
+  def self.associated_with_vendor(id)
+    components  = PackagingComponent.where("vendor_id = ?", id) #TODO - reference only "active" components
+    array       = components.map { |c| c.id }
+    str         = array.join(",")
+    joins("INNER JOIN packaging_components ON projects.bottle_id IN (#{str})
+    OR projects.capsule_id IN (#{str}) OR projects.closure_id IN (#{str}) 
+    OR projects.front_label_id IN (#{str}) OR projects.back_label_id IN (#{str}) 
+    GROUP BY projects.id")
+  end
+  
+  STATES.each do |state|    
+    define_singleton_method("#{state}") do
+      joins(:events).merge ProjectEvent.with_last_state(state)
+    end
+    
+    define_method("#{state}!") do
+      new_event = self.events.build(state: state)
+      new_event.save
+    end
+  end
+  
+  def current_state
+    (events.last.try(:state) || STATES.first).inquiry
+  end
   
   def cases_to_warehouse
     target_cases - cases_to_customer
@@ -58,7 +107,7 @@ class Project < ActiveRecord::Base
   end
   
   def to_s
-    "#{vintage} #{brand} #{variety}"
+    "[#{project_number}] - #{vintage} #{brand} #{variety}"
   end
   
   def label_alc
@@ -85,6 +134,10 @@ class Project < ActiveRecord::Base
   
   private
   
+  def set_initial_state
+    in_development!
+  end
+  
   # def dateify_bottling_date
   #   unless bottling_date.blank?
   #     self.bottling_date = Date.strptime(bottling_date, BOTTLING_DATE_FORMAT_STRING)
@@ -102,15 +155,6 @@ class Project < ActiveRecord::Base
       self.no_capsule = true
       self.capsule_id = nil
     end
-    
-    # unless capsule_id == nil
-    #   self.no_capsule = false
-    # else
-    #   if closure.is_a? Screwcap
-    #     self.no_capsule   = true
-    #     self.capsule_id   = nil
-    #   end
-    # end
   end
   
   def formatted_label_position(type)

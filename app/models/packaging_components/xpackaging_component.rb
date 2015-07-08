@@ -30,9 +30,12 @@
 #  artwork_source   :string
 #
 
-class PackagingComponent < ActiveRecord::Base
+class XPackagingComponent < ActiveRecord::Base
   belongs_to  :vendor, inverse_of: :packaging_components
   has_many    :attachments, as: :parent, dependent: :destroy
+  has_many    :packaging_component_orders, dependent: :destroy
+  has_many    :purchase_orders, through: :packaging_component_orders
+  
   accepts_nested_attributes_for :attachments, allow_destroy: true
   
   mount_uploader  :image, ImageUploader
