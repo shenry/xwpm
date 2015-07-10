@@ -17,12 +17,10 @@
 //= require bootstrap 
 //= require jquery.autocomplete.min
 //= require autocomplete.js
-//= require bootstrap-editable.min
-//= require bootstrap-editable-rails
+//= require best_in_place
 	
-//= require jquery.ui.widget
-//= require jquery.iframe-transport
-//= require jquery.fileupload
+
+//= require cloudinary
 //= require cloudinary/jquery.cloudinary
 	
 //= require moment
@@ -86,4 +84,45 @@ $(function() {
 			span.text("Delete?")
 		}
 	});
+});
+
+$(document).ready(function(){
+	$("#create-form input").blur(function(){
+		if ( $(this).val() == '') {
+			$(this).removeClass("has-value");
+		} else {
+			$(this).addClass("has-value");
+		}
+	});
+});
+
+$(document).ready(function(){
+	$('.progress_bar').hide();
+	$("#replace-image-link").click(function(){
+		$("#image-replace").prepend($.cloudinary.unsigned_upload_tag("frzj7e4j", {cloud_name: "hcq3xdudm"}));
+	});
+	// $('#upload-cell').prepend($.cloudinary.unsigned_upload_tag("frzj7e4j", {cloud_name: "hcq3xdudm"}));
+	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j", 
+	  { cloud_name: 'hcq3xdudm'}, 
+	  { multiple: true }
+	).bind('fileuploadsend', function(e, data) {
+		$('.progress_bar').show();
+	}).bind('cloudinarydone', function(e, data) {
+		$('.progress_bar').hide();
+	  $('.thumbnails').html($.cloudinary.image(data.result.public_id, 
+	    { format: 'jpg', width: 200, height: 200, 
+	      crop: 'thumb', gravity: 'face'} ))}
+
+	).bind('cloudinaryprogress', function(e, data) { 
+		
+	  $('.progress_bar').css('width', 
+	    Math.round((data.loaded * 100.0) / data.total) + '%'); 
+			
+	});
+});
+
+
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
 });

@@ -2,6 +2,12 @@
 
 class ImageUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
+  # process :transformation => [{ :angle => :exif }]
+  process :scale => [50, 50]
+  
+  def scale(w,h)
+    process :resize_to_fit => [w,h]
+  end
   
   version :thumb do
     process :resize_to_fit => [50, 50]

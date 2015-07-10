@@ -1,0 +1,55 @@
+<div class="row spacer">
+	<div class="col-xs-12"><h1>New Bottle</h1></div>
+</div>
+<div class="row spacer">
+	<%= simple_form_for @bottle, html: { class: "form-horizontal" }, defaults: { wrapper: :side_by_side } do |f| %>
+		<div class="col-xs-5">
+			<%= f.input :item_number, label: "Item #" %>
+			<%= f.input :mould %>
+			<%= f.input :shape %>
+			<%= f.input :color %>
+			<div class="form-group">
+				<label class="col-xs-4 control-label bold" for="bottle_finish"><abbr>*</abbr> Finish</label>
+				<div class="col-xs-4">
+					<%= f.input_field :finish, class: 'form-control', collection: @bottle.finish_collection, include_blank: "Select Finish"  %>
+				</div>
+				<div class="col-xs-3">
+					<%= f.input_field :neck_diameter, class: 'form-control', placeholder: "Diameter" %>
+				</div>
+				<span class="x-spacer">mm</span>
+			</div>
+			<div class='form-group'>
+				<label class='col-xs-4 control-label bold' for="bottle_height"><abbr>*</abbr> Specs</label>
+				<div class='col-xs-2'>
+					<%= f.text_field :height, class: 'form-control col-xs-2', placeholder: 'H' %>	
+				</div>
+				<span class='x-spacer'>x</span>
+				<div class='col-xs-2 nudge-left'>
+					<%= f.text_field :diameter, class: 'form-control col-xs-2', placeholder: 'D' %>					
+				</div>
+				<div class='col-xs-4'>
+					<%= f.select :units, @bottle.units_options, {}, class: 'form-control', id: 'specs-form-control' %>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-xs-4 control-label bold' for="bottle_fill_point"><abbr>*</abbr> Fill Point</label>
+				<div class='col-xs-7'>
+					<%= f.text_field :fill_point, class: 'form-control col-xs-2' %>
+				</div>
+				<span class="x-spacer">mm</span>
+			</div>
+		</div>
+		<div class="col-xs-5">
+			<div class="form-group">
+				<label class="control-label col-xs-4 bold" for="bottle_case_weight">Case Weight</label>
+				<div class="col-xs-8">
+					<div class="input-group">
+						<%= f.input_field :case_weight, class: "form-control round-addon-right" %>
+						<div class="input-group-addon">LBS</div>
+					</div>
+				</div>
+			</div>
+			<%= f.input :case_dimensions, label: "Case Dimensions" %>
+		</div>
+	<% end %>
+</div>

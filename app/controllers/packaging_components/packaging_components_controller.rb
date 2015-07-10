@@ -1,63 +1,35 @@
 class PackagingComponentsController < ApplicationController
   before_filter :get_type
+  respond_to :html, :json
   
   def index
-    @components = @klass.includes(:vendor).order(:created_at).page(params[:page] || 1)
+    @status   = params[:status] || "active"
+    @components  = @klass.send(@status.intern)
   end
-
+  
   def show
-    @packaging_component = PackagingComponent.includes(:vendor).find(params[:id])
-    respond_to do |wants|
-      wants.html { }
-      wants.js { render partial: "show" }
-    end
-  end
-  
-  def new
-    @packaging_component = @klass.new
-    @vendors = Vendor.order(:name).map { |v| [v.id, v.name] }
-  end
-  
-  def edit
-    @packaging_component = PackagingComponent.find(params[:id])
-    @packaging_component.attachments.build
-    render action: 'new'
+    @component = @klass.find(params[:id])
   end
   
   def create
-    @packaging_component = @klass.new(packaging_component_params)
-    if @packaging_component.save
-      flash[:notice] = "New #{@klass.to_s} successfully created."
-      redirect_to action: 'index'
+    vendor = Vendor.find(params[:bottle][:vendor_id])
+    @component = @klass.new(component_params)
+    if @component.save
+      @component.vendor = vendor
+      redirect_to :index
     else
-      render action: 'new', :packaging_component => @packaging_component
+      render :new
     end
   end
   
   def update
-    @packaging_component  = PackagingComponent.find(params[:id])
-    component_class       = @klass.to_s.underscore.downcase.intern
-    new_assets            = params[component_class].delete("new_assets")
-
-    if @packaging_component.update_attributes(packaging_component_params)
-      if new_assets && !(new_assets.empty?)
-        new_assets.each do |asset|
-          attachment = @packaging_component.attachments.build
-          attachment.asset = asset
-          @packaging_component.save
-        end
-      end
-      flash[:notice] = "#{@klass.to_s.titleize} successfully updated."
-      redirect_to action: 'index'
+    @component = @klass.find(params[:id])
+    
+    if @component.update_attributes(component_params)
+      respond_with @component
     else
-      render action: 'new', :packaging_component => @packaging_component
+      # TODO
     end
   end
   
-  def destroy
-    packaging_component = @klass.find(params[:id])
-    
-    packaging_component.destroy
-    redirect_to action: :index
-  end
 end

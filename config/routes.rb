@@ -37,11 +37,17 @@ X::Application.routes.draw do
     resources :sampled_wines
   end
   
+  resources :vendors do
+    resources :bottles, shallow: true
+  end
+  
   # resources :projects, only: [:index, :show, :edit, :update]
   
   get "/clear-comment/:comment_id/from-project/:project_id", controller: "comments", action: "complete_action"
   get "/projects/:id/component/:component", controller: "projects", action: "show_component", as: :show_project_component
   get "/projects/:id/spec_sheet", controller: "projects", action: "show_spec_sheet", as: :spec_sheet
+  
+  put "/bottles", controller: "bottles", action: "update"
   
   post "/clear-project-comment", controller: "comments", action: "complete_action"
   get  "/comments/:id/edit", controller: "comments", action: "edit", as: :edit_comment

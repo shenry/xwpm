@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708043126) do
+ActiveRecord::Schema.define(version: 20150709235751) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(version: 20150708043126) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
-  create_table "vendor_products", id: false, force: :cascade do |t|
+  create_table "vendor_products", force: :cascade do |t|
     t.integer  "vendable_id"
     t.string   "vendable_type"
     t.integer  "vendor_id"

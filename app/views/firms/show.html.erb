@@ -43,14 +43,15 @@
 	<% if @associated_collection.is_a? Hash %>
 		<% i = 0 %>
 		<% @associated_collection.each do |key, value| %>
+		<% puts "value = #{value.inspect}"%>
 			<% @components = value %>
 			<div class="row spacer <%= i == 0 ? 'break' : '' %>">
 				<div class='col-xs-12'>
 					<h1><%= key.titleize.pluralize %></h1>
 				</div>
 			</div>
-			<div class='row'>
-				<%= render partial: "/packaging_components/packaging_components_table", locals: { components: @components } %>
+			<div class='row spacer'>
+				<%= render partial: "#{key.downcase.pluralize}/table", locals: { bottles: @components } %>
 			</div>
 			<% i += 1 %>
 		<% end %>

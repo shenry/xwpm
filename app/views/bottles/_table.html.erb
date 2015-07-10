@@ -1,0 +1,34 @@
+<table class="table table-striped table-responsive no-top-border">
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Vendor</th>
+			<th>Item #</th>
+			<th>Mould</th>
+			<th>Shape</th>
+			<th>Color</th>
+			<th>Specs</th>
+			<th>Case Config.</th>
+			<th>Case Dimensions</th>
+			<th class="col-xs-1">Case Weight</th>
+			<th class="col-xs-1">Pallet Config.</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @components.each do |bottle| %>
+		<tr>
+			<td><%= link_to cl_image_tag(bottle.image_url(:thumb)), bottle.image_url, target: :_blank %></td>
+			<td><%= bottle.vendor.name %></td>
+			<td><%= link_to bottle.item_number, bottle_path(bottle) %></td>
+			<td><%= bottle.mould %></td>
+			<td><%= bottle.shape %></td>
+			<td><%= bottle.color %></td>
+			<td><%= bottle.specs %></td>
+			<td><%= bottle.case_config %></td>
+			<td><%= bottle.formatted_case_dimensions %></td>
+			<td><%= bottle.case_weight %></td>
+			<td><%= bottle.pallet_config %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

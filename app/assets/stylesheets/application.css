@@ -155,7 +155,7 @@ input[readonly] {
 	font-size: 1.5em;
 }
 
-#customer-project-select, #customer-shipment-select { color: #999; }
+#customer-project-select, #customer-shipment-select, #vendor-product-select { color: #999; }
 .comment-style-link { margin-top: 10px; }
 input.addon { width: 96% !important; }
 label.for-addon { margin-right: 15px !important; }
@@ -168,3 +168,19 @@ tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }
 
 .inline-spinner { line-height: 40px !important; }
 .button-wide { width: 100%; }
+
+.create-select { color: #777; }
+.bip-grey {color: #aaa;}
+.form_in_place input { margin: -20px; }
+.bip-table-input { width: 50px; border: 1px solid #777; margin: 0px !important; }
+.round-addon-right { border-top-left-radius: 4px !important; border-bottom-left-radius: 4px !important;}
+
+.in-place input { padding: 8px 0 5px 10px; border: 1px solid #ddd;}
+.in-place label.no-bold { font-weight: normal; }
+.in-place select { border: 1px solid #ddd; height: 30px; padding-bottom: 5px; }
+.in-place input.short { width: 60px; margin-right: 5px; }
+.in-place input.short.no-x { margin-right: 21px;}
+.in-place input.medium { width: 80px; }
+.x-span { margin-right: 5px; }
+input.has-value { border: 0 !important; padding: 9px 1px 6px 11px; }
+.progress_bar { background: #ddd; height: 5px; width: 1%;}

@@ -1,0 +1,85 @@
+<div class="row spacer">
+	<div class="col-xs-12">
+		<h1><%= best_in_place @component, :item_number, as: :input, place_holder: "<span class='bip-grey'>Item Number</span>" %></h1>
+		<p>by <b><%= @component.vendor.name %></b></p>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td class="col-xs-2">Mould</td>
+				<td class="bold col-xs-2"><%= best_in_place @component, :mould, as: :input %></td>
+			</tr>
+			<tr>
+				<td>Shape</td>
+				<td class="bold"><%= best_in_place @component, :shape, as: :input %></td>
+			</tr>
+			<tr>
+				<td>Color</td>
+				<td class="bold"><%= best_in_place @component, :color, as: :input %></td>
+			</tr>
+			<tr>
+				<td class="">Specs</td>
+				<td class="bold">
+					<%= best_in_place @component, :height, as: :input, 
+														html_attrs: { class: "bip-table-input" } %> x 
+					<%= best_in_place	@component, :diameter	, as: :input, 
+														html_attrs: { class: "bip-table-input" } %> 
+					<%= best_in_place @component, :units, as: :select, 
+														html_attrs: { class: "btn btn-default dropdown-toggle"}, collection: [['mm', 'mm'], ['in', 'in']] %>
+				</td>
+			</tr>
+			<tr>
+				<td>Finish</td>
+				<td class="bold">
+					<%= best_in_place @component, :finish, as: :input %>,&nbsp;
+					<%= best_in_place @component, :neck_diameter, as: :input %>&nbsp;mm
+				</td>
+			</tr>
+			<tr>
+				<td>Fill Point</td>
+				<td class="bold"><%= best_in_place @component, :fill_point, as: :input %>&nbsp;mm</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td>Format</td>
+				<td class="bold">
+					<%= best_in_place @component, :bottles_per_case, as: :input %>&nbsp;x&nbsp; 
+					<%= best_in_place @component, :capacity, as: :input %>&nbsp;
+					<%= best_in_place @component, :capacity_units, as: :input %>
+				</td>
+			</tr>
+			<tr>
+				<td>Case Dimensions</td>
+				<td class="bold"><%= best_in_place @component, :case_dimensions, as: :input, display_as: :formatted_case_dimensions %></td>
+			</tr>
+			<tr>
+				<td>Case Weight</td>
+				<td class="bold"><%= best_in_place @component, :case_weight, as: :input %> LBS</td>
+			</tr>
+			<tr>
+				<td>Pallet Configuration</td>
+				<td class="bold"><%= best_in_place @component, :pallet_config, as: :input %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<div id="drop-zone">
+			<%= link_to cl_image_tag(@component.image_url(:sidebar)), @component.image_url, target: :_blank %>
+		</div>
+		<p><%= link_to "Replace Image", "#", id: "replace-image-link" %> (doesn't work)</p>
+		<div id="image-replace"></div>
+	</div>
+</div>
+<% unless @component.projects.blank? %>
+<div class="row spacer">
+	<div class="col-xs-12"><h1><%= @component.item_number %> Projects</h1></div>
+</div>
+<div class="row spacer">
+	<%= render partial: "projects/index_table", locals: { projects: @component.projects } %>
+</div>
+<% end %>

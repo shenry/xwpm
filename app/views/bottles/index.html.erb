@@ -1,43 +1,22 @@
 <div class="row spacer">
 	<div class="row-same-height">
 		<div class="col-sm-12 col-lg-8 col-xs-height"><h1><%= @status.titleize %> Bottles</h1></div>
-		<div class="col-sm-12 col-lg-4 col-xs-height right"><%= link_to "New Bottle" %></div>
+		<div class="col-sm-12 col-lg-4 col-xs-height right">
+			<%= select_tag "", options_for_select(Vendor.all.map { |v| [v.name, v.id]} ), include_blank: "Select a Vendor to create a Bottle...", 
+										id: "vendor-product-select", class: "select optional form-control create-select"  %>
+			<script type="text/javascript">
+				$(function(){
+					$("select#vendor-product-select").change(function(){
+						var url = "/vendors/" + $("option:selected", this).val() + "/bottles/new";
+						window.location.href = url;
+					});
+				});
+			</script>
+		</div>
 	</div>
 </div>
 <div class="row spacer">
 	<div class="col-xs-12">
-		<table class="table table-striped table-responsive no-top-border">
-			<thead>
-				<tr>
-					<th>&nbsp;</th>
-					<th>Vendor</th>
-					<th>Item #</th>
-					<th>Mould</th>
-					<th>Shape</th>
-					<th>Color</th>
-					<th>Specs</th>
-					<th>Case Config.</th>
-					<th>Case Dimensions</th>
-					<th>Case Weight</th>
-					<th>Pallet Config.</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @bottles.each do |bottle| %>
-				<tr>
-					<td><%= bottle.image %></td>
-					<td><%= bottle.vendor.name %></td>
-					<td><%= bottle.item_number %></td>
-					<td><%= bottle.mould %></td>
-					<td><%= bottle.shape %></td>
-					<td><%= bottle.color %></td>
-					<td><%= bottle.case_config %></td>
-					<td><%= bottle.case_weight %></td>
-					<td><%= bottle.pallet_config %></td>
-					<td><%= link_to bottle_path(bottle) %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
+		<%= render partial: "table", locals: { components: @components } %>
 	</div>
 </div>

@@ -20,7 +20,7 @@ class FirmsController < ApplicationController
   # GET /firms/1.xml
   def show
     if @klass == Vendor
-      association = :packaging_components
+      association = :products
     elsif @klass == Customer
       association = :projects
     else
@@ -28,11 +28,11 @@ class FirmsController < ApplicationController
     end
     @firm       = @klass.includes(association).find(params[:id])
     objects     = @firm.send(association)
-    if association == :packaging_components
-      types       = objects.collect(&:type).uniq
+    if association == :products
+      types       = objects.collect(&:vendable_type).uniq
       @associated_collection = Hash.new
       types.each do |type|
-        @associated_collection[type] = objects.select { |c| c.type == type }
+        @associated_collection[type] = objects.select { |c| c.vendable_type == type }
       end
     else
       @associated_collection = objects

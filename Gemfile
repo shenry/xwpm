@@ -22,7 +22,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'tracking_number'
 gem 'active_shipping'
-gem 'bootstrap-editable-rails'
+gem 'best_in_place', '~> 3.0.1'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
