@@ -1,0 +1,24 @@
+<div class="row spacer">
+	<div class="col-xs-12">
+		<%= render partial: "packaging_components/bip_header", locals: { component: @component } %>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-4">
+		<%= render partial: "bip_left_table", locals: { component: @component } %>
+	</div>
+	<div class="col-xs-4">
+		<%= render partial: "bip_center_table", locals: { component: @component } %>
+	</div>
+	<div class="col-xs-4">
+		<%= render partial: "bip_right_table", locals: {component: @component} %>
+	</div>
+</div>
+<% unless @component.projects.blank? %>
+<div class="row spacer">
+	<div class="col-xs-12"><h1><%= @component.item_number %> Projects</h1></div>
+</div>
+<div class="row spacer">
+	<%= render partial: "projects/index_table", locals: { projects: @component.projects } %>
+</div>
+<% end %>

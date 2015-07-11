@@ -1,14 +1,16 @@
 <div class="row spacer">
 	<div class="row-same-height">
-		<div class="col-sm-12 col-lg-8 col-xs-height"><h1><%= @status.titleize %> Bottles</h1></div>
+		<div class="col-sm-12 col-lg-8 col-xs-height"><h1><%= @status.titleize %> <%= @klass.to_s.pluralize.titleize %></h1></div>
 		<div class="col-sm-12 col-lg-4 col-xs-height right">
-			<%= select_tag "", options_for_select(Vendor.all.map { |v| [v.name, v.id]} ), include_blank: "Select a Vendor to create a Bottle...", 
+			<%= select_tag "", options_for_select(Vendor.all.map { |v| [v.name, v.id]} ), include_blank: "Select a Vendor to create a #{@klass.to_s.titleize}...", 
 										id: "vendor-product-select", class: "select optional form-control create-select"  %>
 			<script type="text/javascript">
 				$(function(){
 					$("select#vendor-product-select").change(function(){
-						var url = "/vendors/" + $("option:selected", this).val() + "/bottles/new";
-						window.location.href = url;
+						if ($(this).val()) {
+							var url = "/vendors/" + $("option:selected", this).val() + "/<%= @klass.to_s.pluralize.underscore.downcase %>/new";
+							window.location.href = url;
+						}
 					});
 				});
 			</script>

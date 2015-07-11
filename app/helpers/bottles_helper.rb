@@ -6,11 +6,11 @@ module BottlesHelper
   #   output.html_safe
   # end
   #
-  def add_markup(string)
-    return string unless string.include? "/"
-    matches = string.match(/(\d+)\/(\d+)/).captures
-    first   = "<sup>#{matches[0]}</sup>"
-    second  = "<sub>#{matches[1]}</sub>"
-    [first,second].join("/")
-  end
+  # def add_markup(string)
+  #   return string unless string.include? "/"
+  #   matches = string.match(/(\d+)\/(\d+)/).captures
+  #   first   = "<sup>#{matches[0]}</sup>"
+  #   second  = "<sub>#{matches[1]}</sub>"
+  #   [first,second].join("/")
+  # end
 end

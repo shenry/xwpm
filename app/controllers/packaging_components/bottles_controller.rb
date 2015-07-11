@@ -2,6 +2,7 @@ class BottlesController < PackagingComponentsController
   def new
     @vendor = Vendor.find(params[:vendor_id])
     @component = Bottle.new
+    puts "component class is #{@component.class.inspect}"
     @component.vendor = @vendor
   end
   

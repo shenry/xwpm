@@ -103,21 +103,23 @@ $(document).ready(function(){
 	});
 	// $('#upload-cell').prepend($.cloudinary.unsigned_upload_tag("frzj7e4j", {cloud_name: "hcq3xdudm"}));
 	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j", 
-	  { cloud_name: 'hcq3xdudm'}, 
+		{ cloud_name: 'hcq3xdudm'}, 
 	  { multiple: true }
 	).bind('fileuploadsend', function(e, data) {
-		$('.progress_bar').show();
+		var id = $(this).attr('id');
+		$("#submit-button").prop("disabled", true);
+		$('#' + id + "-progress").show();
 	}).bind('cloudinarydone', function(e, data) {
-		$('.progress_bar').hide();
-	  $('.thumbnails').html($.cloudinary.image(data.result.public_id, 
-	    { format: 'jpg', width: 200, height: 200, 
-	      crop: 'thumb', gravity: 'face'} ))}
+		var id = $(this).attr('id');
+		$("#submit-button").prop("disabled", "");
+		$('#' + id + "-progress").hide();
+	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id, 
+	    { format: 'png', width: 350, height: 350, 
+	      crop: 'fit', gravity: 'face'} ))}
 
 	).bind('cloudinaryprogress', function(e, data) { 
-		
 	  $('.progress_bar').css('width', 
-	    Math.round((data.loaded * 100.0) / data.total) + '%'); 
-			
+	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%'); 		
 	});
 });
 

@@ -1,0 +1,22 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td>Format</td>
+		<td class="bold">
+			<%= best_in_place @component, :bottles_per_case, as: :input %>&nbsp;x&nbsp; 
+			<%= best_in_place @component, :capacity, as: :input %>&nbsp;
+			<%= best_in_place @component, :capacity_units, as: :input %>
+		</td>
+	</tr>
+	<tr>
+		<td>Case Dimensions</td>
+		<td class="bold"><%= best_in_place @component, :case_dimensions, as: :input, display_as: :formatted_case_dimensions %></td>
+	</tr>
+	<tr>
+		<td>Case Weight</td>
+		<td class="bold"><%= best_in_place @component, :case_weight, as: :input %> LBS</td>
+	</tr>
+	<tr>
+		<td>Pallet Configuration</td>
+		<td class="bold"><%= best_in_place @component, :pallet_config, as: :input %></td>
+	</tr>
+</table>

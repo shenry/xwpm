@@ -1,0 +1,11 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-6">Material</td>
+		<td class="bold col-xs-6"><%= best_in_place @component, :material %></td>
+	</tr>
+	<tr>
+		<td>Color</td>
+		<td class="bold"><%= best_in_place @component, :color %></td>
+	</tr>
+	<%= render partial: "packaging_components/bip_specs_row", locals: { component: @component } %>
+</table>

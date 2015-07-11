@@ -1,0 +1,28 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td><label class="no-bold" for="bottle_capacity">Capacity</label></td>
+		<td class="bold">
+			<%= f.text_field :capacity, class: "short no-x" %>
+			<%= f.select :capacity_units, Bottle.capacity_options %>
+		</td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_bottles_per_case">Bottles / Cs</label></td>
+		<td class="bold"><%= f.text_field :bottles_per_case %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_case_dimensions">Case Dimensions</label></td>
+		<td class="bold"><%= f.text_field :case_dimensions, placeholder: "H x W x L" %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_case_weight">Case Weight</label></td>
+		<td class="bold"><%= f.text_field :case_weight %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_pallet_config">Pallet Config</label></td>
+		<td class="bold"><%= f.text_field :pallet_config %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= f.submit nil, class: "btn btn-primary col-xs-12", id: "submit-button" %></td>
+	</tr>
+</table>

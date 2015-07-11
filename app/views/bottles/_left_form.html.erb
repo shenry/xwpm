@@ -1,0 +1,31 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-4"><label class="no-bold" for="bottle_mould">Mould</label></td>
+		<td class="bold col-xs-8"><%= f.text_field :mould %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_shape">Shape</label></td>
+		<td class="bold"><%= f.text_field :shape %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_color">Color</label></td>
+		<td class="bold"><%= f.text_field :color %></td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_height">Specs</label></td>
+		<td class="bold">
+			<%= render partial: "packaging_components/_specs_form_row", locals: { f: f } %>
+		</td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_finish">Finish</label></td>
+		<td class="bold">
+			<%= f.select :finish, Bottle.finish_options %>
+			<%= f.text_field :neck_diameter, class: "short", placeholder: "D" %> mm
+		</td>
+	</tr>
+	<tr>
+		<td><label class="no-bold" for="bottle_fill_point">Fill Point</label></td>
+		<td class="bold"><%= f.text_field :fill_point %> mm</td>
+	</tr>
+</table>

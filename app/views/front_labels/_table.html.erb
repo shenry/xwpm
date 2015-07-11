@@ -1,0 +1,30 @@
+<table class="table table-responsive no-top-border table-striped">
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Vendor</th>
+			<th>Item #</th>
+			<th>Specs</th>
+			<th>Position</th>
+			<th>Paper</th>
+			<th>Alc</th>
+			<th>UPC</th>
+			<th>Art Source</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @components.each do |component| %>
+			<tr>
+				<td><%= link_to cl_image_tag(component.image_url(:thumb)), component.image_url %></td>
+				<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
+				<td><%= link_to component.item_number, front_label_path(component) %></td>
+				<td><%= component.specs %></td>
+				<td><%= component.position %></td>
+				<td><%= component.material %></td>
+				<td><%= component.alc %></td>
+				<td><%= component.upc %></td>
+				<td><%= component.artwork_source %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

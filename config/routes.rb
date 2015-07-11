@@ -38,7 +38,12 @@ X::Application.routes.draw do
   end
   
   resources :vendors do
-    resources :bottles, shallow: true
+    resources :bottles,       shallow: true
+    resources :capsules,      shallow: true
+    resources :corks,         shallow: true
+    resources :screwcaps,     shallow: true
+    resources :front_labels,  shallow: true
+    resources :back_labels,   shallow: true
   end
   
   # resources :projects, only: [:index, :show, :edit, :update]

@@ -1,0 +1,17 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-2">Material</td>
+		<td class="bold col-xs-2"><%= f.text_field :material %></td>
+	</tr>
+	<tr>
+		<td>Color</td>
+		<td class="bold"><%= f.text_field :color %></td>
+	</tr>
+	<tr>
+		<td>Specs</td>
+		<td><%= render partial: "packaging_components/specs_form_row", locals: { f: f } %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= f.submit nil, class: "btn btn-primary col-xs-12", id: "submit-button" %></td>
+	</tr>
+</table>

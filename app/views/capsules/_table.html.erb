@@ -1,0 +1,26 @@
+<table class="table table-responsive no-top-border table-striped">
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Vendor</th>
+			<th>Item #</th>
+			<th>Color</th>
+			<th>Material</th>
+			<th>Artwork</th>
+			<th>Specs</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @components.each do |capsule| %>
+			<tr>
+				<td><%= link_to cl_image_tag(capsule.image_url(:thumb)), capsule.image_url, target: :_blank %></td>
+				<td><%= link_to capsule.vendor.name, vendor_path(capsule.vendor) %></td>
+				<td><%= link_to capsule.item_number, capsule_path(capsule) %></td>
+				<td><%= capsule.color %></td>
+				<td><%= capsule.material %></td>
+				<td><%= cl_image_tag(capsule.artwork_url(:thumb)) %></td>
+				<td><%= capsule.specs %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

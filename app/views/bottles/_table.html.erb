@@ -18,7 +18,7 @@
 		<% @components.each do |bottle| %>
 		<tr>
 			<td><%= link_to cl_image_tag(bottle.image_url(:thumb)), bottle.image_url, target: :_blank %></td>
-			<td><%= bottle.vendor.name %></td>
+			<td><%= link_to bottle.vendor.name, polymorphic_path(bottle.vendor) %></td>
 			<td><%= link_to bottle.item_number, bottle_path(bottle) %></td>
 			<td><%= bottle.mould %></td>
 			<td><%= bottle.shape %></td>

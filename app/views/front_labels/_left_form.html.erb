@@ -1,0 +1,37 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-4">Specs</td>
+		<td class="col-xs-8"><%= render partial: "packaging_components/specs_form_row", locals: { f: f } %></td>
+	</tr>
+	<tr>
+		<td>Position</td>
+		<td class="bold"><%= f.text_field :position %> mm</td>
+	</tr>
+	<tr>
+		<td>Paper</td>
+		<td class="bold"><%= f.text_field :material %></td>
+	</tr>
+	<tr>
+		<td>Treatment</td>
+		<td class="bold"><%= f.text_field :treatment %></td>
+	</tr>
+	<tr>
+		<td>Rewind</td>
+		<td class="bold"><%= f.text_field :rewind %></td>
+	</tr>
+	<tr>
+		<td>Cut</td>
+		<td class="bold"><%= f.text_field :cut %></td>
+	</tr>
+	<tr>
+		<td>Alc</td>
+		<td class="bold"><%= f.text_field :alc %></td>
+	</tr>
+	<tr>
+		<td>UPC</td>
+		<td class="bold"><%= f.text_field :upc %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= f.submit nil, class: "btn btn-primary col-xs-12" %></td>
+	</tr>
+</table>

@@ -1,0 +1,26 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-2">Mould</td>
+		<td class="bold col-xs-2"><%= best_in_place @component, :mould, as: :input %></td>
+	</tr>
+	<tr>
+		<td>Shape</td>
+		<td class="bold"><%= best_in_place @component, :shape, as: :input %></td>
+	</tr>
+	<tr>
+		<td>Color</td>
+		<td class="bold"><%= best_in_place @component, :color, as: :input %></td>
+	</tr>
+	<%= render partial: "packaging_components/bip_specs_row", locals: { component: @component } %>
+	<tr>
+		<td>Finish</td>
+		<td class="bold">
+			<%= best_in_place @component, :finish, as: :input %>,&nbsp;
+			<%= best_in_place @component, :neck_diameter, as: :input %>&nbsp;mm
+		</td>
+	</tr>
+	<tr>
+		<td>Fill Point</td>
+		<td class="bold"><%= best_in_place @component, :fill_point, as: :input %>&nbsp;mm</td>
+	</tr>
+</table>

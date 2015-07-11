@@ -184,3 +184,4 @@ tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }
 .x-span { margin-right: 5px; }
 input.has-value { border: 0 !important; padding: 9px 1px 6px 11px; }
 .progress_bar { background: #ddd; height: 5px; width: 1%;}
+table img { border: 1px solid #dfdfdf; }

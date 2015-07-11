@@ -1,0 +1,12 @@
+<table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-4">Image</td>
+		<td id="upload-cell" class="col-xs-8">
+			<%= f.cl_unsigned_image_upload(:image, "frzj7e4j", html: { id: "image-upload"}) %>
+			<div class="progress_bar" id="image-upload-progress">&nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><div class="thumbnails" id="image-upload-thumbnail"></div></td>
+	</tr>
+</table>

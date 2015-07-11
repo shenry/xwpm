@@ -13,6 +13,15 @@ class Bottle < ActiveRecord::Base
     self.units = "mm"
   end
   
+  class << self
+    def capacity_options
+      [['mL', 'mL'], ['oz', 'oz']]
+    end
+    def finish_options
+      [["Cork", "Cork"], ["Screwcap", "Screwcap"], ["Bar Top", "Bar Top"]]
+    end
+  end
+  
   def specs
     "#{height} x #{diameter} #{units}"
   end

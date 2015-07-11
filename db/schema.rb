@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709235751) do
+ActiveRecord::Schema.define(version: 20150710233747) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -26,13 +26,12 @@ ActiveRecord::Schema.define(version: 20150709235751) do
   add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
 
   create_table "bottles", force: :cascade do |t|
-    t.integer  "vendor_id"
     t.string   "item_number"
     t.string   "mould"
     t.string   "shape"
     t.string   "color"
     t.string   "height"
-    t.string   "diameter"
+    t.string   "width"
     t.string   "neck_diameter"
     t.string   "units"
     t.string   "finish"
@@ -49,13 +48,10 @@ ActiveRecord::Schema.define(version: 20150709235751) do
     t.boolean  "active",           default: true
   end
 
-  add_index "bottles", ["vendor_id"], name: "index_bottles_on_vendor_id"
-
   create_table "capsules", force: :cascade do |t|
-    t.integer  "vendor_id"
     t.string   "item_number"
     t.string   "height"
-    t.string   "diameter"
+    t.string   "width"
     t.string   "units"
     t.string   "material"
     t.string   "color"
@@ -67,16 +63,13 @@ ActiveRecord::Schema.define(version: 20150709235751) do
     t.boolean  "active",      default: true
   end
 
-  add_index "capsules", ["vendor_id"], name: "index_capsules_on_vendor_id"
-
   create_table "closures", force: :cascade do |t|
-    t.integer  "vendor_id"
     t.string   "type"
     t.string   "item_number"
     t.string   "material"
     t.string   "color"
     t.string   "height"
-    t.string   "diameter"
+    t.string   "width"
     t.string   "units"
     t.boolean  "has_artwork", default: false, null: false
     t.string   "artwork"
@@ -85,8 +78,6 @@ ActiveRecord::Schema.define(version: 20150709235751) do
     t.datetime "updated_at",                  null: false
     t.boolean  "active",      default: true
   end
-
-  add_index "closures", ["vendor_id"], name: "index_closures_on_vendor_id"
 
   create_table "comments", force: :cascade do |t|
     t.integer  "project_id"
@@ -166,7 +157,6 @@ ActiveRecord::Schema.define(version: 20150709235751) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "labels", force: :cascade do |t|
-    t.integer  "vendor_id"
     t.string   "type"
     t.string   "item_number"
     t.string   "height"
@@ -186,8 +176,6 @@ ActiveRecord::Schema.define(version: 20150709235751) do
     t.datetime "updated_at",                    null: false
     t.boolean  "active",         default: true
   end
-
-  add_index "labels", ["vendor_id"], name: "index_labels_on_vendor_id"
 
   create_table "packages", force: :cascade do |t|
     t.string   "name",           default: "", null: false

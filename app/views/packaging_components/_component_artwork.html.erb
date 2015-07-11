@@ -1,0 +1,5 @@
+<div id="drop-zone">
+	<%= link_to cl_image_tag(@component.artwork_url(:sidebar)), @component.artwork_url, target: :_blank %>
+</div>
+<p><%= link_to "Replace Artwork", "#", id: "replace-artwork-link" %> (doesn't work)</p>
+<div id="artwork-replace"></div>

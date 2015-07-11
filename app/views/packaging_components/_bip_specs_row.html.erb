@@ -1,0 +1,11 @@
+<tr>
+	<td class="">Specs</td>
+	<td class="bold">
+		<%= best_in_place @component, :height, as: :input, 
+											html_attrs: { class: "bip-table-input" } %> x 
+		<%= best_in_place	@component, :diameter	, as: :input, 
+											html_attrs: { class: "bip-table-input" } %> 
+		<%= best_in_place @component, :units, as: :select, 
+											html_attrs: { class: "btn btn-default dropdown-toggle"}, collection: [['mm', 'mm'], ['in', 'in']] %>
+	</td>
+</tr>
