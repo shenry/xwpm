@@ -1,0 +1,10 @@
+<% if requirement.packageable_type == "Label" %>
+	<% packageable_type = requirement.packageable.class.to_s.titleize %>
+<% else %>
+	<% packageable_type = requirement.packageable_type %>
+<% end %>
+<div class="col-xs-6">
+	<div class="col-xs-12 border-bottom"><h3><%= packageable_type %></h3></div>
+	<%= render partial: "/partials/image_sidebar", locals: { object: requirement.packageable } %>
+	<%= render partial: "/partials/attr_summary_table", locals: { object: attr_summary_array_for(requirement.packageable) } %>
+</div>

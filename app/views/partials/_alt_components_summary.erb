@@ -1,17 +1,7 @@
-<div class="row">
-	<%= render partial: "/partials/front_label_summary", locals: { label: @project.front_label } %>
-	<%= render partial: "/partials/back_label_summary", locals: { label: @project.back_label } %>
-</div>
-<div class="row spacer">
-	<%= render partial: "/partials/bottle_summary", locals: { bottle: @project.bottle } %>
-	<% unless @project.no_capsule? %>
-		<%= render partial: "/partials/capsule_summary", locals: { capsule: @project.capsule } %>
-	<% else %>
-		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
-	<% end %>
-</div>
-<% unless @project.no_capsule? %>
+<% @project.components.in_groups_of(2) do |component_requirements_group| %>
 	<div class="row spacer">
-		<%= render partial: "/partials/closure_summary", locals: { closure: @project.closure } %>
+		<% component_requirements_group.compact.each do |requirement| %>
+			<%= render partial: "partials/component_summary", locals: { requirement: requirement } %>
+		<% end %>
 	</div>
 <% end %>

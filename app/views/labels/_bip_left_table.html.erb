@@ -1,0 +1,31 @@
+<table class="table table-responsive no-top-border">
+	<%= render partial: "packaging_components/bip_specs_row", locals: { component: @component } %>
+	<tr>
+		<td>Position</td>
+		<td class="bold"><%= best_in_place @component, :position %></td>
+	</tr>
+	<tr>
+		<td>Paper</td>
+		<td class="bold"><%= best_in_place @component, :material %></td>
+	</tr>
+	<tr>
+		<td>Treatment</td>
+		<td class="bold"><%= best_in_place @component, :treatment %></td>
+	</tr>
+	<tr>
+		<td>Cut</td>
+		<td class="bold"><%= best_in_place @component, :cut %></td>
+	</tr>
+	<tr>
+		<td>Rewind</td>
+		<td class="bold"><%= best_in_place @component, :rewind %></td>
+	</tr>
+	<tr>
+		<td>Alc</td>
+		<td class="bold"><%= best_in_place @component, :alc %></td>
+	</tr>
+	<tr>
+		<td>UPC</td>
+		<td class="bold"><%= best_in_place @component, :upc %></td>
+	</tr>
+</table>

@@ -14,7 +14,7 @@ module ProjectsHelper
     elsif object.is_a? Bottle
       [
         ["Vendor", link_to(object.vendor.name, vendor_path(object.vendor))],
-        ["Format", object.case_capacity + " x " + object.capacity_string],
+        ["Format", object.bottles_per_case + " x " + object.capacity_units],
         ["Mould", object.mould],
         ["Color", object.color],
         ["Shape", object.shape],
@@ -24,16 +24,16 @@ module ProjectsHelper
     elsif object.is_a? FrontLabel
       [
         ["Vendor", link_to(object.vendor.name, vendor_path(object.vendor))],
-        ["Position", object.label_position + "mm"],
+        ["Position", object.position + "mm"],
         ["Specs", object.specs],
         ["Artwork", object.artwork_source],
-        ["Label Alc", object.label_alc],
+        ["Label Alc", object.alc],
         ["UPC", object.upc]
       ]
     elsif object.is_a? BackLabel
       [
         ["Vendor", link_to(object.vendor.name, vendor_path(object.vendor))],
-        ["Position", object.label_position + "mm"],
+        ["Position", object.position + "mm"],
         ["Specs", object.specs],
         ["Artwork", object.artwork_source]
       ]

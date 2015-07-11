@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
-    @project = Project.includes(:wine, :customer, :comments).find(params[:id])
+    @project = Project.includes(:wine, :customer, :comments, components: :packageable).find(params[:id])
     @comment = @project.comments.build(author_id: current_user.id)
     if params[:alt] == "true"
       render :alt_show

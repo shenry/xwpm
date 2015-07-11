@@ -38,7 +38,7 @@ class Project < ActiveRecord::Base
   has_one     :closure, through: :closure_requirement, source: :packageable, source_type: "Closure"
   
   has_one     :front_label_requirement, -> { where(packageable_type: "FrontLabel") }, class_name: "ComponentRequirement"
-  has_one     :front_label, through: :front_label_requirement, source: :packageable, source_type: "BackLabel"
+  has_one     :front_label, through: :front_label_requirement, source: :packageable, source_type: "FrontLabel"
   
   has_one     :back_label_requirement, -> { where(packageable_type: "BackLabel") }, class_name: "ComponentRequirement"
   has_one     :back_label, through: :back_label_requirement, source: :packageable, source_type: "BackLabel"
@@ -112,7 +112,7 @@ class Project < ActiveRecord::Base
   
   def label_alc
     return "TBD" if front_label.nil?
-    front_label.label_alc
+    front_label.alc
   end
   
   def front_label_position

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710233747) do
+ActiveRecord::Schema.define(version: 20150711044841) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -177,26 +177,6 @@ ActiveRecord::Schema.define(version: 20150710233747) do
     t.boolean  "active",         default: true
   end
 
-  create_table "packages", force: :cascade do |t|
-    t.string   "name",           default: "", null: false
-    t.string   "description",    default: "", null: false
-    t.integer  "closure_id"
-    t.integer  "bottle_id"
-    t.integer  "front_label_id"
-    t.integer  "back_label_id"
-    t.integer  "capsule_id"
-    t.integer  "shipper_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
-  add_index "packages", ["back_label_id"], name: "index_packages_on_back_label_id"
-  add_index "packages", ["bottle_id"], name: "index_packages_on_bottle_id"
-  add_index "packages", ["capsule_id"], name: "index_packages_on_capsule_id"
-  add_index "packages", ["closure_id"], name: "index_packages_on_closure_id"
-  add_index "packages", ["front_label_id"], name: "index_packages_on_front_label_id"
-  add_index "packages", ["shipper_id"], name: "index_packages_on_shipper_id"
-
   create_table "packaging_component_orders", id: false, force: :cascade do |t|
     t.integer  "purchase_order_id"
     t.integer  "project_id"
@@ -279,11 +259,6 @@ ActiveRecord::Schema.define(version: 20150710233747) do
     t.datetime "bottling_date"
     t.string   "variety"
     t.string   "winemaker"
-    t.integer  "closure_id"
-    t.integer  "bottle_id"
-    t.integer  "capsule_id"
-    t.integer  "front_label_id"
-    t.integer  "back_label_id"
     t.integer  "shipper_id"
     t.boolean  "no_capsule",        default: false, null: false
     t.string   "vintage"
@@ -298,13 +273,8 @@ ActiveRecord::Schema.define(version: 20150710233747) do
     t.string   "max_do"
   end
 
-  add_index "projects", ["back_label_id"], name: "index_projects_on_back_label_id"
-  add_index "projects", ["bottle_id"], name: "index_projects_on_bottle_id"
   add_index "projects", ["brand"], name: "index_projects_on_brand"
-  add_index "projects", ["capsule_id"], name: "index_projects_on_capsule_id"
-  add_index "projects", ["closure_id"], name: "index_projects_on_closure_id"
   add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
-  add_index "projects", ["front_label_id"], name: "index_projects_on_front_label_id"
   add_index "projects", ["package_id"], name: "index_projects_on_package_id"
   add_index "projects", ["project_number"], name: "index_projects_on_project_number", unique: true
   add_index "projects", ["shipper_id"], name: "index_projects_on_shipper_id"
