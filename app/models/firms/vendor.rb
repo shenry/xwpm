@@ -18,18 +18,26 @@
 #  account_number :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  projects_count :integer
+#  code           :string
 #
 
 class Vendor < Firm
-  # has_many :packaging_components, inverse_of: :vendor, dependent: :destroy
   has_many :products, class_name: "VendorProduct", dependent: :destroy
-  has_many :bottles, through: :products, source: :vendable, source_type: "Bottle"
   
   has_many :purchase_orders, inverse_of: :vendor , dependent: :destroy
   
   validates :code, presence: true
   
   before_save :upcase_code
+  
+  def products_attr_hash
+    products.inject({ids: [], types: []}) do |hash, vp|
+      hash[:ids] << vp.vendable_id
+      hash[:types] << vp.vendable_type
+      hash
+    end
+  end
   
   private
   def upcase_code

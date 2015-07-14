@@ -1,2 +1,2 @@
-	<%= line_item.input_field :project_id, collection: Project.live.map { |p| [p.to_s, p.id] },
+	<%= line_item.input_field :project_id, collection: Project.all.map { |p| [p.to_s, p.id] },
 		 												include_blank: "Select Project", class: "form-control", disabled: true %>

@@ -18,6 +18,8 @@
 #  account_number :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  projects_count :integer
+#  code           :string
 #
 
 class Customer < Firm

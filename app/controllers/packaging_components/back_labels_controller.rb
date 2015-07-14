@@ -7,7 +7,6 @@ class BackLabelsController < PackagingComponentsController
   def new
     @component = BackLabel.new
     @component.vendor = Vendor.find(params[:vendor_id])
-    render "labels/new"
   end
   
   private

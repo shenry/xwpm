@@ -21,12 +21,13 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  name                   :string           default(""), not null
 #
 
 class User < ActiveRecord::Base
   has_many :authored_comments, class_name: "Comment", foreign_key: "author_id"
   has_many :resolved_comments, class_name: "Comment", foreign_key: "resolver_id"
-  has_many :project_events, inverse_of: :user
+
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

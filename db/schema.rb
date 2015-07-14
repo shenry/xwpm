@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711044841) do
+ActiveRecord::Schema.define(version: 20150713224352) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -24,6 +24,29 @@ ActiveRecord::Schema.define(version: 20150711044841) do
   end
 
   add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
+
+  create_table "back_labels", force: :cascade do |t|
+    t.integer  "vendor_id"
+    t.string   "item_number"
+    t.string   "height"
+    t.string   "width"
+    t.string   "units"
+    t.string   "material"
+    t.string   "alc"
+    t.string   "upc"
+    t.string   "rewind"
+    t.string   "cut"
+    t.string   "position"
+    t.string   "treatment"
+    t.string   "artwork_source"
+    t.string   "image"
+    t.string   "artwork"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "active",         default: true
+  end
+
+  add_index "back_labels", ["vendor_id"], name: "index_back_labels_on_vendor_id"
 
   create_table "bottles", force: :cascade do |t|
     t.string   "item_number"
@@ -156,8 +179,7 @@ ActiveRecord::Schema.define(version: 20150711044841) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
-  create_table "labels", force: :cascade do |t|
-    t.string   "type"
+  create_table "front_labels", force: :cascade do |t|
     t.string   "item_number"
     t.string   "height"
     t.string   "width"
@@ -177,76 +199,18 @@ ActiveRecord::Schema.define(version: 20150711044841) do
     t.boolean  "active",         default: true
   end
 
-  create_table "packaging_component_orders", id: false, force: :cascade do |t|
-    t.integer  "purchase_order_id"
-    t.integer  "project_id"
-    t.integer  "packaging_component_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "packaging_component_orders", force: :cascade do |t|
+    t.integer "component_requirement_id"
+    t.integer "purchase_order_id"
+    t.float   "quantity"
+    t.float   "price"
+    t.boolean "received",                 default: false, null: false
   end
 
-  add_index "packaging_component_orders", ["packaging_component_id"], name: "index_packaging_component_orders_on_packaging_component_id"
-  add_index "packaging_component_orders", ["project_id"], name: "index_packaging_component_orders_on_project_id"
+  add_index "packaging_component_orders", ["component_requirement_id"], name: "index_packaging_component_orders_on_component_requirement_id", unique: true
   add_index "packaging_component_orders", ["purchase_order_id"], name: "index_packaging_component_orders_on_purchase_order_id"
 
-  create_table "packaging_components", force: :cascade do |t|
-    t.string   "type"
-    t.integer  "vendor_id"
-    t.string   "mould"
-    t.string   "shape"
-    t.string   "color"
-    t.string   "height"
-    t.string   "width"
-    t.string   "depth"
-    t.string   "fill_point"
-    t.string   "fill_point_units"
-    t.string   "neck_diameter"
-    t.string   "neck_diamter_units"
-    t.string   "material"
-    t.boolean  "has_artwork"
-    t.string   "bottle_capacity"
-    t.string   "bottle_capacity_units"
-    t.string   "label_alc"
-    t.string   "upc"
-    t.string   "closure_type"
-    t.string   "artwork_source"
-    t.string   "label_type"
-    t.string   "units"
-    t.string   "label_rewind"
-    t.string   "label_treatment"
-    t.string   "label_cut"
-    t.string   "label_position"
-    t.string   "code"
-    t.string   "brand"
-    t.string   "item_identifier"
-    t.string   "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "case_capacity"
-    t.string   "carton_size"
-    t.float    "case_weight"
-    t.string   "pallet_configuration"
-  end
-
-  add_index "packaging_components", ["closure_type"], name: "index_packaging_components_on_closure_type"
-  add_index "packaging_components", ["label_type"], name: "index_packaging_components_on_label_type"
-  add_index "packaging_components", ["type"], name: "index_packaging_components_on_type"
-  add_index "packaging_components", ["vendor_id"], name: "index_packaging_components_on_vendor_id"
-
-  create_table "project_events", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "user_id"
-    t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "project_events", ["project_id"], name: "index_project_events_on_project_id"
-  add_index "project_events", ["state"], name: "index_project_events_on_state"
-  add_index "project_events", ["user_id"], name: "index_project_events_on_user_id"
-
   create_table "projects", force: :cascade do |t|
-    t.integer  "package_id"
     t.integer  "wine_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -259,7 +223,6 @@ ActiveRecord::Schema.define(version: 20150711044841) do
     t.datetime "bottling_date"
     t.string   "variety"
     t.string   "winemaker"
-    t.integer  "shipper_id"
     t.boolean  "no_capsule",        default: false, null: false
     t.string   "vintage"
     t.string   "appellation"
@@ -275,9 +238,7 @@ ActiveRecord::Schema.define(version: 20150711044841) do
 
   add_index "projects", ["brand"], name: "index_projects_on_brand"
   add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
-  add_index "projects", ["package_id"], name: "index_projects_on_package_id"
   add_index "projects", ["project_number"], name: "index_projects_on_project_number", unique: true
-  add_index "projects", ["shipper_id"], name: "index_projects_on_shipper_id"
   add_index "projects", ["wine_id"], name: "index_projects_on_wine_id"
 
   create_table "purchase_orders", force: :cascade do |t|

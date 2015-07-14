@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: capsules
+#
+#  id          :integer          not null, primary key
+#  item_number :string
+#  height      :string
+#  width       :string
+#  units       :string
+#  material    :string
+#  color       :string
+#  has_artwork :boolean          default(FALSE), not null
+#  image       :string
+#  artwork     :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  active      :boolean          default(TRUE)
+#
+
 class Capsule < ActiveRecord::Base
   include PackagingComponent
   

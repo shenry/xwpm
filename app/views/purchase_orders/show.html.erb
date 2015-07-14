@@ -7,21 +7,37 @@
 			<tr>
 				<th class="col-xs-4">Project</th>
 				<th>Item</th>
+				<th class="col-xs-1">Qty</th>
+				<th class="col-xs-1">Price</th>
+				<th class="col-xs-1">&nbsp;</th>
 			</tr>
 			<% @purchase_order.line_items.each do |line_item| %>
 				<% if line_item.new_record? %>
 					<tr>
-						<%= simple_form_for line_item, defaults: { wrapper: :inline_form } do |f| %>
+						<%= simple_form_for line_item, defaults: { wrapper: :inline_form }, remote: true do |f| %>
 							<td>
-								<%= f.input :project_id, collection: @associated_projects.map { |p|
+								<%= f.input :project, collection: @associated_projects.map { |p|
 														[p.to_s, p.id] }, include_blank: "Select Project" %>
+								<%= f.input :purchase_order_id, as: :hidden %>
 							</td>
-							<td>
-								<%= f.input :packaging_component_id, collection: [], include_blank: "Select Component", disabled: true %>
+							<td id="component-select-cell">
+								<%= f.input :component_requirement_id, collection: [], include_blank: "Select Component", disabled: true %>
 							</td>
+							<td><%= f.input :quantity %></td>
+							<td><%= f.input :price %></td>
+							<td><%= f.submit "Add Line Item", class: "btn btn-primary col-xs-12", disabled: true, id: "add-line-item" %></td>
 							<script type="text/javascript">
 								$(document).ready(function(){
-									var projectComponentsHash = <%= raw hash_project_components(@associated_projects) %>
+									$("#packaging_component_order_project").change(function(){
+										$.get("/projects/" + $(this).val() + "/vendors/" + <%= @purchase_order.vendor_id %> + "/components");
+									});
+									$("#component-select-cell").on("change", "#packaging_component_order_component_requirement_id", function(){
+										if ( $(this).val() == "" ) {
+											$("#add-line-item").prop("disabled", "true");
+										} else {
+											$("#add-line-item").prop("disabled", "");
+										}
+									});
 								});
 							</script>
 						<% end %>
@@ -32,9 +48,27 @@
 	</div>
 </div>
 <div class="row spacer">
+	<div class="col-xs-12"><h3>Line Items</h3></div>
 	<div class="col-xs-12">
-		<table class="table table-responsive no-top-border">
-			
+		<table class="table table-responsive no-top-border" id="line-items-table">
+			<thead>
+				<tr>
+					<th class="col-xs-1">&nbsp;</th>
+					<th class="col-xs-1">Project Number</th>
+					<th class="col-xs-5">Item</th>
+					<th class="col-xs-1">Qty</th>
+					<th class="col-xs-1">Price</th>
+					<th class="col-xs-1">Received</th>
+					<th class="col-xs-1">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @purchase_order.line_items.each do |line_item| %>
+					<% unless line_item.new_record? %>
+						<%= render partial: "packaging_component_orders/line_item_row", locals: { line_item: line_item } %>
+					<% end %>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 </div>

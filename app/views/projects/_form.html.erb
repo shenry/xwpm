@@ -27,7 +27,7 @@
 			});
 		</script>
 	</div>
-	<%= f.button :submit, class: "col-xs-offset-4 submit-spacer col-xs-8" %>
+	<%= f.button :submit, nil, class: "col-xs-offset-4 btn btn-primary col-xs-8" %>
 </div>
 <div class="col-xs-6">
 	<%= f.input :qb_code, label: "QB Code" %>
@@ -43,38 +43,52 @@
 	<%= f.input :taxes %>
 	<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
 		 					include_blank: "Select Wine", label: "Wine" %>
-	<%= f.input :bottle_id, collection: Bottle.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Bottle" %>
-	<%= f.input :closure_id, 
-							as: :grouped_select, 
-							collection: PackagingComponent.grouped_closures, 
-							group_method: :last, 
-							include_blank: "Select Closure" %>
-	<script type="text/javascript">
-		$("#project_closure_id").change(function(){
-			var type = $("#project_closure_id :selected").parent().attr("label");
-			if ( type == "Screwcaps" ) {
-				$("#project_capsule_id option[value='']").attr("selected", true);
-				$("#project_capsule_id").prop("disabled", true);
-				$("#project_no_capsule").prop("checked", true);
-			} else {
-				$("#project_capsule_id").prop("disabled", false);
-			}
-		});
-	</script>
-	<div class="form-group">
-		<span class="col-xs-4 control-label bold">Capsule</span>
-		<div class="col-xs-6">
-			<%= f.input_field :capsule_id, collection: Capsule.all.map { |c| [c.to_s, c.id] }, include_blank: "Select Capsule",
-				 	class: "form-control" %>
-		</div>
-		<div class="checkbox col-xs-1 small">
-			<label>
-				<input type="checkbox" name="project[no_capsule]" id="project_no_capsule" class="control-form">No Capsule?
-			</label>
-		</div>
-	</div>
-	<%= f.input :front_label_id, collection: FrontLabel.all.map { |f| [f.to_s, f.id] }, include_blank: "Select Front Label" %>
-	<%= f.input :back_label_id, collection: BackLabel.all.map { |b| [b.to_s, b.id] }, include_blank: "Select Back Label" %>
+		<%= f.fields_for :bottle_requirement, defaults: { wrapper: :side_by_side } do |builder| %>
+			<%= builder.input :packageable_id, label: "Bottle", collection: Bottle.active.map { |b| [b.to_s, b.id] }, 
+									include_blank: "Select Bottle" %>
+		<% end %>
+		<%= f.fields_for :closure_requirement, defaults: { wrapper: :side_by_side } do |builder| %>
+			<%= builder.input :packageable_id,
+									label: "Closure",
+									as: :grouped_select, 
+									collection: Closure.grouped_for_select,
+									group_method: :last, 
+									include_blank: "Select Closure" %>
+		<% end %>
+			<script type="text/javascript">
+				$("#project_closure_id").change(function(){
+					var type = $("#project_closure_id :selected").parent().attr("label");
+					if ( type == "Screwcaps" ) {
+						$("#project_capsule_id option[value='']").attr("selected", true);
+						$("#project_capsule_id").prop("disabled", true);
+						$("#project_no_capsule").prop("checked", true);
+					} else {
+						$("#project_capsule_id").prop("disabled", false);
+					}
+				});
+			</script>
+		<%= f.fields_for :capsule_requirement do |builder| %>
+			<div class="form-group">
+				<span class="col-xs-4 control-label bold">Capsule</span>
+				<div class="col-xs-6">
+						<%= builder.input_field :packageable_id, collection: Capsule.active.map { |c| [c.to_s, c.id] }, 
+																		include_blank: "Select Capsule", class: "form-control" %>
+				</div>
+				<div class="checkbox col-xs-1 small">
+					<label>
+						<input type="checkbox" name="project[no_capsule]" id="project_no_capsule" class="control-form">No Capsule?
+					</label>
+				</div>
+			</div>
+		<% end %>
+		<%= f.fields_for :front_label_requirement, defaults: { wrapper: :side_by_side } do |builder| %>
+			<%= builder.input :packageable_id, label: "Front Label", collection: FrontLabel.active.map { |f| [f.to_s, f.id] },
+												include_blank: "Select Front Label" %>
+		<% end %>
+		<%= f.fields_for :back_label_requirement, defaults: { wrapper: :side_by_side } do |builder| %>
+			<%= builder.input :packageable_id, label: "Back Label", collection: BackLabel.active.map { |b| [b.to_s, b.id] }, 
+												include_blank: "Select Back Label" %>
+		<% end %>
 	<script type="text/javascript">
 		var brands 				= <%= raw @brands.to_json %>
 		var varieties 		= <%= raw @varieties.to_json %>

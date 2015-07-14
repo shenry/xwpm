@@ -9,6 +9,7 @@ class PackagingComponentsController < ApplicationController
   
   def show
     @component = @klass.find(params[:id])
+    @projects = @component.projects
   end
   
   def create

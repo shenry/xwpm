@@ -1,13 +1,17 @@
 module PackagingComponent
   def self.included(base)
     base.class_eval do
-      scope :active, lambda { where(active: true) }
+      scope :active, lambda { joins(:vendor).where(active: true) }
       mount_uploader :image, ImageUploader
       
       def units_options
         [['mm', 'mm'], ['in', 'in']]
       end
     end
+  end
+  
+  def to_s
+    "#{vendor.name} - #{item_number}"
   end
   
   def width_placeholder

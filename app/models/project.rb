@@ -2,32 +2,41 @@
 #
 # Table name: projects
 #
-#  id             :integer          not null, primary key
-#  package_id     :integer
-#  wine_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  customer_id    :integer
-#  qb_code        :string
-#  project_number :string
-#  target_cases   :integer
-#  name           :string           default(""), not null
-#  description    :string           default(""), not null
+#  id                :integer          not null, primary key
+#  wine_id           :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  customer_id       :integer
+#  qb_code           :string
+#  project_number    :string
+#  target_cases      :integer
+#  brand             :string           default(""), not null
+#  description       :string           default(""), not null
+#  bottling_date     :datetime
+#  variety           :string
+#  winemaker         :string
+#  no_capsule        :boolean          default(FALSE), not null
+#  vintage           :string
+#  appellation       :string
+#  closure_type      :string
+#  trucker           :string
+#  cases_to_customer :integer          default(0), not null
+#  comments_count    :integer
+#  fob               :float
+#  taxes             :string
+#  fso2_target       :string
+#  max_do            :string
 #
 
 class Project < ActiveRecord::Base
   include ProjectsHelper
   include CostHelper
 
-  # belongs_to  :closure, polymorphic: true
-  # belongs_to  :capsule
-  # belongs_to  :bottle
-  # belongs_to  :back_label
-  # belongs_to  :front_label
   belongs_to  :wine, inverse_of: :projects
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   
   has_many    :components, class_name: "ComponentRequirement"
+  
   has_one     :bottle_requirement, -> { where(packageable_type: "Bottle") }, class_name: "ComponentRequirement"
   has_one     :bottle, through: :bottle_requirement, source: :packageable, source_type: "Bottle"
   
@@ -43,14 +52,15 @@ class Project < ActiveRecord::Base
   has_one     :back_label_requirement, -> { where(packageable_type: "BackLabel") }, class_name: "ComponentRequirement"
   has_one     :back_label, through: :back_label_requirement, source: :packageable, source_type: "BackLabel"
   
-
+  accepts_nested_attributes_for :components
+  accepts_nested_attributes_for :bottle_requirement, :capsule_requirement, :closure_requirement,
+                                :front_label_requirement, :back_label_requirement, allow_destroy: true
   
   has_many    :comments, inverse_of: :project, dependent: :destroy
   has_many    :packaging_component_orders, inverse_of: :project, dependent: :destroy
   has_many    :purchase_orders, through: :packaging_component_orders
-  has_many    :events, class_name: "ProjectEvent", inverse_of: :project, dependent: :destroy
   
-  before_create :set_initial_state
+  # before_create :set_initial_state
   # before_save   :format_project_number, :set_closure_type, :set_capsule_status
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, 
@@ -61,32 +71,20 @@ class Project < ActiveRecord::Base
 
   scope     :active,  -> { where("bottling_date >= ?", Date.today) }
   
-  STATES = %w(in_development live bottled qb_entered costed cancelled)
-  delegate :in_development?, :live?, :bottled?, :qb_entered?, :costed?, :cancelled?, to: :current_state
-  
-  def self.associated_with_vendor(id)
-    components  = PackagingComponent.where("vendor_id = ?", id) #TODO - reference only "active" components
-    array       = components.map { |c| c.id }
-    str         = array.join(",")
-    joins("INNER JOIN packaging_components ON projects.bottle_id IN (#{str})
-    OR projects.capsule_id IN (#{str}) OR projects.closure_id IN (#{str}) 
-    OR projects.front_label_id IN (#{str}) OR projects.back_label_id IN (#{str}) 
-    GROUP BY projects.id")
+  def self.associated_with_vendor(vendor_id)
+    attr_hash = Vendor.find(vendor_id).products_attr_hash
+    joins(:components).where(:component_requirements => { :packageable_type => attr_hash[:types], :packageable_id => attr_hash[:ids]}).group("projects.id")
   end
   
-  STATES.each do |state|    
-    define_singleton_method("#{state}") do
-      joins(:events).merge ProjectEvent.with_last_state(state)
+  def components_for_select(vendor_id)
+    components.inject({options: [], disabled: []}) do |hash, component|
+      hash[:options] << [component.packageable.to_s, component.id]
+      unless component.packageable.vendor.id == vendor_id.to_i
+        puts "they don't match!"
+        hash[:disabled] << component.id
+      end
+      hash
     end
-    
-    define_method("#{state}!") do
-      new_event = self.events.build(state: state)
-      new_event.save
-    end
-  end
-  
-  def current_state
-    (events.last.try(:state) || STATES.first).inquiry
   end
   
   def cases_to_warehouse
@@ -134,9 +132,9 @@ class Project < ActiveRecord::Base
   
   private
   
-  def set_initial_state
-    in_development!
-  end
+  # def set_initial_state
+  #   in_development!
+  # end
   
   # def dateify_bottling_date
   #   unless bottling_date.blank?

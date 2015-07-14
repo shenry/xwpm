@@ -51,6 +51,7 @@ X::Application.routes.draw do
   get "/clear-comment/:comment_id/from-project/:project_id", controller: "comments", action: "complete_action"
   get "/projects/:id/component/:component", controller: "projects", action: "show_component", as: :show_project_component
   get "/projects/:id/spec_sheet", controller: "projects", action: "show_spec_sheet", as: :spec_sheet
+  get "/projects/:id/vendors/:vendor_id/components", controller: "projects", action: "components_select"
   
   put "/bottles", controller: "bottles", action: "update"
   
@@ -68,7 +69,7 @@ X::Application.routes.draw do
   resources :wine_shipments
   
   resources :purchase_orders
-  resources :packaging_component_orders, only: [:create, :update, :destroy]
+  resources :packaging_component_orders
   
   resources :wines do
     resources :components

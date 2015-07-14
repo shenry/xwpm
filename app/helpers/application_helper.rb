@@ -72,4 +72,13 @@ module ApplicationHelper
     base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
     "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
   end
+  
+  def edit_component_requirement_path(requirement)
+    component_id = requirement.packageable_id
+    controller = requirement.packageable_type.underscore.pluralize.downcase
+    if controller == "closures"
+      controller = requirement.packageable.type.underscore.pluralize.downcase
+    end
+    { controller: controller, action: :show, id: component_id }
+  end
 end

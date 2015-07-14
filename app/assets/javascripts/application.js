@@ -121,6 +121,10 @@ $(document).ready(function(){
 	  $('.progress_bar').css('width', 
 	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%'); 		
 	});
+	$(".receive_line_item").change(function(){
+		var line_item_id = $(this).attr("data-line-item");
+		$("#receive-" + line_item_id).submit();
+	});
 });
 
 

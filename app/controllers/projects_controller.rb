@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
-    @project = Project.includes(:wine, :customer, :comments, components: :packageable).find(params[:id])
+    @project = Project.find(params[:id])
     @comment = @project.comments.build(author_id: current_user.id)
     if params[:alt] == "true"
       render :alt_show
@@ -19,6 +19,14 @@ class ProjectsController < ApplicationController
       wants.pdf do
         render  pdf: "spec-sheet-#{@project.to_s.downcase.gsub(" ", "-")}"
       end
+    end
+  end
+  
+  def components_select
+    project = Project.find(params[:id])
+    @components = project.components_for_select(params[:vendor_id])
+    respond_to do |wants|
+      wants.js { render "purchase_orders/components_select" }
     end
   end
   
@@ -45,8 +53,7 @@ class ProjectsController < ApplicationController
       @customer = Customer.includes(:projects).find(params[:customer_id])
       @projects = @customer.projects
     elsif params[:vendor_id]
-      @projects = Project.joins(bottle: :vendor, capsule: :vendor, front_label: :vendor, back_label: :vendor).where("'packaging_components'.'vendor_id' = ?", params[:vendor_id])
-      puts "@projects = #{@projects.inspect}"
+      @projects = Project.associated_with_vendor(params[:vendor_id])
     else
       @projects = Project.includes(:customer, :wine, :comments)
       @customer_options = Customer.select_options
@@ -61,6 +68,11 @@ class ProjectsController < ApplicationController
   def new
     @customer = Customer.includes(:projects).find(params[:customer_id])
     @project = @customer.projects.build(:project_number => "")
+    @project.bottle_requirement = @project.components.build(packageable_type: "Bottle")
+    @project.capsule_requirement = @project.components.build(packageable_type: "Capsule")
+    @project.closure_requirement = @project.components.build(packageable_type: "Closure")
+    @project.front_label_requirement = @project.components.build(packageable_type: "FrontLabel")
+    @project.back_label_requirement = @project.components.build(packageable_type: "BackLabel")
   end
   
   def clone
@@ -74,10 +86,11 @@ class ProjectsController < ApplicationController
   
   def create
     @customer = Customer.find(params[:customer_id])
-    unless params[:project][:wine_id].blank?
-      params[:project].delete("wine_attributes")
-    end
+    # unless params[:project][:wine_id].blank?
+    #   params[:project].delete("wine_attributes")
+    # end
     @project = @customer.projects.new(project_params)
+    puts "project is #{@project.inspect}"
     bottling_date = params[:project][:bottling_date]
     @project.bottling_date = Date.strptime(bottling_date, "%m/%d/%y")
     
@@ -127,8 +140,12 @@ class ProjectsController < ApplicationController
   
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
-                                    :bottle_id, :shipper_id, :closure, :closure_id, :capsule_id, :front_label_id, :back_label_id,
                                     :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do,
-                                    :vintage, :appellation, :taxes, :no_capsule)
+                                    :vintage, :appellation, :taxes, :no_capsule, 
+                                      bottle_requirement_attributes: :packageable_id,
+                                      capsule_requirement_attributes: :packageable_id,
+                                      closure_requirement_attributes: :packageable_id,
+                                      front_label_requirement_attributes: :packageable_id,
+                                      back_label_requirement_attributes: :packageable_id)
   end
 end

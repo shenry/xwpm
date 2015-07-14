@@ -38,18 +38,5 @@
 				<%= f.button :submit, class: "col-xs-4 col-xs-offset-4 spacer" %>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<%= f.fields_for :line_items, @purchase_order.line_items do |line_item| %>
-					<div class="form-group">
-						<label class="col-lg-2 control-label bold" for="purchase_order_line_items_attributes_0_project_id">Project</label>
-						<div class="col-xs-4">
-							<%= render partial: 'select_project_from_vendor', locals: { line_item: line_item } %>
-						</div>
-						<span class="fa fa-spinner fa-spin text-muted hidden inline-spinner" id="project-select-spinner"></span>
-					</div>
-				<% end %>
-			</div>
-		</div>
 	<% end %>
 </div>
