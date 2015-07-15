@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  include ApplicationHelper
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
@@ -68,11 +69,7 @@ class ProjectsController < ApplicationController
   def new
     @customer = Customer.includes(:projects).find(params[:customer_id])
     @project = @customer.projects.build(:project_number => "")
-    @project.bottle_requirement = @project.components.build(packageable_type: "Bottle")
-    @project.capsule_requirement = @project.components.build(packageable_type: "Capsule")
-    @project.closure_requirement = @project.components.build(packageable_type: "Closure")
-    @project.front_label_requirement = @project.components.build(packageable_type: "FrontLabel")
-    @project.back_label_requirement = @project.components.build(packageable_type: "BackLabel")
+    @project.components.build
   end
   
   def clone
@@ -86,35 +83,49 @@ class ProjectsController < ApplicationController
   
   def create
     @customer = Customer.find(params[:customer_id])
-    # unless params[:project][:wine_id].blank?
-    #   params[:project].delete("wine_attributes")
-    # end
     @project = @customer.projects.new(project_params)
-    puts "project is #{@project.inspect}"
     bottling_date = params[:project][:bottling_date]
     @project.bottling_date = Date.strptime(bottling_date, "%m/%d/%y")
     
     if @project.save
       redirect_to customer_projects_path(@customer)
     else
+      @project.bottling_date = formatted_date(params[:project][:bottling_date])
       render :new, { :project => @project, :customer => @customer }
     end
   end
 
   def edit
     @project = Project.find(params[:id])
-    @project.bottling_date = @project.formatted_bottling_date
+    @project.bottling_date = formatted_date(@project.bottling_date)
+    @project.components.build
   end
   
   def update
     @project = Project.find(params[:id])
     date     = params[:project][:bottling_date]
     @project.update_attributes(project_params)
-    @project.bottling_date = Date.strptime(date, ProjectsHelper::BOTTLING_DATE_FORMAT_STRING) if date
+    @project.bottling_date = Date.strptime(date, DATE_FORMAT_STRING) if date
     if @project.save
       redirect_to project_path(@project)
     else
+      @project.bottling_date = params[:project][:bottling_date]
       render action: :edit
+    end
+  end
+  
+  def add_components
+    @project     = Project.find(params[:id])
+    model_hash  = params[:project]
+    model_hash.each do |model, params|
+      @model      = model
+      @requirement= "#{@model}_requirement".intern
+      assoc       = @model.intern
+      model_name  = model.singularize.split("_").each { |w| w.capitalize! }.join('').constantize
+      model_id    = params[:id]
+      component   = model_name.find model_id
+      # associate project with component
+      @project.update_attribute(assoc, component)
     end
   end
   
@@ -141,11 +152,11 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
                                     :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do,
-                                    :vintage, :appellation, :taxes, :no_capsule, 
-                                      bottle_requirement_attributes: :packageable_id,
-                                      capsule_requirement_attributes: :packageable_id,
-                                      closure_requirement_attributes: :packageable_id,
-                                      front_label_requirement_attributes: :packageable_id,
-                                      back_label_requirement_attributes: :packageable_id)
+                                    :vintage, :appellation, :taxes, :no_capsule, :notes, components_attributes: [:packageable_id],
+                                      bottle_requirement_attributes: [:packageable_id, :id],
+                                      capsule_requirement_attributes: [:packageable_id, :id],
+                                      closure_requirement_attributes: [:packageable_id, :id],
+                                      front_label_requirement_attributes: [:packageable_id, :id],
+                                      back_label_requirement_attributes: [:packageable_id, :id])
   end
 end

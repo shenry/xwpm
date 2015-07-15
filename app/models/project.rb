@@ -61,7 +61,7 @@ class Project < ActiveRecord::Base
   has_many    :purchase_orders, through: :packaging_component_orders
   
   # before_create :set_initial_state
-  # before_save   :format_project_number, :set_closure_type, :set_capsule_status
+  before_save   :format_project_number
   
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, 
             :vintage, :appellation, presence: true
@@ -98,10 +98,6 @@ class Project < ActiveRecord::Base
   def materials
     arr = [self.front_label, self.back_label, self.capsule, self.bottle, self.closure]
     arr.compact
-  end
-    
-  def formatted_bottling_date
-    bottling_date.strftime(BOTTLING_DATE_FORMAT_STRING)
   end
   
   def to_s

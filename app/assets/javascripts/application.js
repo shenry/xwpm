@@ -125,6 +125,12 @@ $(document).ready(function(){
 		var line_item_id = $(this).attr("data-line-item");
 		$("#receive-" + line_item_id).submit();
 	});
+	$("a[data-replace-component]").click(function(e){
+		e.preventDefault();
+		var model = $(this).data("replace-component");
+		$(this).hide();
+		$("#" + model + "-select-wrapper").removeClass('hidden');
+	});
 });
 
 

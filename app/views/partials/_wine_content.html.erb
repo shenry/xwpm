@@ -1,6 +1,7 @@
 <% if @project.wine %>
-	<div class="col-xs-12 border-bottom">
-		<h3><%= @project.send(@component.intern).to_s %></h3>
+	<div class="h3-wrap">
+		<span class="h3"><%= @project.send(@component.intern).to_s %></span>
+		<%= link_to "Edit Wine", edit_wine_path(@project.wine), class: "pull-right" %>
 	</div>
 	<div class="col-xs-4">
 		<table class="table table-responsive no-top-border">
@@ -20,7 +21,7 @@
 				<td>Gallons / Cases</td>
 				<td class="bold">
 					<% if @project.wine.blend_volume %>
-						<%= number_with_delimiter(@project.wine.blend_volume) %> gal / <%= number_with_delimiter(@project.wine.cases) %> cs
+						<%= number_with_delimiter(@project.wine.blend_volume.to_i) %> gal / <%= number_with_delimiter(@project.wine.cases) %> cs
 					<% end %>
 				</td>
 			</tr>
@@ -32,7 +33,7 @@
 				<td>Vintage</td>
 				<td class="bold"><%= @project.wine.vintage %>
 					<% if @project.wine.blend_volume %>
-						&nbsp;(<%= @project.wine.vintage_percent %>)
+						&nbsp;(<%= number_to_percentage(@project.wine.weighted_avg(:vintage), precision: 2) %>)
 					<% end %>
 				</td>
 			</tr>
@@ -40,7 +41,7 @@
 				<td>Appellation</td>
 				<td class="bold"><%= @project.wine.appellation %>
 					<% if @project.wine.blend_volume %>
-						&nbsp;(<%= @project.wine.appellation_percent %>)
+						&nbsp;(<%= number_to_percentage(@project.wine.weighted_avg(:appellation), precision: 2) %>)
 					<% end %>
 				</td>
 			</tr>
@@ -48,7 +49,7 @@
 				<td>Variety</td>
 				<td class="bold"><%= @project.wine.variety %>
 					<% if @project.wine.blend_volume %>
-						&nbsp;(<%= @project.wine.vintage_percent %>%)
+						&nbsp;(<%= number_to_percentage(@project.wine.weighted_avg(:variety), precision: 2) %>)
 					<% end %>
 				</td>
 			</tr>

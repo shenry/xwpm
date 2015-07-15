@@ -1,12 +1,22 @@
 module ApplicationHelper
+  DATE_FORMAT_STRING = "%m/%d/%y"
+  
   def title(value)
     unless value.nil?
       @title = "#{value} | X"
     end
   end
   
+  def str_to_constant(str, gap="_")
+    str.split(gap).each { |w| w.capitalize! }.join("").constantize
+  end
+  
   def markup(string)
     markdown = BlueCloth.new(string).to_html.html_safe
+  end
+  
+  def formatted_date(date, format=DATE_FORMAT_STRING)
+    date.strftime(format)
   end
   
   def us_states

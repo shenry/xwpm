@@ -18,7 +18,7 @@
 				</tr>
 				<tr>
 					<td>COGS</td>
-					<td class="bold"><%= number_to_currency(@wine.try(:blend_cost)) %></td>
+					<td class="bold"><%= number_to_currency(@wine.weighted_avg(:cogs)) %></td>
 				</tr>
 				<tr>
 					<td>Gallons</td>

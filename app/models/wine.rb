@@ -36,7 +36,8 @@ class Wine < ActiveRecord::Base
   end
   
   def blend_volume
-    components.map(&:volume).compact.inject { |sum, v| sum + v.to_f }
+    vol = components.map(&:volume).compact.inject { |sum, v| sum + v.to_f }
+    vol.to_i if vol
   end
   
   def blend_percent_sum

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713224352) do
+ActiveRecord::Schema.define(version: 20150714161947) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150713224352) do
     t.string   "taxes"
     t.string   "fso2_target"
     t.string   "max_do"
+    t.text     "notes",             default: ""
   end
 
   add_index "projects", ["brand"], name: "index_projects_on_brand"
@@ -252,6 +253,7 @@ ActiveRecord::Schema.define(version: 20150713224352) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "line_items_count"
+    t.float    "overhead"
   end
 
   add_index "purchase_orders", ["vendor_id"], name: "index_purchase_orders_on_vendor_id"

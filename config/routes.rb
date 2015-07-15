@@ -55,6 +55,7 @@ X::Application.routes.draw do
   
   put "/bottles", controller: "bottles", action: "update"
   
+  post "projects/:id/add_components", controller: "projects", action: "add_components"
   post "/clear-project-comment", controller: "comments", action: "complete_action"
   get  "/comments/:id/edit", controller: "comments", action: "edit", as: :edit_comment
   put  "/comments/:id/update", controller: "comments", action: "update", as: :update_comment

@@ -30,7 +30,7 @@ class Closure < ActiveRecord::Base
   mount_uploader :artwork, ImageUploader
   
   class << self
-    def grouped_for_select
+    def select_options
       active.group_by(&:type).map { |type, arr| [type, arr.map { |i| [i.to_s, i.id] } ] }
     end
   end

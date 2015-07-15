@@ -11,12 +11,6 @@ class PackagingComponentOrdersController < ApplicationController
     @line_item.update_attributes(line_item_params)
   end
   
-  # def receive
-  #   @line_item  = PackagingComponentOrder.find_by_component_requirement_id(params[:id])
-  #   @line_item.update_attributes(received: params[:received])
-  # end
-  
-  
   private
   def line_item_params
     params.require(:packaging_component_order).permit(:component_requirement_id, :purchase_order_id, :quantity, :price,

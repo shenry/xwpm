@@ -27,7 +27,7 @@
 		<td><%= project.variety %></td>
 		<td><%= project.appellation %></td>
 		<td><%= number_with_delimiter(project.target_cases, delimiter: ",") %></td>
-		<td><%= project.formatted_bottling_date %></td>
+		<td><%= formatted_date(project.bottling_date) %></td>
 		<td>
 			<% if project.wine %><%= link_to project.wine.sample_number, wine_path(project.wine) %><% end %>
 		</td>

@@ -1,0 +1,9 @@
+<% if component == "closure" %>
+	<% options = grouped_options_for_select(str_to_constant(component).select_options)%>
+<% else %>
+	<% options = options_for_select(str_to_constant(component).select_options) %>
+<% end %>
+<%= select_tag "project[#{component}][id]", options, class: "add-component form-control select gray", 
+								include_blank: "#{action} #{component.titleize} for Project...", 
+								data: { type: "script", remote: true, url: url_for(controller: "projects", action: "add_components"),
+									 model: component, method: "post" } %>

@@ -1,0 +1,12 @@
+var content = "<%= j render partial: 'partials/component', formats: :html, locals: { component: @model, project: @project } %>";
+if ( $("#<%= @model %>").length == 0 ) {
+	var new_div = "<div style='display:none;' id='<%= @model %>'>" + content + "</div>";
+	$("#<%= @model %>_container").prepend(new_div);
+	$("#<%= @model %>").slideDown('fast');
+} else {
+	$("#<%= @model %>").fadeOut('fast', function(){
+		$(this).hide();
+		$(this).html(content);
+		$(this).fadeIn('fast');
+	});
+}

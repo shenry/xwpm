@@ -1,7 +1,5 @@
 module ProjectsHelper
-  BOTTLING_DATE_FORMAT_STRING = "%m/%d/%y"
   
-
   def render_component_partial(component)
     render partial: "/partials/" + component + "_content" #, locals: { project: @project, component: component }
   end

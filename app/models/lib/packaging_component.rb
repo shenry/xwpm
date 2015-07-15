@@ -7,6 +7,11 @@ module PackagingComponent
       def units_options
         [['mm', 'mm'], ['in', 'in']]
       end
+      
+      def self.select_options
+        all.map { |a| [a.to_s, a.id] }
+      end
+      
     end
   end
   

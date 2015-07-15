@@ -1,5 +1,10 @@
 <tr>
-	<td><%= link_to cl_image_tag(line_item.component_requirement.packageable.image_url(:thumb)), "#" %></td>
+	<td id="glow-cell-id-<%= line_item.id %>" class="<%= line_item.received ? 'glow-cell' : '' %>">
+		<% if false # if line_item.received --- silly glowing bar %>
+			<div class="glow-container">&nbsp;<div class="glow glow-1">&nbsp;<div class="glow glow-2">&nbsp;<div class="glow glow-3">&nbsp;</div></div></div></div>
+		<% end %>
+		<%= link_to cl_image_tag(line_item.component_requirement.packageable.image_url(:thumb)), "#" %>
+	</td>
 	<td><%= line_item.component_requirement.project.project_number %></td>
 	<td><%= line_item.component_requirement.packageable.to_s %></td>
 	<td><%= number_with_delimiter(line_item.quantity, precision: 0) %></td>

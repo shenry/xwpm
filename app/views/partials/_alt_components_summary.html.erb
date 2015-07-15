@@ -1,0 +1,12 @@
+<% ["front_label", "back_label", "bottle", "closure", "capsule"].in_groups_of(2) do |group| %>
+	<div class="row">
+		<% group.compact.each do |component| %>
+			<div class="col-md-6 col-xs-12 project-component">
+				<div class="h3-wrap">
+					<span class="h3"><%= component.titleize %></span>
+				</div>
+				<%= render partial: "partials/component_handler", locals: { component: component } %>
+			</div>
+		<% end %>
+	</div>
+<% end %>

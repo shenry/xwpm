@@ -156,7 +156,7 @@ input[readonly] {
 }
 
 #customer-project-select, #customer-shipment-select, #vendor-product-select { color: #999; }
-.comment-style-link { margin-top: 10px; }
+.comment-style-link { }
 input.addon { width: 96% !important; }
 label.for-addon { margin-right: 15px !important; }
 
@@ -192,6 +192,28 @@ table img { border: 1px solid #dfdfdf; }
 }
 
 .h3-wrap {
-	margin: 20px 0 40px 0;
+	margin: 20px 15px 40px 15px;;
 	border-bottom: 1px solid #777;
 }
+
+.glow-container {
+	width: 5px;
+	height:40px;
+	float: left;
+	margin-right: 5px;
+	position: relative;
+}
+
+div.project-component {
+	min-height: 390px;
+}
+.component-summary { min-height: 260px !important; }
+.component-manager { height: 40px; line-height: 40px; }
+
+.gray { color: #777 !important; }
+
+.glow { position: absolute; }
+
+.glow-3 { background-color: hsl(90, 100%, 49%); width: 1px; top: 3px; left: 1px; height: 30px;}
+.glow-2 { background-color: hsl(90, 100%, 75%); width: 3px; top: 2px; left: 1px; height: 36px; border-radius: 1px; }
+.glow-1 { background-color: hsl(90, 100%, 90%); width: 5px; top: 0px; height: 40px; border-radius: 2px;}

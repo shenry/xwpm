@@ -7,11 +7,11 @@
 		</tr>
 		<tr>
 			<td>Front Label Rewind</td>
-			<td class="bold"><%= @project.front_label.try(:label_rewind) || @project.missing(:front_label) %></td>
+			<td class="bold"><%= @project.front_label.try(:rewind) || @project.missing(:front_label) %></td>
 		</tr>
 		<tr>
 			<td>Back Label Rewind</td>
-			<td class="bold"><%= @project.back_label.try(:label_rewind) || @project.missing(:back_label) %></td>
+			<td class="bold"><%= @project.back_label.try(:rewind) || @project.missing(:back_label) %></td>
 		</tr>
 		<tr>
 			<td>Bottle Mould</td>
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td>Case Dimensions</td>
-			<td class="bold"><%= @project.bottle.try(:formatted_carton_size) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottle.try(:formatted_case_dimensions) || @project.missing(:bottle) %></td>
 		</tr>
 	</table>
 </div>
@@ -32,11 +32,11 @@
 	<table class="table table-responsive no-top-border">
 		<tr>
 			<td>Quantity / Case</td>
-			<td class="bold"><%= @project.bottle.try(:format) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottle.try(:case_config) || @project.missing(:bottle) %></td>
 		</tr>
 		<tr>
 			<td>Pallet Configuration</td>
-			<td class="bold"><%= @project.bottle.try(:pallet_configuration) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottle.try(:pallet_config) || @project.missing(:bottle) %></td>
 		</tr>
 		<tr>
 			<td>Case Weight</td>
@@ -52,7 +52,7 @@
 		</tr>
 		<tr>
 			<td>Cases to Warehouse</td>
-			<td class="bold"><%= @project.cases_to_warehouse %></td>
+			<td class="bold"><%= number_with_delimiter(@project.cases_to_warehouse) %></td>
 		</tr>
 	</table>
 </div>

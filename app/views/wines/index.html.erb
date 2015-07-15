@@ -25,7 +25,7 @@
 			<tr>
 				<td><%= link_to wine.sample_number, wine_path(wine) %></td>
 				<td><%= wine.vinx2_reference %></td>
-				<td><%= number_with_delimiter(wine.try(:volume)) %></td>
+				<td><%= number_with_delimiter(wine.try(:blend_volume).to_i) %></td>
 				<td><%= wine.vintage %>
 					<% if wine.blend_volume %>
 					&nbsp;(<%= number_to_percentage(wine.weighted_avg(:vintage), precision: 1) %>)
