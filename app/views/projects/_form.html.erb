@@ -41,7 +41,7 @@
 	<%= f.input :fso2_target, label: "FSO2 Target" %>
 	<%= f.input :max_do, label: "Max DO" %>
 	<%= f.input :taxes %>
-	<%= f.input :wine_id, collection: Wine.order(sample_number: :desc).map { |w| [w.to_s, w.id] },
+	<%= f.input :wine_id, collection: Wine.select_options,
 		 					include_blank: "Select Wine", label: "Wine" %>
 	<%= f.input :notes, as: :text, input_html: { rows: "6" } %>
 	<%= link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", class: "pull-right", target: :_blank %>

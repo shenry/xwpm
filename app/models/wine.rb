@@ -30,6 +30,11 @@ class Wine < ActiveRecord::Base
     "[" + sample_number + "] " + vintage + " " + appellation + " " + variety
   end
   
+  def self.select_options
+    # TODO - reference active only
+    order(sample_number: :desc).map { |w| [w.to_s, w.id] }
+  end
+  
   def component_percent_hash
     array = components.select(:id, :volume).map { |c| [c.id, (c.volume / blend_volume) * 100] }
     Hash[*array.flatten]

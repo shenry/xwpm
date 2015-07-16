@@ -11,8 +11,5 @@
 class PackagingComponentOrder < ActiveRecord::Base
   belongs_to  :purchase_order, inverse_of: :line_items, counter_cache: :line_items_count
   belongs_to  :component_requirement, inverse_of: :packaging_component_order
-
-  def project
-    
-  end
+  has_one     :project, through: :component_requirement
 end

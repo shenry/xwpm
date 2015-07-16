@@ -33,9 +33,7 @@ class ProjectsController < ApplicationController
   
   def show_component
     @component  = params[:component]
-    if @component == "packaging_components"
-      @project = Project.find(params[:id])
-    elsif @component == "shipping"
+    if ["packaging_components", "shipping", "purchase_orders"].include? @component
       @project = Project.find(params[:id])
     elsif @component == "finance"
       
@@ -107,7 +105,10 @@ class ProjectsController < ApplicationController
     @project.update_attributes(project_params)
     @project.bottling_date = Date.strptime(date, DATE_FORMAT_STRING) if date
     if @project.save
-      redirect_to project_path(@project)
+      respond_to do |wants|
+        wants.html { redirect_to project_path(@project) }
+        wants.js { @component = params[:model], @requirement = "#{@component}_requirement".intern }
+      end
     else
       @project.bottling_date = params[:project][:bottling_date]
       render action: :edit
@@ -152,11 +153,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
                                     :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do,
-                                    :vintage, :appellation, :taxes, :no_capsule, :notes, components_attributes: [:packageable_id],
-                                      bottle_requirement_attributes: [:packageable_id, :id],
-                                      capsule_requirement_attributes: [:packageable_id, :id],
-                                      closure_requirement_attributes: [:packageable_id, :id],
-                                      front_label_requirement_attributes: [:packageable_id, :id],
-                                      back_label_requirement_attributes: [:packageable_id, :id])
+                                    :vintage, :appellation, :taxes, :no_capsule, :notes, :wine_id)
   end
 end

@@ -1,6 +1,11 @@
 module ApplicationHelper
   DATE_FORMAT_STRING = "%m/%d/%y"
   
+  def component_url_for(object, action)
+    controller = object.class.to_s.underscore.downcase.pluralize
+    url_for(controller: controller, action: action, id: object.id)
+  end
+  
   def title(value)
     unless value.nil?
       @title = "#{value} | X"

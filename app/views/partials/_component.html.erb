@@ -1,4 +1,4 @@
 <div id="<%= component %>" class="component-summary">
-	<%= render partial: "/partials/image_sidebar", locals: { object: @project.send(@requirement).packageable } %>
-	<%= render partial: "/partials/attr_summary_table", locals: { object: attr_summary_array_for(@project.send(@requirement).packageable) } %>
+	<%= render partial: "/partials/image_sidebar", locals: { object: @project.send(requirement).packageable } %>
+	<%= render partial: "/partials/attr_summary_table", locals: { object: attr_summary_array_for(@project.send(requirement).packageable) } %>
 </div>

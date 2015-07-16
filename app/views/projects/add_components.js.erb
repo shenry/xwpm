@@ -1,4 +1,5 @@
-var content = "<%= j render partial: 'partials/component', formats: :html, locals: { component: @model, project: @project } %>";
+var content = "<%= j render partial: 'partials/component', formats: :html, locals: { component: @model, project: @project, 
+	 									requirement: [@model, '_requirement'].join('').intern } %>";
 if ( $("#<%= @model %>").length == 0 ) {
 	var new_div = "<div style='display:none;' id='<%= @model %>'>" + content + "</div>";
 	$("#<%= @model %>_container").prepend(new_div);

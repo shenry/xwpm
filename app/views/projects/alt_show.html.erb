@@ -92,6 +92,9 @@
 			<li role="presentation" class="active" id="packaging_components_li">
 				<%= link_to "Packaging Components", show_project_component_path(@project, :packaging_components), remote: true %>
 			</li>
+			<li role="presentation" id="purchase_orders_li">
+				<%= link_to "POs", show_project_component_path(@project, :purchase_orders), remote: true %>
+			</li>
 			<li role="presentation" id="wine_li"><%= link_to "Wine", show_project_component_path(@project, :wine), remote: true %></li>
 			<li role="presentation" id="shipping_li"><%= link_to "Bottling / Shipping", show_project_component_path(@project, :shipping), remote: true %></li>
 			<li role="presentation"><a href="#finance">Finance</a></li>

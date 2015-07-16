@@ -1,11 +1,15 @@
 <% ["front_label", "back_label", "bottle", "closure", "capsule"].in_groups_of(2) do |group| %>
 	<div class="row">
 		<% group.compact.each do |component| %>
+		<% requirement = "#{component}_requirement".intern %>
 			<div class="col-md-6 col-xs-12 project-component">
 				<div class="h3-wrap">
 					<span class="h3"><%= component.titleize %></span>
+					<% if @project.send(requirement) %>
+						<%= link_to "Edit", component_url_for(@project.send(requirement).packageable, :show), class: "pull-right" %>
+					<% end %>
 				</div>
-				<%= render partial: "partials/component_handler", locals: { component: component } %>
+				<%= render partial: "partials/component_handler", locals: { component: component, requirement: requirement } %>
 			</div>
 		<% end %>
 	</div>

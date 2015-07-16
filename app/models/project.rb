@@ -36,6 +36,8 @@ class Project < ActiveRecord::Base
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   
   has_many    :components, class_name: "ComponentRequirement"
+  has_many    :component_orders, through: :components, class_name: "PackagingComponentOrder"
+  has_many    :purchase_orders, through: :component_orders
   
   has_one     :bottle_requirement, -> { where(packageable_type: "Bottle") }, class_name: "ComponentRequirement"
   has_one     :bottle, through: :bottle_requirement, source: :packageable, source_type: "Bottle"
@@ -58,7 +60,7 @@ class Project < ActiveRecord::Base
   
   has_many    :comments, inverse_of: :project, dependent: :destroy
   has_many    :packaging_component_orders, inverse_of: :project, dependent: :destroy
-  has_many    :purchase_orders, through: :packaging_component_orders
+  has_many    :purchase_orders, through: :packaging_component_orders, inverse_of: :projects
   
   # before_create :set_initial_state
   before_save   :format_project_number
@@ -74,6 +76,13 @@ class Project < ActiveRecord::Base
   def self.associated_with_vendor(vendor_id)
     attr_hash = Vendor.find(vendor_id).products_attr_hash
     joins(:components).where(:component_requirements => { :packageable_type => attr_hash[:types], :packageable_id => attr_hash[:ids]}).group("projects.id")
+  end
+  
+  def purchase_orders
+    ids = components.map(&:id)
+    PurchaseOrder.joins("INNER JOIN 'packaging_component_orders' ON 
+    'purchase_orders'.'id' = 'packaging_component_orders'.'purchase_order_id' WHERE 
+    'packaging_component_orders'.'component_requirement_id' IN (#{ids.join(',')}) GROUP BY 'purchase_orders'.'id'")
   end
   
   def components_for_select(vendor_id)

@@ -1,0 +1,12 @@
+<% if @project.purchase_orders.blank? %>
+	<div class="col-xs-12">
+		<h3><%= link_to "Create Purchase Order", new_purchase_order_path %></h3>
+	</div>
+<% else %>
+	<div class="col-xs-12">
+		<h3>Purchase Orders</h3>
+	</div>
+	<div class="col-xs-12">
+		<%= render partial: "purchase_orders/index_table", locals: { purchase_orders: @project.purchase_orders } %>
+	</div>
+<% end %>

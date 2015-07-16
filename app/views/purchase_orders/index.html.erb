@@ -6,23 +6,6 @@
 </div>
 <div class="row spacer">
 	<div class="col-lg-12">
-		<table class="table table-responsive no-top-border">
-			<tr>
-				<th>PO #</th>
-				<th>Order Date</th>
-				<th>No. Items</th>
-				<th>&nbsp;</th>
-				<th>&nbsp;</th>
-			</tr>
-			<% @purchase_orders.each do |po| %>
-				<tr>
-					<td><%= po.number %></td>
-					<td><%= formatted_date(po.order_date) %></td>
-					<td><%= po.line_items.size %></td>
-					<td><%= link_to "Add Line Items", purchase_order_path(po) %></td>
-					<td><%= link_to "Close", "#" %></td>
-				</tr>
-			<% end %>
-		</table>
+		<%= render partial: "index_table", locals: { purchase_orders: @purchase_orders } %>
 	</div>
 </div>
