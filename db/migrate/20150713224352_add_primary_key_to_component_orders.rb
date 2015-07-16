@@ -1,6 +1,6 @@
 class AddPrimaryKeyToComponentOrders < ActiveRecord::Migration
   def change
-    # drop_table :packaging_component_orders
+    drop_table :packaging_component_orders
     
     create_table :packaging_component_orders do |t|
       t.integer :component_requirement_id
