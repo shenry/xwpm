@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714161947) do
+ActiveRecord::Schema.define(version: 20150716173717) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -202,8 +202,8 @@ ActiveRecord::Schema.define(version: 20150714161947) do
   create_table "packaging_component_orders", force: :cascade do |t|
     t.integer "component_requirement_id"
     t.integer "purchase_order_id"
-    t.float   "quantity"
-    t.float   "price"
+    t.float   "quantity",                 default: 0.0
+    t.float   "price",                    default: 0.0
     t.boolean "received",                 default: false, null: false
   end
 
@@ -244,16 +244,16 @@ ActiveRecord::Schema.define(version: 20150714161947) do
 
   create_table "purchase_orders", force: :cascade do |t|
     t.integer  "vendor_id"
-    t.string   "number",           default: "", null: false
+    t.string   "number",           default: "",  null: false
     t.string   "po_image"
     t.string   "bol_image"
     t.float    "total"
     t.datetime "receive_date"
     t.datetime "order_date"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "line_items_count"
-    t.float    "overhead"
+    t.float    "overhead",         default: 0.0
   end
 
   add_index "purchase_orders", ["vendor_id"], name: "index_purchase_orders_on_vendor_id"

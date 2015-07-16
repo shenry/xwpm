@@ -19,4 +19,8 @@ class ComponentRequirement < ActiveRecord::Base
   # accepts_nested_attributes_for :packageable
   
   validates :project_id, :packageable_id, :packageable_type, presence: true
+  
+  def cost
+    packaging_component_order.total_cost
+  end
 end

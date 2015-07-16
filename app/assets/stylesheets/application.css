@@ -205,10 +205,11 @@ table img { border: 1px solid #dfdfdf; }
 }
 
 div.project-component {
-	min-height: 390px;
+	min-height: 430px;
 }
 .component-summary { min-height: 260px !important; }
 .component-manager { height: 40px; line-height: 40px; }
+.component-container { margin-bottom: 40px; }
 
 .gray { color: #777 !important; }
 

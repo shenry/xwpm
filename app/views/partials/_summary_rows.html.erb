@@ -1,0 +1,20 @@
+<tr>
+	<td>Vendor</td>
+	<td class="bold"><%= link_to object.vendor.name, vendor_path(object.vendor) %></td>
+</tr>
+<tr>
+	<td>PO#</td>
+	<td class="bold">
+		<% if requirement.purchase_order %>
+			<%= link_to requirement.purchase_order.number, purchase_order_path(requirement.purchase_order) %>
+		<% end %>
+	</td>
+</tr>
+<tr>
+	<td>Cost</td>
+	<td class="bold">
+		<% if requirement.purchase_order %>
+			<%= number_to_currency(requirement.cost) %>
+		<% end %>
+	</td>
+</tr>

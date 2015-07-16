@@ -4,7 +4,7 @@
 <div class="row spacer">
 	<%= simple_form_for @purchase_order, defaults: { wrapper: :side_by_side }, html: { class: 'form-horizontal' } do |f| %>
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-xs-4">
 				<%= f.input :number, label: "PO Number" %>
 				<%= f.input :vendor_id, :collection => Vendor.order(:name).map { |v| [v.name, v.id] }, 
 															include_blank: "Select Vendor", class: "form-control" %>
@@ -35,7 +35,12 @@
 						});
 					</script>
 				</div>
-				<%= f.button :submit, class: "col-xs-4 col-xs-offset-4 spacer" %>
+				<%= f.button :submit, class: "col-xs-8 col-xs-offset-4 spacer btn-primary" %>
+			</div>
+			<div class="col-xs-4">
+				<div class="form-group">
+					<span class="col-xs-12 control-label bold">PO Image</span>
+				</div>
 			</div>
 		</div>
 	<% end %>

@@ -19,15 +19,6 @@ module ProjectsHelper
         ["Specs", object.specs],
         ["Fill Point", object.fill_point + "mm"]
       ]
-    elsif object.is_a? FrontLabel
-      [
-        ["Vendor", link_to(object.vendor.name, vendor_path(object.vendor))],
-        ["Position", object.position + "mm"],
-        ["Specs", object.specs],
-        ["Artwork", object.artwork_source],
-        ["Label Alc", object.alc],
-        ["UPC", object.upc]
-      ]
     elsif object.is_a? BackLabel
       [
         ["Vendor", link_to(object.vendor.name, vendor_path(object.vendor))],

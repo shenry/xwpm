@@ -32,4 +32,16 @@ class PurchaseOrder < ActiveRecord::Base
   def to_s
     "PO##{number} - #{vendor.name} "
   end
+  
+  def received?
+    line_items.map(&:received).all?
+  end
+  
+  def subtotal
+    line_items.sum(:price)
+  end
+  
+  def total
+    overhead + subtotal
+  end
 end

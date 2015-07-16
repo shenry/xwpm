@@ -1,8 +1,9 @@
-<table class="table table-responsive no-top-border">
+<table class="table table-responsive no-top-border table-striped">
 	<tr>
 		<th>PO #</th>
 		<th>Order Date</th>
 		<th>No. Items</th>
+		<th>Total $</th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -11,6 +12,7 @@
 			<td><%= po.number %></td>
 			<td><%= formatted_date(po.order_date) %></td>
 			<td><%= po.line_items.size %></td>
+			<td><%= number_to_currency(po.total) %></td>
 			<td><%= link_to "Add Line Items", purchase_order_path(po) %></td>
 			<td><%= link_to "Close", "#" %></td>
 		</tr>

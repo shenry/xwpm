@@ -9,6 +9,8 @@
 	<td><%= line_item.component_requirement.packageable.to_s %></td>
 	<td><%= number_with_delimiter(line_item.quantity, precision: 0) %></td>
 	<td><%= number_to_currency(line_item.price, precision: 2) %></td>
+	<td><%= number_to_currency(line_item.allocated_overhead) %></td>
+	<td><%= number_to_currency(line_item.total_cost) %></td>
 	<td>
 		<%= form_for line_item, html: { id: "receive-#{line_item.id}" }, remote: true do |f| %>
 			<%= f.check_box :received, data: { line_item: line_item.id }, class: "receive_line_item" %>

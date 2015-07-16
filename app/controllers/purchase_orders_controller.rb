@@ -5,7 +5,6 @@ class PurchaseOrdersController < ApplicationController
   
   def show
     @purchase_order = PurchaseOrder.find(params[:id])
-    @purchase_order.line_items.build
     @associated_projects = Project.associated_with_vendor(@purchase_order.vendor_id)
   end
   
@@ -27,6 +26,6 @@ class PurchaseOrdersController < ApplicationController
   private
   
   def purchase_order_params
-    params.require(:purchase_order).permit(:number, :vendor_id, :order_date)
+    params.require(:purchase_order).permit(:number, :vendor_id, :order_date, :po_image, :bol_image)
   end
 end

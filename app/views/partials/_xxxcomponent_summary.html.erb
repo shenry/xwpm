@@ -4,5 +4,6 @@
 		<%= link_to "Edit", edit_component_requirement_path(requirement), class: "pull-right" %>
 	</div>
 	<%= render partial: "/partials/image_sidebar", locals: { object: requirement.packageable } %>
-	<%= render partial: "/partials/attr_summary_table", locals: { object: attr_summary_array_for(requirement.packageable) } %>
+	<%= render partial: "/partials/#{requirement.underscore.downcase}_summary_table", 
+											locals: { object: requirement.packageable } %>
 </div>
