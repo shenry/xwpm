@@ -38,9 +38,7 @@
 				<%= f.button :submit, class: "col-xs-8 col-xs-offset-4 spacer btn-primary" %>
 			</div>
 			<div class="col-xs-4">
-				<div class="form-group">
-					<span class="col-xs-12 control-label bold">PO Image</span>
-				</div>
+				<%= render partial: "partials/image_upload_form", locals: { f: f, name: :po_image, upload_label: "Foo"  } %>
 			</div>
 		</div>
 	<% end %>
