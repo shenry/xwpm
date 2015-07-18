@@ -23,6 +23,8 @@ gem 'wkhtmltopdf-binary'
 gem 'tracking_number'
 gem 'active_shipping'
 gem 'best_in_place', '~> 3.0.1'
+gem 'puma'
+gem 'rack-timeout'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
