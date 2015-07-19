@@ -8,7 +8,7 @@
 				<%= link_to "New #{@customer.name} Project", new_customer_project_path(@customer) %>
 			<% else %>
 				
-				<%= select_tag "", options_for_select(@customer_options), include_blank: "Select a Customer to create a Project...", 
+				<%= select_tag "", options_for_select(Customer.select_options), include_blank: "Select a Customer to create a Project...", 
 											id: "customer-project-select", class: "select optional form-control"  %>
 				<script type="text/javascript">
 					$(function(){

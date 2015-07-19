@@ -48,15 +48,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    if params[:customer_id]
-      @customer = Customer.includes(:projects).find(params[:customer_id])
-      @projects = @customer.projects
-    elsif params[:vendor_id]
-      @projects = Project.associated_with_vendor(params[:vendor_id])
-    else
-      @projects = Project.includes(:customer, :wine, :comments)
-      @customer_options = Customer.select_options
-    end
+    @projects = Project.fetch_filtered(params)
     
     respond_to do |wants|
       wants.html

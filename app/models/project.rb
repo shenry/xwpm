@@ -72,6 +72,16 @@ class Project < ActiveRecord::Base
   validate  :bottling_date_cant_be_in_the_past
 
   scope     :active,  -> { where("bottling_date >= ?", Date.today) }
+  scope     :for_customer, ->(id) { where("customer_id = ?", id) }
+  
+  def self.fetch_filtered(params_hash)
+    customer_id = params_hash[:customer_id]
+    vendor_id   = params_hash[:vendor_id]
+    puts "params_hash is #{params_hash.inspect}"
+    return Project.active unless (customer_id || vendor_id)
+    return Customer.find(customer_id).projects.active if customer_id
+    return Project.associated_with_vendor(vendor_id).active if vendor_id
+  end
   
   def self.associated_with_vendor(vendor_id)
     attr_hash = Vendor.find(vendor_id).products_attr_hash
@@ -88,8 +98,7 @@ class Project < ActiveRecord::Base
   def components_for_select(vendor_id)
     components.inject({options: [], disabled: []}) do |hash, component|
       hash[:options] << [component.packageable.to_s, component.id]
-      unless component.packageable.vendor.id == vendor_id.to_i
-        puts "they don't match!"
+      if (component.packageable.vendor.id != vendor_id.to_i || PackagingComponentOrder.find_by_component_requirement_id(component.id))
         hash[:disabled] << component.id
       end
       hash

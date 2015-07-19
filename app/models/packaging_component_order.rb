@@ -13,6 +13,8 @@ class PackagingComponentOrder < ActiveRecord::Base
   belongs_to  :component_requirement, inverse_of: :packaging_component_order
   has_one     :project, through: :component_requirement
   
+  validates_uniqueness_of :component_requirement_id
+  
   def total_cost
     price + allocated_overhead
   end
