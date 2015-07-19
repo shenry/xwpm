@@ -25,6 +25,8 @@ gem 'active_shipping'
 gem 'best_in_place', '~> 3.0.1'
 gem 'puma'
 gem 'rack-timeout'
+gem 'sequel'
+gem 'pg'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
@@ -57,9 +59,9 @@ end
 
 
 # SQLite 3
-group :development, :test do
-  gem 'sqlite3', '1.3.10'
-end
+# group :development, :test do
+#   gem 'pg'
+# end
 
 # Devise: https://github.com/plataformatec/devise
 gem 'devise', '3.4.1'
@@ -70,6 +72,6 @@ group :production do
 end
 
 # PostgreSQL gem for Heroku
-group :production do
-  gem 'pg'
-end
+# group :production do
+#   gem 'pg'
+# end
