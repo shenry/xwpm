@@ -24,7 +24,7 @@ module X
     I18n.enforce_available_locales = false
 
     # to capture trigram and other Postgres goodness
-    config.active_record.schema_format = :sql
+    # config.active_record.schema_format = :sql
     
     # Test framework
     config.generators.test_framework false
