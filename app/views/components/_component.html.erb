@@ -1,11 +1,33 @@
 <tr id="component-<%= component.id %>-row">
-	<td><%= component.lot_number %></td>
-	<td><%= number_with_delimiter(component.volume) %></td>
+	<td><%= best_in_place component, :lot_number, { inner_class: "form-control bip" } %></td>
+	<td><%= best_in_place component, :volume, 
+												{ inner_class: "form-control bip", display_with: :number_with_delimiter } %>
+	</td>
 	<td class="pct-cell" id="<%= component.id %>-cell"><%= number_to_percentage(component.blend_percent, precision: 1) %></td>
-	<td><%= number_to_currency(component.cogs) %></td>
-	<td><%= number_to_percentage(component.vintage_percent, precision: 1) %></td>
-	<td><%= number_to_percentage(component.appellation_percent, precision: 1) %></td>
-	<td><%= number_to_percentage(component.variety_percent, precision: 1) %></td>		
-	<td><%= markup(component.description) %></td>
-	<td>actions</td>
+	<td><%= best_in_place component, :cogs, 
+												{ inner_class: "form-control bip", display_with: :number_to_currency }%>
+	</td>
+	<td><%= best_in_place component, :vintage_percent, 
+												{ inner_class: "form-control bip", 
+													display_with: -> v { number_to_percentage(v, precision: 1) } } %>
+	</td>
+	<td>
+		<%= best_in_place component, :appellation_percent, 
+											{ inner_class: "form-control bip", 
+												display_with: -> v { number_to_percentage(v, precision: 1) }} %>
+	</td>
+	<td>
+		<%= best_in_place component, :variety_percent, 
+											{	inner_class: "form-control bip", 
+												display_with: -> v { number_to_percentage(v, precision: 1) }} %>
+	</td>		
+	<td>
+		<%= best_in_place component, :description, { inner_class: "form-control bip", display_with: -> v { markup(v) } } %>
+	</td>
+	<td>
+		<button type="button" class="btn btn-default" data-confirm="Are you sure you want to delete this component?" 
+						data-url=<%= component_path(component) %> data-method="delete">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</td>
 </tr>

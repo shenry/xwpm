@@ -17,7 +17,7 @@
 					<td class="bold"><%= @wine.vinx2_reference %></td>
 				</tr>
 				<tr>
-					<td>COGS</td>
+					<td>$/Gal</td>
 					<td class="bold"><%= number_to_currency(@wine.weighted_avg(:cogs)) %></td>
 				</tr>
 				<tr>
@@ -80,8 +80,17 @@
 				</tr>
 				<% @wine.wine_shipments.each do |shipment| %>
 				<tr>
-					<td><%= shipment.customer.name %></td>
-					<td><%= shipment.formatted_ship_date %> - <%= link_to "Track" %></td>
+					<td>
+						<%= shipment.customer.name %>
+						<% if shipment.accepted? %>
+							<span class="glyphicon glyphicon-star text-muted"></span>
+						<% end %>
+					</td>
+					<td><%= shipment.formatted_ship_date %>
+						<% unless ["delivered", "expired"].include? shipment.tracking_status_class %>
+							&nbsp;-&nbsp;<%= link_to shipment.current_status, google_tracking_url_for(shipment), target: :_blank %>
+						<% end %>
+					</td>
 				</tr>
 				<% end %>
 			</table>

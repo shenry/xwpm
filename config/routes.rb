@@ -73,7 +73,7 @@ X::Application.routes.draw do
   resources :packaging_component_orders
   
   resources :wines do
-    resources :components
+    resources :components, shallow: true
     resources :wine_shipments
     resources :reviewers
   end

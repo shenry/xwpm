@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716173717) do
+ActiveRecord::Schema.define(version: 20150720132800) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "asset"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.text     "description", default: ""
   end
 
-  add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id"
+  add_index "attachments", ["parent_type", "parent_id"], name: "index_attachments_on_parent_type_and_parent_id", using: :btree
 
   create_table "back_labels", force: :cascade do |t|
     t.integer  "vendor_id"
@@ -46,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.boolean  "active",         default: true
   end
 
-  add_index "back_labels", ["vendor_id"], name: "index_back_labels_on_vendor_id"
+  add_index "back_labels", ["vendor_id"], name: "index_back_labels_on_vendor_id", using: :btree
 
   create_table "bottles", force: :cascade do |t|
     t.string   "item_number"
@@ -114,9 +117,9 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_index "comments", ["author_id"], name: "index_comments_on_author_id"
-  add_index "comments", ["project_id"], name: "index_comments_on_project_id"
-  add_index "comments", ["resolver_id"], name: "index_comments_on_resolver_id"
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
+  add_index "comments", ["project_id"], name: "index_comments_on_project_id", using: :btree
+  add_index "comments", ["resolver_id"], name: "index_comments_on_resolver_id", using: :btree
 
   create_table "component_requirements", force: :cascade do |t|
     t.integer  "project_id"
@@ -126,9 +129,9 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "component_requirements", ["packageable_id"], name: "index_component_requirements_on_packageable_id"
-  add_index "component_requirements", ["packageable_type"], name: "index_component_requirements_on_packageable_type"
-  add_index "component_requirements", ["project_id"], name: "index_component_requirements_on_project_id"
+  add_index "component_requirements", ["packageable_id"], name: "index_component_requirements_on_packageable_id", using: :btree
+  add_index "component_requirements", ["packageable_type"], name: "index_component_requirements_on_packageable_type", using: :btree
+  add_index "component_requirements", ["project_id"], name: "index_component_requirements_on_project_id", using: :btree
 
   create_table "components", force: :cascade do |t|
     t.integer  "wine_id"
@@ -143,8 +146,8 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.float    "variety_percent",     default: 100.0
   end
 
-  add_index "components", ["lot_number"], name: "index_components_on_lot_number"
-  add_index "components", ["wine_id"], name: "index_components_on_wine_id"
+  add_index "components", ["lot_number"], name: "index_components_on_lot_number", using: :btree
+  add_index "components", ["wine_id"], name: "index_components_on_wine_id", using: :btree
 
   create_table "firms", force: :cascade do |t|
     t.string   "type"
@@ -174,10 +177,10 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "front_labels", force: :cascade do |t|
     t.string   "item_number"
@@ -207,8 +210,18 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.boolean "received",                 default: false, null: false
   end
 
-  add_index "packaging_component_orders", ["component_requirement_id"], name: "index_packaging_component_orders_on_component_requirement_id", unique: true
-  add_index "packaging_component_orders", ["purchase_order_id"], name: "index_packaging_component_orders_on_purchase_order_id"
+  add_index "packaging_component_orders", ["component_requirement_id"], name: "index_packaging_component_orders_on_component_requirement_id", unique: true, using: :btree
+  add_index "packaging_component_orders", ["purchase_order_id"], name: "index_packaging_component_orders_on_purchase_order_id", using: :btree
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.integer  "wine_id"
@@ -237,10 +250,10 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.text     "notes",             default: ""
   end
 
-  add_index "projects", ["brand"], name: "index_projects_on_brand"
-  add_index "projects", ["customer_id"], name: "index_projects_on_customer_id"
-  add_index "projects", ["project_number"], name: "index_projects_on_project_number", unique: true
-  add_index "projects", ["wine_id"], name: "index_projects_on_wine_id"
+  add_index "projects", ["brand"], name: "index_projects_on_brand", using: :btree
+  add_index "projects", ["customer_id"], name: "index_projects_on_customer_id", using: :btree
+  add_index "projects", ["project_number"], name: "index_projects_on_project_number", unique: true, using: :btree
+  add_index "projects", ["wine_id"], name: "index_projects_on_wine_id", using: :btree
 
   create_table "purchase_orders", force: :cascade do |t|
     t.integer  "vendor_id"
@@ -256,7 +269,7 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.float    "overhead",         default: 0.0
   end
 
-  add_index "purchase_orders", ["vendor_id"], name: "index_purchase_orders_on_vendor_id"
+  add_index "purchase_orders", ["vendor_id"], name: "index_purchase_orders_on_vendor_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -280,9 +293,9 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.string   "name",                   default: "",    null: false
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vendor_products", force: :cascade do |t|
     t.integer  "vendable_id"
@@ -292,9 +305,9 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "vendor_products", ["vendable_id"], name: "index_vendor_products_on_vendable_id"
-  add_index "vendor_products", ["vendable_type"], name: "index_vendor_products_on_vendable_type"
-  add_index "vendor_products", ["vendor_id"], name: "index_vendor_products_on_vendor_id"
+  add_index "vendor_products", ["vendable_id"], name: "index_vendor_products_on_vendable_id", using: :btree
+  add_index "vendor_products", ["vendable_type"], name: "index_vendor_products_on_vendable_type", using: :btree
+  add_index "vendor_products", ["vendor_id"], name: "index_vendor_products_on_vendor_id", using: :btree
 
   create_table "wine_shipments", force: :cascade do |t|
     t.integer  "customer_id"
@@ -308,9 +321,9 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "wine_shipments", ["customer_id"], name: "index_wine_shipments_on_customer_id"
-  add_index "wine_shipments", ["tracking_number"], name: "index_wine_shipments_on_tracking_number"
-  add_index "wine_shipments", ["wine_id"], name: "index_wine_shipments_on_wine_id"
+  add_index "wine_shipments", ["customer_id"], name: "index_wine_shipments_on_customer_id", using: :btree
+  add_index "wine_shipments", ["tracking_number"], name: "index_wine_shipments_on_tracking_number", using: :btree
+  add_index "wine_shipments", ["wine_id"], name: "index_wine_shipments_on_wine_id", using: :btree
 
   create_table "wines", force: :cascade do |t|
     t.string   "appellation"
@@ -325,8 +338,8 @@ ActiveRecord::Schema.define(version: 20150716173717) do
     t.string   "vinx2_reference"
   end
 
-  add_index "wines", ["appellation"], name: "index_wines_on_appellation"
-  add_index "wines", ["sample_number"], name: "index_wines_on_sample_number", unique: true
-  add_index "wines", ["variety"], name: "index_wines_on_variety"
+  add_index "wines", ["appellation"], name: "index_wines_on_appellation", using: :btree
+  add_index "wines", ["sample_number"], name: "index_wines_on_sample_number", unique: true, using: :btree
+  add_index "wines", ["variety"], name: "index_wines_on_variety", using: :btree
 
 end

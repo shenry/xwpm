@@ -3,13 +3,13 @@ class PackagingComponentsController < ApplicationController
   respond_to :html, :json
   
   def index
-    @status   = params[:status] || "active"
-    @components  = @klass.send(@status.intern)
+    @status      = params[:status] || "active"
+    @components  = @klass.send(@status.intern).page params[:page]
   end
   
   def show
     @component = @klass.find(params[:id])
-    @projects = @component.projects
+    @projects = @component.projects.active
   end
   
   def create

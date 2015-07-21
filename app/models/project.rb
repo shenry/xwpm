@@ -31,6 +31,7 @@
 class Project < ActiveRecord::Base
   include ProjectsHelper
   include CostHelper
+  include PgSearch
 
   belongs_to  :wine, inverse_of: :projects
   belongs_to  :customer, class_name: "Firm", counter_cache: true
@@ -71,16 +72,33 @@ class Project < ActiveRecord::Base
   validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past
 
-  scope     :active,  -> { where("bottling_date >= ?", Date.today) }
+  scope     :active,  -> { where("bottling_date >= ?", Date.today).order("bottling_date ASC") }
   scope     :for_customer, ->(id) { where("customer_id = ?", id) }
+  
+  paginates_per 10
+  
+  # multisearchable against: [:brand, :variety, :appellation, :vintage, :notes]
+  pg_search_scope :search_all, against: [:brand, :variety, :appellation, :project_number], 
+                  using: { tsearch: { dictionary: 'english' }, trigram: { threshold: 0.2 } }
   
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
     vendor_id   = params_hash[:vendor_id]
-    puts "params_hash is #{params_hash.inspect}"
     return Project.active unless (customer_id || vendor_id)
     return Customer.find(customer_id).projects.active if customer_id
     return Project.associated_with_vendor(vendor_id).active if vendor_id
+  end
+  
+  def self.text_search(query)
+    if query.present?
+      search_all(query)
+    else
+      all
+    end
+  end
+  
+  def self.scoped
+    all
   end
   
   def self.associated_with_vendor(vendor_id)
@@ -103,6 +121,10 @@ class Project < ActiveRecord::Base
       end
       hash
     end
+  end
+  
+  def customer_name
+    customer.name
   end
   
   def cases_to_warehouse

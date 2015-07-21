@@ -37,9 +37,14 @@ header { margin-bottom: 60px; }
 	width: 100% !important;
 }
 
+input#query { width: 240px; }
+.white { color: white; }
+
 .dropdown-menu a:hover {
 	background-color: #e6e6e6 !important;
 }
+
+a.navbar-brand { color: black !important; }
 
 .bold { font-weight: bold; }
 
@@ -61,10 +66,15 @@ header { margin-bottom: 60px; }
 .pad-bottom { padding-bottom: 10px; }
 .minor { color: #a0a0a0; font-weight: lighter;}
 .clear { clear: both; }
+.firm-details { float: left; margin-right: 40px; }
 
 td.edit-table-label { padding: 4px 0px 0px 8px; padding-bottom: 15px; }
 td.image-table-thumb { width: 100px; vertical-align: top; }
 td.image-table-thumb img { float: left; padding-bottom: 4px; }
+
+
+.table-inline { margin: 0px 20px 0px 0px !important; padding: 0px !important;}
+.no-margin { margin-right: 0px !important;}
 
 table#attachments-table-edit { width: 100%; }
 table#attachments-table-edit td { vertical-align: top;}
@@ -213,8 +223,24 @@ div.project-component {
 
 .gray { color: #777 !important; }
 
+.ship-status {
+	font-family: courier;
+	padding: 3px 5px;
+	border-radius: 4px;
+	color: #fff;
+}
+.pending, .info_received { background-color: #afafaf; color: #fff; }
+.in_transit { background-color: hsla(211, 55%, 55%, 1); color: #fff; }
+.out_for_delivery { background-color: hsla(37, 95%, 55%, 1); }
+.attempt_fail { background-color: hsla(268, 65%, 65%, 1); }
+.delivered { background-color: hsla(115, 45%, 45%, 1); }
+.exception { background-color: hsla(0, 85%, 45%, 1); }
+.expired { background-color: hsla(0, 5%, 25%, 1); }
+
 .glow { position: absolute; }
 
 .glow-3 { background-color: hsl(90, 100%, 49%); width: 1px; top: 3px; left: 1px; height: 30px;}
 .glow-2 { background-color: hsl(90, 100%, 75%); width: 3px; top: 2px; left: 1px; height: 36px; border-radius: 1px; }
 .glow-1 { background-color: hsl(90, 100%, 90%); width: 5px; top: 0px; height: 40px; border-radius: 2px;}
+
+.empty-table { height: 300px; text-align: center; font-size: 2em; background-color: #eee; color: #777;}

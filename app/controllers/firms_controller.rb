@@ -32,7 +32,10 @@ class FirmsController < ApplicationController
       types       = objects.collect(&:vendable_type).uniq
       @associated_collection = Hash.new
       types.each do |type|
-        @associated_collection[type] = objects.select { |c| c.vendable_type == type }
+        products     = objects.select { |o| o.vendable_type == type }
+        vendable_ids = products.map(&:id)
+        vendables    = type.constantize.where(id: vendable_ids)
+        @associated_collection[type] = vendables
       end
     else
       @associated_collection = objects

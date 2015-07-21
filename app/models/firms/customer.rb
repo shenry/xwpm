@@ -37,4 +37,8 @@ class Customer < Firm
     end
     out
   end
+  
+  def unreviewed_wine_shipments
+    wine_shipments.select { |s| s.accepted == false || s.feedback.blank? }
+  end
 end

@@ -1,0 +1,5 @@
+<tr id="component-<%= @component.id %>-row">
+	<%= simple_form_for @component, defaults: { wrapper: :inline_form }, remote: true, method: :put do |f| %>
+		<%= render partial: "components/form_cells", locals: { f: f, button_tag: "Update" } %>
+	<% end %>
+</tr>

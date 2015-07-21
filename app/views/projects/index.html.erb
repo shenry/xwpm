@@ -1,7 +1,7 @@
 <div class='row spacer'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1><%= @customer ? @customer.name : "All" %> Projects</h1>
+			<h1><%= @customer ? @customer.name : "Active" %> Projects</h1>
 		</div>
 		<div class='col-xs-4 col-xs-height text-right'>
 			<% if @customer %>
@@ -24,4 +24,5 @@
 </div>
 <div class='row spacer'>
 	<%= render partial: "index_table", locals: { projects: @projects } %>
+	<%= paginate @projects %>
 </div>

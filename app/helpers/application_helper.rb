@@ -6,6 +6,10 @@ module ApplicationHelper
     url_for(controller: controller, action: action, id: object.id)
   end
   
+  def google_tracking_url_for(shipment)
+    "https://www.google.com/search?q=#{shipment.tracking_number}"
+  end
+  
   def title(value)
     unless value.nil?
       @title = "#{value} | X"

@@ -19,7 +19,7 @@ class Wine < ActiveRecord::Base
   include CostHelper
   
   has_many  :projects, inverse_of: :wine
-  has_many  :components, inverse_of: :wine
+  has_many  :components, -> { order("created_at DESC") }, inverse_of: :wine, dependent: :destroy
   has_many  :wine_shipments, inverse_of: :wine
   has_many  :reviewers, through: :wine_shipments, source: :customer
   
@@ -36,7 +36,7 @@ class Wine < ActiveRecord::Base
   end
   
   def component_percent_hash
-    array = components.select(:id, :volume).map { |c| [c.id, (c.volume / blend_volume) * 100] }
+    array = components.select(:id, :volume).map { |c| [c.id, (c.volume.to_f / blend_volume.to_f) * 100] }
     Hash[*array.flatten]
   end
   

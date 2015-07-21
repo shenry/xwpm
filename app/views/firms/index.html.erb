@@ -19,6 +19,7 @@
 			<th>Address</th>
 			<% if @klass == Customer %>
 				<th class="col-xs-1">Active Projects</th>
+				<th class="col-xs-1">Samples in Review</th>
 				<th>&nbsp;</th>
 			<% end %>
 		</tr>
@@ -32,6 +33,7 @@
 				<td><%= firm.one_line_address %></td>
 				<% if @klass == Customer %>
 					<td><%= link_to firm.projects.active.count, customer_projects_path(firm) %></td>
+					<td><%= firm.unreviewed_wine_shipments.size %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
 				<% end %>
 			</tr>			

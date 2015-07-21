@@ -29,7 +29,7 @@ class Component < ActiveRecord::Base
   
   def blend_percent
     total_volume = self.wine.blend_volume
-    (volume / total_volume) * 100
+    (volume.to_f / total_volume.to_f) * 100
   end
   
   private

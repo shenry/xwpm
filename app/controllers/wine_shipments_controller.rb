@@ -16,8 +16,18 @@ class WineShipmentsController < ApplicationController
     end
   end
   
+  def update
+    @wine_shipment = WineShipment.find(params[:id])
+    respond_to do |wants|
+      if @wine_shipment.update_attributes(wine_shipment_params)
+        puts "updated wine shipment!!"
+        wants.json { respond_with_bip @wine_shipment }
+      end
+    end
+  end
+  
   private
   def wine_shipment_params
-    params.require(:wine_shipment).permit(:ship_date, :tracking_number, :wine_id, :customer_id)
+    params.require(:wine_shipment).permit(:ship_date, :tracking_number, :wine_id, :customer_id, :accepted, :feedback)
   end
 end
