@@ -19,7 +19,7 @@ class Wine < ActiveRecord::Base
   include CostHelper
   
   has_many  :projects, inverse_of: :wine
-  has_many  :components, -> { order("created_at DESC") }, inverse_of: :wine, dependent: :destroy
+  has_many  :components, -> { order("created_at ASC") }, inverse_of: :wine, dependent: :destroy
   has_many  :wine_shipments, inverse_of: :wine
   has_many  :reviewers, through: :wine_shipments, source: :customer
   

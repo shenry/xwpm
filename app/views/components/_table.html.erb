@@ -11,7 +11,7 @@
 <% end %>
 <%= render partial: "components/sum_row", locals: { wine: @wine } %>
 <script type="text/javascript">
-	$(".volume-update").bind("ajax:success", function(){
+	$("#wine-components-table").on("ajax:success", ".volume-update", function(){
 		var volume_cells = $("span.volume-update");
 		var components_hash = [];
 		var total	= 0;
