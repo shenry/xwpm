@@ -72,19 +72,19 @@
 					<table class="table">
 						<tr>
 							<td>FRONT LABEL PLACEMENT</td>
-							<td class="lav"><%= @project.front_label.label_position -%>mm</td>
+							<td class="lav"><%= @project.front_label.position -%>mm</td>
 						</tr>
 						<tr>
 							<td>BACK LABEL PLACEMENT</td>
-							<td class="lav"><%= @project.back_label.label_position -%>mm</td>
+							<td class="lav"><%= @project.back_label.position -%>mm</td>
 						</tr>
 						<tr>
 							<td>QUANTITY/CS</td>
-							<td class="lav"><%= @project.bottle.format -%></td>
+							<td class="lav"><%= @project.bottle.case_config -%></td>
 						</tr>
 						<tr>
 							<td>PALLET CONFIGURATION</td>
-							<td class="lav"><%= @project.bottle.pallet_configuration -%></td>
+							<td class="lav"><%= @project.bottle.pallet_config -%></td>
 						</tr>
 						<tr>
 							<td>CASE WEIGHT</td>

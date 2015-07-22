@@ -1,6 +1,6 @@
 <tr id="sum-row">
 	<td><%= @wine.vinx2_reference %></td>
-	<td><%= number_with_delimiter(@wine.blend_volume) %></td>
+	<td id="sum-cell"><%= number_with_delimiter(@wine.blend_volume) %></td>
 	<td><%= @wine.blend_volume ? number_to_percentage(@wine.blend_percent_sum, precision: 1) : "" %></td>
 	<td><%= number_to_currency(@wine.weighted_avg(:cogs)) %></td>
 	<td><%= number_to_percentage(@wine.weighted_avg(:vintage), precision: 1) %></td>

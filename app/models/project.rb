@@ -108,9 +108,9 @@ class Project < ActiveRecord::Base
   
   def purchase_orders
     ids = components.map(&:id)
-    PurchaseOrder.joins("INNER JOIN 'packaging_component_orders' ON 
-    'purchase_orders'.'id' = 'packaging_component_orders'.'purchase_order_id' WHERE 
-    'packaging_component_orders'.'component_requirement_id' IN (#{ids.join(',')}) GROUP BY 'purchase_orders'.'id'")
+    PurchaseOrder.joins("INNER JOIN packaging_component_orders ON 
+    purchase_orders.id = packaging_component_orders.purchase_order_id WHERE 
+    packaging_component_orders.component_requirement_id IN (#{ids.join(',')}) GROUP BY purchase_orders.id")
   end
   
   def components_for_select(vendor_id)

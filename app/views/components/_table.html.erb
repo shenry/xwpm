@@ -10,3 +10,21 @@
 	<% end %>
 <% end %>
 <%= render partial: "components/sum_row", locals: { wine: @wine } %>
+<script type="text/javascript">
+	$(".volume-update").bind("ajax:success", function(){
+		var volume_cells = $("span.volume-update");
+		var components_hash = [];
+		var total	= 0;
+		$.each(volume_cells, function(index){
+			var gals 	= parseInt($(this).html().replace(",", ""), 10)
+			var id 		= $(this).parent().attr("data-id");
+			total += gals;
+			components_hash.push({ 'volume': gals, 'id': id });
+		});
+		$("#sum-cell").html(total).digits();
+		$.each(components_hash, function(index, value){
+			fraction = (value["volume"] / total) * 100
+			$("#" + value["id"] + "-percent").html(fraction.toFixed(1) + "%");
+		});
+	});
+</script>

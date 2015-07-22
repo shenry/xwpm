@@ -3,7 +3,7 @@ $("#new-component-form").before(newComponentRow);
 var newSumRow = "<%= j render partial: 'components/sum_row', formats: :html, locals: { wine: @wine } %>";
 $("#sum-row").replaceWith(newSumRow);
 <% @wine.component_percent_hash.each do |k, v| %>
-	$("#<%= k %>-cell").html("<%= number_to_percentage(v, precision: 1) %>")
+	$("#<%= k %>-percent").html("<%= number_to_percentage(v, precision: 1) %>")
 <% end %>
 $("#component_volume").val("");
 $("#component_cogs").val("");
