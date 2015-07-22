@@ -139,6 +139,21 @@ $.fn.digits = function(){
     })
 }
 
+function weightedAvg(attributes, volumes, remove_str) {
+	var accumulator = 0;
+	$.each(attributes, function(index){
+		var percent = parseFloat($(this).html().replace(remove_str, ""));
+		var vint_id	= $(this).parent().attr("data-id");
+		$.each(volumes, function(index, value){
+			if (value["id"] == vint_id) {
+				accumulator += percent * value["volume"];
+				return false
+			}
+		});
+	});
+	return accumulator
+}
+
 
 $(document).ready(function() {
   /* Activating Best In Place */

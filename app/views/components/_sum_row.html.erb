@@ -2,10 +2,10 @@
 	<td><%= @wine.vinx2_reference %></td>
 	<td id="sum-cell"><%= number_with_delimiter(@wine.blend_volume) %></td>
 	<td><%= @wine.blend_volume ? number_to_percentage(@wine.blend_percent_sum, precision: 1) : "" %></td>
-	<td><%= number_to_currency(@wine.weighted_avg(:cogs)) %></td>
-	<td><%= number_to_percentage(@wine.weighted_avg(:vintage), precision: 1) %></td>
-	<td><%= number_to_percentage(@wine.weighted_avg(:appellation), precision: 1) %></td>
-	<td><%= number_to_percentage(@wine.weighted_avg(:variety), precision: 1) %></td>
+	<td id="cogs-total"><%= number_to_currency(@wine.weighted_avg(:cogs)) %></td>
+	<td id="vintage-total"><%= number_to_percentage(@wine.weighted_avg(:vintage), precision: 1) %></td>
+	<td id="appellation-total"><%= number_to_percentage(@wine.weighted_avg(:appellation), precision: 1) %></td>
+	<td id="variety-total"><%= number_to_percentage(@wine.weighted_avg(:variety), precision: 1) %></td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 </tr>

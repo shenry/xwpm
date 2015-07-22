@@ -26,5 +26,17 @@
 			fraction = (value["volume"] / total) * 100
 			$("#" + value["id"] + "-percent").html(fraction.toFixed(1) + "%");
 		});
+		var cogs_percentages = $("span.cogs-update");
+		var vintage_percentages = $("span.vintage-update");
+		var appellation_percentages = $("span.appellation-update");
+		var variety_percentages = $("span.variety-update");
+		var vint_avg 	= weightedAvg(vintage_percentages, components_hash, "%");
+		var app_avg		= weightedAvg(appellation_percentages, components_hash, "%");
+		var var_avg		= weightedAvg(variety_percentages, components_hash, "%");
+		var cogs_avg	= weightedAvg(cogs_percentages, components_hash, "$");
+		$("#cogs-total").html("$" + (cogs_avg / total).toFixed(2))
+		$("#vintage-total").html((vint_avg / total).toFixed(1) + "%");
+		$("#appellation-total").html((app_avg / total).toFixed(1) + "%");
+		$("#variety-total").html((var_avg / total).toFixed(1) + "%")
 	});
 </script>
