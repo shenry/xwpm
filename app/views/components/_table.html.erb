@@ -12,31 +12,29 @@
 <%= render partial: "components/sum_row", locals: { wine: @wine } %>
 <script type="text/javascript">
 	$("#wine-components-table").on("ajax:success", ".volume-update", function(){
-		var volume_cells = $("span.volume-update");
-		var components_hash = [];
-		var total	= 0;
-		$.each(volume_cells, function(index){
-			var gals 	= parseInt($(this).html().replace(",", ""), 10)
-			var id 		= $(this).parent().attr("data-id");
-			total += gals;
-			components_hash.push({ 'volume': gals, 'id': id });
-		});
+		var volume_cells 		= $("span.volume-update");
+		var components_hash = createVolumeCollection(volume_cells);
+		var total 					= components_hash[components_hash.length - 1]['total'];
 		$("#sum-cell").html(total).digits();
 		$.each(components_hash, function(index, value){
 			fraction = (value["volume"] / total) * 100
 			$("#" + value["id"] + "-percent").html(fraction.toFixed(1) + "%");
 		});
-		var cogs_percentages = $("span.cogs-update");
-		var vintage_percentages = $("span.vintage-update");
-		var appellation_percentages = $("span.appellation-update");
-		var variety_percentages = $("span.variety-update");
-		var vint_avg 	= weightedAvg(vintage_percentages, components_hash, "%");
-		var app_avg		= weightedAvg(appellation_percentages, components_hash, "%");
-		var var_avg		= weightedAvg(variety_percentages, components_hash, "%");
-		var cogs_avg	= weightedAvg(cogs_percentages, components_hash, "$");
-		$("#cogs-total").html("$" + (cogs_avg / total).toFixed(2))
-		$("#vintage-total").html((vint_avg / total).toFixed(1) + "%");
-		$("#appellation-total").html((app_avg / total).toFixed(1) + "%");
-		$("#variety-total").html((var_avg / total).toFixed(1) + "%")
+		updateDollarTotalFor("cogs");
+		updatePercentageTotalFor("variety");
+		updatePercentageTotalFor("appellation");
+		updatePercentageTotalFor("vintage");
+	});
+	$("#wine-components-table").on("ajax:success", ".cogs-update", function(){
+		updateDollarTotalFor("cogs");
+	});
+	$("#wine-components-table").on("ajax:success", ".vintage-update", function(){
+		updatePercentageTotalFor("vintage");
+	});
+	$("#wine-components-table").on("ajax:success", ".appellation-update", function(){
+		updatePercentageTotalFor("appellation");
+	});
+	$("#wine-components-table").on("ajax:success", ".variety-update", function(){
+		updatePercentageTotalFor("variety");
 	});
 </script>

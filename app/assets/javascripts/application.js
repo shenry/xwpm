@@ -18,7 +18,6 @@
 //= require jquery.autocomplete.min
 //= require autocomplete.js
 //= require best_in_place
-	
 
 //= require cloudinary
 //= require cloudinary/jquery.cloudinary
@@ -139,7 +138,27 @@ $.fn.digits = function(){
     })
 }
 
-function weightedAvg(attributes, volumes, remove_str) {
+function updateAttributeTotalFor(key, candy, decimals) {
+	var selected_cells	= $("." + key + "-update");
+	var volume_cells		= $(".volume-update");
+	var volumes_hash		= createVolumeCollection(volume_cells);
+	var total						= volumes_hash[volumes_hash.length - 1]['total'];
+	var sum_product			= sumProduct(selected_cells, volumes_hash, candy);
+	return (sum_product / total).toFixed(decimals)
+}
+
+function updatePercentageTotalFor(key) {
+	var new_value = updateAttributeTotalFor(key, "%", 1)
+	$("#" + key + "-total").html(new_value + "%")
+}
+
+function updateDollarTotalFor(key) {
+	var new_value = updateAttributeTotalFor(key, "$", 2)
+	$("#" + key + "-total").html("$" + new_value)
+}
+
+// used to update weighted avg values for table of wine components on wines#show
+function sumProduct(attributes, volumes, remove_str) {
 	var accumulator = 0;
 	$.each(attributes, function(index){
 		var percent = parseFloat($(this).html().replace(remove_str, ""));
@@ -154,6 +173,18 @@ function weightedAvg(attributes, volumes, remove_str) {
 	return accumulator
 }
 
+function createVolumeCollection(volumes) {
+	output 	= [];
+	total		= 0;
+	$.each(volumes, function(index){
+		var gals 	= parseInt($(this).html().replace(",", ""), 10)
+		total 		+= gals
+		var id 		= $(this).parent().attr("data-id");
+		output.push({ 'volume': gals, 'id': id });
+	});
+	output.push({'total': total})
+	return output
+}
 
 $(document).ready(function() {
   /* Activating Best In Place */
