@@ -27,6 +27,7 @@ gem 'rack-timeout'
 gem 'sequel'
 gem 'pg'
 gem 'pg_search'
+gem 'ancestry'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]

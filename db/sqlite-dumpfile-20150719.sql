@@ -212,4 +212,5 @@ CREATE UNIQUE INDEX "index_projects_on_project_number" ON "projects" ("project_n
 CREATE INDEX "index_purchase_orders_on_vendor_id" ON "purchase_orders" ("vendor_id");
 CREATE INDEX "index_packaging_component_orders_on_purchase_order_id" ON "packaging_component_orders" ("purchase_order_id");
 CREATE UNIQUE INDEX "index_packaging_component_orders_on_component_requirement_id" ON "packaging_component_orders" ("component_requirement_id");
+
 COMMIT;

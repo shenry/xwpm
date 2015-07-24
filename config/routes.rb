@@ -68,7 +68,7 @@ X::Application.routes.draw do
   # end
   
   resources :wine_shipments
-  
+  resources :component_requirements
   resources :purchase_orders
   resources :packaging_component_orders
   

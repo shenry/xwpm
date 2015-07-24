@@ -1,16 +1,30 @@
 <% ["front_label", "back_label", "bottle", "closure", "capsule"].in_groups_of(2) do |group| %>
 	<div class="row">
 		<% group.compact.each do |component| %>
-		<% requirement = "#{component}_requirement".intern %>
+		<% requirement = "#{component}_requirements".intern %>
 			<div class="col-md-6 col-xs-12 project-component">
 				<div class="h3-wrap">
-					<span class="h3"><%= component.titleize %></span>
-					<% if @project.send(requirement) %>
-						<%= link_to "Edit", component_url_for(@project.send(requirement).packageable, :show), class: "pull-right" %>
-					<% end %>
+					<h3><%= project_component_title_for(@project, component) %></h3>
 				</div>
-				<%= render partial: "partials/component_handler", locals: { component: component, requirement: requirement } %>
+				<%= render partial: "partials/component_wrappers/wrapper", locals: { component: component } %>
 			</div>
 		<% end %>
 	</div>
 <% end %>
+<script type="text/javascript">
+	$(".create-component-requirement").on("change", function(e){
+		console.log("here")
+		if ($(this).val()) {
+			var id			= $(this).attr("id");
+			var form 		= $("#" + id + "-form");
+			var params	= form.serialize();
+			var url			= form.attr("action");
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: params,
+				dataType: "script"
+			});
+		}
+	});
+</script>

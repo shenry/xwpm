@@ -38,6 +38,8 @@ GEM
       tzinfo (~> 1.1)
     aftership (4.1.1)
       httpclient (~> 2.5.2)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     annotate (2.6.8)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -226,6 +228,7 @@ PLATFORMS
 
 DEPENDENCIES
   aftership
+  ancestry
   annotate (= 2.6.8)
   bcrypt (= 3.1.10)
   best_in_place (~> 3.0.1)

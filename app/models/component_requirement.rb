@@ -16,6 +16,8 @@ class ComponentRequirement < ActiveRecord::Base
   has_one     :packaging_component_order, dependent: :destroy
   has_one     :purchase_order, through: :packaging_component_order
   
+  has_ancestry
+  
   # accepts_nested_attributes_for :packageable
   
   validates :project_id, :packageable_id, :packageable_type, presence: true

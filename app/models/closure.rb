@@ -21,7 +21,7 @@
 class Closure < ActiveRecord::Base
   include PackagingComponent
   
-  has_many  :component_requirements, as: :packageable
+  has_many  :component_requirements, as: :packageable, dependent: :destroy
   has_many  :projects, through: :component_requirements
   
   # don't join :vendor, since closure is unaware of vendors

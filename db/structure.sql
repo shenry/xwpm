@@ -300,7 +300,8 @@ CREATE TABLE component_requirements (
     packageable_id integer,
     packageable_type character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying
 );
 
 
@@ -1128,6 +1129,13 @@ CREATE INDEX index_comments_on_resolver_id ON comments USING btree (resolver_id)
 
 
 --
+-- Name: index_component_requirements_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_component_requirements_on_ancestry ON component_requirements USING btree (ancestry);
+
+
+--
 -- Name: index_component_requirements_on_packageable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1506,4 +1514,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150720132800');
 INSERT INTO schema_migrations (version) VALUES ('20150720134324');
 
 INSERT INTO schema_migrations (version) VALUES ('20150721174046');
+
+INSERT INTO schema_migrations (version) VALUES ('20150723035915');
+
+INSERT INTO schema_migrations (version) VALUES ('20150723211517');
 

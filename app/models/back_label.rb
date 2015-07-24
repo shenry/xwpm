@@ -26,10 +26,10 @@
 class BackLabel < ActiveRecord::Base
   include PackagingComponent
   
-  has_many  :component_requirements, as: :packageable
+  has_many  :component_requirements, as: :packageable, dependent: :destroy
   has_many  :projects, through: :component_requirements
   
-  has_one  :vendor_product, as: :vendable
+  has_one  :vendor_product, as: :vendable, dependent: :destroy
   has_one  :vendor, through: :vendor_product
   
   def specs

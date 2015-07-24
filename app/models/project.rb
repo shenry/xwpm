@@ -40,24 +40,39 @@ class Project < ActiveRecord::Base
   has_many    :component_orders, through: :components, class_name: "PackagingComponentOrder"
   has_many    :purchase_orders, through: :component_orders
   
-  has_one     :bottle_requirement, -> { where(packageable_type: "Bottle") }, class_name: "ComponentRequirement"
-  has_one     :bottle, through: :bottle_requirement, source: :packageable, source_type: "Bottle"
+  # has_one     :bottle_requirement, -> { where(packageable_type: "Bottle") }, class_name: "ComponentRequirement"
+  # has_one     :bottle, through: :bottle_requirement, source: :packageable, source_type: "Bottle"
   
-  has_one     :capsule_requirement, -> { where(packageable_type: "Capsule") }, class_name: "ComponentRequirement"
-  has_one     :capsule, through: :capsule_requirement, source: :packageable, source_type: "Capsule"
+  has_many    :bottle_requirements, -> { where(packageable_type: "Bottle").order("created_at ASC") }, class_name: "ComponentRequirement"
+  has_many    :bottles, through: :bottle_requirements, source: :packageable, source_type: "Bottle"
   
-  has_one     :closure_requirement, -> { where(packageable_type: "Closure") }, class_name: "ComponentRequirement"
-  has_one     :closure, through: :closure_requirement, source: :packageable, source_type: "Closure"
+  # has_one     :capsule_requirement, -> { where(packageable_type: "Capsule") }, class_name: "ComponentRequirement"
+  # has_one     :capsule, through: :capsule_requirement, source: :packageable, source_type: "Capsule"
   
-  has_one     :front_label_requirement, -> { where(packageable_type: "FrontLabel") }, class_name: "ComponentRequirement"
-  has_one     :front_label, through: :front_label_requirement, source: :packageable, source_type: "FrontLabel"
+  has_many    :capsule_requirements, -> { where(packageable_type: "Capsule").order("created_at ASC") }, class_name: "ComponentRequirement"
+  has_many    :capsules, through: :capsule_requirements, source: :packageable, source_type: "Capsule"
   
-  has_one     :back_label_requirement, -> { where(packageable_type: "BackLabel") }, class_name: "ComponentRequirement"
-  has_one     :back_label, through: :back_label_requirement, source: :packageable, source_type: "BackLabel"
+  # has_one     :closure_requirement, -> { where(packageable_type: "Closure") }, class_name: "ComponentRequirement"
+  # has_one     :closure, through: :closure_requirement, source: :packageable, source_type: "Closure"
+  
+  has_many    :closure_requirements, -> { where(packageable_type: "Closure").order("created_at ASC") }, class_name: "ComponentRequirement"
+  has_many    :closures, through: :closure_requirements, source: :packageable, source_type: "Closure"
+  
+  has_many    :front_label_requirements, -> { where(packageable_type: "FrontLabel").order("created_at ASC") }, class_name: "ComponentRequirement"
+  has_many    :front_labels, through: :front_label_requirements, source: :packageable, source_type: "FrontLabel"
+  
+  has_many    :back_label_requirements, -> { where(packageable_type: "BackLabel").order("created_at ASC") }, class_name: "ComponentRequirement"
+  has_many    :back_labels, through: :back_label_requirements, source: :packageable, source_type: "BackLabel"
+  
+  # has_one     :front_label_requirement, -> { where(packageable_type: "FrontLabel") }, class_name: "ComponentRequirement"
+  # has_one     :front_label, through: :front_label_requirement, source: :packageable, source_type: "FrontLabel"
+  #
+  # has_one     :back_label_requirement, -> { where(packageable_type: "BackLabel") }, class_name: "ComponentRequirement"
+  # has_one     :back_label, through: :back_label_requirement, source: :packageable, source_type: "BackLabel"
   
   accepts_nested_attributes_for :components
-  accepts_nested_attributes_for :bottle_requirement, :capsule_requirement, :closure_requirement,
-                                :front_label_requirement, :back_label_requirement, allow_destroy: true
+  accepts_nested_attributes_for :bottle_requirements, :capsule_requirements, :closure_requirements,
+                                :front_label_requirements, :back_label_requirements, allow_destroy: true
   
   has_many    :comments, inverse_of: :project, dependent: :destroy
   has_many    :packaging_component_orders, inverse_of: :project, dependent: :destroy
@@ -145,8 +160,8 @@ class Project < ActiveRecord::Base
   end
   
   def label_alc
-    return "TBD" if front_label.nil?
-    front_label.alc
+    return "TBD" if front_labels.empty?
+    front_labels.first.alc
   end
   
   def front_label_position

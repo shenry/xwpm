@@ -1,4 +1,4 @@
-<% requirement ||= "#{component}_requirement".intern %>
+<% requirement ||= "#{component}_requirements".intern %>
 <div class="col-xs-12 component-container" id="<%= component %>_container">
 	<% if @project.send(requirement) %>
 		<%= render partial: "partials/component", locals: { requirement: requirement, component: component } %>

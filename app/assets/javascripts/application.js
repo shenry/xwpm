@@ -113,8 +113,7 @@ $(document).ready(function(){
 		$("#submit-button").prop("disabled", "");
 		$('#' + id + "-progress").hide();
 	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id, 
-	    { format: 'png', width: 350, height: 350, 
-	      crop: 'fit', gravity: 'face'} ))}
+	    { format: 'png', width: 350, height: 350 } ))}
 
 	).bind('cloudinaryprogress', function(e, data) { 
 	  $('.progress_bar').css('width', 
@@ -124,11 +123,12 @@ $(document).ready(function(){
 		var line_item_id = $(this).attr("data-line-item");
 		$("#receive-" + line_item_id).submit();
 	});
-	$("a[data-replace-component]").click(function(e){
+	$("a[data-component]").click(function(e){
 		e.preventDefault();
-		var model = $(this).data("replace-component");
-		$(this).hide();
-		$("#" + model + "-select-wrapper").removeClass('hidden');
+		var model = $(this).data("component");
+		var target= $(this).data("target");
+		$(this).parent().hide();
+		$("#" + target + "-" + model + "-select-wrapper").removeClass('hidden');
 	});
 });
 

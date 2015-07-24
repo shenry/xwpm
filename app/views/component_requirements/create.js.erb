@@ -1,0 +1,12 @@
+var content = "<%= j render partial: 'partials/component_wrappers/wrapper', formats: :html, locals: { component: @type } %>";
+if ( $("#<%= @type %>").length == 0 ) {
+	var new_div = "<div style='display:none;' id='<%= @type %>'>" + content + "</div>";
+	$("#<%= @type %>_container").prepend(new_div);
+	$("#<%= @type %>").slideDown('fast');
+} else {
+	$("#<%= @type %>").fadeOut('fast', function(){
+		$(this).hide();
+		$(this).html(content);
+		$(this).fadeIn('fast');
+	});
+}
