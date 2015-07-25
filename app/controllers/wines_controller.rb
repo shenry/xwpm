@@ -1,4 +1,5 @@
 class WinesController < ApplicationController
+  before_filter :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def index
     @wines = Wine.includes(:projects).order("sample_number DESC").page(params[:page] || 1)
@@ -17,7 +18,7 @@ class WinesController < ApplicationController
   def create
     @wine = Wine.new(wine_params)
     if @wine.save
-      redirect_to action: :index
+      redirect_to wine_path(@wine)
     else
       render new_wine_path(@wine)
     end
@@ -29,11 +30,12 @@ class WinesController < ApplicationController
   
   def update
     @wine = Wine.find(params[:id])
-    @wine.update_attributes(wine_params)
-    if @wine.save
-      redirect_to action: :index
-    else
-      render edit_wine_path(@wine)
+    respond_to do |wants|
+      if @wine.update_attributes(wine_params)
+        wants.json { respond_with_bip @wine }
+      else
+        
+      end
     end
   end
   
@@ -49,7 +51,7 @@ class WinesController < ApplicationController
   
   private
   def wine_params
-    params.require(:wine).permit(:name, :description, :appellation, :variety, :vintage, :alc, :winemaker, 
+    params.require(:wine).permit(:description, :appellation, :variety, :vintage, :alc, 
                                  :sample_number, :treatments, :vinx2_reference)
   end
 end

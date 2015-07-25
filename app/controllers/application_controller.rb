@@ -57,5 +57,11 @@ class ApplicationController < ActionController::Base
     resource  = request.path.split('/')[1]
     @klass    = resource.singularize.split('_').each { |w| w.capitalize! }.join('').constantize
   end
+  
+  def autocomplete_collections
+    @brands       = Project.all.map(&:brand)
+    @varieties    = Wine.all.map(&:variety)
+    @appellations = Wine.all.map(&:appellation)
+  end
 
 end

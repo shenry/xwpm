@@ -1,6 +1,10 @@
 module ApplicationHelper
   DATE_FORMAT_STRING = "%m/%d/%y"
   
+  def markdown_link
+    link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: :_blank
+  end
+  
   def component_url_for(object, action)
     controller = object.class.to_s.underscore.downcase.pluralize
     url_for(controller: controller, action: action, id: object.id)

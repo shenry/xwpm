@@ -1,10 +1,10 @@
 <table class="table table-responsive no-top-border">
 	<tr>
-		<td>Format</td>
-		<td class="bold">
-			<%= best_in_place @component, :bottles_per_case, as: :input %>&nbsp;x&nbsp; 
-			<%= best_in_place @component, :capacity, as: :input %>&nbsp;
-			<%= best_in_place @component, :capacity_units, as: :input %>
+		<td class="col-xs-6">Format</td>
+		<td class="bold col-xs-6">
+			<%= best_in_place @component, :bottles_per_case, class: "bip-table-input"%>&nbsp;x&nbsp; 
+			<%= best_in_place @component, :capacity, class: "bip-table-input" %>&nbsp;
+			<%= best_in_place @component, :capacity_units, as: :select, collection: @component.capacity_options %>
 		</td>
 	</tr>
 	<tr>
@@ -13,10 +13,10 @@
 	</tr>
 	<tr>
 		<td>Case Weight</td>
-		<td class="bold"><%= best_in_place @component, :case_weight, as: :input %> LBS</td>
+		<td class="bold"><%= best_in_place @component, :case_weight, class: "bip-table-input"%> LBS</td>
 	</tr>
 	<tr>
 		<td>Pallet Configuration</td>
-		<td class="bold"><%= best_in_place @component, :pallet_config, as: :input %></td>
+		<td class="bold"><%= best_in_place @component, :pallet_config %></td>
 	</tr>
 </table>

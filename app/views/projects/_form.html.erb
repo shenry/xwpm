@@ -1,10 +1,10 @@
 <div class="col-xs-6">
 	<%= f.error_notification %>
 	<%= f.input :project_number %>
-	<%= f.input :brand, input_html: {class: "chosen-select", id: "autocomplete-brand"} %>
+	<%= f.input :brand, input_html: { class: "chosen-select", id: "autocomplete-brand" } %>
 	<%= f.input :vintage %>
-	<%= f.input :appellation %>
-	<%= f.input :variety %>
+	<%= f.input :appellation, input_html: { class: "chosen-select", id: "autocomplete-appellation" } %>
+	<%= f.input :variety, input_html: { class: "chosen-select", id: "autocomplete-variety" } %>
 	<%= f.input :winemaker %>
 	<%= f.input :target_cases, label: "Target Cases" %>
 	<%= f.input :cases_to_customer, label: "Cases to Customer" %>
@@ -44,7 +44,7 @@
 	<%= f.input :wine_id, collection: Wine.select_options,
 		 					include_blank: "Select Wine", label: "Wine" %>
 	<%= f.input :notes, as: :text, input_html: { rows: "6" } %>
-	<%= link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", class: "pull-right", target: :_blank %>
+	<%= markdown_link %>
 	<script type="text/javascript">
 		var brands 				= <%= raw @brands.to_json %>
 		var varieties 		= <%= raw @varieties.to_json %>

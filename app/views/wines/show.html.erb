@@ -1,7 +1,6 @@
 <div class="row spacer">
 	<div class="row-same-height">
 		<div class="col-xs-8 col-xs-height"><h1><%= @wine.to_s %></h1></div>
-		<div class="col-xs-4 col-xs-height pull-right"><%= link_to "Edit Wine", edit_wine_path(@wine) %></div>
 	</div>
 </div>
 <div class="row spacer">
@@ -9,12 +8,12 @@
 		<div class="col-xs-4">
 			<table class="table table-responsive no-top-border">
 				<tr>
-					<td>Sample Code</td>
-					<td class="bold"><%= @wine.sample_number %></td>
+					<td class="col-xs-6">Sample Code</td>
+					<td class="bold col-xs-6"><%= best_in_place @wine, :sample_number %></td>
 				</tr>
 				<tr>
 					<td>Vinx2 Reference</td>
-					<td class="bold"><%= @wine.vinx2_reference %></td>
+					<td class="bold"><%= best_in_place @wine, :vinx2_reference %></td>
 				</tr>
 				<tr>
 					<td>$/Gal</td>
@@ -25,15 +24,17 @@
 					<td class="bold"><%= number_with_delimiter(@wine.try(:blend_volume)) %></td>
 				</tr>
 				<tr>
-					<td colspan="2"><p><%= @wine.treatments.nil? ? "<em>No Treatments</em>" : "Treatments" %></p><%= markup(@wine.treatments) %></td>
+					<td colspan="2"><p><%= @wine.treatments.nil? ? "No Treatments" : "Treatments" %></p>
+						<%= best_in_place @wine, :treatments, as: :textarea, display_with: -> (v) { markup(v) } %>
+					</td>
 				</tr>
 			</table>
 		</div>
 		<div class="col-xs-4">
 			<table class="table table-responsive no-top-border">
 				<tr>
-					<td>Vintage</td>
-					<td class="bold"><%= @wine.vintage %>
+					<td class="col-xs-6">Vintage</td>
+					<td class="col-xs-6 bold"><%= best_in_place @wine, :vintage %>
 						<% if @wine.blend_volume %>
 							&nbsp;(<%= number_to_percentage(@wine.weighted_avg(:vintage), precision: 1) %>)
 						<% end %>
@@ -41,7 +42,7 @@
 				</tr>
 				<tr>
 					<td>Appellation</td>
-					<td class="bold"><%= @wine.appellation %>
+					<td class="bold"><%= best_in_place @wine, :appellation %>
 						<% if @wine.blend_volume %>
 							&nbsp;(<%= number_to_percentage(@wine.weighted_avg(:appellation), precision: 1) %>)
 						<% end %>
@@ -49,7 +50,7 @@
 				</tr>
 				<tr>
 					<td>Variety</td>
-					<td class="bold"><%= @wine.variety %>
+					<td class="bold"><%= best_in_place @wine, :variety %>
 						<% if @wine.blend_volume %>
 							&nbsp;(<%= number_to_percentage(@wine.weighted_avg(:variety), precision: 1) %>)
 						<% end %>
@@ -57,15 +58,12 @@
 				</tr>
 				<tr>
 					<td>Alc</td>
-					<td class="bold"><%= @wine.alc %>%</td>
+					<td class="bold"><%= best_in_place @wine, :alc %>%</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<% unless @wine.description.blank? %>
-							<p>Description:</p><p><%= markup(@wine.description) %></p>
-						<% else %>
-							<p class="text-muted">No Description</p>
-						<% end %>
+						<p><%= @wine.treatments.nil? ? "No Description" : "Description" %></p>
+						<%= best_in_place @wine, :description, as: :textarea, display_with: -> (v) { markup(v) } %>
 					</td>
 				</tr>
 			</table>

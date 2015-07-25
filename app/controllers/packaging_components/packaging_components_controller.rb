@@ -19,7 +19,6 @@ class PackagingComponentsController < ApplicationController
     if @component.save
       redirect_to action: :index
     else
-      puts "errors on component = #{@component.errors.inspect}"
       render :new
     end
   end

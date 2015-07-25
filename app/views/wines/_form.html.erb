@@ -1,0 +1,80 @@
+<div class="row spacer">
+	<div class="col-xs-6">
+		<h1><%= f.text_field :vinx2_reference, placeholder:"VinX2 Reference" %></h1>
+	</div>
+	<div class="col-xs-6">
+		<% if @wine.errors.any? %>
+			<div class="errors-wrapper">
+				<h4>We have problems:</h4>
+				<ul>
+					<% @wine.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	</div>
+</div>
+<div class="row spacer">
+	<div class="col-xs-4">
+		<table class="table no-top-border no-margin">
+			<tr>
+				<td><label class="no-bold" for="wine_sample_number">Sample Number</label></td>
+				<td><%= f.text_field :sample_number %></td>
+			</tr>
+			<tr>
+				<td><label class="no-bold" for="wine_vintage">Vintage</label></td>
+				<td><%= f.text_field :vintage %></td>
+			</tr>
+			<tr>
+				<td><label class="no-bold" for="wine_appellation">Appellation</label></td>
+				<td><%= f.text_field :appellation, input_html: { class: "chosen-select", id: "autocomplete-appellation" } %></td>
+			</tr>
+			<tr>
+				<td><label class="no-bold" for="wine_variety">Variety</label></td>
+				<td><%= f.text_field :variety, input_html: { class: "chosen-select", id: "autocomplete-variety"} %></td>
+			</tr>
+			<tr>
+				<td><label class="no-bold" for="wine_alc">Alc</label></td>
+				<td><%= f.text_field :alc %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><%= f.button :submit, class: "btn btn-primary col-xs-12"  %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table no-top-border no-margin">
+			<tr><td><label class="no-bold" for="wine_description">Description</label>
+				<%= f.text_area :description, class: "col-xs-12", rows: "10" %>
+				<div class="clearfix pull-right"><%= markdown_link %></div>
+			</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table no-top-border no-margin">
+			<tr><td><label class="no-bold" for="wine_description">Treatments</label>
+				<%= f.text_area :treatments, class: "col-xs-12", rows: "10" %>
+				<div class="clearfix pull-right"><%= markdown_link %></div>
+			</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	var brands 				= <%= raw @brands.to_json %>
+	var varieties 		= <%= raw @varieties.to_json %>
+	var appellations 	= <%= raw @appellations.to_json %>
+	$(document).ready(function(){
+		$("#autocomplete-brand").autocomplete({
+			lookup: brands
+		});
+		$("#autocomplete-variety").autocomplete({
+			lookup: varieties
+		});
+		$("#autocomplete-appellation").autocomplete({
+			lookup: appellations
+		});
+	});
+</script>

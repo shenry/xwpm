@@ -75,6 +75,10 @@ class Bottle < ActiveRecord::Base
     [["Cork", "Cork"], ["Screwcap", "Screwcap"], ["Bar Top", "Bar Top"]]
   end
   
+  def capacity_options
+    self.class.send :capacity_options
+  end
+  
   private
   
   def add_markup(string)

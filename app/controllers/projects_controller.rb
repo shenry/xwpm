@@ -149,11 +149,6 @@ class ProjectsController < ApplicationController
   end
   
   private
-  def autocomplete_collections
-    @brands       = Project.all.map(&:brand)
-    @varieties    = Wine.all.map(&:variety)
-    @appellations = Wine.all.map(&:appellation)
-  end
   
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,

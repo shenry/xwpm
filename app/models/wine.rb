@@ -23,8 +23,11 @@ class Wine < ActiveRecord::Base
   has_many  :wine_shipments, inverse_of: :wine, dependent: :destroy
   has_many  :reviewers, through: :wine_shipments, source: :customer
   
-  validates :appellation, :appellation_percent, :variety, :variety_percent, :vintage, :vintage_percent,
-            :alc, :sample_number, :cogs, :gallons, presence: true
+  validates :appellation, :variety, :vintage, :alc, :sample_number, presence: true
+  validates :alc, :vintage, numericality: true
+  validates :sample_number, uniqueness: true
+  
+  before_save :upcase_vinx2_reference
   
   def to_s
     "[" + sample_number + "] " + vintage + " " + appellation + " " + variety
@@ -64,5 +67,11 @@ class Wine < ActiveRecord::Base
   def display_alc
     return "N/A" if alc.nil?
     return alc.to_s + "%"
+  end
+  
+  private
+  
+  def upcase_vinx2_reference
+    vinx2_reference.upcase!
   end
 end

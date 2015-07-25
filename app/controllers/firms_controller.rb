@@ -68,7 +68,6 @@ class FirmsController < ApplicationController
     @firm = Firm.find(params[:firm_id])
     param = params[:attr]
     value = params[:value]
-    puts "param = #{param}, value = #{value}"
     @firm.update_attributes({param.intern => value})
     if @firm.save
       respond_to do |wants|

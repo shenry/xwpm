@@ -183,10 +183,9 @@ tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }
 .create-select { color: #777; }
 .bip-grey {color: #aaa;}
 .form_in_place input { margin: -20px; }
-.bip-table-input { width: 50px; border: 1px solid #777; margin: 0px !important; }
 .round-addon-right { border-top-left-radius: 4px !important; border-bottom-left-radius: 4px !important;}
 
-.in-place input { padding: 8px 0 5px 10px; border: 1px solid #ddd;}
+.in-place input, .in-place textarea { padding: 8px 0 5px 10px; border: 1px solid #ddd;}
 .in-place label.no-bold { font-weight: normal; }
 .in-place select { border: 1px solid #ddd; height: 30px; padding-bottom: 5px; }
 .in-place input.short { width: 60px; margin-right: 5px; }
@@ -196,6 +195,9 @@ tr#sum-row td { font-weight: bold; border-top: 2px solid #ddd; }
 input.has-value { border: 0 !important; padding: 9px 1px 6px 11px; }
 .progress_bar { background: #ddd; height: 5px; width: 1%;}
 table img { border: 1px solid #dfdfdf; }
+
+.best_in_place input, .best_in_place textarea { width: 100%; height: inherit; padding-left: 8px; margin-left: -10px; }
+.bip-table-input input { width: 40px !important; padding-left: 0px !important; margin-left: 0px; margin-right: 0px; }
 
 .h3 { 
 	font-size: 24px;

@@ -1,7 +1,7 @@
 <table class="table table-responsive no-top-border">
 	<tr>
-		<td class="col-xs-2">Mould</td>
-		<td class="bold col-xs-2"><%= best_in_place @component, :mould, as: :input %></td>
+		<td class="col-xs-6">Mould</td>
+		<td class="bold col-xs-6"><%= best_in_place @component, :mould, as: :input %></td>
 	</tr>
 	<tr>
 		<td>Shape</td>
@@ -15,12 +15,13 @@
 	<tr>
 		<td>Finish</td>
 		<td class="bold">
-			<%= best_in_place @component, :finish, as: :input %>,&nbsp;
-			<%= best_in_place @component, :neck_diameter, as: :input %>&nbsp;mm
+			<%= best_in_place @component, :finish, as: :select, collection: @component.finish_collection, 
+				 								html_attrs: { class: "btn btn-default dropdown-toggle"} %>,&nbsp;
+			<%= best_in_place @component, :neck_diameter, class: "bip-table-input" %>&nbsp;mm
 		</td>
 	</tr>
 	<tr>
 		<td>Fill Point</td>
-		<td class="bold"><%= best_in_place @component, :fill_point, as: :input %>&nbsp;mm</td>
+		<td class="bold"><%= best_in_place @component, :fill_point, class: "bip-table-input" %>&nbsp;mm</td>
 	</tr>
 </table>
