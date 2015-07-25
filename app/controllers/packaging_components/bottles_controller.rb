@@ -2,7 +2,7 @@ class BottlesController < PackagingComponentsController
   def new
     @vendor = Vendor.find(params[:vendor_id])
     @component = Bottle.new
-    puts "component class is #{@component.class.inspect}"
+    puts "component vendor is #{@component.vendor.inspect} --- in the controller"
     @component.vendor = @vendor
   end
   
@@ -12,6 +12,6 @@ class BottlesController < PackagingComponentsController
     params.require(:bottle).permit(:item_number, :height, :diameter, :units, :mould, :shape, :color,
                                   :finish, :neck_diameter, :fill_point, :capacity, :capacity_units,
                                   :bottles_per_case, :case_dimensions, :case_weight, :pallet_config,
-                                  :image)
+                                  :image, :width)
   end
 end

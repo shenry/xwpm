@@ -13,12 +13,13 @@ class PackagingComponentsController < ApplicationController
   end
   
   def create
-    vendor = Vendor.find(params[@klass.to_s.underscore.downcase.intern][:vendor_id])
+    vendor = Vendor.find(params[:vendor_id])
     @component = @klass.new(component_params)
+    @component.vendor = vendor
     if @component.save
-      @component.vendor = vendor
       redirect_to action: :index
     else
+      puts "errors on component = #{@component.errors.inspect}"
       render :new
     end
   end

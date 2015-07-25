@@ -1,20 +1,34 @@
 <%= form_for @component, html: { class: "in-place", id: "create-form" } do |f| %>
-	<%= f.hidden_field :vendor_id, value: @component.vendor.id %>
-<div class="row spacer">
-	<div class="col-xs-12">
-		<h1><%= f.text_field :item_number, placeholder: "Item Number" %></h1>
-		<p>by <strong><%= @component.vendor.name %></strong></p>
+	<%= hidden_field_tag :vendor_id, @component.vendor.id %>
+	<div class="row spacer">
+		<div class="col-xs-6">
+			<div class="col-xs-12">
+				<h1><%= f.text_field :item_number, placeholder: "Item Number" %></h1>
+				<p>by <strong><%= @component.vendor.name %></strong></p>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<% if @component.errors.any? %>
+				<div class="errors-wrapper">
+					<h4>We have problems:</h4>
+					<ul>
+						<% @component.errors.full_messages.each do |msg| %>
+							<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+		</div>
 	</div>
-</div>
-<div class="row spacer">
-	<div class="col-xs-4">
-		<%= render partial: "left_form", locals: { f: f } %>
+	<div class="row spacer">
+		<div class="col-xs-4">
+			<%= render partial: "left_form", locals: { f: f } %>
+		</div>
+		<div class="col-xs-4">
+			<%= render partial: "center_form", locals: { f: f } %>
+		</div>
+		<div class="col-xs-4">
+			<%= render partial: "right_form", locals: { f: f } %>
+		</div>
 	</div>
-	<div class="col-xs-4">
-		<%= render partial: "center_form", locals: { f: f } %>
-	</div>
-	<div class="col-xs-4">
-		<%= render partial: "right_form", locals: { f: f } %>
-	</div>
-</div>
 <% end %>

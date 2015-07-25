@@ -1101,10 +1101,38 @@ CREATE INDEX index_attachments_on_parent_type_and_parent_id ON attachments USING
 
 
 --
+-- Name: index_back_labels_on_item_number; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_back_labels_on_item_number ON back_labels USING btree (item_number);
+
+
+--
 -- Name: index_back_labels_on_vendor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_back_labels_on_vendor_id ON back_labels USING btree (vendor_id);
+
+
+--
+-- Name: index_bottles_on_item_number; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_bottles_on_item_number ON bottles USING btree (item_number);
+
+
+--
+-- Name: index_capsules_on_item_number; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_capsules_on_item_number ON capsules USING btree (item_number);
+
+
+--
+-- Name: index_closures_on_item_number_and_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_closures_on_item_number_and_type ON closures USING btree (item_number, type);
 
 
 --
@@ -1196,6 +1224,13 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING 
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
+
+
+--
+-- Name: index_front_labels_on_item_number; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_front_labels_on_item_number ON front_labels USING btree (item_number);
 
 
 --
@@ -1518,4 +1553,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150721174046');
 INSERT INTO schema_migrations (version) VALUES ('20150723035915');
 
 INSERT INTO schema_migrations (version) VALUES ('20150723211517');
+
+INSERT INTO schema_migrations (version) VALUES ('20150725215245');
 

@@ -25,6 +25,9 @@ class Capsule < ActiveRecord::Base
   has_one   :vendor_product, as: :vendable, dependent: :destroy
   has_one   :vendor, through: :vendor_product
   
+  validates :item_number, :height, :width, :units, :material, :color, :active, presence: true
+  validates :height, :width, numericality: true
+  
   mount_uploader :artwork, ImageUploader
   
   def specs

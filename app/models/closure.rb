@@ -24,6 +24,10 @@ class Closure < ActiveRecord::Base
   has_many  :component_requirements, as: :packageable, dependent: :destroy
   has_many  :projects, through: :component_requirements
   
+  validates :type, :item_number, :material, :color, :height, :width, :units, 
+            :active, presence: true
+  validates :height, :width, numericality: true
+  
   # don't join :vendor, since closure is unaware of vendors
   scope :active, -> { where(active: true) }
   

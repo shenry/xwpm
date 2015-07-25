@@ -33,7 +33,14 @@ class Bottle < ActiveRecord::Base
   has_many :component_requirements, as: :packageable, dependent: :destroy
   has_many :projects, through: :component_requirements
   
-  validates :item_number, :fill_point, :mould, :color, :shape, presence: true
+  validates :item_number, :fill_point, :mould, :color, :shape, :height, :width, 
+            :neck_diameter, :units, :finish, :capacity, :capacity_units, :bottles_per_case, 
+            :case_dimensions, :pallet_config, :case_weight, :active, presence: true
+            
+  validates :fill_point, :height, :width, :neck_diameter, :capacity, 
+            :case_weight, numericality: true
+  validates :bottles_per_case, numericality: { only_integer: true }
+  
   
   def initialize(params={})
     super

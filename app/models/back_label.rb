@@ -32,6 +32,10 @@ class BackLabel < ActiveRecord::Base
   has_one  :vendor_product, as: :vendable, dependent: :destroy
   has_one  :vendor, through: :vendor_product
   
+  validates :item_number, :height, :width, :units, :material, :rewind, :cut,
+            :position, :treatment, :artwork_source, :active, presence: true
+  validates :height, :width, :position, numericality: true
+  
   def specs
     "#{height} x #{width} #{units}"
   end

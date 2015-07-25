@@ -242,6 +242,13 @@ div.project-component {
 .mini-component-container { margin-bottom: 60px;}
 table.no-margin { margin: 0px !important; }
 
+.errors-wrapper, .field_with_errors input {
+	border: 1px solid hsla(4, 60%, 80%, 1);
+	color: hsla(4, 35%, 55%, 1);
+	background: hsla(4, 75%, 95%, 1);
+}
+.errors-wrapper { padding: 10px 20px; }
+
 .glow { position: absolute; }
 
 .glow-3 { background-color: hsl(90, 100%, 49%); width: 1px; top: 3px; left: 1px; height: 30px;}
