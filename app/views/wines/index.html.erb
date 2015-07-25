@@ -20,9 +20,10 @@
 			<th>Alc</th>
 			<th>$/Gal</th>
 			<th>&nbsp;</th>
+			<th>&nbsp;</th>
 		</tr>
 		<% for wine in @wines %>
-			<tr>
+			<tr id="wine-<%= wine.id %>">
 				<td><%= link_to wine.sample_number, wine_path(wine) %></td>
 				<td><%= wine.vinx2_reference %></td>
 				<td><%= number_with_delimiter(wine.try(:blend_volume).to_i) %></td>
@@ -44,6 +45,12 @@
 				<td><%= wine.alc %>%</td>
 				<td><%= number_to_currency(wine.weighted_avg(:cogs)) %></td>
 				<td><%= link_to "Edit", edit_wine_path(wine) %></td>
+				<td>
+					<%= link_to wine_path(wine), data: { remote: true, method: :delete, 
+																				confirm: "Are you sure you want to delete this Wine?" } do %>
+						<span class="glyphicon glyphicon-trash"></span>													
+					<% end %>
+				</td>
 			</tr>
 		<% end %>
 	</table>

@@ -22,9 +22,10 @@
 				<th class="col-xs-1">Samples in Review</th>
 				<th>&nbsp;</th>
 			<% end %>
+			<th>&nbsp;</th>
 		</tr>
 		<% for firm in @firms %>
-			<tr class='table-striped'>
+			<tr id="firm-<%= firm.id %>">
 				<td><%= link_to firm.name, polymorphic_path(firm) %></td>
 				<td><%= firm.code %></td>
 				<td><%= firm.contact_name %></td>
@@ -36,6 +37,12 @@
 					<td><%= firm.unreviewed_wine_shipments.size %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>
 				<% end %>
+				<td>
+					<%= link_to polymorphic_path(firm), data: { remote: true, method: :delete, 
+																		confirm: "Are you sure you want to permanently delete this #{firm.type.titleize}?" } do %>
+						<span class="glyphicon glyphicon-trash"></span>
+					<% end %>
+				</td>
 			</tr>			
 		<% end %>
 	</table>

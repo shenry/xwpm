@@ -108,11 +108,12 @@ class FirmsController < ApplicationController
   # DELETE /firms/1
   # DELETE /firms/1.xml
   def destroy
+    @firm = Firm.find(params[:id])
     @firm.destroy
 
     respond_to do |wants|
       wants.html { redirect_to(firms_url) }
-      wants.xml  { head :ok }
+      wants.js  { }
     end
   end
 

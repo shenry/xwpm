@@ -9,6 +9,7 @@
 
 .table { margin-top: 20px; }
 .form-horizontal { margin-top: 40px; }
+.table td { background-color: #fff; text-shadow: 0px 0px #fff; }
 
 h3.description { color: #909090; margin-top: 0px;}
 
@@ -229,6 +230,7 @@ div.project-component {
 	border-radius: 4px;
 	color: #fff;
 }
+
 .pending, .info_received { background-color: #afafaf; color: #fff; }
 .in_transit { background-color: hsla(211, 55%, 55%, 1); color: #fff; }
 .out_for_delivery { background-color: hsla(37, 95%, 55%, 1); }
@@ -236,6 +238,9 @@ div.project-component {
 .delivered { background-color: hsla(115, 45%, 45%, 1); }
 .exception { background-color: hsla(0, 85%, 45%, 1); }
 .expired { background-color: hsla(0, 5%, 25%, 1); }
+
+.mini-component-container { margin-bottom: 60px;}
+table.no-margin { margin: 0px !important; }
 
 .glow { position: absolute; }
 

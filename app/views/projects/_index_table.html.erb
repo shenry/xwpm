@@ -17,7 +17,7 @@
 		<th>&nbsp;</th>
 	</tr>
 	<% for project in @projects %>
-		<tr class='table-striped'>
+		<tr id="project-<%= project.id %>">
 			<td><%= link_to project.project_number, project_path(project) %></td>
 			<% unless @customer %>
 				<td><%= link_to project.customer.name, polymorphic_path(project.customer) %></td>
@@ -43,8 +43,17 @@
 				<% end %>
 			</td>
 			<td>#TODO</td>
-			<td><%= link_to "Edit", edit_project_path(project) %></td>
-			<td><%= link_to "Clone", clone_project_path(project) %></td>
+			<td>
+				<%= link_to clone_project_path(project), data: { remote: true } do %>
+					<span class="glyphicon glyphicon-duplicate text-primary"></span>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to project_path(project), data: { remote: true, method: :delete, 
+																					confirm: "Are you sure you want to permanently delete this Project?" } do %>
+					<span class="glyphicon glyphicon-trash text-primary"></span>
+				<% end %>
+			</td>
 		</tr>
 	<% end %>
 	<% if @projects.empty? %>
@@ -59,7 +68,6 @@
 		</tr>
 		<script type="text/javascript">
 			var cells	= $("table#projects tr th").length;
-			console.log(cells)
 			$("td#no-projects").attr("colspan", cells);
 		</script>
 	<% end %>

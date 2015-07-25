@@ -1,7 +1,7 @@
 <div class="row spacer">
 	<div class="col-xs-12">
 		<% if request.original_url.include? "clone" %>
-			<h1>Cloning <%= @project.to_s %> [<%= @old_project_number %>]</h1>
+			<h1>Cloning Project [<%= @old_project.project_number %>]</h1>
 		<% else %>
 			<h1>New <%= @project.customer.name %> Project</h1>
 		<% end %>

@@ -7,15 +7,4 @@
 		</table>
 	</div>
 </div>
-<div class="component-manager" id="<%= component %>-manager">
-	<div>
-		<%= link_to "Replace #{component.titleize}", "#", data: { component: component, target: "replace" } %> | 
-		<%= link_to "Add another #{component.titleize}", "#", data: { component: component, target: "add" } %>
-	</div>
-	<div class="hidden" id="replace-<%= component %>-select-wrapper">
-		<%= render partial: "partials/component_select", locals: { component: component, action: "Replace" } %>
-	</div>
-	<div class="hidden" id="add-<%= component %>-select-wrapper">
-		<%= render partial: "partials/component_select", locals: { component: component, action: "Add" } %>
-	</div>
-</div>
+<%= render partial: "/partials/component_wrappers/select_links", locals: { collection: collection, component: component } %>

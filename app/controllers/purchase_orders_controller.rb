@@ -23,6 +23,15 @@ class PurchaseOrdersController < ApplicationController
     end
   end
   
+  def destroy
+    @purchase_order = PurchaseOrder.find(params[:id])
+    @purchase_order.destroy
+    respond_to do |wants|
+      wants.html { redirect_to purchase_orders_path }
+      wants.js { }
+    end
+  end
+  
   private
   
   def purchase_order_params

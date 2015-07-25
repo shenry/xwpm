@@ -24,7 +24,6 @@
 
 class Vendor < Firm
   has_many :products, class_name: "VendorProduct", dependent: :destroy
-  
   has_many :purchase_orders, inverse_of: :vendor , dependent: :destroy
   
   validates :code, presence: true

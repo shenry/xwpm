@@ -24,6 +24,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :convert => :png
   end
   
+  version :big_thumb do
+    process :resize_to_fit => [120, 120]
+    process :convert => :png
+  end
+  
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick

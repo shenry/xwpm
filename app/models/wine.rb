@@ -20,7 +20,7 @@ class Wine < ActiveRecord::Base
   
   has_many  :projects, inverse_of: :wine
   has_many  :components, -> { order("created_at ASC") }, inverse_of: :wine, dependent: :destroy
-  has_many  :wine_shipments, inverse_of: :wine
+  has_many  :wine_shipments, inverse_of: :wine, dependent: :destroy
   has_many  :reviewers, through: :wine_shipments, source: :customer
   
   validates :appellation, :appellation_percent, :variety, :variety_percent, :vintage, :vintage_percent,

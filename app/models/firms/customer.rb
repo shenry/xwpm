@@ -23,8 +23,8 @@
 #
 
 class Customer < Firm
-  has_many  :projects
-  has_many  :wine_shipments
+  has_many  :projects, dependent: :destroy
+  has_many  :wine_shipments, dependent: :destroy
   has_many  :sampled_wines, through: :wine_shipments, source: :wine
   
   accepts_nested_attributes_for :projects, allow_destroy: true

@@ -7,23 +7,25 @@
 		</tr>
 		<tr>
 			<td>Front Label Rewind</td>
-			<td class="bold"><%= @project.front_label.try(:rewind) || @project.missing(:front_label) %></td>
+			<td class="bold">
+				<%= @project.front_labels.map(&:rewind).join(", ") %>
+			</td>
 		</tr>
 		<tr>
 			<td>Back Label Rewind</td>
-			<td class="bold"><%= @project.back_label.try(:rewind) || @project.missing(:back_label) %></td>
+			<td class="bold"><%= @project.back_labels.map(&:rewind).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Bottle Mould</td>
-			<td class="bold"><%= @project.bottle.try(:mould) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:mould).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Bottle Specs</td>
-			<td class="bold"><%= @project.bottle.try(:specs) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:specs).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Case Dimensions</td>
-			<td class="bold"><%= @project.bottle.try(:formatted_case_dimensions) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:case_dimensions).join(", ") %></td>
 		</tr>
 	</table>
 </div>
@@ -32,15 +34,15 @@
 	<table class="table table-responsive no-top-border">
 		<tr>
 			<td>Quantity / Case</td>
-			<td class="bold"><%= @project.bottle.try(:case_config) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:case_config).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Pallet Configuration</td>
-			<td class="bold"><%= @project.bottle.try(:pallet_config) || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:pallet_config).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Case Weight</td>
-			<td class="bold"><%= @project.bottle.try(:case_weight).to_s.concat(" Lbs") || @project.missing(:bottle) %></td>
+			<td class="bold"><%= @project.bottles.map(&:case_weight).join(", ") %></td>
 		</tr>
 		<tr>
 			<td>Trucker</td>

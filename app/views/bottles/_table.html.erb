@@ -1,22 +1,20 @@
-<table class="table table-striped table-responsive no-top-border">
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-			<th>Vendor</th>
-			<th>Item #</th>
-			<th>Mould</th>
-			<th>Shape</th>
-			<th>Color</th>
-			<th>Specs</th>
-			<th>Case Config.</th>
-			<th>Case Dimensions</th>
-			<th class="col-xs-1">Case Weight</th>
-			<th class="col-xs-1">Pallet Config.</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @components.each do |bottle| %>
-		<tr>
+<table class="table table-striped table-responsive">
+	<tr>
+		<th>&nbsp;</th>
+		<th>Vendor</th>
+		<th>Item #</th>
+		<th>Mould</th>
+		<th>Shape</th>
+		<th>Color</th>
+		<th>Specs</th>
+		<th>Case Config.</th>
+		<th>Case Dimensions</th>
+		<th class="col-xs-1">Case Weight</th>
+		<th class="col-xs-1">Pallet Config.</th>
+		<th>&nbsp;</th>
+	</tr>
+	<% @components.each do |bottle| %>
+		<tr id="component-<%= bottle.id %>">
 			<td><%= link_to cl_image_tag(bottle.image_url(:thumb)), bottle.image_url, target: :_blank %></td>
 			<td><%= link_to bottle.vendor.name, polymorphic_path(bottle.vendor) %></td>
 			<td><%= link_to bottle.item_number, bottle_path(bottle) %></td>
@@ -28,7 +26,12 @@
 			<td><%= bottle.formatted_case_dimensions %></td>
 			<td><%= bottle.case_weight %></td>
 			<td><%= bottle.pallet_config %></td>
+			<td>
+				<%= link_to bottle_path(bottle), data: { remote: true, method: :delete, 
+					confirm: "Are you sure you want to delete this Bottle?"} do %>
+					<span class="glyphicon glyphicon-trash"></span>
+				<% end%>
+			</td>
 		</tr>
-		<% end %>
-	</tbody>
+	<% end %>
 </table>

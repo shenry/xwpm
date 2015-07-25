@@ -33,4 +33,13 @@ class PackagingComponentsController < ApplicationController
     end
   end
   
+  def destroy
+    @component = @klass.find(params[:id])
+    @component.destroy
+    respond_to do |wants|
+      wants.html { redirect_to :index }
+      wants.js { }
+    end
+  end
+  
 end

@@ -18,6 +18,7 @@
 //= require jquery.autocomplete.min
 //= require autocomplete.js
 //= require best_in_place
+//= require jquery.animate-shadow-min
 
 //= require cloudinary
 //= require cloudinary/jquery.cloudinary
@@ -148,8 +149,9 @@ function updateAttributeTotalFor(key, candy, decimals) {
 }
 
 function updatePercentageTotalFor(key) {
-	var new_value = updateAttributeTotalFor(key, "%", 1)
-	$("#" + key + "-total").html(new_value + "%")
+	var new_value = updateAttributeTotalFor(key, "%", 1);
+	var new_html	= new_value + "%";
+	$("#" + key + "-total").html(new_html);
 }
 
 function updateDollarTotalFor(key) {

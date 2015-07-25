@@ -63,12 +63,16 @@ class ProjectsController < ApplicationController
   end
   
   def clone
-    @project = Project.joins(:customer).find(params[:id])
-    @old_project_number = @project.project_number
+    @old_project = Project.joins(:customer).find(params[:id])
+    @project = Project.new(@old_project.attributes)
     @project.project_number = ""
     @project.bottling_date  = nil
     @customer = @project.customer
-    render :new
+    
+    respond_to do |wants|
+      wants.html { render :new }
+      wants.js { render js: "window.location.href='"+clone_project_path(@project)+"'" }
+    end
   end
   
   def create
@@ -131,6 +135,15 @@ class ProjectsController < ApplicationController
     
     respond_to do |wants|
       wants.html { redirect_to project_path(@project) }
+      wants.js { }
+    end
+  end
+  
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    respond_to do |wants|
+      wants.html { redirect_to projects_path }
       wants.js { }
     end
   end

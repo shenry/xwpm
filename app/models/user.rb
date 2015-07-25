@@ -25,8 +25,8 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :authored_comments, class_name: "Comment", foreign_key: "author_id"
-  has_many :resolved_comments, class_name: "Comment", foreign_key: "resolver_id"
+  has_many :authored_comments, class_name: "Comment", foreign_key: "author_id", dependent: :destroy
+  has_many :resolved_comments, class_name: "Comment", foreign_key: "resolver_id", dependent: :destroy
 
   
   # Include default devise modules. Others available are:
