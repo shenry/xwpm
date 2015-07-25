@@ -6,7 +6,7 @@
 <%= form_tag :component_requirements, method: :post, remote: true, id: "#{component}-#{action.downcase}-select-form" do |f| %>
 	<%= hidden_field_tag "authenticity_token", form_authenticity_token %>
 	<%= hidden_field_tag "component_requirement[project_id]", @project.id %>
-	<%= hidden_field_tag "component_requirement[packageable_type]", component.titleize.gsub(" ", "") %>
+	<%= hidden_field_tag "component_requirement[packageable_type]", component.titleize.gsub(" ", "") %>	
 	<%= select_tag "component_requirement[packageable_id]", options, class: "create-component-requirement form-control select gray", 
 									include_blank: "#{action} #{component.titleize} #{action == 'Add' ? 'to' : 'for' } Project...", 
 									data: { action: "submit" }, id: "#{component}-#{action.downcase}-select" %>

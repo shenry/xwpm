@@ -28,12 +28,14 @@ class FirmsController < ApplicationController
     end
     @firm       = @klass.includes(association).find(params[:id])
     objects     = @firm.send(association)
+    puts "objects = #{objects.inspect}"
     if association == :products
       types       = objects.collect(&:vendable_type).uniq
       @associated_collection = Hash.new
       types.each do |type|
         products     = objects.select { |o| o.vendable_type == type }
-        vendable_ids = products.map(&:id)
+        vendable_ids = products.map(&:vendable_id)
+        puts "vendable_ids for #{type.inspect} are #{vendable_ids.inspect}"
         vendables    = type.constantize.where(id: vendable_ids)
         @associated_collection[type] = vendables
       end
