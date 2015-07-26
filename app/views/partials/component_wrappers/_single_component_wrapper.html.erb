@@ -1,7 +1,7 @@
-<div id="<%= component %>" class="component-summary">
+<div id="<%= component %>" class="component-summary clearfix">
 	<%= render partial: "/partials/image_sidebar", locals: { object: collection.first.packageable } %>
 	<div class="col-xs-6">
-		<table class="table table-responsive no-top-border">
+		<table class="table table-responsive no-top-border no-margin">
 			<%= render partial: "/partials/#{component}_table", locals: 
 													{	object: collection.first.packageable, requirement: collection.first } %>
 		</table>

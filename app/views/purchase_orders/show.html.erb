@@ -5,12 +5,12 @@
 	<div class="col-xs-4">
 		<table class="table table-responsive no-top-border">
 			<tr>
-				<td>Vendor</td>
-				<td class="bold"><%= link_to @purchase_order.vendor.name, vendor_path(@purchase_order.vendor) %></td>
+				<td class="col-xs-5">Vendor</td>
+				<td class="col-xs-7 bold"><%= link_to @purchase_order.vendor.name, vendor_path(@purchase_order.vendor) %></td>
 			</tr>
 			<tr>
 				<td>Overhead</td>
-				<td class="bold"><%= number_to_currency(@purchase_order.overhead) %></td>
+				<td class="bold"><%= best_in_place @purchase_order, :overhead, display_with: -> (v) { number_to_currency(v) } %></td>
 			</tr>
 			<tr>
 				<td>Order Date</td>

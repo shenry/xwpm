@@ -23,6 +23,17 @@ class PurchaseOrdersController < ApplicationController
     end
   end
   
+  def update
+    @purchase_order = PurchaseOrder.find(params[:id])
+    respond_to do |wants|
+      if @purchase_order.update_attributes(purchase_order_params)
+        wants.json { respond_with_bip @purchase_order }
+      else
+        
+      end
+    end
+  end
+  
   def destroy
     @purchase_order = PurchaseOrder.find(params[:id])
     @purchase_order.destroy
@@ -35,6 +46,6 @@ class PurchaseOrdersController < ApplicationController
   private
   
   def purchase_order_params
-    params.require(:purchase_order).permit(:number, :vendor_id, :order_date, :po_image, :bol_image)
+    params.require(:purchase_order).permit(:number, :vendor_id, :order_date, :po_image, :bol_image, :overhead)
   end
 end

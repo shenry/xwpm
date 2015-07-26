@@ -4,7 +4,7 @@
 		<% requirement = "#{component}_requirements".intern %>
 			<div class="col-md-6 col-xs-12 project-component">
 				<div class="h3-wrap">
-					<h3><%= project_component_title_for(@project, component) %></h3>
+					<div class="h3"><%= project_component_title_for(@project, component) %></div>
 				</div>
 				<%= render partial: "partials/component_wrappers/wrapper", locals: { component: component } %>
 			</div>

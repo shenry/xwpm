@@ -34,7 +34,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
   
   def received?
-    line_items.map(&:received).all?
+    line_items.map(&:received).all? && line_items.any?
   end
   
   def subtotal

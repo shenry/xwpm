@@ -201,8 +201,8 @@ table img { border: 1px solid #dfdfdf; }
 
 .h3 { 
 	font-size: 24px;
-	color: #777 !important;
 }
+.h3 a:hover { text-decoration: none; }
 
 .h3-wrap {
 	margin: 20px 15px 40px 15px;;
@@ -220,7 +220,7 @@ table img { border: 1px solid #dfdfdf; }
 div.project-component {
 	min-height: 430px;
 }
-.component-summary { min-height: 260px !important; }
+.component-summary { min-height: 260px !important; margin-bottom: 40px; }
 .component-manager { height: 40px; line-height: 40px; }
 .component-container { margin-bottom: 40px; }
 

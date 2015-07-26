@@ -6,19 +6,27 @@
 				<table class="table table-responsive table-condensed no-margin">
 					<tr>
 						<td>Item #</td>
-						<td class="bold" colspan="3"><%= item.packageable.item_number %></td>
+						<td class="bold" colspan="3"><%= component_link_for(item.packageable) %></td>
 					</tr>
 					<tr>
 						<td>Vendor</td>
-						<td class="bold"><%= item.packageable.vendor.name %></td>
+						<td class="bold"><%= link_to item.packageable.vendor.name, vendor_path(item.packageable.vendor) %></td>
 						<td>Specs</td>
 						<td class="bold"><%= item.packageable.specs %></td>
 					</tr>
 					<tr>
-						<td>PO</td>
-						<td></td>
+						<td>PO#</td>
+						<td class="bold">
+							<% if item.purchase_order %>
+								<%= link_to item.purchase_order.number, purchase_order_path(item.purchase_order) %>
+							<% end %>
+						</td>
 						<td>Cost</td>
-						<td></td>
+						<td class="bold">
+							<% if item.purchase_order %>
+								<%= number_to_currency(item.cost) %>
+							<% end %>
+						</td>
 					</tr>
 					<tr>
 						<td>Material</td>
