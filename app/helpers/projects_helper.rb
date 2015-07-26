@@ -20,10 +20,8 @@ module ProjectsHelper
         return render partial: 'partials/component_wrappers/empty_component_wrapper', locals: { component: component }
       elsif arr.size == 1
         return render partial: 'partials/component_wrappers/single_component_wrapper', locals: { collection: arr, component: component }
-      elsif arr.size == 2
+      else arr.size == 2
         return render partial: 'partials/component_wrappers/double_component_wrapper', locals: { collection: arr, component: component }
-      else
-        return render partial: 'partials/component_wrappers/triple_component_wrapper', locals: { collection: arr, component: component }
       end
     else
       raise "Could not find #{component} association on project #{project}"
