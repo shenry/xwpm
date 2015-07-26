@@ -15,7 +15,7 @@
 		<tr id="component-<%= component.id %>">
 			<td><%= link_to cl_image_tag(component.image_url(:thumb)), component.image_url %></td>
 			<td><%= link_to component.vendor.name, vendor_path(component.vendor) %></td>
-			<td><%= link_to component.item_number, front_label_path(component) %></td>
+			<td><%= link_to component.item_number, url_for(controller: component.class.to_s.tableize, action: :show, id: component.id) %></td>
 			<td><%= component.specs %></td>
 			<td><%= component.position %></td>
 			<td><%= component.material %></td>

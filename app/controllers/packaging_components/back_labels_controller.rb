@@ -13,6 +13,6 @@ class BackLabelsController < PackagingComponentsController
   
   def component_params
     params.require(:back_label).permit(:item_number, :height, :width, :units, :material, :color, :cut, :treatment, 
-                                       :rewind, :alc, :upc, :image, :artwork, :position)
+                                       :rewind, :alc, :upc, :image, :artwork, :position, :artwork_source)
   end
 end

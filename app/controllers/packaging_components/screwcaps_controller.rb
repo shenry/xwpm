@@ -9,6 +9,6 @@ class ScrewcapsController < PackagingComponentsController
   
   def component_params
     params.require(:screwcap).permit(:item_number, :material, :color, :height, :diameter, :units, :image,
-                                     :artwork)
+                                     :artwork, :artwork_source)
   end
 end

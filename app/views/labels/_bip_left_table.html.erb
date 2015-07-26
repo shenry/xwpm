@@ -1,8 +1,12 @@
 <table class="table table-responsive no-top-border">
+	<tr>
+		<td class="col-xs-5">Artwork Source</td>
+		<td class="col-xs-7 bold"><%= best_in_place @component, :artwork_source %></td>
+	</tr>
 	<%= render partial: "packaging_components/bip_specs_row", locals: { component: @component } %>
 	<tr>
 		<td>Position</td>
-		<td class="bold"><%= best_in_place @component, :position %></td>
+		<td class="bold"><%= best_in_place @component, :position, class: "bip-table-input" %> mm</td>
 	</tr>
 	<tr>
 		<td>Paper</td>

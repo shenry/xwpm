@@ -1,6 +1,6 @@
 class PackagingComponentsController < ApplicationController
   before_filter :get_type
-  respond_to :html, :json
+  # respond_to :html, :json
   
   def index
     @status      = params[:status] || "active"
@@ -24,12 +24,16 @@ class PackagingComponentsController < ApplicationController
   end
   
   def update
-    @component = @klass.find(params[:id])
-    
-    if @component.update_attributes(component_params)
-      respond_with @component
-    else
-      # TODO
+    @component = @klass.find(params[:id]) 
+    puts "updating component....."   
+    respond_to do |wants|
+      if @component.update_attributes(component_params)
+        puts "here we are"
+        wants.json { respond_with_bip @component }
+      else
+        puts "errors are #{@component.errors.inspect}"
+        # TODO
+      end
     end
   end
   

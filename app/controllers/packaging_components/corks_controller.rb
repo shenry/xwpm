@@ -9,6 +9,6 @@ class CorksController < PackagingComponentsController
   
   def component_params
     params.require(:cork).permit(:item_number, :material, :color, :height, :diameter, :units,
-                                 :image, :artwork)
+                                 :image, :artwork, :artwork_source)
   end
 end

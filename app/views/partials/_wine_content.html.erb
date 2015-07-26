@@ -1,7 +1,7 @@
 <% if @project.wine %>
 	<div class="h3-wrap">
 		<span class="h3"><%= @project.wine.to_s %></span>
-		<%= link_to "Edit Wine", edit_wine_path(@project.wine), class: "pull-right" %>
+		<%= link_to "Edit Wine", wine_path(@project.wine), class: "pull-right" %>
 	</div>
 	<div class="col-xs-4">
 		<table class="table table-responsive no-top-border">

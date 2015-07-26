@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   
   def show_component
     @component  = params[:component]
-    if ["packaging_components", "shipping", "purchase_orders"].include? @component
+    if ["packaging_components", "shipping", "purchase_orders", "packet"].include? @component
       @project = Project.find(params[:id])
     elsif @component == "finance"
       
@@ -104,6 +104,7 @@ class ProjectsController < ApplicationController
       respond_to do |wants|
         wants.html { redirect_to project_path(@project) }
         wants.js { @component = params[:model], @requirement = "#{@component}_requirement".intern }
+        wants.json { respond_with_bip @project }
       end
     else
       @project.bottling_date = params[:project][:bottling_date]
