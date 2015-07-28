@@ -233,6 +233,8 @@ div.project-component {
 	color: #fff;
 }
 
+h3.title { margin-bottom: 10px; }
+
 .title-link { margin-right: 10px; }
 a.destroy { color: #ddd; }
 a.destroy:hover { color: red;}

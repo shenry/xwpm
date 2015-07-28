@@ -101,19 +101,13 @@
 <div class="row spacer">
 	<div class="col-xs-12">
 		<ul class="nav nav-tabs nav-justified" id="component-categories">
-			<li role="presentation" class="active" id="packaging_components_li">
-				<%= link_to "Packaging Components", "?category=packaging_components", remote: true %>
-			</li>
-			<li role="presentation" id="purchase_orders_li">
-				<%= link_to "POs", "?category=purchase_orders", remote: true %>
-			</li>
-			<li role="presentation" id="wine_li"><%= link_to "Wine", "?category=wine", remote: true %></li>
-			<li role="presentation" id="shipping_li"><%= link_to "Bottling / Shipping", "?category=shipping", remote: true %></li>
-			<li role="presentation" id="packet_li"><%= link_to "Packet", "?category=packet", remote: true %></li>
-			<li role="presentation"><a href="?category=finance">Finance</a></li>
-			<li role="presentation" id="comments_li">
-				<%= link_to "Comments (#{@project.comments.size - 1})", "?category=comments", remote: true %>
-			</li>
+			<%= project_nav_link_for(:packaging_components) %>
+			<%= project_nav_link_for(:purchase_orders, title: "POs") %>
+			<%= project_nav_link_for(:wine) %>
+			<%= project_nav_link_for(:shipping, title: "Bottling / Shipping") %>
+			<%= project_nav_link_for(:packet) %>
+			<%= project_nav_link_for(:finance) %>
+			<%= project_nav_link_for(:comments, title: "Comments (#{@project.comments.size - 1})") %>
 		</ul>
 	</div>
 </div>
