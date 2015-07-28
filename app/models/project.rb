@@ -69,6 +69,7 @@ class Project < ActiveRecord::Base
   validates :project_number, :brand, :variety, :target_cases, :bottling_date, 
             :vintage, :appellation, presence: true
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
+  validates :project_number, uniqueness: true
   validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past
 
@@ -108,6 +109,7 @@ class Project < ActiveRecord::Base
   
   def purchase_orders
     ids = components.map(&:id)
+    return [] if ids.empty?
     PurchaseOrder.joins("INNER JOIN packaging_component_orders ON 
     purchase_orders.id = packaging_component_orders.purchase_order_id WHERE 
     packaging_component_orders.component_requirement_id IN (#{ids.join(',')}) GROUP BY purchase_orders.id")

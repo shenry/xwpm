@@ -29,6 +29,7 @@ module ApplicationHelper
   end
   
   def formatted_date(date, format=DATE_FORMAT_STRING)
+    return date if date.is_a? String
     date.strftime(format)
   end
   

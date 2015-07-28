@@ -1,0 +1,7 @@
+var content = "<%= j render partial: 'partials/component_wrappers/wrapper', formats: :html, locals: { component: @type } %>";
+$("#<%= @type %>").fadeOut('fast', function(){
+	$("#<%= @type %>-manager-links").remove();
+	$(this).hide();
+	$(this).html(content);
+	$(this).fadeIn('fast');
+});

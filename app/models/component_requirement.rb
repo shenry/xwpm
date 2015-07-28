@@ -11,12 +11,14 @@
 #
 
 class ComponentRequirement < ActiveRecord::Base
+  before_destroy :check_if_purchase_order
+  
   belongs_to  :project
   belongs_to  :packageable, polymorphic: true
-  has_one     :packaging_component_order, dependent: :destroy
+  has_one     :packaging_component_order
   has_one     :purchase_order, through: :packaging_component_order
   
-  has_ancestry
+  has_ancestry orphan_strategy: :adopt
   
   # accepts_nested_attributes_for :packageable
   
@@ -24,5 +26,17 @@ class ComponentRequirement < ActiveRecord::Base
   
   def cost
     packaging_component_order.total_cost
+  end
+  
+  def purchase_order?
+    !purchase_order.nil?
+  end
+  
+  private
+  
+  def check_if_purchase_order
+    return true unless purchase_order?
+    errors.add :base, "This component has been ordered on PO##{purchase_order.number}"
+    false
   end
 end

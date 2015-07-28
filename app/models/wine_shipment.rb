@@ -77,6 +77,10 @@ class WineShipment < ActiveRecord::Base
   end
   
   def get_checkpoint!
-    AfterShip::V4::LastCheckpoint.get(carrier.downcase, tracking_number)
+    begin
+      AfterShip::V4::LastCheckpoint.get(carrier.downcase, tracking_number)
+    rescue Errno::EHOSTUNREACH
+      { "data" =>  { "checkpoint"  => { "tag" => "Unknown" } } }
+    end
   end
 end

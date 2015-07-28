@@ -32,7 +32,7 @@
 				<% if project.wine %><%= link_to project.wine.sample_number, wine_path(project.wine) %><% end %>
 			</td>
 			<td>
-				<%= link_to project_path(project) + "#comments", class: "comments-actions" do %>
+				<%= link_to project_path(project) + "?category=comments", class: "comments-actions" do %>
 					<%= project.comments.size %>
 					<span class="glyphicon glyphicon-comment text-muted"></span>
 					<% if project.actionable_comments.size > 0 %>

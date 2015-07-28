@@ -1,46 +1,124 @@
 <div class="row spacer">
 	<div class="row-same-height">
-		<div class="col-xs-8 col-xs-height"><h1><%= @project.to_s %></h1></div>
-		<div class="col-xs-4 col-xs-height pull-right"></div>
+		<div class="col-xs-12 col-xs-height">
+			<h1 id="project-title">
+				[<span id="project-title-project_number"><%= @project.project_number %></span>]
+				&nbsp;-&nbsp;
+				<span id="project-title-vintage"><%= @project.vintage %></span> 
+				<span id="project-title-brand"><%= @project.brand %></span> 
+				<span id="project-title-variety"><%= @project.variety %></span>
+			</h1>
+		</div>
 	</div>
 </div>
 <div class="row spacer">
-	<div class="col-xs-6">
-		<%= render partial: "general_info_table", locals: { :project => @project } %>
-		<%= render partial: "wine_info_table", locals: { :project => @project } %>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td class="col-xs-6">Customer</td>
+				<td class="col-xs-6 bold"><%= @project.customer.name %></td>
+			</tr>
+			<tr>
+				<td>Brand Name</td>
+				<td class="bold" data-attribute="brand"><%= best_in_place @project, :brand, class: "update-project-title" %></td>
+			</tr>
+			<tr>
+				<td>Project Number</td>
+				<td class="bold" data-attribute="project_number"><%= best_in_place @project, :project_number, class: "update-project-title" %></td>
+			</tr>
+			<tr>
+				<td>Bottling Date</td>
+				<td class="bold"><%= best_in_place @project, :bottling_date, display_with: -> (v) { formatted_date(v) } %></td>
+			</tr>
+			<tr>
+				<td>Bottling Location</td>
+				<td class="bold">#TODO</td>
+			</tr>
+		</table>
 	</div>
-	<div class="col-xs-6">
-		<%= render partial: "label_info_table", locals: { :project => @project } %>
-		<%= render partial: "winemaking_info_table", locals: { :project => @project } %>
-		<%= render partial: "tax_info_table", locals: { :project => @project } %>
-		<%= render partial: "case_info_table", locals: { :project => @project } %>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td class="col-xs-6">Cases to Bottle</td>
+				<td class="col-xs-6 bold"><%= best_in_place @project, :target_cases, display_with: -> (v) { number_with_delimiter(v) } %></td>
+			</tr>
+			<tr>
+				<td>Label / Actual % Alc</td>
+				<td class="bold"><%= @project.wine.try(:alc) %> % / <%= @project.label_alc %> %</td>
+			</tr>
+			<tr>
+				<td>Vintage</td>
+				<td class="bold" data-attribute="vintage"><%= best_in_place @project, :vintage, class: "update-project-title" %></td>
+			</tr>
+			<tr>
+				<td>Appellation</td>
+				<td class="bold"><%= best_in_place @project, :appellation %></td>
+			</tr>
+			<tr>
+				<td>Variety</td>
+				<td class="bold" data-attribute="variety"><%= best_in_place @project, :variety, class: "update-project-title" %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-4">
+		<table class="table table-responsive no-top-border">
+			<tr>
+				<td class="col-xs-6">QB Code</td>
+				<td class="col-xs-6 bold"><%= best_in_place @project, :qb_code %></td>
+			</tr>
+			<tr>
+				<td>Vinx2 Reference</td>
+				<td class="bold"><%= @project.wine.try(:vinx2_reference) %></td>
+			</tr>
+			<tr>
+				<td>Taxes</td>
+				<td class="bold"><%= best_in_place @project, :taxes %></td>
+			</tr>
+			<tr>
+				<td>FOB / COGs</td>
+				<td class="bold">
+					<%= best_in_place @project, :fob, display_with: -> (v) { number_to_currency(v) },
+						 								class: "bip-table-input" %>
+					<% if @project.wine.try(:blend_volume) %>
+					 <% if @project.fob %> / <% end %><%= number_to_currency(@project.wine.weighted_avg(:cogs)) %>
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td>Bottler</td>
+				<td class="bold">#TODO</td>
+			</tr>
+		</table>
 	</div>
 </div>
-<div class="row">
-	<%= render partial: "materials_div", locals: { project: @project } %>
+<script type="text/javascript">
+	$(".update-project-title").on("ajax:success", function(e){
+		var attr 	= $(this).parent().attr("data-attribute");
+		var value = $(this).html();
+		$("#project-title-" + attr).html(value);
+	});
+</script>
+<div class="row spacer">
+	<div class="col-xs-12">
+		<ul class="nav nav-tabs nav-justified" id="component-categories">
+			<li role="presentation" class="active" id="packaging_components_li">
+				<%= link_to "Packaging Components", "?category=packaging_components", remote: true %>
+			</li>
+			<li role="presentation" id="purchase_orders_li">
+				<%= link_to "POs", "?category=purchase_orders", remote: true %>
+			</li>
+			<li role="presentation" id="wine_li"><%= link_to "Wine", "?category=wine", remote: true %></li>
+			<li role="presentation" id="shipping_li"><%= link_to "Bottling / Shipping", "?category=shipping", remote: true %></li>
+			<li role="presentation" id="packet_li"><%= link_to "Packet", "?category=packet", remote: true %></li>
+			<li role="presentation"><a href="?category=finance">Finance</a></li>
+			<li role="presentation" id="comments_li">
+				<%= link_to "Comments (#{@project.comments.size - 1})", "?category=comments", remote: true %>
+			</li>
+		</ul>
+	</div>
 </div>
 <div class="row spacer">
-	<div class="col-xs-6">
-		<h3>Labels</h3>
-		<div id="project-labels">
-			<% if @project.front_label %>
-				<%= link_to cl_image_tag(@project.front_label.image_url(:medium)), @project.front_label.image_url, target: "_blank" %>
-			<% end %>
-			<% if @project.back_label %>
-				<%= link_to cl_image_tag(@project.back_label.image_url(:medium)), @project.back_label.image_url, target: "_blank" %>
-			<% end %>
-		</div>
-	</div>
-	<div class="col-xs-6">
-		<a name="comments"></a>
-		<h3>Comments &amp; Actions</h3>
-		<div id="comments-list-asc">
-		<% @project.comments(order: "created_at ASC").each do |comment| %>
-			<% unless comment.new_record? %>
-				<%= render partial: "comment", locals: { :comment => comment } %>
-			<% end %>
-		<% end %>
-		</div>
-		<%= render partial: "new_comment", locals: { :project => @project, :comment => @project.comments.build } %>
+	<div id="components-container">
+		<%= render_component_partial(@component) %>
 	</div>
 </div>

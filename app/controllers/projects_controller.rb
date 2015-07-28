@@ -3,12 +3,16 @@ class ProjectsController < ApplicationController
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def show
-    @project = Project.find(params[:id])
-    @comment = @project.comments.build(author_id: current_user.id)
-    if params[:alt] == "true"
-      render :alt_show
-    else
-      render :alt_show
+    respond_to do |wants|
+      wants.html {
+        @project = Project.find(params[:id])
+        @comment = @project.comments.build(author_id: current_user.id)
+        @component = params[:category] || "packaging_components" 
+      }
+      wants.js {
+        @project ||= Project.find(params[:id])
+        @component = params[:category] || "packaging_components" 
+      }
     end
   end
   

@@ -1,4 +1,5 @@
 var listID = "li#<%= @component %>_li";
+console.log("component is " + listID);
 $(listID).addClass("active");
 $(listID).siblings().removeClass("active");
 var newHtml = "<%= j render_component_partial(@component) %>";

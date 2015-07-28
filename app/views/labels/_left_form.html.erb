@@ -4,6 +4,10 @@
 		<td class="col-xs-8"><%= render partial: "packaging_components/specs_form_row", locals: { f: f } %></td>
 	</tr>
 	<tr>
+		<td>Artwork Source</td>
+		<td class="bold"><%= f.text_field :artwork_source %></td>
+	</tr>
+	<tr>
 		<td>Position</td>
 		<td class="bold"><%= f.text_field :position %> mm</td>
 	</tr>

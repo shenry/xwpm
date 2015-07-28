@@ -1,14 +1,5 @@
 <div class="component-manager" id="<%= component %>-manager">
-	<div>
-		<% if collection.size == 1 %>
-			<%= link_to "Replace #{component.titleize}", "#", data: { component: component, target: "replace" } %> | 
-		<% end %>
-		<%= link_to "Add another #{component.titleize}", "#", data: { component: component, target: "add" } %>
-	</div>
-	<div class="hidden" id="replace-<%= component %>-select-wrapper">
-		<%= render partial: "partials/component_select", locals: { component: component, action: "Replace" } %>
-	</div>
-	<div class="hidden" id="add-<%= component %>-select-wrapper">
+	<div id="add-<%= component %>-select-wrapper">
 		<%= render partial: "partials/component_select", locals: { component: component, action: "Add" } %>
 	</div>
 </div>

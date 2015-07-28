@@ -4,7 +4,7 @@ module ProjectsHelper
     arr = parse_requirement_for(project, component)
     if arr
       if arr.size == 1
-        return project_component_header_for(component, arr.first.packageable)
+        return project_component_header_for(component, arr.first)
       else
         return component.pluralize.titleize
       end
@@ -28,15 +28,32 @@ module ProjectsHelper
     end
   end
   
-  def project_component_header_for(component, object)
+  def project_component_header_for(component, component_requirement)
     title = component.titleize
-    link  = component_link_for(object, class: "pull-right")
-    [title, link].join(" ").html_safe
+    component_object = component_requirement.packageable
+    show_link  = component_link_for(component_object, action: :show, id: component_object.id, class: "pull-right title-link")
+    delete_link = delete_link_for(component_requirement, action: :index, method: :destroy, class: "pull-right")
+    span = content_tag :span, id: "#{title.underscore.downcase}-manager-links" do
+      [delete_link, show_link].join('').html_safe
+    end
+    [title, span].join(" ").html_safe
   end
   
-  def component_link_for(object, options={})
+  def delete_link_for(component_requirement, options)
+    return "" if component_requirement.purchase_order?
+    link_to(url_for(controller: "component_requirements", action: :show, id: component_requirement.id), 
+                    data: { method: :delete, 
+                      confirm: "Are you sure you want to remove this #{component_requirement.packageable.class.to_s.titleize} from the Project?", 
+                      remote: true }, class: "pull-right destroy") do
+      "<span class='glyphicon glyphicon-remove'></span>".html_safe
+    end
+  end
+  
+  def component_link_for(component_object, options={})
     attribute = options[:attribute] ? options[:attribute] : :item_number
-    link_to object.send(attribute), url_for(controller: object.class.to_s.tableize, action: :show, id: object.id), options
+    title     = options.delete(:title) || component_object.send(attribute)
+    link_to(title, url_for(component_object), options)
+      # link_to(title, component_url_for(component_object, action: :show, id: component_object.id), options)
   end
   
   def parse_requirement_for(project, component)

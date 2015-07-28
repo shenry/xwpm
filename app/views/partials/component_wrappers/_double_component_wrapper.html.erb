@@ -6,7 +6,14 @@
 				<table class="table table-responsive table-condensed no-margin">
 					<tr>
 						<td>Item #</td>
-						<td class="bold" colspan="3"><%= component_link_for(item.packageable) %></td>
+						<td class="bold" colspan="3">
+							<%= component_link_for(item.packageable) %>
+								<% unless item.purchase_order? %>
+								<%= link_to item, data: { method: :delete, remote: true, confirm: "wha??" }, class: "pull-right destroy" do %>
+									<span class='glyphicon glyphicon-remove'></span>
+								<% end %>
+							<% end %>
+						</td>
 					</tr>
 					<tr>
 						<td>Vendor</td>
