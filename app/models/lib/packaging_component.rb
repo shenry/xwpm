@@ -22,6 +22,14 @@ module PackagingComponent
     end
   end
   
+  def image_id
+    image.to_s.match(image_regexp)[2]
+  end
+  
+  def image_version
+    image.to_s.match(image_regexp)[1]
+  end
+  
   def to_s
     "#{vendor.name} - #{item_number}"
   end
@@ -43,6 +51,10 @@ module PackagingComponent
   end
   
   private
+  
+  def image_regexp
+    /\/(\w*)\/(\w*)\.\w{3,4}/
+  end
   
   def upcase_item_number
     item_number.upcase!

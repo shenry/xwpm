@@ -239,6 +239,8 @@ h3.title { margin-bottom: 10px; }
 a.destroy { color: #ddd; }
 a.destroy:hover { color: red;}
 
+#image-replace { height: 350px; width: 350px; } 
+
 .pending, .info_received { background-color: #afafaf; color: #fff; }
 .in_transit { background-color: hsla(211, 55%, 55%, 1); color: #fff; }
 .out_for_delivery { background-color: hsla(37, 95%, 55%, 1); }

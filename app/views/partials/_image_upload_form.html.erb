@@ -2,7 +2,7 @@
 	<tr>
 		<td class="col-xs-4"><%= name.to_s.titleize %></td>
 		<td id="upload-cell" class="col-xs-8">
-			<%= f.cl_unsigned_image_upload(name, "frzj7e4j", html: { id: "image-upload"}) %>
+			<%= f.cl_unsigned_image_upload(name, "frzj7e4j", html: { id: "image-upload" }) %>
 			<div class="progress_bar" id="<%= name.to_s %>-upload-progress">&nbsp;</div>
 		</td>
 	</tr>

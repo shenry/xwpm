@@ -1,5 +1,17 @@
-<div id="drop-zone">
+<div id="image-replace">
 	<%= link_to cl_image_tag(@component.image_url(:sidebar)), @component.image_url, target: :_blank %>
 </div>
-<p><%= link_to "Replace Image", "#", id: "replace-image-link" %> (doesn't work)</p>
-<div id="image-replace"></div>
+<p><%= link_to "Replace Image", "#", id: "replace-image-link", class: 'replace-upload', remote: true %></p>
+<div id="replace-form" style="visibility:hidden;">
+	<%= form_for @component, remote: true, data: { update_id: @component.id, update_model: @component.class.to_s.downcase } do |f| %>
+		<%= f.cl_unsigned_image_upload(:image, "frzj7e4j", public_id: @component.image_id, invalidate: true, html: { id: "image-upload" }) %>
+	<% end %>
+	<div class="progress_bar" id="image-upload-progress"></div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#replace-image-link").click(function(){
+		$("#replace-form").css("visibility", "visible");
+	});
+});
+</script>

@@ -85,7 +85,8 @@ class Project < ActiveRecord::Base
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
     vendor_id   = params_hash[:vendor_id]
-    return Project.active unless (customer_id || vendor_id)
+    scope       = params_hash[:scope] || :active
+    return Project.send(scope) unless (customer_id || vendor_id)
     return Customer.find(customer_id).projects.active if customer_id
     return Project.associated_with_vendor(vendor_id).active if vendor_id
   end

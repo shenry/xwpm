@@ -98,13 +98,9 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$('.progress_bar').hide();
-	$("#replace-image-link").click(function(){
-		$("#image-replace").prepend($.cloudinary.unsigned_upload_tag("frzj7e4j", {cloud_name: "hcq3xdudm"}));
-	});
-	// $('#upload-cell').prepend($.cloudinary.unsigned_upload_tag("frzj7e4j", {cloud_name: "hcq3xdudm"}));
 	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j", 
-		{ cloud_name: 'hcq3xdudm'}, 
-	  { multiple: true }
+		{ cloud_name: 'hcq3xdudm' }, 
+		{ multiple: true }
 	).bind('fileuploadsend', function(e, data) {
 		var id = $(this).attr('id');
 		$("#submit-button").prop("disabled", true);
@@ -114,9 +110,22 @@ $(document).ready(function(){
 		$("#submit-button").prop("disabled", "");
 		$('#' + id + "-progress").hide();
 	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id, 
-	    { format: 'png', width: 350, height: 350 } ))}
-
-	).bind('cloudinaryprogress', function(e, data) { 
+	    { format: 'png', width: 350, height: 350 } ));
+		if ($(this).parent("#replace-form").length === 0) {
+			var public_id = data.result.public_id;
+			var form = $(this).parent("form");
+			var component_id = form.attr("data-update-id");
+			var component_model = form.attr("data-update-model");
+			var url	= form.attr("action");
+			var id_string = "#edit_" + component_model + "_" + component_id;
+			$.post(url, $(id_string).serialize(), function(data) {
+				$("#image-replace").html($.cloudinary.image(public_id,
+					{ format: 'png', width: 350, height: 350, crop: "fit" } ));
+			},
+			"script"
+		);
+		}
+	}).bind('cloudinaryprogress', function(e, data) { 
 	  $('.progress_bar').css('width', 
 	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%'); 		
 	});
