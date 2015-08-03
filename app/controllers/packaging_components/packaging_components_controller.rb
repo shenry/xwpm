@@ -24,11 +24,16 @@ class PackagingComponentsController < ApplicationController
   end
   
   def update
-    @component = @klass.find(params[:id]) 
-    puts "updating component....."   
+    @component = @klass.find(params[:id])
+    image     = @component.image
+    image_url = image.to_s
     respond_to do |wants|
       if @component.update_attributes(component_params)
-        puts "here we are"
+        puts "do they match??? #{@component.image_id == image_url}"
+        if @component.image.to_s != image_url
+          puts "attempting to delete......."
+          # Cloudinary::Uploader.destroy(image.public_id)
+        end
         wants.json { respond_with_bip @component }
       else
         puts "errors are #{@component.errors.inspect}"

@@ -97,38 +97,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-	$('.progress_bar').hide();
-	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j", 
-		{ cloud_name: 'hcq3xdudm' }, 
-		{ multiple: true }
-	).bind('fileuploadsend', function(e, data) {
-		var id = $(this).attr('id');
-		$("#submit-button").prop("disabled", true);
-		$('#' + id + "-progress").show();
-	}).bind('cloudinarydone', function(e, data) {
-		var id = $(this).attr('id');
-		$("#submit-button").prop("disabled", "");
-		$('#' + id + "-progress").hide();
-	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id, 
-	    { format: 'png', width: 350, height: 350 } ));
-		if ($(this).parent("#replace-form").length === 0) {
-			var public_id = data.result.public_id;
-			var form = $(this).parent("form");
-			var component_id = form.attr("data-update-id");
-			var component_model = form.attr("data-update-model");
-			var url	= form.attr("action");
-			var id_string = "#edit_" + component_model + "_" + component_id;
-			$.post(url, $(id_string).serialize(), function(data) {
-				$("#image-replace").html($.cloudinary.image(public_id,
-					{ format: 'png', width: 350, height: 350, crop: "fit" } ));
-			},
-			"script"
-		);
-		}
-	}).bind('cloudinaryprogress', function(e, data) { 
-	  $('.progress_bar').css('width', 
-	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%'); 		
-	});
+
 	$(".receive_line_item").change(function(){
 		var line_item_id = $(this).attr("data-line-item");
 		$("#receive-" + line_item_id).submit();
@@ -140,8 +109,89 @@ $(document).ready(function(){
 		$(this).parent().hide();
 		$("#" + target + "-" + model + "-select-wrapper").removeClass('hidden');
 	});
-});
+//BEGIN NEW
+	$(".cloudinary-fileupload").fileupload({
+		dropZone: $(this).attr("data-dropzone"),
+		start: function (e) {
+			var type = $(this).attr("data-attribute");
+			$("#" + type + "-status").text("Starting upload...");
+		},
+		progress: function (e, data) {
+			var type = $(this).attr("data-attribute");
+			$("#" + type + "-status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
+		},
+		fail: function (e, data) {
+			var type = $(this).attr("data-attribute");
+			$("#" + type + "-status").text("Upload Failed. " + data);
+		}
+	})
+	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
+		var component = $(this).attr("data-component");
+		var type			= $(this).attr("data-attribute");
+		var public_id = data.result.public_id;
+		var version		= data.result.version;
+		var form = $(this).parent("form");
+		var url	= form.attr("action");
+		$.post(url, $(form).serialize(), function(data) {
+			$("#" + type + "-replace").html($.cloudinary.image(public_id,
+				{ format: 'png', version: version, width: 350, height: 350, crop: "fit" } ));
+		},
+		"script"
+	);
+		$(".status").text("");
+		var preview = $("#" + type + "-replace").html("");
+		$("<a/>").
+			addClass("delete_by_token").
+			attr({href: "#"}).
+			data({delete_token: data.result.delete_token}).
+			html("<span class='glyphicon glyphicon-trash'></span>").
+			appendTo(preview).
+			click(function(e) {
+				e.preventDefault();
+				$.cloudinary.delete_by_token($(this).data("delete_token")).done(function(){
+					$(".preview").html("");
+					$("#info").html("");
+					$("input[name='" + component + "[" + type + "]" + "']").remove();
+				}).fail(function() {
+					$(".status").text("Cannot delete image.");
+				});
+			});
+	});
+//END NEW	
 
+// BEGIN OLD
+// 	$('.progress_bar').hide();
+// 	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j",
+// 		{ cloud_name: 'hcq3xdudm' },
+// 		{ multiple: true }
+// 	).bind('fileuploadsend', function(e, data) {
+// 		var id = $(this).attr('id');
+// 		$("#submit-button").prop("disabled", true);
+// 		$('#' + id + "-progress").show();
+// 	}).bind('cloudinarydone', function(e, data) {
+// 		var id = $(this).attr('id');
+// 		var type = $(this).attr("data-attribute");
+// 		$("#submit-button").prop("disabled", "");
+// 		$('#' + id + "-progress").hide();
+// 	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id,
+// 	    { format: 'png', width: 350, height: 350 } ));
+// 		if ($(this).parent(".form-upload-replace").length === 0) {
+// 			var public_id = data.result.public_id;
+// 			var form = $(this).parent("form");
+// 			var url	= form.attr("action");
+// 			$.post(url, $(form).serialize(), function(data) {
+// 				$("#" + type + "-replace").html($.cloudinary.image(public_id,
+// 					{ format: 'png', width: 350, height: 350, crop: "fit" } ));
+// 			},
+// 			"script"
+// 		);
+// 		}
+// 	}).bind('cloudinaryprogress', function(e, data) {
+// 	  $('.progress_bar').css('width',
+// 	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%');
+// 	});
+// END OLD
+	});
 $.fn.digits = function(){ 
     return this.each(function(){ 
         $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 

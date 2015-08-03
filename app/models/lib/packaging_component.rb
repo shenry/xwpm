@@ -53,7 +53,7 @@ module PackagingComponent
   private
   
   def image_regexp
-    /\/(\w*)\/(\w*)\.\w{3,4}/
+    /.*\/(\w*)\/(\w*)\.\w{3,4}/
   end
   
   def upcase_item_number

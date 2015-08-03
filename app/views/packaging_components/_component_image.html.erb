@@ -1,17 +1,11 @@
-<div id="image-replace">
-	<%= link_to cl_image_tag(@component.image_url(:sidebar)), @component.image_url, target: :_blank %>
+<div id="<%= type %>-replace" class="replace-upload preview">
+	<%= link_to cl_image_tag(@component.send("#{type}_url".intern, :sidebar), version: Time.now.to_i), @component.send("#{type}_url".intern), target: :_blank %>
 </div>
-<p><%= link_to "Replace Image", "#", id: "replace-image-link", class: 'replace-upload', remote: true %></p>
-<div id="replace-form" style="visibility:hidden;">
-	<%= form_for @component, remote: true, data: { update_id: @component.id, update_model: @component.class.to_s.downcase } do |f| %>
-		<%= f.cl_unsigned_image_upload(:image, "frzj7e4j", public_id: @component.image_id, invalidate: true, html: { id: "image-upload" }) %>
+<p><%= link_to "Replace #{type.capitalize}", "#", class: 'replace-upload', remote: true, data: { type: type } %></p>
+<div id="replace-<%= type %>-form" style="visibility:hidden;" class="form-upload-replace">
+	<%= form_for @component, remote: true, html: {id: "#{type}-upload-form"}, data: { update_id: @component.id, update_model: @component.class.to_s.downcase, dropzone: "##{type}-replace" } do |f| %>
+		<%= hidden_field_tag :direct, true %>
+		<%= f.cl_image_upload(type.intern, public_id: "#{@component.class.to_s.downcase}/#{type.pluralize}/#{@component.id}", html: { id: "#{type}-upload", data: { component: @component.class.to_s.downcase, attribute: type }}) %>
 	<% end %>
-	<div class="progress_bar" id="image-upload-progress"></div>
+	<span class="status" id="<%= type %>-status"></span>
 </div>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#replace-image-link").click(function(){
-		$("#replace-form").css("visibility", "visible");
-	});
-});
-</script>
