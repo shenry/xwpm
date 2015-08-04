@@ -9,7 +9,7 @@
 						<td class="bold" colspan="3">
 							<%= component_link_for(item.packageable) %>
 								<% unless item.purchase_order? %>
-								<%= link_to item, data: { method: :delete, remote: true, confirm: "wha??" }, class: "pull-right destroy" do %>
+								<%= link_to item, data: { method: :delete, remote: true }, class: "pull-right destroy" do %>
 									<span class='glyphicon glyphicon-remove'></span>
 								<% end %>
 							<% end %>
@@ -46,4 +46,3 @@
 		</div>
 	<% end %>
 </div>
-<%= render partial: "/partials/component_wrappers/select_links", locals: { collection: collection, component: component } %>

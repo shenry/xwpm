@@ -33,27 +33,23 @@
 	<div class="row spacer">
 		<div class="col-xs-12">
 			<h3>Samples</h3>
-			<table class="table table-responsive no-top-border table-striped">
-				<thead>
+			<table class="table table-striped">
+				<tr>
+					<th class="col-xs-1">Ship Date</th>
+					<th class="col-xs-2">Tracking #</th>
+					<th class="col-xs-2">Status</th>
+					<th class="col-xs-1">Accepted?</th>
+					<th>Feedback</th>
+				</tr>
+				<% @firm.wine_shipments.each do |shipment| %>
 					<tr>
-						<th class="col-xs-1">Ship Date</th>
-						<th class="col-xs-2">Tracking #</th>
-						<th class="col-xs-2">Status</th>
-						<th class="col-xs-1">Accepted?</th>
-						<th>Feedback</th>
+						<td><%= formatted_date(shipment.ship_date) %></td>
+						<td><%= link_to shipment.tracking_number, google_tracking_url_for(shipment), target: :_blank %></td>
+						<td><span title="<%= shipment.message %>" class="ship-status <%= shipment.status %>"><%= shipment.current_status %></span></td>
+						<td><%= best_in_place shipment, :accepted, as: :checkbox, collection: {false: "No", true: "Yes"} %></td>
+						<td><%= best_in_place shipment, :feedback, { inner_class: "form-control bip", display_with: -> v { markup(v) } } %></td>
 					</tr>
-				</thead>
-				<tbody>
-					<% @firm.wine_shipments.each do |shipment| %>
-						<tr>
-							<td><%= formatted_date(shipment.ship_date) %></td>
-							<td><%= link_to shipment.tracking_number, google_tracking_url_for(shipment), target: :_blank %></td>
-							<td><span title="<%= shipment.message %>" class="ship-status <%= shipment.status %>"><%= shipment.current_status %></span></td>
-							<td><%= best_in_place shipment, :accepted, as: :checkbox, collection: {false: "No", true: "Yes"} %></td>
-							<td><%= best_in_place shipment, :feedback, { inner_class: "form-control bip", display_with: -> v { markup(v) } } %></td>
-						</tr>
-					<% end %>
-				</tbody>
+				<% end %>
 			</table>
 		</div>
 	</div>
@@ -75,6 +71,11 @@
 			<% i += 1 %>
 		<% end %>
 	<% else %>
-		<p>Put something here.</p>
+		<div class="row spacer">
+			<div class="col-xs-12"><h1><%= @firm.name %> Projects</h1></div>
+			<div class="col-xs-12">
+				<%= render partial: "projects/index_table", locals: { projects: @associated_collection } %>
+			</div>
+		</div>
 	<% end %>
 </div>

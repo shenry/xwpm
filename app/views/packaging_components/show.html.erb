@@ -16,10 +16,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".replace-upload").click(function(){
-		var type = $(this).attr("data-type");
-		$("#replace-" + type + "-form").css("visibility", "visible");
-	});
+
 });
 </script>
 <% unless @component.projects.blank? %>

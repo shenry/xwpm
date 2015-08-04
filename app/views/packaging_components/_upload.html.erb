@@ -1,5 +1,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".replace-upload").click(function(){
+			var type = $(this).attr("data-type");
+			// $("#replace-" + type + "-form").css("visibility", "visible");
+			$("#" + type + "-upload").trigger("click");
+		});
 		console.log("here we are");
 		$(".cloudinary-fileupload").fileupload({
 			dropZone: $(this).attr("data-dropzone"),

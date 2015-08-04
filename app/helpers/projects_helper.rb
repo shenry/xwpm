@@ -68,7 +68,11 @@ module ProjectsHelper
   def project_nav_link_for(category, options={})
     cat_string  = category.to_s
     link_title  = options[:title] || cat_string.titleize
-    li_class    = params[:category] == cat_string ? "active" : ""
+    if params[:category]
+      li_class    = params[:category] == cat_string ? "active" : ""
+    else
+      li_class    = options[:default] ? "active" : ""
+    end
     role        = options[:role] || "presentation"
     content_tag :li, class: li_class, role: role, id: "#{cat_string}_li" do
       link_to link_title, "?category=#{cat_string}", data: { remote: true }

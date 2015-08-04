@@ -1,4 +1,4 @@
-var content = "<%= j render partial: 'partials/component_wrappers/wrapper', formats: :html, locals: { component: @type } %>";
+var content = "<%= j render partial: 'partials/component_wrappers/components_pane', formats: :html, locals: { component: @type } %>";
 if ( $("#<%= @type %>").length == 0 ) {
 	var new_div = "<div style='display:none;' id='<%= @type %>'>" + content + "</div>";
 	$("#<%= @type %>_container").prepend(new_div);

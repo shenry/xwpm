@@ -1,8 +1,20 @@
 module ApplicationHelper
   DATE_FORMAT_STRING = "%m/%d/%y"
   
+  def present_attr(string)
+    arr = string.split("_")
+    arr.map { |s| s.length <= 3 ? s.upcase : s.capitalize }.join(" ")
+  end
+  
+  def conditional_image_link(image_parent, method, version)
+    url = "#{method.to_s}_url".intern
+    link_to_unless image_parent.send(method.intern).blank?, 
+                    cl_image_tag(image_parent.send(url, version)), 
+                    image_parent.send(url), target: :_blank
+  end
+  
   def markdown_link
-    link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: :_blank
+    link_to "Markdown Reference", "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet", target: :_blank, class:"pull-right"
   end
   
   def component_url_for(object, action)

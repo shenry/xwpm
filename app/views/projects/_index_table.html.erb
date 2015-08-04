@@ -16,7 +16,7 @@
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% for project in @projects %>
+	<% for project in projects %>
 		<tr id="project-<%= project.id %>">
 			<td><%= link_to project.project_number, project_path(project) %></td>
 			<% unless @customer %>
@@ -56,7 +56,7 @@
 			</td>
 		</tr>
 	<% end %>
-	<% if @projects.empty? %>
+	<% if projects.empty? %>
 		<tr>
 			<td id="no-projects" class="empty-table">
 				<% if params[:query] %>

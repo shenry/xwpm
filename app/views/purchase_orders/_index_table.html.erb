@@ -10,7 +10,7 @@
 	</tr>
 	<% purchase_orders.each do |po| %>
 		<tr id="purchase-order-<%= po.id %>">
-			<td><%= po.number %></td>
+			<td><%= link_to po.number, purchase_order_path(po) %></td>
 			<td><%= formatted_date(po.order_date) %></td>
 			<td><%= po.line_items.size %></td>
 			<td><%= number_to_currency(po.total) %></td>

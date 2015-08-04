@@ -10,7 +10,7 @@
 	<% if !comment.new_record? && comment.actionable %>
 		<%= f.input :resolved, as: :boolean, label: false %>
 	<% end %>
-	<%= f.button :submit %>
+	<%= f.submit nil, class: "btn btn-primary" %>
 </div>
 <script type="text/javascript">
 	$("input#comment_actionable").change(function(){

@@ -6,7 +6,7 @@
 	<%= render partial: "packaging_components/bip_specs_row", locals: { component: @component } %>
 	<tr>
 		<td>Position</td>
-		<td class="bold"><%= best_in_place @component, :position, class: "bip-table-input" %> mm</td>
+		<td class="bold"><%= best_in_place @component, :position, display_with: -> (v) { format_position(v) } %></td>
 	</tr>
 	<tr>
 		<td>Paper</td>
@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td>Alc</td>
-		<td class="bold"><%= best_in_place @component, :alc %></td>
+		<td class="bold"><%= best_in_place @component, :alc, display_with: -> (v) { number_to_percentage(v, precision: 1)} %></td>
 	</tr>
 	<tr>
 		<td>UPC</td>
