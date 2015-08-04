@@ -37,7 +37,6 @@
 				<thead>
 					<tr>
 						<th class="col-xs-1">Ship Date</th>
-						<th class="col-xs-1">Carrier</th>
 						<th class="col-xs-2">Tracking #</th>
 						<th class="col-xs-2">Status</th>
 						<th class="col-xs-1">Accepted?</th>
@@ -48,9 +47,8 @@
 					<% @firm.wine_shipments.each do |shipment| %>
 						<tr>
 							<td><%= formatted_date(shipment.ship_date) %></td>
-							<td><%= shipment.carrier %></td>
 							<td><%= link_to shipment.tracking_number, google_tracking_url_for(shipment), target: :_blank %></td>
-							<td><span class="ship-status <%= shipment.tracking_status_class %>"><%= shipment.tracking_status.titleize %></span></td>
+							<td><span title="<%= shipment.message %>" class="ship-status <%= shipment.status %>"><%= shipment.current_status %></span></td>
 							<td><%= best_in_place shipment, :accepted, as: :checkbox, collection: {false: "No", true: "Yes"} %></td>
 							<td><%= best_in_place shipment, :feedback, { inner_class: "form-control bip", display_with: -> v { markup(v) } } %></td>
 						</tr>
@@ -77,6 +75,6 @@
 			<% i += 1 %>
 		<% end %>
 	<% else %>
-	
+		<p>Put something here.</p>
 	<% end %>
 </div>

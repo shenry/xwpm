@@ -245,13 +245,13 @@ a.delete-link { float: right; }
 input[type=file] { color: transparent; }
 input.no-border { border: none; }
 
-.pending, .info_received { background-color: #afafaf; color: #fff; }
-.in_transit { background-color: hsla(211, 55%, 55%, 1); color: #fff; }
-.out_for_delivery { background-color: hsla(37, 95%, 55%, 1); }
-.attempt_fail { background-color: hsla(268, 65%, 65%, 1); }
-.delivered { background-color: hsla(115, 45%, 45%, 1); }
-.exception { background-color: hsla(0, 85%, 45%, 1); }
-.expired { background-color: hsla(0, 5%, 25%, 1); }
+.pre_transit { background-color: #afafaf; color: #fff; }
+.in_transit { background-color: hsla(211, 55%, 55%, 1) !important; }
+.out_for_delivery { background-color: hsla(37, 95%, 55%, 1) !important; }
+.failure { background-color: hsla(268, 65%, 65%, 1) !important; }
+.delivered { background-color: hsla(115, 45%, 45%, 1) !important; }
+.return_to_sender { background-color: hsla(0, 85%, 45%, 1) !important; }
+.unknown { background-color: hsla(0, 5%, 25%, 1) !important; }
 
 .mini-component-container { margin-bottom: 60px;}
 table.no-margin { margin: 0px !important; }

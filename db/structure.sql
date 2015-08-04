@@ -747,7 +747,8 @@ CREATE TABLE wine_shipments (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     status character varying,
-    accepted boolean DEFAULT false
+    accepted boolean DEFAULT false,
+    message character varying
 );
 
 
@@ -1555,4 +1556,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150723035915');
 INSERT INTO schema_migrations (version) VALUES ('20150723211517');
 
 INSERT INTO schema_migrations (version) VALUES ('20150725215245');
+
+INSERT INTO schema_migrations (version) VALUES ('20150804052554');
 

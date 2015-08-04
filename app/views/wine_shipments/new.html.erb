@@ -1,35 +1,52 @@
 <div class="col-xs-12 spacer">
 	<div class="col-xs-12">
-		<h1>Shipping sample <%= @wine_shipment.wine.sample_number %> to <%= @wine_shipment.customer.name %></h1>
+		<h1>Shipping Sample <%= @wine_shipment.wine.sample_number %> to <%= @wine_shipment.customer.name %></h1>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-6 spacer">
-		<%= simple_form_for @wine_shipment, html: { class: 'form-horizontal' }, defaults: { wrapper: :side_by_side } do |f| %>
-			<%= f.input :tracking_number %>
-			<%= f.input :wine_id, as: :hidden %>
-			<%= f.input :customer_id, as: :hidden %>
-			<%= f.input :carrier %>
-			<div class="form-group">
-				<label class="col-xs-4 control-label bold" for="wine_shipment_ship_date">Ship Date</label>
-				<div class="col-xs-8">
+	<%= simple_form_for @wine_shipment, html: { class: 'in-place' } do |f| %>
+		<table class="table table-responsive no-top-border col-xs-12">
+			<tr>
+				<td class="col-xs-5">Tracking Number</td>
+				<td class="col-xs-7"><%= f.text_field :tracking_number, class: "col-xs-12" %></td>
+			</tr>
+			<tr>
+				<td>Ship Date</td>
+				<td>
 					<div class="input-group date" id="date-picker">
-						<%= f.input_field :ship_date, as: :string, class: "form-control" %>
+						<%= f.input_field :ship_date, as: :string, class: "col-xs-12" %>
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
-				</div>
-				<script type="text/javascript">
-					$(function () {
-						$("#date-picker").datetimepicker({
-							format: "MM/DD/YY"
+					<script type="text/javascript">
+						$(function () {
+							$("#date-picker").datetimepicker({
+								format: "MM/DD/YY"
+							});
 						});
-					});
-				</script>
-			</div>
-			<div class="col-xs-offset-4 col-xs-4">
-				<%= f.button :submit, value: "foo", class: "button-wide" %>
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><%= f.submit "Create Sample Shipment", class: "btn btn-primary col-xs-12" %></td>
+			</tr>
+			<%= f.input :wine_id, as: :hidden %>
+			<%= f.input :customer_id, as: :hidden %>
+		</table>
+		<% end %>
+	</div>
+	<div class="col-xs-6 spacer">
+		<% if @wine_shipment.errors.any? %>
+			<div class="errors-wrapper">
+				<h4>We have problems:</h4>
+				<ul>
+					<% @wine_shipment.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
 			</div>
 		<% end %>
 	</div>
