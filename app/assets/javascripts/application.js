@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require twitter/bootstrap
 //= require turbolinks
 //= require bootstrap 
@@ -22,32 +23,33 @@
 
 //= require cloudinary
 //= require cloudinary/jquery.cloudinary
+//= require cloudinary_upload
 	
 //= require moment
 //= require bootstrap-datetimepicker
 
 
 
-$(document).on('change', '.btn-file :file', function() {
-  var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-  input.trigger('fileselect', [numFiles, label]);
-});
+// $(document).on('change', '.btn-file :file', function() {
+//   var input = $(this),
+//       numFiles = input.get(0).files ? input.get(0).files.length : 1,
+//       label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+//   input.trigger('fileselect', [numFiles, label]);
+// });
 
 $(document).ready( function() {
-    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-        
-        var input = $(this).parents('.input-group').find(':text'),
-            log = numFiles > 1 ? numFiles + ' files selected' : label;
-        
-        if( input.length ) {
-            input.val(log);
-        } else {
-            if( log ) alert(log);
-        }
-        
-    });
+    // $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+    //
+    //     var input = $(this).parents('.input-group').find(':text'),
+    //         log = numFiles > 1 ? numFiles + ' files selected' : label;
+    //
+    //     if( input.length ) {
+    //         input.val(log);
+    //     } else {
+    //         if( log ) alert(log);
+    //     }
+    //
+    // });
 		$("#create-wine-link").click(function(){
 			$("#create-wine-form").show();
 			$("#wine-select")[0].selectedIndex = 0
@@ -73,18 +75,18 @@ $(function() {
 	});
 });
 
-$(function() {
-	$(".thumb-delete").change(function(){
-		var id 		= $(this).attr('id');
-		var span	= $("span#" + id)
-		span.toggleClass("thumb-delete-warning");
-		if (span.text() == "Delete?") {
-			span.text("Delete!")
-		} else {
-			span.text("Delete?")
-		}
-	});
-});
+// $(function() {
+// 	$(".thumb-delete").change(function(){
+// 		var id 		= $(this).attr('id');
+// 		var span	= $("span#" + id)
+// 		span.toggleClass("thumb-delete-warning");
+// 		if (span.text() == "Delete?") {
+// 			span.text("Delete!")
+// 		} else {
+// 			span.text("Delete?")
+// 		}
+// 	});
+// });
 
 $(document).ready(function(){
 	$("#create-form input").blur(function(){
@@ -110,88 +112,72 @@ $(document).ready(function(){
 		$("#" + target + "-" + model + "-select-wrapper").removeClass('hidden');
 	});
 //BEGIN NEW
-	$(".cloudinary-fileupload").fileupload({
-		dropZone: $(this).attr("data-dropzone"),
-		start: function (e) {
-			var type = $(this).attr("data-attribute");
-			$("#" + type + "-status").text("Starting upload...");
-		},
-		progress: function (e, data) {
-			var type = $(this).attr("data-attribute");
-			$("#" + type + "-status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
-		},
-		fail: function (e, data) {
-			var type = $(this).attr("data-attribute");
-			$("#" + type + "-status").text("Upload Failed. " + data);
-		}
-	})
-	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
-		var component = $(this).attr("data-component");
-		var type			= $(this).attr("data-attribute");
-		var public_id = data.result.public_id;
-		var version		= data.result.version;
-		var form = $(this).parent("form");
-		var url	= form.attr("action");
-		$.post(url, $(form).serialize(), function(data) {
-			$("#" + type + "-replace").html($.cloudinary.image(public_id,
-				{ format: 'png', version: version, width: 350, height: 350, crop: "fit" } ));
-		},
-		"script"
-	);
-		$(".status").text("");
-		var preview = $("#" + type + "-replace").html("");
-		$("<a/>").
-			addClass("delete_by_token").
-			attr({href: "#"}).
-			data({delete_token: data.result.delete_token}).
-			html("<span class='glyphicon glyphicon-trash'></span>").
-			appendTo(preview).
-			click(function(e) {
-				e.preventDefault();
-				$.cloudinary.delete_by_token($(this).data("delete_token")).done(function(){
-					$(".preview").html("");
-					$("#info").html("");
-					$("input[name='" + component + "[" + type + "]" + "']").remove();
-				}).fail(function() {
-					$(".status").text("Cannot delete image.");
-				});
-			});
-	});
-//END NEW	
-
-// BEGIN OLD
-// 	$('.progress_bar').hide();
-// 	$('.cloudinary-fileupload').unsigned_cloudinary_upload("frzj7e4j",
-// 		{ cloud_name: 'hcq3xdudm' },
-// 		{ multiple: true }
-// 	).bind('fileuploadsend', function(e, data) {
-// 		var id = $(this).attr('id');
-// 		$("#submit-button").prop("disabled", true);
-// 		$('#' + id + "-progress").show();
-// 	}).bind('cloudinarydone', function(e, data) {
-// 		var id = $(this).attr('id');
-// 		var type = $(this).attr("data-attribute");
-// 		$("#submit-button").prop("disabled", "");
-// 		$('#' + id + "-progress").hide();
-// 	  $('#' + id + "-thumbnail").html($.cloudinary.image(data.result.public_id,
-// 	    { format: 'png', width: 350, height: 350 } ));
-// 		if ($(this).parent(".form-upload-replace").length === 0) {
-// 			var public_id = data.result.public_id;
-// 			var form = $(this).parent("form");
-// 			var url	= form.attr("action");
+	// $(".cloudinary-fileupload").fileupload({
+// 		dropZone: $(this).attr("data-dropzone"),
+// 		start: function (e) {
+// 			var type = $(this).attr("data-attribute");
+// 			$("#" + type + "-status").text("Starting upload...");
+// 		},
+// 		progress: function (e, data) {
+// 			var type = $(this).attr("data-attribute");
+// 			$("#" + type + "-status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
+// 		},
+// 		fail: function (e, data) {
+// 			var type = $(this).attr("data-attribute");
+// 			$("#" + type + "-status").text("Upload Failed. " + data);
+// 		}
+// 	})
+// 	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
+// 		var component = $(this).attr("data-component");
+// 		var type			= $(this).attr("data-attribute");
+// 		var public_id = data.result.public_id;
+// 		var version		= data.result.version;
+// 		var form = $(this).closest("form");
+// 		var url	= form.attr("action");
+// 		var method = form.attr("data-method");
+// 		if ( method == "patch" ) {
 // 			$.post(url, $(form).serialize(), function(data) {
 // 				$("#" + type + "-replace").html($.cloudinary.image(public_id,
-// 					{ format: 'png', width: 350, height: 350, crop: "fit" } ));
+// 					{ format: 'png', version: version, width: 350, height: 350, crop: "fit" } ));
 // 			},
-// 			"script"
-// 		);
+// 				"script"
+// 			);
+// 		} else {
+// 			$("#" + type + "-explain").html(type.toUpperCase() + " Preview");
+// 			$("#" + type + "-preview").html($.cloudinary.image(public_id,
+// 				{ format: 'png', version: version, width: 350, height: 350, crop: 'fit' } ));
 // 		}
-// 	}).bind('cloudinaryprogress', function(e, data) {
-// 	  $('.progress_bar').css('width',
-// 	    Math.round((data.loaded * 100.0) / data.total) - 1 + '%');
+// 		$(".status").text("");
+// 		var preview = $("#" + type + "-replace").html("");
+// 		$("<a/>").
+// 			addClass("delete_by_token").
+// 			attr({href: "#"}).
+// 			data({delete_token: data.result.delete_token}).
+// 			html("<span class='glyphicon glyphicon-trash'></span>").
+// 			appendTo(preview).
+// 			click(function(e) {
+// 				e.preventDefault();
+// 				$.cloudinary.delete_by_token($(this).data("delete_token")).done(function(){
+// 					$(".preview").html("");
+// 					$("#info").html("");
+// 					$("input[name='" + component + "[" + type + "]" + "']").remove();
+// 				}).fail(function() {
+// 					$(".status").text("Cannot delete image.");
+// 				});
+// 			});
 // 	});
-// END OLD
-	});
+//END NEW	
+});
+	
+$.fn.capitalize = function () {
+    $.each(this, function () {
+        var caps = this.value;
+        caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        this.value = caps;
+    });
+    return this;
+};
+
 $.fn.digits = function(){ 
     return this.each(function(){ 
         $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 

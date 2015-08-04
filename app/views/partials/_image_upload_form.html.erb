@@ -1,12 +1,14 @@
-<table class="table table-responsive no-top-border">
+<table class="table no-top-border">
 	<tr>
-		<td class="col-xs-4"><%= name.to_s.titleize %></td>
-		<td id="upload-cell" class="col-xs-8">
-			<%= f.cl_unsigned_image_upload(name, "frzj7e4j", html: { id: "image-upload" }) %>
-			<div class="progress_bar" id="<%= name.to_s %>-upload-progress">&nbsp;</div>
+		<td>
+			<span id="<%= name.to_s %>-explain">Upload <%= name.to_s.titleize %>&nbsp;</span>
+			<div class="col-xs-12 preview" id="<%= name.to_s %>-preview">
+				<%= image_tag "fallback/sidebar_default.png" %>
+			</div>
+			<div class="col-xs-12">
+				<%= f.cl_image_upload(name, html: { class: "col-xs-7 no-border", data: { attribute: name.to_s } }) %>
+			</div>
+			<span class="status" id="<%= name.to_s %>-status"></span>
 		</td>
-	</tr>
-	<tr>
-		<td colspan="2"><div class="thumbnails" id="<%= name.to_s %>-upload-thumbnail"></div></td>
 	</tr>
 </table>
