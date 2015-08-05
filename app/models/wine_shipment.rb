@@ -15,7 +15,7 @@
 #
 
 class WineShipment < ActiveRecord::Base
-  require 'EasyPost'
+  require 'easypost'
   
   belongs_to :customer, class_name: "Firm"
   belongs_to :wine
@@ -49,6 +49,6 @@ class WineShipment < ActiveRecord::Base
   end
   
   def extract_message(tracker)
-    tracker.tracking_details[0]["message"] || "ERR"
+    tracker.tracking_details.last["message"] || "ERR"
   end
 end

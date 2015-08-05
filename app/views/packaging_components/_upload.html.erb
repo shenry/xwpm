@@ -1,11 +1,5 @@
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".replace-upload").click(function(){
-			var type = $(this).attr("data-type");
-			// $("#replace-" + type + "-form").css("visibility", "visible");
-			$("#" + type + "-upload").trigger("click");
-		});
-		console.log("here we are");
 		$(".cloudinary-fileupload").fileupload({
 			dropZone: $(this).attr("data-dropzone"),
 			start: function (e) {
@@ -41,7 +35,7 @@
 				$("#" + type + "-preview").html($.cloudinary.image(public_id,
 					{ format: 'png', version: version, width: 350, height: 350, crop: 'fit' } ));
 			}
-			$(".status").text("");
+			$(".status").html("&nbsp;");
 			var preview = $("#" + type + "-replace").html("");
 			$("<a/>").
 				addClass("delete_by_token").

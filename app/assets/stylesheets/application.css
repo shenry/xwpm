@@ -244,6 +244,7 @@ a.destroy:hover { color: red;}
 a.delete-link { float: right; }
 input[type=file] { color: transparent; }
 input.no-border { border: none; }
+span.status { line-height: 1em; }
 
 .pre_transit { background-color: #afafaf; color: #fff; }
 .in_transit { background-color: hsla(211, 55%, 55%, 1) !important; }
