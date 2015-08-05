@@ -218,9 +218,9 @@ table img { border: 1px solid #dfdfdf; }
 }
 
 div.project-component {
-	min-height: 430px;
+	min-height: 200px;
 }
-.component-summary { min-height: 260px !important; margin-bottom: 40px; }
+.component-summary { min-height: 260px !important; margin-bottom: 40px; max-height: 332px; overflow-y: scroll;}
 .component-manager { height: 40px; line-height: 40px; }
 .component-container { margin-bottom: 40px; }
 
@@ -254,7 +254,8 @@ span.status { line-height: 1em; }
 .return_to_sender { background-color: hsla(0, 85%, 45%, 1) !important; }
 .unknown { background-color: hsla(0, 5%, 25%, 1) !important; }
 
-.mini-component-container { margin-bottom: 60px;}
+.mini-component-container { margin-bottom: 40px;}
+.mini-component-container:last-child { margin-bottom: 0px; }
 table.no-margin { margin: 0px !important; }
 
 .errors-wrapper, .field_with_errors input {

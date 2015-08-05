@@ -15,8 +15,8 @@ module PackagingComponent
         [['mm', 'mm'], ['in', 'in']]
       end
       
-      def self.select_options
-        all.map { |a| [a.to_s, a.id] }
+      def self.select_options(array)
+        array.map { |a| [a.to_s, a.id] }
       end
       
     end

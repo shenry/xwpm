@@ -115,7 +115,7 @@ class ProjectsController < ApplicationController
       render action: :edit
     end
   end
-  
+
   def add_components
     @project     = Project.find(params[:id])
     model_hash  = params[:project]
@@ -130,14 +130,14 @@ class ProjectsController < ApplicationController
       @project.update_attribute(assoc, component)
     end
   end
-  
+
   def remove
     @project = Project.find(params[:id])
     @association = params[:association]
     @association = "closure" if ["cork", "screwcap"].include? @association
     @project.send("#{@association}=", nil)
     @project.save
-    
+
     respond_to do |wants|
       wants.html { redirect_to project_path(@project) }
       wants.js { }

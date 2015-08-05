@@ -103,6 +103,14 @@ class Project < ActiveRecord::Base
     all
   end
   
+  def available_components_for(category)
+    klass = category.split("_").each { |s| s.capitalize! }.join("").constantize
+    components = klass.active
+    assigned_components = self.send(category.pluralize.intern)
+    available = components - assigned_components
+    klass.select_options(available)
+  end
+  
   def self.associated_with_vendor(vendor_id)
     attr_hash = Vendor.find(vendor_id).products_attr_hash
     joins(:components).where(:component_requirements => { :packageable_type => attr_hash[:types], :packageable_id => attr_hash[:ids]}).group("projects.id")
