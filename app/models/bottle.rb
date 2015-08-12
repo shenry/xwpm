@@ -33,7 +33,7 @@ class Bottle < ActiveRecord::Base
   has_many :component_requirements, as: :packageable, dependent: :destroy
   has_many :projects, through: :component_requirements
   
-  validates :item_number, :fill_point, :mould, :color, :shape, :height, :width, 
+  validates :item_number, :mould, :color, :shape, :height, :width, 
             :neck_diameter, :units, :finish, :capacity, :capacity_units, :bottles_per_case, 
             :case_dimensions, :pallet_config, :case_weight, :active, presence: true
             
