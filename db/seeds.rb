@@ -27,6 +27,12 @@ users = [
     name: "Barrett Marsalek",
     password: "xwinery1",
     admin: false
+  },
+  {
+    email: "erica@xwinery.com",
+    name: "Erica O'Brien",
+    password: "xwinery1",
+    admin: false
   }
 ]
 
