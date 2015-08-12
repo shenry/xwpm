@@ -12,7 +12,6 @@
 	<table class='table table-striped'>
 		<tr>
 			<th>Name</th>
-			<th>Code</th>
 			<th>Contact</th>
 			<th>Email</th>
 			<th>Phone</th>
@@ -29,7 +28,6 @@
 		<% for firm in @firms %>
 			<tr id="firm-<%= firm.id %>">
 				<td><%= link_to firm.name, polymorphic_path(firm) %></td>
-				<td><%= firm.code %></td>
 				<td><%= firm.contact_name %></td>
 				<td><a href="mailto:<%= firm.contact_email %>"><%= firm.contact_email %></a></td>
 				<td><%= firm.contact_phone %></td>
