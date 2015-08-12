@@ -220,9 +220,9 @@ class Project < ActiveRecord::Base
   end
   
   def has_valid_components?
-    self.components.each do |c|
-      return false unless c.available_inventory > 
-    end
+    # self.components.each do |c|
+    #   return false unless c.available_inventory >
+    # end
     true
   end
   
