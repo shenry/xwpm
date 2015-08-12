@@ -2,9 +2,12 @@
 	<%= menu_group do %>
 		<% if user_signed_in? %>
 			<%= menu_item 'Projects', root_path %>
-			<%= menu_item 'Customers', customers_path %>
+			<%= drop_down "Firms" do %>
+				<%= menu_item "Customers", customers_path %>
+				<%= menu_item "Vendors", vendors_path %>
+				<%= menu_item "Wineries", wineries_path %>
+			<% end %>
 			<%= menu_item	'Wines', wines_path %>
-			<%= menu_item	'Vendors', vendors_path %>
 			<%= menu_item 'Purchase Orders', purchase_orders_path %>
 			<%= drop_down 'Packaging' do %>
 				<%= menu_item 'Bottles', bottles_path %>

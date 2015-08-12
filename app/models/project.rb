@@ -26,15 +26,20 @@
 #  taxes             :string
 #  fso2_target       :string
 #  max_do            :string
+#  notes             :text             default("")
 #
 
 class Project < ActiveRecord::Base
   include ProjectsHelper
   include CostHelper
   include PgSearch
+  include AASM
 
   belongs_to  :wine, inverse_of: :projects
   belongs_to  :customer, class_name: "Firm", counter_cache: true
+  belongs_to  :bottler, class_name: "Firm"
+  belongs_to  :produced_at, class_name: "Firm"
+  belongs_to  :bottled_at, class_name: "Firm"
   
   has_many    :components, class_name: "ComponentRequirement"
   has_many    :component_orders, through: :components, class_name: "PackagingComponentOrder"
@@ -71,9 +76,10 @@ class Project < ActiveRecord::Base
   validates :project_number, format: { with: /\A\d{2}\-?\d{2}\w?\z/ }
   validates :project_number, uniqueness: true
   validates :target_cases, numericality: { only_integer: true }
-  validate  :bottling_date_cant_be_in_the_past
+  validate  :bottling_date_cant_be_in_the_past, on: :create
 
-  scope     :active,  -> { where("bottling_date >= ?", Date.today).order("bottling_date ASC") }
+  scope     :planned,  -> { where("bottling_date >= ?", 1.week.ago).order("bottling_date ASC").not_cancelled }
+  scope     :not_cancelled, -> { where.not(aasm_state: [:cancelled, :closed]) }
   scope     :for_customer, ->(id) { where("customer_id = ?", id) }
   
   paginates_per 10
@@ -81,6 +87,32 @@ class Project < ActiveRecord::Base
   # multisearchable against: [:brand, :variety, :appellation, :vintage, :notes]
   pg_search_scope :search_all, against: [:brand, :variety, :appellation, :project_number], 
                   using: { tsearch: { dictionary: 'english' }, trigram: { threshold: 0.2 } }
+                  
+  aasm do
+    state :in_development, intial: true
+    state :cancelled
+    state :active
+    state :ready
+    state :bottled
+    state :costed
+    state :closed
+    
+    event :activate do
+      transitions from: [:in_development, :cancelled], to: :active
+    end
+    
+    event :deactivate do
+      transitions from: [:activate, :ready], to: :in_development
+    end
+    
+    event :make_ready do
+      transitions from: :active, to: :ready, if: :ready_for_bottling?
+    end
+    
+    event :cancel do
+      transitions to: :cancelled
+    end
+  end
   
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
@@ -179,20 +211,32 @@ class Project < ActiveRecord::Base
   
   private
   
-  # def set_initial_state
-  #   in_development!
-  # end
+  REQUIRED_COMPONENTS = ["Bottle", "Closure", "Front Label"]
   
-  # def dateify_bottling_date
-  #   unless bottling_date.blank?
-  #     self.bottling_date = Date.strptime(bottling_date, BOTTLING_DATE_FORMAT_STRING)
-  #   end
-  # end
+  def ready_for_bottling?
+    r = has_required_components?
+    v = has_valid_components?
+    q = has_valid_component_quantities?
+  end
   
-  # def formatted_label_position(type)
-  #   return "N/A" if self.send(type).nil?
-  #   self.send(type).label_position + "mm"
-  # end
+  def has_valid_components?
+    self.components.each do |c|
+      return false unless c.available_inventory > 
+    end
+    true
+  end
+  
+  def has_required_components?
+    component_types = components_list
+    REQUIRED_COMPONENTS.each do |c|
+      return false unless component_types.include? c
+    end
+    true
+  end
+  
+  def components_list
+    self.components.collect(&:packageable_type).compact
+  end
   
   def format_project_number
     unless project_number.match(/\A\d{2}\-\d{2}\w?\z/)

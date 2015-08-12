@@ -17,7 +17,9 @@
 			<th>Email</th>
 			<th>Phone</th>
 			<th>Address</th>
-			<% if @klass == Customer %>
+			<% if @klass == Winery %>
+			<th>Bond</th>
+			<% elsif @klass == Customer %>
 				<th class="col-xs-1">Active Projects</th>
 				<th class="col-xs-1">Samples in Review</th>
 				<th>&nbsp;</th>
@@ -32,7 +34,9 @@
 				<td><a href="mailto:<%= firm.contact_email %>"><%= firm.contact_email %></a></td>
 				<td><%= firm.contact_phone %></td>
 				<td><%= firm.one_line_address %></td>
-				<% if @klass == Customer %>
+				<% if @klass == Winery %>
+					<td><%= firm.bond %></td>
+				<% elsif @klass == Customer %>
 					<td><%= link_to firm.projects.active.count, customer_projects_path(firm) %></td>
 					<td><%= firm.unreviewed_wine_shipments.size %></td>
 					<td><%= link_to "New Project", new_customer_project_path(firm) %></td>

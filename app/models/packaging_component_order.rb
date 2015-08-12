@@ -2,10 +2,12 @@
 #
 # Table name: packaging_component_orders
 #
-#  purchase_order_id        :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id                       :integer          not null, primary key
 #  component_requirement_id :integer
+#  purchase_order_id        :integer
+#  quantity                 :float            default(0.0)
+#  price                    :float            default(0.0)
+#  received                 :boolean          default(FALSE), not null
 #
 
 class PackagingComponentOrder < ActiveRecord::Base

@@ -12,6 +12,9 @@
 #  approved        :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  status          :string
+#  accepted        :boolean          default(FALSE)
+#  message         :string
 #
 
 class WineShipment < ActiveRecord::Base

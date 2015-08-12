@@ -580,7 +580,10 @@ CREATE TABLE projects (
     taxes character varying,
     fso2_target character varying,
     max_do character varying,
-    notes text DEFAULT ''::text
+    notes text DEFAULT ''::text,
+    aasm_state character varying,
+    bottled_at_id integer,
+    bottler_id integer
 );
 
 
@@ -1256,6 +1259,13 @@ CREATE INDEX index_pg_search_documents_on_searchable_type_and_searchable_id ON p
 
 
 --
+-- Name: index_projects_on_aasm_state; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_projects_on_aasm_state ON projects USING btree (aasm_state);
+
+
+--
 -- Name: index_projects_on_brand; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1558,4 +1568,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150723211517');
 INSERT INTO schema_migrations (version) VALUES ('20150725215245');
 
 INSERT INTO schema_migrations (version) VALUES ('20150804052554');
+
+INSERT INTO schema_migrations (version) VALUES ('20150806210751');
+
+INSERT INTO schema_migrations (version) VALUES ('20150811022805');
 

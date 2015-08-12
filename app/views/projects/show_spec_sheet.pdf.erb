@@ -72,23 +72,23 @@
 					<table class="table">
 						<tr>
 							<td>FRONT LABEL PLACEMENT</td>
-							<td class="lav"><%= @project.front_label.position -%>mm</td>
+							<td class="lav"><%= @project.front_labels.first.position -%>mm</td>
 						</tr>
 						<tr>
 							<td>BACK LABEL PLACEMENT</td>
-							<td class="lav"><%= @project.back_label.position -%>mm</td>
+							<td class="lav"><%= @project.back_labels.first.position -%>mm</td>
 						</tr>
 						<tr>
 							<td>QUANTITY/CS</td>
-							<td class="lav"><%= @project.bottle.case_config -%></td>
+							<td class="lav"><%= @project.bottles.first.case_config -%></td>
 						</tr>
 						<tr>
 							<td>PALLET CONFIGURATION</td>
-							<td class="lav"><%= @project.bottle.pallet_config -%></td>
+							<td class="lav"><%= @project.bottles.first.pallet_config -%></td>
 						</tr>
 						<tr>
 							<td>CASE WEIGHT</td>
-							<td class="lav"><%= @project.bottle.case_weight -%>Lbs</td>
+							<td class="lav"><%= @project.bottles.first.case_weight -%>Lbs</td>
 						</tr>
 						<tr>
 							<td>SO2 TARGET</td>
@@ -167,29 +167,31 @@
 			<div class="col-xs-12">
 				<table class="table flush-top no-top-border">
 					<tr>
-						<th class="col-xs-7" colspan="2">ITEM CODE/DESCRIPTION</th>
-						<th class="col-xs-1s">INV</th>
-						<th class="col-xs-1s">ON PO</th>
-						<th class="col-xs-1s">PO#</th>
-						<th class="col-xs-1s">USED</th>
+						<th>ITEM CODE/DESCRIPTION</th>
+						<th class="col-xs-1">INV</th>
+						<th class="col-xs-1">ON PO</th>
+						<th class="col-xs-1">PO#</th>
+						<th class="col-xs-1">USED</th>
 					</tr>
+					<% ["bottle", "closure", "capsule", "front_label", "back_label"].each do |item| %>
+						<% collection = @project.send([item, "requirements"].join("_").intern) %>
+						<tr>
+							<td colspan="5" class="table-header">
+								<%= collection.size > 1 ? item.pluralize.titleize : item.titleize %>
+							</td>
+						</tr>
+						<% collection.each do |requirement| %>
+							<tr>
+								<td><%= requirement.packageable.to_s %></td>
+								<td>#TODO</td>
+								<td><%= requirement.packaging_component_order.quantity %></td>
+								<td><%= requirement.purchase_order.number %></td>
+								<td>#TODO</td>
+							</tr>
+						<% end %>
+					<% end %>
 					<tr>
-						<td class="vert" rowspan="3">G<br/>L<br/>A<br/>S<br/>S</td>
 						<td>this is a very long item description</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>

@@ -30,6 +30,10 @@ class Vendor < Firm
   
   before_save :upcase_code
   
+  def self.primary_association
+    :products
+  end
+  
   def products_attr_hash
     products.inject({ids: [], types: []}) do |hash, vp|
       hash[:ids] << vp.vendable_id

@@ -1,0 +1,3 @@
+class WineriesController < FirmsController
+  
+end

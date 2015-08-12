@@ -13,6 +13,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  line_items_count :integer
+#  overhead         :float            default(0.0)
 #
 
 class PurchaseOrder < ActiveRecord::Base

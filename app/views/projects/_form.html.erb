@@ -8,6 +8,10 @@
 	<%= f.input :winemaker %>
 	<%= f.input :target_cases, label: "Target Cases" %>
 	<%= f.input :cases_to_customer, label: "Cases to Customer" %>
+	<%= f.input :bottled_at_id, collection: Winery.select_options, 
+							include_blank: "Select Bottling Location", label: "Bottling Loc." %>
+	<%= f.input :bottler_id, collection: Winery.select_options, 
+							include_blank: "Select Bottler", label: "Bottler" %>
 	<%= f.input :trucker %>
 	<div class="form-group">
 		<label class="col-xs-4 control-label bold" for="project_bottling_date">Bottling Date</label>

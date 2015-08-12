@@ -29,15 +29,21 @@ class Customer < Firm
   
   accepts_nested_attributes_for :projects, allow_destroy: true
   
-  def self.select_options
-    grp = Customer.order(:name)
-    out = []
-    grp.each do |c|
-      out << [c.name, c.id]
+  class << self
+    def primary_association
+      :projects
     end
-    out
-  end
-  
+    
+    def select_options
+      grp = Customer.order(:name)
+      out = []
+      grp.each do |c|
+        out << [c.name, c.id]
+      end
+      out
+    end
+    
+  end  
   def unreviewed_wine_shipments
     wine_shipments.select { |s| s.accepted == false || s.feedback.blank? }
   end

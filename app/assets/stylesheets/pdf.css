@@ -1,5 +1,5 @@
 #header { background-color: #ea9fdc; text-align: center; }
-.lav { background-color: #fce8fc; }
+.lav { background-color: #fce8fc !important; }
 .flush-top { margin-top: 0px; }
 .table tr td { line-height: 7px !important; }
 .table tr td { border: 1px solid black !important; /*border-bottom: 1px solid black !important;*/}

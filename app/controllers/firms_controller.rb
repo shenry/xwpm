@@ -19,13 +19,8 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.xml
   def show
-    if @klass == Vendor
-      association = :products
-    elsif @klass == Customer
-      association = :projects
-    else
-      raise "Unrecognized Firm category"
-    end
+    association = @klass.primary_association
+    # TODO - this isn't working for Wineries. Need to get a named association that uses OR (merge joins with AND)
     @firm       = @klass.includes(association).find(params[:id])
     objects     = @firm.send(association)
     if association == :products
@@ -124,7 +119,7 @@ class FirmsController < ApplicationController
     
     def firm_params
       klass = @klass.to_s.downcase.intern
-      params[klass].permit(:code, :name, :description, :contact_name, :contact_email, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
+      params[klass].permit(:code, :name, :description, :contact_name, :contact_email, :bond, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
     end
 
 end

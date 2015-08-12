@@ -8,6 +8,7 @@
 #  packageable_type :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  ancestry         :string
 #
 
 class ComponentRequirement < ActiveRecord::Base

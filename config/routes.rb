@@ -79,7 +79,7 @@ X::Application.routes.draw do
   end
   
   resources :packaging_components, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
-            :back_labels, :vendors, :comments
+            :back_labels, :vendors, :comments, :wineries
             
   resources :projects do
     resources :comments

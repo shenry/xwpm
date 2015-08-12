@@ -1,6 +1,7 @@
 <table class="table table-striped">
 	<tr>
 		<th>PO #</th>
+		<th>Vendor</th>
 		<th>Order Date</th>
 		<th>No. Items</th>
 		<th>Total $</th>
@@ -11,6 +12,7 @@
 	<% purchase_orders.each do |po| %>
 		<tr id="purchase-order-<%= po.id %>">
 			<td><%= link_to po.number, purchase_order_path(po) %></td>
+			<td><%= link_to po.vendor, vendor_path(po.vendor) %></td>
 			<td><%= formatted_date(po.order_date) %></td>
 			<td><%= po.line_items.size %></td>
 			<td><%= number_to_currency(po.total) %></td>

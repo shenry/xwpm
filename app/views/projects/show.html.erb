@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>Bottling Location</td>
-				<td class="bold">#TODO</td>
+				<td class="bold"><%= best_in_place @project, :bottled_at_id, as: :select, collection: Winery.select_options %></td>
 			</tr>
 		</table>
 	</div>
@@ -86,7 +86,8 @@
 			</tr>
 			<tr>
 				<td>Bottler</td>
-				<td class="bold">#TODO</td>
+				<td class="bold"><%= best_in_place @project, :bottler_id, as: :select, 
+															collection: Winery.select_options %></td>
 			</tr>
 		</table>
 	</div>

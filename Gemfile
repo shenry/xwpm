@@ -30,6 +30,7 @@ gem 'pg'
 gem 'pg_search'
 gem 'ancestry'
 gem 'jquery-turbolinks'
+gem 'aasm'
 
 # Necessary for Windows OS (won't install on *nix systems)
 gem 'tzinfo-data', platforms: [:mingw, :mswin]

@@ -7,6 +7,9 @@
 	<%= f.input :contact_phone, label: "Contact Phone", placeholder: "ex: (707) 555-1234" %>
 	<%= f.input :address_line_1, label: "Address Line 1" %>
 	<%= f.input :address_line_2, label: "Address Line 2" %>
+	<% if @klass == Winery %>
+		<%= f.input :bond %>
+	<% end %>
 	<%= f.input :city %>
 	<%= f.input :state, collection: us_states, label_method: :first, value_method: :last, include_blank: false %>
 	<%= f.input :zip %>

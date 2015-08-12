@@ -158,6 +158,7 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,
                                     :bottling_date, :qb_code, :trucker, :cases_to_customer, :fob, :fso2_target, :max_do,
-                                    :vintage, :appellation, :taxes, :no_capsule, :notes, :wine_id)
+                                    :vintage, :appellation, :taxes, :no_capsule, :notes, :wine_id, :bottler_id,
+                                    :bottled_at_id)
   end
 end
