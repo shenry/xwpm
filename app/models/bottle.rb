@@ -62,9 +62,12 @@ class Bottle < ActiveRecord::Base
   
   def formatted_case_dimensions
     string  = case_dimensions
-    matches = string.match(/(\d+)\s(\d+\/\d+)\sx\s(\d+)\s(\d+\/\d+)\sx\s(\d+)\s(\d+\/\d+)?/).captures
-    output = "#{matches[0]} #{add_markup(matches[1])} &nbsp;x&nbsp; #{matches[2]} #{add_markup(matches[3])} &nbsp;x&nbsp; #{matches[4]} #{add_markup(matches[5])}"
-    output.html_safe
+    fractions = string.scan(/((\d+)(\/)(\d+))/)
+    fractions.each do |array|
+      original, num, split, den = array
+      string.gsub!(original, "<sup>#{num}</sup>/<sub>#{den}</sub>")
+    end
+    string.html_safe
   end
   
   def case_config
