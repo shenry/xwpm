@@ -1,7 +1,7 @@
 <div class='row spacer'>
 	<div class='row-same-height'>
 		<div class='col-xs-8 col-xs-height'>
-			<h1><%= @firm.name %><% if @klass == Vendor %> &nbsp;<small>(<%= @firm.code %>)</small><% end %><br/></h1>
+			<h1><%= @firm.name %></h1>
 			<div class="firm-details">
 				<%= @firm.address_line_1 %><br/>
 				<% unless @firm.address_line_2.blank? %>

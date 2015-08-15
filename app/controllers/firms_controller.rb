@@ -119,7 +119,7 @@ class FirmsController < ApplicationController
     
     def firm_params
       klass = @klass.to_s.downcase.intern
-      params[klass].permit(:code, :name, :description, :contact_name, :contact_email, :bond, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
+      params[klass].permit(:name, :description, :contact_name, :contact_email, :bond, :contact_phone, :address_line_1, :address_line_2, :city, :state, :zip)
     end
 
 end

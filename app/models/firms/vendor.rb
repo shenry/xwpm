@@ -26,10 +26,6 @@ class Vendor < Firm
   has_many :products, class_name: "VendorProduct", dependent: :destroy
   has_many :purchase_orders, inverse_of: :vendor , dependent: :destroy
   
-  validates :code, presence: true
-  
-  before_save :upcase_code
-  
   def self.primary_association
     :products
   end
@@ -40,11 +36,6 @@ class Vendor < Firm
       hash[:types] << vp.vendable_type
       hash
     end
-  end
-  
-  private
-  def upcase_code
-    self.code = self.code.upcase
   end
 
 end

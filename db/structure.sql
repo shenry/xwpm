@@ -383,8 +383,7 @@ CREATE TABLE firms (
     account_number character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    projects_count integer,
-    code character varying
+    projects_count integer
 );
 
 
@@ -1572,4 +1571,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150804052554');
 INSERT INTO schema_migrations (version) VALUES ('20150806210751');
 
 INSERT INTO schema_migrations (version) VALUES ('20150811022805');
+
+INSERT INTO schema_migrations (version) VALUES ('20150815032146');
 
