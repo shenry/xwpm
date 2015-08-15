@@ -42,7 +42,7 @@ class Firm < ActiveRecord::Base
   end
   
   def to_s
-    name + " (" + code + ") "
+    name
   end
   
   private
