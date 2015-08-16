@@ -1,6 +1,8 @@
 module PackagingComponent
   def self.included(base)
     base.class_eval do
+      has_many :events, class_name: "ComponentEvent", as: :packageable, dependent: :destroy
+      
       validates :item_number, uniqueness: true
       
       scope :active, lambda { joins(:vendor).where(active: true) }

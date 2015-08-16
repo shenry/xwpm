@@ -18,12 +18,17 @@ class ComponentRequirement < ActiveRecord::Base
   belongs_to  :packageable, polymorphic: true
   has_one     :packaging_component_order
   has_one     :purchase_order, through: :packaging_component_order
+  has_one     :event, class_name: "ComponentEvent", as: :actionable, dependent: :destroy
   
   has_ancestry orphan_strategy: :adopt
   
   # accepts_nested_attributes_for :packageable
   
   validates :project_id, :packageable_id, :packageable_type, presence: true
+  
+  def event_action
+    "Deplete"
+  end
   
   def cost
     packaging_component_order.total_cost

@@ -272,3 +272,25 @@ table.no-margin { margin: 0px !important; }
 .glow-1 { background-color: hsl(90, 100%, 90%); width: 5px; top: 0px; height: 40px; border-radius: 2px;}
 
 .empty-table { height: 300px; text-align: center; font-size: 2em; background-color: #eee; color: #777;}
+
+.project-status {
+	height: 44px; 
+	width: 44px;
+}
+
+.project-status-button {
+	display: block;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	box-shadow: 1px 1px 1px #dce;
+}
+span.in_development {
+	background-color: #EB6D71;
+	border: 1px solid #E6595D;
+}
+/* TODO - Finish stylying the project states */
+span.active {
+	background-color: #ADEBAD;
+	border: 1px solid #ADEBAD;
+}

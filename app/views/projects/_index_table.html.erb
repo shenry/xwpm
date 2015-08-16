@@ -1,5 +1,6 @@
 <table class='table table-striped' id="projects">
 	<tr>
+		<th>&nbsp;</th>
 		<th class="col-sm-1">Project Number</th>
 		<% unless @customer %>
 			<th>Customer</th>
@@ -12,12 +13,12 @@
 		<th class="col-sm-1">Bottling Date</th>
 		<th>Wine</th>
 		<th>Actions</th>
-		<th>Status</th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
 	<% for project in projects %>
 		<tr id="project-<%= project.id %>">
+			<td class="project-status"><span class="project-status-button <%= project.aasm_state %>"></span></td>
 			<td><%= link_to project.project_number, project_path(project) %></td>
 			<% unless @customer %>
 				<td><%= link_to project.customer.name, polymorphic_path(project.customer) %></td>
@@ -42,7 +43,6 @@
 					<% end %>
 				<% end %>
 			</td>
-			<td>#TODO</td>
 			<td>
 				<%= link_to clone_project_path(project), data: { remote: true } do %>
 					<span class="glyphicon glyphicon-duplicate text-primary"></span>

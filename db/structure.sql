@@ -101,7 +101,8 @@ CREATE TABLE back_labels (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    quantity numeric(12,6) DEFAULT 0
 );
 
 
@@ -149,7 +150,8 @@ CREATE TABLE bottles (
     image character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    quantity numeric(12,6) DEFAULT 0
 );
 
 
@@ -189,7 +191,8 @@ CREATE TABLE capsules (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    quantity numeric(12,6) DEFAULT 0
 );
 
 
@@ -230,7 +233,8 @@ CREATE TABLE closures (
     image character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    quantity numeric(12,6) DEFAULT 0
 );
 
 
@@ -288,6 +292,40 @@ CREATE SEQUENCE comments_id_seq
 --
 
 ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
+-- Name: component_events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE component_events (
+    id integer NOT NULL,
+    packageable_id integer,
+    packageable_type character varying,
+    actionable_id integer,
+    actionable_type character varying,
+    delta double precision,
+    user_id integer
+);
+
+
+--
+-- Name: component_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE component_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: component_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE component_events_id_seq OWNED BY component_events.id;
 
 
 --
@@ -461,7 +499,8 @@ CREATE TABLE front_labels (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    quantity numeric(12,6) DEFAULT 0
 );
 
 
@@ -494,7 +533,7 @@ CREATE TABLE packaging_component_orders (
     purchase_order_id integer,
     quantity double precision DEFAULT 0.0,
     price double precision DEFAULT 0.0,
-    received boolean DEFAULT false NOT NULL
+    aasm_state character varying
 );
 
 
@@ -857,6 +896,13 @@ ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY component_events ALTER COLUMN id SET DEFAULT nextval('component_events_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY component_requirements ALTER COLUMN id SET DEFAULT nextval('component_requirements_id_seq'::regclass);
 
 
@@ -990,6 +1036,14 @@ ALTER TABLE ONLY closures
 
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: component_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY component_events
+    ADD CONSTRAINT component_events_pkey PRIMARY KEY (id);
 
 
 --
@@ -1157,6 +1211,27 @@ CREATE INDEX index_comments_on_project_id ON comments USING btree (project_id);
 --
 
 CREATE INDEX index_comments_on_resolver_id ON comments USING btree (resolver_id);
+
+
+--
+-- Name: index_component_events_on_actionable_id_and_actionable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_component_events_on_actionable_id_and_actionable_type ON component_events USING btree (actionable_id, actionable_type);
+
+
+--
+-- Name: index_component_events_on_packageable_id_and_packageable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_component_events_on_packageable_id_and_packageable_type ON component_events USING btree (packageable_id, packageable_type);
+
+
+--
+-- Name: index_component_events_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_component_events_on_user_id ON component_events USING btree (user_id);
 
 
 --
@@ -1573,4 +1648,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150806210751');
 INSERT INTO schema_migrations (version) VALUES ('20150811022805');
 
 INSERT INTO schema_migrations (version) VALUES ('20150815032146');
+
+INSERT INTO schema_migrations (version) VALUES ('20150815204048');
+
+INSERT INTO schema_migrations (version) VALUES ('20150815214644');
+
+INSERT INTO schema_migrations (version) VALUES ('20150816025146');
 

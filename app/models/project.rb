@@ -114,10 +114,18 @@ class Project < ActiveRecord::Base
     end
   end
   
+  scope :ready, -> { where(aasm_state: ['in_development', 'active', 'ready']) }
+  
+  # def self.ready
+  #   # Project.where("aasm_state IN ('in_development', 'active', 'ready', 'bottled')").
+  #   #   where('bottling_date > ?', 1.week.from_now).
+  #   #   order("bottling_date ASC")
+  # end
+  
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
     vendor_id   = params_hash[:vendor_id]
-    scope       = params_hash[:scope] || :active
+    scope       = params_hash[:scope] || :ready
     return Project.send(scope) unless (customer_id || vendor_id)
     return Customer.find(customer_id).projects.active if customer_id
     return Project.associated_with_vendor(vendor_id).active if vendor_id
