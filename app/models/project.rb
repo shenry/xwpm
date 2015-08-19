@@ -116,12 +116,6 @@ class Project < ActiveRecord::Base
   
   scope :ready, -> { where(aasm_state: ['in_development', 'active', 'ready']) }
   
-  # def self.ready
-  #   # Project.where("aasm_state IN ('in_development', 'active', 'ready', 'bottled')").
-  #   #   where('bottling_date > ?', 1.week.from_now).
-  #   #   order("bottling_date ASC")
-  # end
-  
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
     vendor_id   = params_hash[:vendor_id]
@@ -149,6 +143,10 @@ class Project < ActiveRecord::Base
     assigned_components = self.send(category.pluralize.intern)
     available = components - assigned_components
     klass.select_options(available)
+  end
+  
+  def packageable_units
+    target_cases * bottles.first.bottles_per_case.to_i
   end
   
   def self.associated_with_vendor(vendor_id)

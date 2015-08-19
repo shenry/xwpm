@@ -5,7 +5,6 @@ class PurchaseOrdersController < ApplicationController
   
   def show
     @purchase_order = PurchaseOrder.find(params[:id])
-    @associated_projects = Project.associated_with_vendor(@purchase_order.vendor_id)
   end
   
   def new

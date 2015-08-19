@@ -82,6 +82,16 @@ class Bottle < ActiveRecord::Base
     self.class.send :capacity_options
   end
   
+  # TODO - implement this method for other packaging components
+  def fudge_factor(qty)
+    case (qty / 12)
+    when 0...150; 1
+    when 150...500; qty * 0.01
+    when 500...1000; qty * 0.03
+    else; qty * 0.035
+    end
+  end
+  
   private
   
   def add_markup(string)

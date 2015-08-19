@@ -102,7 +102,7 @@ CREATE TABLE back_labels (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true,
-    quantity numeric(12,6) DEFAULT 0
+    quantity integer DEFAULT 0
 );
 
 
@@ -151,7 +151,7 @@ CREATE TABLE bottles (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true,
-    quantity numeric(12,6) DEFAULT 0
+    quantity integer DEFAULT 0
 );
 
 
@@ -192,7 +192,7 @@ CREATE TABLE capsules (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true,
-    quantity numeric(12,6) DEFAULT 0
+    quantity integer DEFAULT 0
 );
 
 
@@ -234,7 +234,7 @@ CREATE TABLE closures (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true,
-    quantity numeric(12,6) DEFAULT 0
+    quantity integer DEFAULT 0
 );
 
 
@@ -305,7 +305,8 @@ CREATE TABLE component_events (
     actionable_id integer,
     actionable_type character varying,
     delta double precision,
-    user_id integer
+    user_id integer,
+    type character varying
 );
 
 
@@ -500,7 +501,7 @@ CREATE TABLE front_labels (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true,
-    quantity numeric(12,6) DEFAULT 0
+    quantity integer DEFAULT 0
 );
 
 
@@ -529,11 +530,12 @@ ALTER SEQUENCE front_labels_id_seq OWNED BY front_labels.id;
 
 CREATE TABLE packaging_component_orders (
     id integer NOT NULL,
-    component_requirement_id integer,
     purchase_order_id integer,
     quantity double precision DEFAULT 0.0,
     price double precision DEFAULT 0.0,
-    aasm_state character varying
+    aasm_state character varying,
+    packageable_id integer,
+    packageable_type character varying
 );
 
 
@@ -1221,6 +1223,13 @@ CREATE INDEX index_component_events_on_actionable_id_and_actionable_type ON comp
 
 
 --
+-- Name: index_component_events_on_id_and_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_component_events_on_id_and_type ON component_events USING btree (id, type);
+
+
+--
 -- Name: index_component_events_on_packageable_id_and_packageable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1309,13 +1318,6 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 --
 
 CREATE UNIQUE INDEX index_front_labels_on_item_number ON front_labels USING btree (item_number);
-
-
---
--- Name: index_packaging_component_orders_on_component_requirement_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_packaging_component_orders_on_component_requirement_id ON packaging_component_orders USING btree (component_requirement_id);
 
 
 --
@@ -1456,6 +1458,13 @@ CREATE UNIQUE INDEX index_wines_on_sample_number ON wines USING btree (sample_nu
 --
 
 CREATE INDEX index_wines_on_variety ON wines USING btree (variety);
+
+
+--
+-- Name: packaging_component_orders_on_packageable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX packaging_component_orders_on_packageable ON packaging_component_orders USING btree (packageable_id, packageable_type);
 
 
 --
@@ -1654,4 +1663,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150815204048');
 INSERT INTO schema_migrations (version) VALUES ('20150815214644');
 
 INSERT INTO schema_migrations (version) VALUES ('20150816025146');
+
+INSERT INTO schema_migrations (version) VALUES ('20150816234512');
+
+INSERT INTO schema_migrations (version) VALUES ('20150817054449');
+
+INSERT INTO schema_migrations (version) VALUES ('20150818212832');
 

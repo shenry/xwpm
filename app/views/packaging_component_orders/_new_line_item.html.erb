@@ -2,31 +2,24 @@
 <div class="col-xs-12">
 	<table class="table table-responsive no-top-border">
 		<tr>
-			<th class="col-xs-4">Project</th>
-			<th>Item</th>
-			<th class="col-xs-1">Qty</th>
-			<th class="col-xs-1">Price</th>
+			<th>Component Description</th>
+			<th>Quantity</th>
+			<th>Price</th>
 			<th class="col-xs-1">&nbsp;</th>
 		</tr>
 		<tr>
 			<%= simple_form_for @purchase_order.line_items.build, defaults: { wrapper: :inline_form }, remote: true do |f| %>
-				<td>
-					<%= f.input :project, collection: @associated_projects.map { |p|
-											[p.to_s, p.id] }, include_blank: "Select Project" %>
-					<%= f.input :purchase_order_id, as: :hidden %>
-				</td>
 				<td id="component-select-cell">
-					<%= f.input :component_requirement_id, collection: [], include_blank: "Select Component", disabled: true %>
+					<%= f.select :packageable, grouped_options_for_select(@purchase_order.vendor.products_select),
+											{ include_blank: "Select Component" }, class: "form-control" %>
+					<%= f.input :purchase_order_id, as: :hidden %>
 				</td>
 				<td><%= f.input :quantity %></td>
 				<td><%= f.input :price %></td>
 				<td><%= f.submit "Add Line Item", class: "btn btn-primary col-xs-12", disabled: true, id: "add-line-item" %></td>
 				<script type="text/javascript">
 					$(document).ready(function(){
-						$("#packaging_component_order_project").change(function(){
-							$.get("/projects/" + $(this).val() + "/vendors/" + <%= @purchase_order.vendor_id %> + "/components");
-						});
-						$("#component-select-cell").on("change", "#packaging_component_order_component_requirement_id", function(){
+						$("#component-select-cell").on("change", "#packaging_component_order_packageable", function(){
 							if ( $(this).val() == "" ) {
 								$("#add-line-item").prop("disabled", "true");
 							} else {

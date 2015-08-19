@@ -70,7 +70,16 @@ X::Application.routes.draw do
   resources :wine_shipments
   resources :component_requirements
   resources :purchase_orders
-  resources :packaging_component_orders
+  resources :packaging_component_orders do
+    put :receive
+    put :undo
+  end
+  
+  # resources :component_events do
+  #   resources :adjustments
+  #   resources :receivings
+  #   resources :depletions
+  # end
   
   resources :wines do
     resources :components, shallow: true

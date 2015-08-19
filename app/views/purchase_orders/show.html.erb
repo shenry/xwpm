@@ -37,13 +37,12 @@
 	<div class="col-xs-12">
 		<table class="table table-striped" id="line-items-table">
 			<tr>
-				<th class="col-xs-1">&nbsp;</th>
-				<th class="col-xs-1">Project Number</th>
+				<th class="">&nbsp;</th>
 				<th class="col-xs-3">Item</th>
-				<th class="col-xs-1">Qty</th>
-				<th class="col-xs-1">Subtotal</th>
-				<th class="col-xs-1">Overhead</th>
-				<th class="col-xs-1">Total</th>
+				<th class="col-xs-1 right">Qty</th>
+				<th class="col-xs-1 right">Subtotal</th>
+				<th class="col-xs-2 right">Overhead</th>
+				<th class="col-xs-2 right">Total</th>
 				<th class="col-xs-1">Received</th>
 				<th class="col-xs-1">&nbsp;</th>
 			</tr>
@@ -55,3 +54,17 @@
 		</table>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".receive_line_item").change(function(){
+			var event = ($(this).is(":checked")) ? "receive" : "undo"
+			var url		= $(this).attr("data-url") + "/" + event
+			$.ajax({
+				url: url,
+				type: 'PUT',
+				success: console.log("yaaa!"),
+				contentType: "script"
+			})
+		});
+	});
+</script>

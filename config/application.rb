@@ -35,8 +35,10 @@ module X
 
     config.autoload_paths += %W(#{config.root}/app/models/firms)
     config.autoload_paths += %W(#{config.root}/app/controllers/packaging_components)
+    config.autoload_paths += %W(#{config.root}/app/controllers/component_events)
     config.autoload_paths += %W(#{config.root}/app/views/packaging_components)
-    config.autoload_paths += %W(#{config.root}/app/models/lib)   
+    config.autoload_paths += %W(#{config.root}/app/models/lib)  
+    config.autoload_paths += %W(#{config.root}/app/models/events) 
      
 
   end

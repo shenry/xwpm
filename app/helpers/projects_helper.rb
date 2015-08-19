@@ -40,10 +40,9 @@ module ProjectsHelper
   end
   
   def delete_link_for(component_requirement, options)
-    return "" if component_requirement.purchase_order?
-    link_to(url_for(controller: "component_requirements", action: :show, id: component_requirement.id), 
-                    data: { method: :delete, 
-                      confirm: "Are you sure you want to remove this #{component_requirement.packageable.class.to_s.titleize} from the Project?", 
+    link_to(url_for(controller: "component_requirements", action: :show, id: component_requirement.id),
+                    data: { method: :delete,
+                      confirm: "Are you sure you want to remove this #{component_requirement.packageable.class.to_s.titleize} from the Project?",
                       remote: true }, class: "pull-right destroy") do
       "<span class='glyphicon glyphicon-remove'></span>".html_safe
     end

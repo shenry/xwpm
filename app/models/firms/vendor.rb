@@ -23,8 +23,31 @@
 #
 
 class Vendor < Firm
-  has_many :products, class_name: "VendorProduct", dependent: :destroy
+  # has_many :products, class_name: "VendorProduct", dependent: :destroy
+  has_many :vendor_products, dependent: :destroy
+  has_many :bottles, through: :vendor_products, source: :vendable, source_type: "Bottle"
+  has_many :capsules, through: :vendor_products, source: :vendable, source_type: "Capsule"
+  has_many :closures, through: :vendor_products, source: :vendable, source_type: "Closure"
+  has_many :front_labels, through: :vendor_products, source: :vendable, source_type: "FrontLabel"
+  has_many :back_labels, through: :vendor_products, source: :vendable, source_type: "BackLabel"
+    
   has_many :purchase_orders, inverse_of: :vendor , dependent: :destroy
+  
+  def products
+    bottles + capsules + closures + front_labels + back_labels
+  end
+  
+  def product_types
+    products.collect { |p| p.class.to_s }.uniq!
+  end
+  
+  def products_select
+    collection = []
+    product_types.each do |type|
+      collection << [type, self.send(type.downcase.pluralize).map { |p| [p.to_s, p.to_sgid]}]
+    end
+    collection
+  end
   
   def self.primary_association
     :products

@@ -1,0 +1,3 @@
+class LineItemState
+  
+end
