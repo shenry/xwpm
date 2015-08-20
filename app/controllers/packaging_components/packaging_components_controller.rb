@@ -4,7 +4,7 @@ class PackagingComponentsController < ApplicationController
   
   def index
     @status      = params[:status] || "active"
-    @components  = @klass.send(@status.intern).page params[:page]
+    @components  = @klass.send(@status.intern).order(:created_at).page params[:page]
   end
   
   def show

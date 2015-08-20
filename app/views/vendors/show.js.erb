@@ -1,0 +1,13 @@
+var header  = "<h3><%= @category.titleize %></h3>";
+<% if %w(bottles capsules closures front_labels back_labels).include? @category %>
+	var content = '<%= j render partial: "#{@category}/table", locals: { components: @firm.send(@category)} %>';
+<% else %>
+	var content = '<%= j render partial: "firms/#{@category}_content" %>';
+<% end %>
+$("#firm-show-category").html(header + content);
+$("#firm-show-subnav li").each(function(){
+	$(this).removeClass("active");
+	if ($(this).attr("id") == "<%= @category %>_li") {
+		$(this).addClass("active");
+	}
+});

@@ -102,13 +102,12 @@
 <div class="row spacer">
 	<div class="col-xs-12">
 		<ul class="nav nav-tabs nav-justified" id="component-categories">
-			<%= project_nav_link_for(:packaging_components, default: true) %>
-			<%= project_nav_link_for(:purchase_orders, title: "POs") %>
-			<%= project_nav_link_for(:wine) %>
-			<%= project_nav_link_for(:shipping, title: "Bottling / Shipping") %>
-			<%= project_nav_link_for(:packet) %>
-			<%= project_nav_link_for(:finance) %>
-			<%= project_nav_link_for(:comments, title: "Comments (#{@project.comments.size - 1})") %>
+			<%= sub_nav_link_for(:packaging_components, default: true) %>
+			<%= sub_nav_link_for(:wine) %>
+			<%= sub_nav_link_for(:shipping, title: "Bottling / Shipping") %>
+			<%= sub_nav_link_for(:packet) %>
+			<%= sub_nav_link_for(:finance) %>
+			<%= sub_nav_link_for(:comments, title: "Comments (#{@project.comments.size - 1})") %>
 		</ul>
 	</div>
 </div>

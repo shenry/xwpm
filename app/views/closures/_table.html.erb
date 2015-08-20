@@ -9,7 +9,7 @@
 		<th>Specs</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% @components.each do |component| %>
+	<% components.each do |component| %>
 		<tr id="component-<%= component.id %>">
 			<td><%= link_to cl_image_tag(component.image_url(:thumb)), component.image_url, target: :_blank %></td>
 			<td><%= link_to component.vendor.name, polymorphic_path(component.vendor) %></td>

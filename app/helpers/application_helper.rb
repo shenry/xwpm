@@ -36,6 +36,10 @@ module ApplicationHelper
     str.split(gap).each { |w| w.capitalize! }.join("").constantize
   end
   
+  def model_to_controller(model_name)
+    model_name.underscore.downcase.pluralize
+  end
+  
   def markup(string)
     markdown = BlueCloth.new(string).to_html.html_safe
   end
@@ -43,6 +47,20 @@ module ApplicationHelper
   def formatted_date(date, format=DATE_FORMAT_STRING)
     return date if date.is_a? String
     date.strftime(format)
+  end
+  
+  def sub_nav_link_for(category, options={})
+    cat_string  = category.to_s
+    link_title  = options[:title] || cat_string.titleize
+    if params[:category]
+      li_class    = params[:category] == cat_string ? "active" : ""
+    else
+      li_class    = options[:default] ? "active" : ""
+    end
+    role        = options[:role] || "presentation"
+    content_tag :li, class: li_class, role: role, id: "#{cat_string}_li" do
+      link_to link_title, "?category=#{cat_string}", data: { remote: true }
+    end
   end
   
   def us_states

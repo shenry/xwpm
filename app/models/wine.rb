@@ -23,6 +23,8 @@ class Wine < ActiveRecord::Base
   has_many  :wine_shipments, inverse_of: :wine, dependent: :destroy
   has_many  :reviewers, through: :wine_shipments, source: :customer
   
+  default_scope { eager_load(:components) }
+  
   validates :appellation, :variety, :vintage, :alc, :sample_number, presence: true
   validates :alc, :vintage, numericality: true
   validates :sample_number, uniqueness: true
@@ -54,8 +56,8 @@ class Wine < ActiveRecord::Base
   
   def weighted_avg(attribute)
     attribute = attribute.to_s + "_percent" unless attribute.to_s == "cogs"
-    sum_product = components.select(:volume, attribute.intern).inject(0) do |result, component| 
-      result + component.send(attribute.intern) * component.volume
+    sum_product = components.inject(0) do |result, component| 
+      component.id ? result + component.send(attribute.intern) * component.volume : result
     end
     sum_product / blend_volume if ( sum_product && blend_volume )
   end

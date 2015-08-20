@@ -38,18 +38,6 @@
 // });
 
 $(document).ready( function() {
-    // $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-    //
-    //     var input = $(this).parents('.input-group').find(':text'),
-    //         log = numFiles > 1 ? numFiles + ' files selected' : label;
-    //
-    //     if( input.length ) {
-    //         input.val(log);
-    //     } else {
-    //         if( log ) alert(log);
-    //     }
-    //
-    // });
 		$("#create-wine-link").click(function(){
 			$("#create-wine-form").show();
 			$("#wine-select")[0].selectedIndex = 0
@@ -64,9 +52,6 @@ $(document).ready( function() {
 		$("#project_no_capsule").change(function(){
 			$("#project_capsule_id").prop("disabled", function(i, v) { return !v });
 		});
-		// $("input#comment_actionable").change(function(){
-		// 	$("span#new-comment-actionable").toggleClass("hidden");
-		// });
 	});
 $(function() {
 	$("#specs-form-control").change(function(){
@@ -74,19 +59,6 @@ $(function() {
 		$("#mirror-units").val(text);
 	});
 });
-
-// $(function() {
-// 	$(".thumb-delete").change(function(){
-// 		var id 		= $(this).attr('id');
-// 		var span	= $("span#" + id)
-// 		span.toggleClass("thumb-delete-warning");
-// 		if (span.text() == "Delete?") {
-// 			span.text("Delete!")
-// 		} else {
-// 			span.text("Delete?")
-// 		}
-// 	});
-// });
 
 $(document).ready(function(){
 	$("#create-form input").blur(function(){
@@ -99,7 +71,6 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-
 	$(".receive_line_item").change(function(){
 		var line_item_id = $(this).attr("data-line-item");
 		$("#receive-" + line_item_id).submit();
@@ -111,62 +82,6 @@ $(document).ready(function(){
 		$(this).parent().hide();
 		$("#" + target + "-" + model + "-select-wrapper").removeClass('hidden');
 	});
-//BEGIN NEW
-	// $(".cloudinary-fileupload").fileupload({
-// 		dropZone: $(this).attr("data-dropzone"),
-// 		start: function (e) {
-// 			var type = $(this).attr("data-attribute");
-// 			$("#" + type + "-status").text("Starting upload...");
-// 		},
-// 		progress: function (e, data) {
-// 			var type = $(this).attr("data-attribute");
-// 			$("#" + type + "-status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
-// 		},
-// 		fail: function (e, data) {
-// 			var type = $(this).attr("data-attribute");
-// 			$("#" + type + "-status").text("Upload Failed. " + data);
-// 		}
-// 	})
-// 	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
-// 		var component = $(this).attr("data-component");
-// 		var type			= $(this).attr("data-attribute");
-// 		var public_id = data.result.public_id;
-// 		var version		= data.result.version;
-// 		var form = $(this).closest("form");
-// 		var url	= form.attr("action");
-// 		var method = form.attr("data-method");
-// 		if ( method == "patch" ) {
-// 			$.post(url, $(form).serialize(), function(data) {
-// 				$("#" + type + "-replace").html($.cloudinary.image(public_id,
-// 					{ format: 'png', version: version, width: 350, height: 350, crop: "fit" } ));
-// 			},
-// 				"script"
-// 			);
-// 		} else {
-// 			$("#" + type + "-explain").html(type.toUpperCase() + " Preview");
-// 			$("#" + type + "-preview").html($.cloudinary.image(public_id,
-// 				{ format: 'png', version: version, width: 350, height: 350, crop: 'fit' } ));
-// 		}
-// 		$(".status").text("");
-// 		var preview = $("#" + type + "-replace").html("");
-// 		$("<a/>").
-// 			addClass("delete_by_token").
-// 			attr({href: "#"}).
-// 			data({delete_token: data.result.delete_token}).
-// 			html("<span class='glyphicon glyphicon-trash'></span>").
-// 			appendTo(preview).
-// 			click(function(e) {
-// 				e.preventDefault();
-// 				$.cloudinary.delete_by_token($(this).data("delete_token")).done(function(){
-// 					$(".preview").html("");
-// 					$("#info").html("");
-// 					$("input[name='" + component + "[" + type + "]" + "']").remove();
-// 				}).fail(function() {
-// 					$(".status").text("Cannot delete image.");
-// 				});
-// 			});
-// 	});
-//END NEW	
 });
 	
 $.fn.capitalize = function () {

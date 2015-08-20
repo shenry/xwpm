@@ -1,0 +1,29 @@
+<%= render partial: "/firms/show_header", locals: { firm: @firm } %>
+<% if @firm.is_a? Customer %>
+
+<% end %>
+<div class='row subordinate'>
+	<% if @associated_collection.is_a? Hash %>
+		<% i = 0 %>
+		<% @associated_collection.each do |key, value| %>
+		<% puts "value = #{value.inspect}"%>
+			<% @components = value %>
+			<div class="row spacer <%= i == 0 ? 'break' : '' %>">
+				<div class='col-xs-12'>
+					<h1><%= key.titleize.pluralize %></h1>
+				</div>
+			</div>
+			<div class='row spacer'>
+				<%= render partial: "#{key.underscore.downcase.pluralize}/table", locals: { components: @components } %>
+			</div>
+			<% i += 1 %>
+		<% end %>
+	<% else %>
+		<div class="row spacer">
+			<div class="col-xs-12"><h1><%= @firm.name %> Projects</h1></div>
+			<div class="col-xs-12">
+				<%= render partial: "projects/index_table", locals: { projects: @associated_collection } %>
+			</div>
+		</div>
+	<% end %>
+</div>

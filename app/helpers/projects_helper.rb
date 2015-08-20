@@ -61,20 +61,6 @@ module ProjectsHelper
   end
   
   def render_component_partial(component)
-    render partial: "/partials/" + component + "_content" #, locals: { project: @project, component: component }
-  end
-  
-  def project_nav_link_for(category, options={})
-    cat_string  = category.to_s
-    link_title  = options[:title] || cat_string.titleize
-    if params[:category]
-      li_class    = params[:category] == cat_string ? "active" : ""
-    else
-      li_class    = options[:default] ? "active" : ""
-    end
-    role        = options[:role] || "presentation"
-    content_tag :li, class: li_class, role: role, id: "#{cat_string}_li" do
-      link_to link_title, "?category=#{cat_string}", data: { remote: true }
-    end
+    render partial: "/partials/" + component + "_content"
   end
 end

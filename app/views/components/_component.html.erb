@@ -1,24 +1,24 @@
 <tr id="component-<%= component.id %>-row">
 	<td><%= best_in_place component, :lot_number, { inner_class: "form-control" } %></td>
 	<td class="volume-gallons" data-id="<%= component.id %>"><%= best_in_place component, :volume, 
-												{ inner_class: "form-control", classes: "volume-update", display_with: :number_with_delimiter } %>
+												{ inner_class: "form-control", class: "volume-update", display_with: :number_with_delimiter } %>
 	</td>
 	<td class="volume-percent" id="<%= component.id %>-percent"><%= number_to_percentage(component.blend_percent, precision: 1) %></td>
 	<td data-id="<%= component.id %>"><%= best_in_place component, :cogs, 
-												{ inner_class: "form-control", classes: "cogs-update", display_with: :number_to_currency }%>
+												{ inner_class: "form-control", class: "cogs-update", display_with: :number_to_currency }%>
 	</td>
 	<td data-id="<%= component.id %>"><%= best_in_place component, :vintage_percent, 
-												{ inner_class: "form-control", classes: "vintage-update",
+												{ inner_class: "form-control", class: "vintage-update",
 													display_with: -> v { number_to_percentage(v, precision: 1) } } %>
 	</td>
 	<td data-id="<%= component.id %>">
 		<%= best_in_place component, :appellation_percent, 
-											{ inner_class: "form-control", classes: "appellation-update",
+											{ inner_class: "form-control", class: "appellation-update",
 												display_with: -> v { number_to_percentage(v, precision: 1) }} %>
 	</td>
 	<td data-id="<%= component.id %>">
 		<%= best_in_place component, :variety_percent, 
-											{	inner_class: "form-control", classes: "variety-update",
+											{	inner_class: "form-control", class: "variety-update",
 												display_with: -> v { number_to_percentage(v, precision: 1) }} %>
 	</td>		
 	<td>

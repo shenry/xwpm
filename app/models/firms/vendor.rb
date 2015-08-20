@@ -38,13 +38,13 @@ class Vendor < Firm
   end
   
   def product_types
-    products.collect { |p| p.class.to_s }.uniq!
+    vendor_products.collect { |p| p.vendable_type }.uniq
   end
   
   def products_select
     collection = []
     product_types.each do |type|
-      collection << [type, self.send(type.downcase.pluralize).map { |p| [p.to_s, p.to_sgid]}]
+      collection << [type, self.send(type.underscore.downcase.pluralize).map { |p| [p.to_s, p.to_sgid]}]
     end
     collection
   end

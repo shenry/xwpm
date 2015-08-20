@@ -19,22 +19,23 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.xml
   def show
-    association = @klass.primary_association
+    # association = @klass.primary_association
     # TODO - this isn't working for Wineries. Need to get a named association that uses OR (merge joins with AND)
-    @firm       = @klass.includes(association).find(params[:id])
-    objects     = @firm.send(association)
-    if association == :products
-      types       = objects.collect(&:vendable_type).uniq
-      @associated_collection = Hash.new
-      types.each do |type|
-        products     = objects.select { |o| o.vendable_type == type }
-        vendable_ids = products.map(&:vendable_id)
-        vendables    = type.constantize.where(id: vendable_ids)
-        @associated_collection[type] = vendables
-      end
-    else
-      @associated_collection = objects
-    end
+    @firm       = @klass.find(params[:id])
+    @associated_collection = []
+    # objects     = @firm.send(association)
+    # if association == :products
+    #   types       = objects.collect(&:vendable_type).uniq
+    #   @associated_collection = Hash.new
+    #   types.each do |type|
+    #     products     = objects.select { |o| o.vendable_type == type }
+    #     vendable_ids = products.map(&:vendable_id)
+    #     vendables    = type.constantize.where(id: vendable_ids)
+    #     @associated_collection[type] = vendables
+    #   end
+    # else
+    #   @associated_collection = objects
+    # end
     respond_to do |wants|
       wants.html { }
       wants.xml  { render :xml => @firm }

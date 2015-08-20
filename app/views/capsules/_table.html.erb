@@ -9,7 +9,7 @@
 		<th>Specs</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% @components.each do |capsule| %>
+	<% components.each do |capsule| %>
 		<tr id="capsule-id">
 			<td><%= link_to cl_image_tag(capsule.image_url(:thumb)), capsule.image_url, target: :_blank %></td>
 			<td><%= link_to capsule.vendor.name, vendor_path(capsule.vendor) %></td>

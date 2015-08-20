@@ -13,7 +13,7 @@
 		<th class="col-xs-1">Pallet Config.</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% @components.each do |bottle| %>
+	<% components.each do |bottle| %>
 		<tr id="component-<%= bottle.id %>">
 			<td><%= link_to cl_image_tag(bottle.image_url(:thumb)), bottle.image_url, target: :_blank %></td>
 			<td><%= link_to bottle.vendor.name, polymorphic_path(bottle.vendor) %></td>

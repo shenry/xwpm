@@ -26,6 +26,12 @@
 								$("#add-line-item").prop("disabled", "");
 							}
 						});
+						$(".form-control").keypress(function(e){
+							if (e.which == 13) {
+								$("#new_packaging_component_order").submit();
+								return false;
+							}
+						});
 					});
 				</script>
 			<% end %>

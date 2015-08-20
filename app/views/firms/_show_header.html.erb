@@ -1,0 +1,31 @@
+<div class='row spacer'>
+	<div class='row-same-height'>
+		<div class='col-xs-8 col-xs-height'>
+			<h1><%= firm.name %></h1>
+			<div class="firm-details">
+				<%= firm.address_line_1 %><br/>
+				<% unless firm.address_line_2.blank? %>
+					<%= firm.address_line_2 %></br/>
+				<% end %>
+				<%= firm.city %>, <%= firm.state.upcase %> <%= firm.zip %>
+				<% unless firm.bond.nil? %>
+					<%= firm.bond %>
+				<% end %>
+			</div>
+			<div class="firm-details">
+				<address>
+					<span class="bold"><%= firm.contact_name %></span> - 
+					<%= firm.contact_phone %><br/>
+					<a href="mailto:<%= firm.contact_email %>"><%= firm.contact_email %></a>
+				</address>
+			</div>
+		</div>
+		<div class='col-xs-4 col-xs-height text-right'>
+			<%= link_to "Edit #{@klass.to_s.titleize}", controller: @klass.to_s.underscore.downcase.pluralize, action: 'edit' %>
+			<% if @klass == Customer %>
+						&nbsp;|&nbsp;
+				<%= link_to "Create New Project", new_customer_project_path(firm) %>
+			<% end %>
+		</div>
+	</div>
+</div>

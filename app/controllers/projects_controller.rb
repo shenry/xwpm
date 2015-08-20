@@ -34,22 +34,6 @@ class ProjectsController < ApplicationController
       wants.js { render "purchase_orders/components_select" }
     end
   end
-  
-  def show_component
-    @component  = params[:component]
-    if ["packaging_components", "shipping", "purchase_orders", "packet"].include? @component
-      @project = Project.find(params[:id])
-    elsif @component == "finance"
-      
-    else # a legit association, either :wine or :comments
-      @project    = Project.includes(@component.intern).find(params[:id])
-    end
-    @component_path = @component + "_content"
-    
-    respond_to do |wants|
-      wants.js {}
-    end
-  end
 
   def index
     @projects = Project.fetch_filtered(params).text_search(params[:query]).page params[:page]
