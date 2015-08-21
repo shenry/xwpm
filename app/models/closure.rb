@@ -28,7 +28,8 @@ class Closure < ActiveRecord::Base
   validates :height, :width, numericality: true
   
   # don't join :vendor, since closure is unaware of vendors
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where(aasm_state: "Active") }
+  scope :inactive, -> { where(aasm_state: "Inactive") }
   
   mount_uploader :artwork, ImageUploader
   

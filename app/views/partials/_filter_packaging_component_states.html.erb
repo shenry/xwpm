@@ -1,0 +1,5 @@
+<p>
+	Filter by: 
+	<%= link_to_unless(@status == "active", "Active", url_for(controller: controller.controller_name, action: :index)) %> | 
+	<%= link_to_unless(@status == "inactive", "Inactive", url_for(controller: controller.controller_name, action: :index) + "?status=inactive") %>
+</p>
