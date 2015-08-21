@@ -22,7 +22,8 @@ class ProjectsController < ApplicationController
     respond_to do |wants|
       wants.html
       wants.pdf do
-        render  pdf: "spec-sheet-#{@project.to_s.downcase.gsub(" ", "-")}"
+        render  pdf: "spec-sheet-#{@project.to_s.downcase.gsub(" ", "-")}",
+        footer: { content: project_path(@project) + "/spec_sheet.pdf" }
       end
     end
   end

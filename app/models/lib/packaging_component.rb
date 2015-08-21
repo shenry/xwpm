@@ -1,5 +1,4 @@
 module PackagingComponent
-  include AASM
   
   def self.included(base)
     base.class_eval do
@@ -12,11 +11,12 @@ module PackagingComponent
       validates_numericality_of :quantity, only_integer: true, greater_than_or_equal_to: 0,
                                 message: "must be positive"
       
-      scope :active, lambda { joins(:vendor).where(active: true) }
+      scope :active, lambda { joins(:vendor).where(aasm_state: "Active") }
+      scope :inactive, -> { joins(:vendor).where(aasm_state: "Inactive") }
       
       mount_uploader :image, ImageUploader
       
-      before_save :upcase_item_number
+      before_save :upcase_item_number, :set_state
       
       paginates_per 10
       
@@ -30,27 +30,12 @@ module PackagingComponent
     end
   end
   
-  aasm do
-    state :active, initial: true
-    state :inactive
-    
-    event :deactivate do
-      transitions from: :active, to: :inactive
-    end
-    
-    event :activate do
-      transitions from: :inactive, to: :active
-    end
+  def state
+    aasm_state
   end
   
   def inventory
     quantity.to_i
-  end
-  
-  def state
-    events.inject(ComponentState::Incomplete.new) do |last, this|
-      last.transition(this)
-    end
   end
   
   def fudge_factor(qty)
@@ -77,24 +62,33 @@ module PackagingComponent
     width
   end
   
-  def active?
-    active
-  end
-  
   def units_options
     [['mm', 'mm'], ['in', 'in']]
   end
   
   private
   
+  def set_state
+    puts "called set_state!"
+    self.aasm_state = events.inject(ComponentState::Active.new) do |last, this|
+      last.transition(this)
+    end.to_s
+  end
+  
   def update_inventory(obj)
     puts "................... UPDATING INVENTORY ......................."
-    obj.inventory_action
+    begin 
+      obj.inventory_action
+      self.save
+    end
   end
   
   def undo_inventory(obj)
     puts ".................... UNDOING INVENTORY ......................."
-    obj.inventory_action(undo: true)
+    begin
+      obj.inventory_action(undo: true)
+      self.save
+    end
   end
   
   def image_regexp

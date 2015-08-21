@@ -1,17 +1,31 @@
 #TODO
-
-* add estimated cost to project
-* search projects, wines, customers? packaging components?
+* X Winery Bottling Spec Sheet - Make that shit shine
 * TIO Bottling Sheet
 * Authorization, flexible create w/ admin "Live"
-* track which customers have been sent wine samples, their feedback
-*** integrate customer preferences with wine styles ***
-	* tags?
+* State on PackagingComponents
+	* Admin State Change UI
+	* Clean up AR queries to reference state when appropriate (erm, always?)
+	* Default scopes would probably help here
+	* PackagingComponents should know the cost of their inventory (add something to ComponentEvent)
+* Add more analyses to Wines
+	* Add attachments to wines? What would we attach?
+* How do we walk projects through the State lifecycle? Drop-down inline on index table?
+* Add logic for over-order amt? Or keep that a GM thing?
+
 	
-* Project packet
-	* PO (applies to one or more projects)
+* Project packet ... this needs more thought
+	* PO (applies to one or more projects) - no it doesnt
 	* BOL (applies to one or more projects)
 	
 * 45 day threshold
 	* packaging materials associated
 	* wine sample associated
+	
+LETS THINK ABOUT HOW TO SORT THINGS
+* Projects => Bottling Date
+* Customers => Name ASC
+* Vendors => Name ASC
+* Wineries => Name ASC
+* PurchaseOrders => Order date ASC (only open ones)
+* Wines => Created_at DESC
+* Components => Created_at DESC (these are wine components)

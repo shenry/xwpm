@@ -35,7 +35,7 @@ class Bottle < ActiveRecord::Base
   
   validates :item_number, :mould, :color, :shape, :height, :width, 
             :neck_diameter, :units, :finish, :capacity, :capacity_units, :bottles_per_case, 
-            :case_dimensions, :pallet_config, :case_weight, :active, presence: true
+            :case_dimensions, :pallet_config, :case_weight, presence: true
             
   validates :fill_point, :height, :width, :neck_diameter, :capacity, 
             :case_weight, numericality: true

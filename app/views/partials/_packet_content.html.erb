@@ -9,15 +9,6 @@
 	<div class="col-xs-12">
 		<ul>
 			<li><%= link_to "Download Spec Sheet", spec_sheet_path(@project, format: :pdf), target: :_blank %></li>
-			<% @project.purchase_orders.each do |po| %>
-				<li>
-					<%= link_to [po.vendor.name, po.number].join(" - PO#"), purchase_order_path(po) %>
-					&nbsp;-&nbsp;
-					<%= link_to_unless po.po_image.blank?, "[PO Image]", po.po_image_url, target: :_blank %>
-					&nbsp;-&nbsp;
-					<%= link_to_unless po.bol_image.blank?, "[BOL Image]", po.bol_image_url, target: :_blank %>
-				</li>
-			<% end %>
 		</ul>
 	</div>
 </div>

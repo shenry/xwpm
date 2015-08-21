@@ -101,8 +101,8 @@ CREATE TABLE back_labels (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
-    quantity integer DEFAULT 0
+    quantity integer DEFAULT 0,
+    aasm_state character varying
 );
 
 
@@ -150,8 +150,8 @@ CREATE TABLE bottles (
     image character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
-    quantity integer DEFAULT 0
+    quantity integer DEFAULT 0,
+    aasm_state character varying
 );
 
 
@@ -191,8 +191,8 @@ CREATE TABLE capsules (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
-    quantity integer DEFAULT 0
+    quantity integer DEFAULT 0,
+    aasm_state character varying
 );
 
 
@@ -233,8 +233,8 @@ CREATE TABLE closures (
     image character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
-    quantity integer DEFAULT 0
+    quantity integer DEFAULT 0,
+    aasm_state character varying
 );
 
 
@@ -500,8 +500,8 @@ CREATE TABLE front_labels (
     artwork character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
-    quantity integer DEFAULT 0
+    quantity integer DEFAULT 0,
+    aasm_state character varying
 );
 
 
@@ -1669,4 +1669,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150816234512');
 INSERT INTO schema_migrations (version) VALUES ('20150817054449');
 
 INSERT INTO schema_migrations (version) VALUES ('20150818212832');
+
+INSERT INTO schema_migrations (version) VALUES ('20150821034302');
 

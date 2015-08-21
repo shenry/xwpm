@@ -7,8 +7,10 @@ tr.blank td { border: none !important; }
 tr.big td { line-height: 20px !important; }
 td.lav { min-width: 50px;}
 .yellow { background-color: yellow; font-weight: bold; }
-.or { background-color: #ffcf6b; width: 50%;}
+.or { background-color: #ffcf6b !important; width: 50%;}
 .center { text-align: center; }
-.light-blue { background-color: #C2F0FF;}
+.light-blue { background-color: #C2F0FF !important; }
 td.vert { font-size: 7px; line-height: 20px; }
 .notes-cell { border: 1px solid black; height: 120px; width: 405px; }
+td.table-header { background: #dfdfdf !important; font-weight: bold; }
+tr.component-item-row .component-code { padding-left: 40px; }
