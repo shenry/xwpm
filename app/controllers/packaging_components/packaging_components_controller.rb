@@ -25,16 +25,23 @@ class PackagingComponentsController < ApplicationController
   
   def update
     @component = @klass.find(params[:id])
+    filtered   = component_params.dup
+    state      = filtered.extract!("state")
+    if state
+      if state["state"] == "active"
+        event = ComponentEvent::Reactivate.new
+      elsif state["state"] == "inactive"
+        event = ComponentEvent::Deactivate.new
+      else; raise "Unknown PackagingComponent State"
+      end
+      @component.events << event
+    end
     image     = @component.image
     image_url = image.to_s
     respond_to do |wants|
-      if @component.update_attributes(component_params)
-        puts "do they match??? #{@component.image_id == image_url}"
-        if @component.image.to_s != image_url
-          puts "attempting to delete......."
-          # Cloudinary::Uploader.destroy(image.public_id)
-        end
+      if @component.update_attributes(filtered)
         wants.json { respond_with_bip @component }
+        wants.js {}
       else
         puts "errors are #{@component.errors.inspect}"
         # TODO

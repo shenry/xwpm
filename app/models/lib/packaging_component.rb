@@ -30,6 +30,10 @@ module PackagingComponent
     end
   end
   
+  def states
+    ComponentState.states
+  end
+  
   def state
     aasm_state
   end

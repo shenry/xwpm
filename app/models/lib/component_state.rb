@@ -1,4 +1,12 @@
 class ComponentState
+  class << self
+    def valid_states
+      states = subclasses
+      states.delete(ComponentState::Invalid)
+      states.collect { |s| s.new.name }
+    end
+  end
+  
   def transition(event)
     Invalid.new
   end

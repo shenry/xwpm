@@ -5,15 +5,10 @@ class PackagingComponentOrdersController < ApplicationController
   def create
     @purchase_order = PurchaseOrder.find(params[:packaging_component_order][:purchase_order_id])
     sent_params = line_item_params.dup
-    puts "sent_params = #{sent_params.inspect}"
     packageable     = sent_params.extract!("packageable")
-    puts "now sent_params are #{sent_params.inspect}"
-    puts "packageable = #{packageable.inspect}"
     @line_item      = @purchase_order.line_items.build(sent_params)
     component = GlobalID::Locator.locate_signed packageable["packageable"]
-    puts "component is #{component.inspect}"
     @line_item.packageable = component
-    puts "line_item = #{@line_item.inspect}"
     @line_item.save
   end
   

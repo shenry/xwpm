@@ -7,9 +7,7 @@ class ComponentEvent < ActiveRecord::Base
   validates :packageable_id, :packageable_type, presence: true
   validates :actionable_id, :actionable_type, presence: true, 
             unless: Proc.new { |c| [ComponentEvent::Adjust, ComponentEvent::Deactivate, ComponentEvent::Reactivate].include? c.class }
-  
-  # before_save :adjust_inventory
-  # before_destroy :undo_inventory
+
   
   class Receive < ComponentEvent; end
   class Adjust < ComponentEvent; end
