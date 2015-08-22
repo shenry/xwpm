@@ -27,7 +27,7 @@ class PackagingComponentsController < ApplicationController
     @component = @klass.find(params[:id])
     filtered   = component_params.dup
     state      = filtered.extract!("state")
-    if state
+    unless state.empty?
       if state["state"] == "active"
         event = ComponentEvent::Reactivate.new
       elsif state["state"] == "inactive"
