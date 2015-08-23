@@ -17,6 +17,7 @@
 
 class Wine < ActiveRecord::Base
   include CostHelper
+  include AASM
   
   has_many  :projects, inverse_of: :wine
   has_many  :components, -> { order("created_at ASC") }, inverse_of: :wine, dependent: :destroy
@@ -30,6 +31,18 @@ class Wine < ActiveRecord::Base
   validates :sample_number, uniqueness: true
   
   before_save :upcase_vinx2_reference
+  
+  aasm do
+    state :active, initial: true
+    state :inactive
+    
+    event :deactivate do
+      transitions from: :active, to: :inactive
+    end
+    event :reactivate do
+      transitions from: :inactive, to: :active
+    end
+  end
   
   def to_s
     "[" + sample_number + "] " + vintage + " " + appellation + " " + variety

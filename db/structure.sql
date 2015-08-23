@@ -829,7 +829,8 @@ CREATE TABLE wines (
     updated_at timestamp without time zone NOT NULL,
     treatments text,
     description text,
-    vinx2_reference character varying
+    vinx2_reference character varying,
+    aasm_state character varying
 );
 
 
@@ -1671,4 +1672,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150817054449');
 INSERT INTO schema_migrations (version) VALUES ('20150818212832');
 
 INSERT INTO schema_migrations (version) VALUES ('20150821034302');
+
+INSERT INTO schema_migrations (version) VALUES ('20150823211104');
 

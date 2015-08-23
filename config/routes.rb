@@ -85,6 +85,8 @@ X::Application.routes.draw do
     resources :components, shallow: true
     resources :wine_shipments
     resources :reviewers
+    put       :reactivate
+    put       :deactivate
   end
   
   [:bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels].each do |component|

@@ -2,7 +2,8 @@ class WinesController < ApplicationController
   before_filter :autocomplete_collections, only: [:new, :create, :edit, :update]
   
   def index
-    @wines = Wine.includes(:projects).order("sample_number DESC").page(params[:page] || 1)
+    @status = params[:status] || "active"
+    @wines = Wine.send(@status.intern).includes(:projects).order("sample_number DESC").page(params[:page] || 1)
   end
   
   def show
@@ -13,6 +14,24 @@ class WinesController < ApplicationController
   
   def new
     @wine = Wine.new
+  end
+  
+  def deactivate
+    respond_to do |wants|
+      wants.js {
+        @wine = Wine.find(params[:wine_id])
+        @wine.deactivate! 
+      }
+    end
+  end
+  
+  def reactivate
+    respond_to do |wants|
+      wants.js {
+        @wine = Wine.find(params[:wine_id])
+        @wine.reactivate! 
+      }
+    end
   end
   
   def create

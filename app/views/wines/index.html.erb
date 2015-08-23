@@ -9,6 +9,11 @@
 	</div>
 </div>
 <div class='row spacer'>
+	<p>
+		Filter by: 
+		<%= link_to_if(@status == "inactive", "Active", wines_path) %> | 
+		<%= link_to_if(@status == "active", "Inactive", wines_path + "?status=inactive") %>
+	</p>
 	<table class='table table-striped'>
 		<tr>
 			<th class="col-xs-1">Sample Number</th>
@@ -17,8 +22,7 @@
 			<th>Vintage</th>
 			<th>Appellation</th>
 			<th>Variety</th>
-			<th>Alc</th>
-			<th>$/Gal</th>
+			<th>Status</th>
 			<th>&nbsp;</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -42,8 +46,10 @@
 						&nbsp;(<%= number_to_percentage(wine.weighted_avg(:appellation), precision: 1) %>)
 					<% end %>
 				</td>
-				<td><%= wine.alc %>%</td>
-				<td><%= number_to_currency(wine.weighted_avg(:cogs)) %></td>
+				<td>
+					<%= select_tag "wine[state]", options_for_select(Wine.aasm.states_for_select, wine.aasm_state),
+						 							class: "form-control wine-state-control", data: { url: wine_path(wine) }%>
+				</td>
 				<td><%= link_to "Edit", edit_wine_path(wine) %></td>
 				<td>
 					<%= link_to wine_path(wine), data: { remote: true, method: :delete, 
@@ -54,4 +60,24 @@
 			</tr>
 		<% end %>
 	</table>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".wine-state-control").unbind("change");
+			$(".wine-state-control").change(function(){
+				var url = $(this).attr("data-url");
+				var option = $(this).val();
+				if ( option == "active" ) {
+					var action = "reactivate";
+				} else if ( option == "inactive" ) {
+					var action = "deactivate";
+				} else {
+					return false
+				}
+				$.ajax({
+					url: url + "/" + action,
+					method: "PUT"
+				});
+			});
+		});
+	</script>
 </div>
