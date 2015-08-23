@@ -7,6 +7,10 @@ class BottlesController < PackagingComponentsController
   
   private
   
+  def fetch_component
+    @component = Bottle.find(params[:bottle_id])
+  end
+  
   def component_params
     params.require(:bottle).permit(:item_number, :height, :width, :units, :mould, :shape, :color,
                                   :finish, :neck_diameter, :fill_point, :capacity, :capacity_units,

@@ -7,6 +7,10 @@ class ScrewcapsController < PackagingComponentsController
   
   private
   
+  def fetch_component
+    @component = Screwcap.find(params[:screwcap_id])
+  end
+  
   def component_params
     params.require(:screwcap).permit(:item_number, :material, :color, :height, :width, :units, :image,
                                      :artwork, :artwork_source)

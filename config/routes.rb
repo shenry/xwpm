@@ -87,8 +87,14 @@ X::Application.routes.draw do
     resources :reviewers
   end
   
-  resources :packaging_components, :bottles, :corks, :screwcaps, :capsules, :front_labels, 
-            :back_labels, :vendors, :comments, :wineries
+  [:bottles, :corks, :screwcaps, :capsules, :front_labels, :back_labels].each do |component|
+    resources component do
+      put :deactivate
+      put :reactivate
+    end
+  end
+            
+  resources :vendors, :comments, :wineries
             
   resources :projects do
     resources :comments

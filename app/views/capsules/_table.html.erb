@@ -1,16 +1,17 @@
 <table class="table table-striped">
 	<tr>
-		<th>&nbsp;</th>
+		<th style="width:73px;">&nbsp;</th>
 		<th>Vendor</th>
 		<th>Item #</th>
 		<th>Color</th>
 		<th>Material</th>
 		<th>Artwork</th>
 		<th>Specs</th>
+		<th>Status</th>
 		<th>&nbsp;</th>
 	</tr>
 	<% components.each do |capsule| %>
-		<tr id="capsule-id">
+		<tr id="component-<%= capsule.id %>">
 			<td><%= link_to cl_image_tag(capsule.image_url(:thumb)), capsule.image_url, target: :_blank %></td>
 			<td><%= link_to capsule.vendor.name, vendor_path(capsule.vendor) %></td>
 			<td><%= link_to capsule.item_number, capsule_path(capsule) %></td>
@@ -18,6 +19,9 @@
 			<td><%= capsule.material %></td>
 			<td><%= cl_image_tag(capsule.artwork_url(:thumb)) %></td>
 			<td><%= capsule.specs %></td>
+			<td>
+				<%= select_tag "capsule[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, capsule.aasm_state.downcase), class: "form-control component-state-control", data: { url: capsule_path(capsule)} %>
+			</td>
 			<td>
 				<%= link_to capsule_path(capsule), data: { remote: true, method: :delete, 
 										confirm: "Are you sure you want to delete this Capsule?" } do %>

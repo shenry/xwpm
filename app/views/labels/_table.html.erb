@@ -1,6 +1,6 @@
 <table class="table table-striped">
 	<tr>
-		<th>&nbsp;</th>
+		<th style="width:73px;">&nbsp;</th>
 		<th>Vendor</th>
 		<th>Item #</th>
 		<th>Specs</th>
@@ -9,6 +9,7 @@
 		<th>Alc</th>
 		<th>UPC</th>
 		<th>Art Source</th>
+		<th>Status</th>
 		<th>&nbsp;</th>
 	</tr>
 	<% components.each do |component| %>
@@ -22,6 +23,9 @@
 			<td><%= number_to_percentage(component.alc, precision: 1) %></td>
 			<td><%= component.upc %></td>
 			<td><%= component.artwork_source %></td>
+			<td>
+				<%= select_tag "label[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, component.aasm_state.downcase), class: "form-control component-state-control", data: { url: polymorphic_path(component) } %>
+			</td>
 			<td>
 				<%= link_to url_for(controller: @klass.to_s.underscore.downcase.pluralize, action: :show, id: component.id),
 					 					data: { remote: true, method: :delete, confirm: "Are you sure you want to delete this #{@klass.to_s.titleize}?" } do %>

@@ -1,5 +1,6 @@
 class PackagingComponentsController < ApplicationController
   before_filter :get_type
+  before_filter :fetch_component, only: [:deactivate, :reactivate]
   # respond_to :html, :json
   
   def index
@@ -23,19 +24,26 @@ class PackagingComponentsController < ApplicationController
     end
   end
   
+  def deactivate
+    respond_to do |wants|
+      wants.js {
+        event = ComponentEvent::Deactivate.new
+        @component.events << event
+      }
+    end
+  end
+  
+  def reactivate
+    respond_to do |wants|
+      wants.js {
+        event = ComponentEvent::Reactivate.new
+        @component.events << event 
+      }
+    end
+  end
+  
   def update
     @component = @klass.find(params[:id])
-    filtered   = component_params.dup
-    state      = filtered.extract!("state")
-    unless state.empty?
-      if state["state"] == "active"
-        event = ComponentEvent::Reactivate.new
-      elsif state["state"] == "inactive"
-        event = ComponentEvent::Deactivate.new
-      else; raise "Unknown PackagingComponent State"
-      end
-      @component.events << event
-    end
     image     = @component.image
     image_url = image.to_s
     respond_to do |wants|

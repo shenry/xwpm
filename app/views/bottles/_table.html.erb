@@ -1,6 +1,6 @@
 <table class="table table-striped table-responsive">
 	<tr>
-		<th>&nbsp;</th>
+		<th style="width:73px;">&nbsp;</th>
 		<th>Vendor</th>
 		<th>Item #</th>
 		<th>Mould</th>
@@ -26,8 +26,7 @@
 			<td><%= bottle.case_weight %></td>
 			<td><%= bottle.pallet_config %></td>
 			<td>
-				<%= select_tag "bottle[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, bottle.aasm_state.downcase), class: "form-control", 
-					 							data: { remote: true, method: :put, url: bottle_path(bottle) } %>
+				<%= select_tag "bottle[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, bottle.aasm_state.downcase), class: "form-control component-state-control", data: { url: bottle_path(bottle) } %>
 			</td>
 			<td>
 				<%= link_to bottle_path(bottle), data: { remote: true, method: :delete, 

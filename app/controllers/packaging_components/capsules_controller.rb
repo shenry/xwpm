@@ -7,6 +7,10 @@ class CapsulesController < PackagingComponentsController
   
   private
   
+  def fetch_component
+    @component = Capsule.find(params[:capsule_id])
+  end
+  
   def component_params
     params.require(:capsule).permit(:item_number, :height, :width, :units, :color, :image, :material,
                                     :has_artwork, :artwork, :artwork_source)

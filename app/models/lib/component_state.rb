@@ -33,7 +33,10 @@ class ComponentState
     def transition(event)
       case event
       when ComponentEvent::Reactivate; Active.new
-      else; Invalid.new
+      else
+        puts "..................................."
+        puts "unexpected event = #{event.inspect}"
+        Invalid.new
       end
     end
   end

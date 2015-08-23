@@ -11,6 +11,10 @@ class BackLabelsController < PackagingComponentsController
   
   private
   
+  def fetch_component
+    @component = BackLabel.find(params[:back_label_id])
+  end
+  
   def component_params
     params.require(:back_label).permit(:item_number, :height, :width, :units, :material, :color, :cut, :treatment, 
                                        :rewind, :alc, :upc, :image, :artwork, :position, :artwork_source)
