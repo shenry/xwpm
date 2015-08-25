@@ -6,10 +6,26 @@
 				&nbsp;-&nbsp;
 				<span id="project-title-vintage"><%= @project.vintage %></span> 
 				<span id="project-title-brand"><%= @project.brand %></span> 
-				<span id="project-title-variety"><%= @project.variety %></span>
+				<span id="project-title-variety"><%= @project.variety %></span>&nbsp;
+				<span id="project-state-badge" data-state="<%= @project.aasm_state %>" class="project-status-button pull-right <%= @project.aasm_state %>"></span>
+				<span class="col-xs-2 inline pull-right" id="project-state-select">
+					<%= render partial: "projects/state_select", locals: { project: @project } %>
+				</span>
 			</h1>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#project-state-control").change(function(){
+				var url = $(this).attr("data-url"),
+				action = $(this).val();
+				$.ajax({
+					url: url + "/" + action,
+					method: "PUT"
+				})
+			});
+		});
+	</script>
 </div>
 <div class="row spacer">
 	<div class="col-xs-4">

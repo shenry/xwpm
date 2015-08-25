@@ -1,5 +1,16 @@
 module ProjectsHelper
   
+  def states_for_select(project)
+    # friendly_names = project.aasm_state_names.collect { |n| [n.to_s.titleize, n.to_s] }
+    friendly_names = project.aasm_state_names.collect do |name|
+      value = project.events_map[name] || name
+      [name.to_s.titleize, value]
+    end
+    disabled_names = project.aasm_state_names - project.permitted_aasm_state_names
+    options_for_select(friendly_names, selected: project.aasm_state.downcase, 
+                      disabled: disabled_names)
+  end
+  
   def project_component_title_for(project, component)
     arr = parse_requirement_for(project, component)
     if arr

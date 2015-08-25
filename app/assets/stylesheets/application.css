@@ -278,19 +278,46 @@ table.no-margin { margin: 0px !important; }
 	width: 44px;
 }
 
+#project-state-control { color: #999; }
+
 .project-status-button {
-	display: block;
+	display: inline-block;
 	width: 24px;
 	height: 24px;
 	border-radius: 50%;
-	box-shadow: 1px 1px 1px #dce;
+	box-shadow: 1px 1px 1px #dde;
+	margin-top: 5px;
 }
 span.in_development {
-	background-color: #EB6D71;
-	border: 1px solid #E6595D;
+	background-color: hsla(355, 100%, 45%, 1);
+	border: 1px solid hsla(355, 100%, 40%, 1);
 }
-/* TODO - Finish stylying the project states */
+
 span.active {
-	background-color: #ADEBAD;
-	border: 1px solid #ADEBAD;
+	background-color: hsla(54, 100%, 50%, 1);
+	border: 1px solid hsla(54, 100%, 45%, 1);
+}
+
+span.ready {
+	background-color: hsla(94, 54%, 46%, 1);
+	border: 1px solid hsla(94, 54%, 41%, 1);
+}
+
+span.bottled {
+	background-color: hsla(210, 100%, 50%, 1);
+	border: 1px solid hsla(210, 100%, 45%, 1);
+}
+
+span.costed {
+	background: hsla(291, 100%, 48%, 1);
+	border: 1px solid hsla(291, 100%, 43%, 1);
+}
+
+span.closed {
+	/* TODO */
+}
+
+span.cancelled {
+	background-color: hsla(0, 0%, 55%, 1);
+	border: 1px solid hsla(0, 0%, 50%, 1);
 }

@@ -82,15 +82,13 @@ class Project < ActiveRecord::Base
   scope     :not_cancelled, -> { where.not(aasm_state: [:cancelled, :closed]) }
   scope     :for_customer, ->(id) { where("customer_id = ?", id) }
   
-  paginates_per 10
-  
   # multisearchable against: [:brand, :variety, :appellation, :vintage, :notes]
   pg_search_scope :search_all, against: [:brand, :variety, :appellation, :project_number], 
                   using: { tsearch: { dictionary: 'english' }, trigram: { threshold: 0.2 } }
                   
   aasm do
-    state :in_development, intial: true
     state :cancelled
+    state :in_development, intial: true
     state :active
     state :ready
     state :bottled
@@ -102,7 +100,7 @@ class Project < ActiveRecord::Base
     end
     
     event :deactivate do
-      transitions from: [:activate, :ready], to: :in_development
+      transitions from: [:active, :ready], to: :in_development
     end
     
     event :make_ready do
@@ -110,7 +108,23 @@ class Project < ActiveRecord::Base
     end
     
     event :cancel do
-      transitions to: :cancelled
+      transitions from: [:in_development, :active, :ready], to: :cancelled
+    end
+    
+    event :un_cancel do
+      transitions from: :cancelled, to: :in_development
+    end
+    
+    event :bottle do
+      transitions from: :ready, to: :bottled
+    end
+    
+    event :cost do
+      transitions from: :bottled, to: :costed, if: :can_apply_costs?
+    end
+    
+    event :close do
+      transitions from: :costed, to: :closed
     end
   end
   
@@ -119,7 +133,7 @@ class Project < ActiveRecord::Base
   def self.fetch_filtered(params_hash)
     customer_id = params_hash[:customer_id]
     vendor_id   = params_hash[:vendor_id]
-    scope       = params_hash[:scope] || :ready
+    scope       = params_hash[:scope] || :planned
     return Project.send(scope) unless (customer_id || vendor_id)
     return Customer.find(customer_id).projects.active if customer_id
     return Project.associated_with_vendor(vendor_id).active if vendor_id
@@ -135,6 +149,10 @@ class Project < ActiveRecord::Base
   
   def self.scoped
     all
+  end
+  
+  def events_map
+    aasm.events.each_with_object({}) { |v, h| h[v.transitions.map(&:to).uniq[0]] = v.name }
   end
   
   def available_components_for(category)
@@ -215,7 +233,19 @@ class Project < ActiveRecord::Base
     "<em>No #{assoc.to_s.titleize} Present</em>".html_safe
   end
   
+  def aasm_state_names
+    aasm.states.map(&:name)
+  end
+  
+  def permitted_aasm_state_names
+    aasm.states(permitted: true).map(&:name)
+  end
+  
   private
+  
+  def can_apply_costs?
+    true
+  end
   
   REQUIRED_COMPONENTS = ["Bottle", "Closure", "Front Label"]
   
@@ -226,6 +256,10 @@ class Project < ActiveRecord::Base
   end
   
   def has_valid_components?
+    true
+  end
+  
+  def has_valid_component_quantities?
     # self.components.each do |c|
     #   return false unless c.available_inventory >
     # end

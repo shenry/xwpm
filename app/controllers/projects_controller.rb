@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   include ApplicationHelper
   before_action :autocomplete_collections, only: [:new, :create, :edit, :update]
+  before_action :fetch_by_project_id, only: [:in_development, :active, :ready, :bottled, :costed, :closed, :cancelled]
   
   def show
     respond_to do |wants|
@@ -27,14 +28,26 @@ class ProjectsController < ApplicationController
       end
     end
   end
-  
-  def components_select
-    project = Project.find(params[:id])
-    @components = project.components_for_select(params[:vendor_id])
-    respond_to do |wants|
-      wants.js { render "purchase_orders/components_select" }
+
+  [:activate, :deactivate, :cancel, :un_cancel, :make_ready, :bottle, :cost, :close].each do |method|
+    define_method method do
+      fetch_by_project_id
+      respond_to do |wants|
+        wants.js {
+          @project.send(method.to_s + "!")
+          render :project_state_change
+        }
+      end
     end
   end
+  
+  # def components_select
+  #   project = Project.find(params[:id])
+  #   @components = project.components_for_select(params[:vendor_id])
+  #   respond_to do |wants|
+  #     wants.js { render "purchase_orders/components_select" }
+  #   end
+  # end
 
   def index
     @projects = Project.fetch_filtered(params).text_search(params[:query]).page params[:page]
@@ -139,6 +152,9 @@ class ProjectsController < ApplicationController
   end
   
   private
+  def fetch_by_project_id
+    @project = Project.find(params[:project_id])
+  end
   
   def project_params
     params.require(:project).permit(:customer_id, :project_number, :brand, :variety, :winemaker, :target_cases, :wine_id,

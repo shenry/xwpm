@@ -100,6 +100,9 @@ X::Application.routes.draw do
             
   resources :projects do
     resources :comments
+    [:activate, :deactivate, :cancel, :un_cancel, :make_ready, :bottle, :cost, :close].each do |action|
+      put action
+    end
   end
   
   resources :users do
