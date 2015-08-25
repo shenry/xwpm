@@ -3,11 +3,11 @@
 	<table class="table table-responsive no-top-border">
 		<tr>
 			<td>Bottling Loc.</td>
-			<td class="bold"><%= @project.bottled_at.name %></td>
+			<td class="bold"><%= @project.try(:bottled_at, :name) %></td>
 		</tr>
 		<tr>
 			<td>Bottler</td>
-			<td class="bold"><%= @project.bottler.name %></td>
+			<td class="bold"><%= @project.try(:bottler, :name) %></td>
 		</tr>
 		<tr>
 			<td>Total Cases</td>

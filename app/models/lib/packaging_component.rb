@@ -38,8 +38,16 @@ module PackagingComponent
     aasm_state
   end
   
-  def inventory
-    quantity.to_i
+  def has_pending_inventory?
+    pending_inventory > 0
+  end
+  
+  def pending_inventory
+    line_items.where(aasm_state: "open").sum(:quantity)
+  end
+  
+  def usable_inventory
+    pending_inventory + quantity
   end
   
   def fudge_factor(qty)

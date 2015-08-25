@@ -321,3 +321,11 @@ span.cancelled {
 	background-color: hsla(0, 0%, 55%, 1);
 	border: 1px solid hsla(0, 0%, 50%, 1);
 }
+
+#vanilla-state-title {
+	font-size: 18px !important;
+}
+
+.pending {
+	color: #888;
+}

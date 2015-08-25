@@ -28,13 +28,14 @@ class ProjectsController < ApplicationController
       end
     end
   end
-
+  
+  # Controller methods for triggering state change in projects
   [:activate, :deactivate, :cancel, :un_cancel, :make_ready, :bottle, :cost, :close].each do |method|
     define_method method do
       fetch_by_project_id
       respond_to do |wants|
         wants.js {
-          @project.send(method.to_s + "!")
+          @project.send(method.to_s + "!") if current_user.admin?
           render :project_state_change
         }
       end

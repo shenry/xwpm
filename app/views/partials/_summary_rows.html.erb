@@ -4,7 +4,9 @@
 </tr>
 <tr>
 	<td>Inventory</td>
-	<td class="bold"><%= number_with_delimiter(object.inventory) %></td>
+	<td class="bold">
+		<%= render partial: "partials/component_inventory", locals: { object: object } %>
+	</td>
 </tr>
 <tr>
 	<td>Need</td>

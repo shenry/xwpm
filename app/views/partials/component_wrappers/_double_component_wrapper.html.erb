@@ -20,21 +20,28 @@
 						<td class="bold"><%= item.packageable.specs %></td>
 					</tr>
 					<tr>
-						<td>PO#</td>
-						<td class="bold">
-
-						</td>
-						<td>Cost</td>
-						<td class="bold">
-
+						<td>Inv / Need</td>
+						<td class="bold" colspan="3">
+							<%= render partial: "partials/component_inventory", locals: { object: item.packageable } %>
+							&nbsp;/&nbsp;
+							<%= number_with_delimiter(item.required_quantity) %>
 						</td>
 					</tr>
-					<tr>
-						<td>Material</td>
-						<td class="bold"><%= item.packageable.material %></td>
-						<td>Color</td>
-						<td class="bold"><%= item.packageable.color %></td>
-					</tr>
+					<% if ["capsule", "closure"].include? component %>
+						<tr>
+							<td>Material</td>
+							<td class="bold"><%= item.packageable.material %></td>
+							<td>Color</td>
+							<td class="bold"><%= item.packageable.color %></td>
+						</tr>
+					<% else %>
+						<tr>
+							<td>Mould</td>
+							<td class="bold"><%= item.packageable.mould %></td>
+							<td>Color</td>
+							<td class="bold"><%= item.packageable.color %></td>
+						</tr>
+					<% end %>
 				</table>
 			</div>
 		</div>

@@ -1,0 +1,16 @@
+<span id="project-state-badge" data-state="<%= @project.aasm_state %>" class="project-status-button pull-right <%= @project.aasm_state %>"></span>
+<span class="col-xs-2 inline pull-right" id="project-state-select">
+	<%= render partial: "projects/state_select", locals: { project: @project } %>
+</span>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#project-state-control").change(function(){
+			var url = $(this).attr("data-url"),
+			action = $(this).val();
+			$.ajax({
+				url: url + "/" + action,
+				method: "PUT"
+			})
+		});
+	});
+</script>

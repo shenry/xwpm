@@ -1,0 +1,4 @@
+<%= number_with_delimiter(object.quantity) %>
+<% if object.has_pending_inventory? %>
+	<span class="pending">(+<%= number_with_delimiter(object.pending_inventory.to_i) %>)</span>
+<% end %>

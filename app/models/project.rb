@@ -260,16 +260,15 @@ class Project < ActiveRecord::Base
   end
   
   def has_valid_component_quantities?
-    # self.components.each do |c|
-    #   return false unless c.available_inventory >
-    # end
+    self.components.each do |c|
+      return false unless c.usable_inventory >= c.packageable.quantity
+    end
     true
   end
   
   def has_required_components?
-    component_types = components_list
     REQUIRED_COMPONENTS.each do |c|
-      return false unless component_types.include? c
+      return false unless components_list.include? c
     end
     true
   end

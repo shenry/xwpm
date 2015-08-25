@@ -1,5 +1,14 @@
 module ProjectsHelper
   
+  def display_admin_project_state(project, options={})
+    user = options[:current_user]
+    if user && user.admin?
+      render partial: "admin/project_state_select", locals: { project: project }
+    else
+      render partial: "projects/state_badge", locals: { project: project }
+    end
+  end
+  
   def states_for_select(project)
     # friendly_names = project.aasm_state_names.collect { |n| [n.to_s.titleize, n.to_s] }
     friendly_names = project.aasm_state_names.collect do |name|
