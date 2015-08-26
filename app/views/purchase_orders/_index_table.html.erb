@@ -5,7 +5,7 @@
 		<th>Order Date</th>
 		<th>No. Items</th>
 		<th>Total $</th>
-		<th>&nbsp;</th>
+		<th>Status</th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -16,8 +16,14 @@
 			<td><%= formatted_date(po.order_date) %></td>
 			<td><%= po.line_items.size %></td>
 			<td><%= number_to_currency(po.total) %></td>
+			<td class="purchase_order_state">
+				<% if po.open? %>
+					Open &nbsp;<%= link_to "[Close]", purchase_order_close_path(po), data: { method: "PUT", remote: true } %>
+				<% else %>
+					Closed
+				<% end %>
+			</td>
 			<td><%= link_to "Add Line Items", purchase_order_path(po) %></td>
-			<td><%= link_to "Close", "#" %></td>
 			<td>
 				<%= link_to purchase_order_path(po), data: { remote: true, method: :delete, 
 																							confirm: "Are you sure you want to delete this Purchase Order?"} do %>

@@ -69,7 +69,9 @@ X::Application.routes.draw do
   
   resources :wine_shipments
   resources :component_requirements
-  resources :purchase_orders
+  resources :purchase_orders do
+    put :close
+  end
   resources :packaging_component_orders do
     put :receive
     put :undo

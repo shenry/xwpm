@@ -34,9 +34,16 @@ class PurchaseOrder < ActiveRecord::Base
     "PO##{number} - #{vendor.name} "
   end
   
-  def received?
-    false
-    # line_items.map(&:received).all? && line_items.any?
+  def open?
+    !closed?
+  end
+  
+  def closed?
+    all_line_items_received?
+  end
+  
+  def all_line_items_received?
+    line_items.map(&:aasm_state).all? { |state| state == "received" }
   end
   
   def subtotal

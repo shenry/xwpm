@@ -22,7 +22,9 @@
 			<th>Vintage</th>
 			<th>Appellation</th>
 			<th>Variety</th>
-			<th>Status</th>
+			<% if current_user_is_admin? %>
+				<th>Status</th>
+			<% end %>
 			<th>&nbsp;</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -46,10 +48,12 @@
 						&nbsp;(<%= number_to_percentage(wine.weighted_avg(:appellation), precision: 1) %>)
 					<% end %>
 				</td>
-				<td>
-					<%= select_tag "wine[state]", options_for_select(Wine.aasm.states_for_select, wine.aasm_state),
-						 							class: "form-control wine-state-control", data: { url: wine_path(wine) } %>
-				</td>
+				<% if current_user_is_admin? %>
+					<td>
+						<%= select_tag "wine[state]", options_for_select(Wine.aasm.states_for_select, wine.aasm_state),
+							 							class: "form-control wine-state-control", data: { url: wine_path(wine) } %>
+					</td>
+				<% end %>
 				<td><%= link_to "Edit", edit_wine_path(wine) %></td>
 				<td>
 					<%= link_to wine_path(wine), data: { remote: true, method: :delete, 

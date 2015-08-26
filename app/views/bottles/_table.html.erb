@@ -10,7 +10,9 @@
 		<th>Case Config.</th>
 		<th class="col-xs-1">Case Weight</th>
 		<th class="col-xs-1">Pallet Config.</th>
-		<th>Status</th>
+		<% if current_user_is_admin? %>
+			<th>Status</th>
+		<% end %>
 		<th>&nbsp;</th>
 	</tr>
 	<% components.each do |bottle| %>
@@ -25,9 +27,11 @@
 			<td><%= bottle.case_config %></td>
 			<td><%= bottle.case_weight %></td>
 			<td><%= bottle.pallet_config %></td>
-			<td>
-				<%= select_tag "bottle[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, bottle.aasm_state.downcase), class: "form-control component-state-control", data: { url: bottle_path(bottle) } %>
-			</td>
+			<% if current_user_is_admin? %>
+				<td>
+					<%= select_tag "bottle[state]", options_from_collection_for_select(ComponentState.valid_states, :downcase, :to_s, bottle.aasm_state.downcase), class: "form-control component-state-control", data: { url: bottle_path(bottle) } %>
+				</td>
+			<% end %>
 			<td>
 				<%= link_to bottle_path(bottle), data: { remote: true, method: :delete, 
 					confirm: "Are you sure you want to delete this Bottle?"} do %>

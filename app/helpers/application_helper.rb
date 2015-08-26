@@ -1,6 +1,10 @@
 module ApplicationHelper
   DATE_FORMAT_STRING = "%m/%d/%y"
   
+  def current_user_is_admin?
+    current_user && current_user.admin?
+  end
+  
   def present_attr(string)
     arr = string.split("_")
     arr.map { |s| s.length <= 3 ? s.upcase : s.capitalize }.join(" ")

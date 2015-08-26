@@ -66,6 +66,7 @@ class PackagingComponentOrder < ActiveRecord::Base
   end
   
   def destroy_inventory_event!(options={})
+    puts "self.id = #{self.id}, self.class.to_s = #{self.class.to_s}"
     event = ComponentEvent::Receive.find_by(actionable_id: self.id, actionable_type: self.class.to_s)
     puts "destroying......................"
     puts "event is #{event.inspect}"

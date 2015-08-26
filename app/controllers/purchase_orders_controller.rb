@@ -22,6 +22,17 @@ class PurchaseOrdersController < ApplicationController
     end
   end
   
+  def close
+    respond_to do |wants|
+      wants.js {
+        @purchase_order = PurchaseOrder.find(params[:purchase_order_id])
+        @purchase_order.line_items.each do |line_item|
+          line_item.receive!(:received, user: current_user) if line_item.open?
+        end 
+      }
+    end
+  end
+  
   def update
     @purchase_order = PurchaseOrder.find(params[:id])
     respond_to do |wants|

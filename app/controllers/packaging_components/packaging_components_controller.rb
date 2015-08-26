@@ -47,7 +47,7 @@ class PackagingComponentsController < ApplicationController
     image     = @component.image
     image_url = image.to_s
     respond_to do |wants|
-      if @component.update_attributes(filtered)
+      if @component.update_attributes(component_params)
         wants.json { respond_with_bip @component }
         wants.js {}
       else
