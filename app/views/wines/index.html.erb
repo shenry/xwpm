@@ -48,7 +48,7 @@
 				</td>
 				<td>
 					<%= select_tag "wine[state]", options_for_select(Wine.aasm.states_for_select, wine.aasm_state),
-						 							class: "form-control wine-state-control", data: { url: wine_path(wine) }%>
+						 							class: "form-control wine-state-control", data: { url: wine_path(wine) } %>
 				</td>
 				<td><%= link_to "Edit", edit_wine_path(wine) %></td>
 				<td>
@@ -75,7 +75,8 @@
 				}
 				$.ajax({
 					url: url + "/" + action,
-					method: "PUT"
+					method: "PUT",
+					dataType: "script"
 				});
 			});
 		});
