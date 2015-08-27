@@ -261,7 +261,7 @@ class Project < ActiveRecord::Base
   
   def has_valid_component_quantities?
     self.components.each do |c|
-      return false unless c.usable_inventory >= c.packageable.quantity
+      return false unless c.packageable.usable_inventory >= c.packageable.quantity
     end
     true
   end

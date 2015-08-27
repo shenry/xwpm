@@ -4,7 +4,7 @@
 </span>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#project-state-control").change(function(){
+		$("#project-state-control").bind("change", function(){
 			var url = $(this).attr("data-url"),
 			action = $(this).val();
 			$.ajax({
