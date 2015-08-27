@@ -152,7 +152,7 @@ class Project < ActiveRecord::Base
   end
   
   def events_map
-    aasm.events.each_with_object({}) { |v, h| h[v.transitions.map(&:to).uniq[0]] = v.name }
+    aasm.events(permitted: true).each_with_object({}) { |v, h| h[v.transitions.map(&:to).uniq[0]] = v.name }
   end
   
   def available_components_for(category)
@@ -253,6 +253,7 @@ class Project < ActiveRecord::Base
     r = has_required_components?
     v = has_valid_components?
     q = has_valid_component_quantities?
+    r && v && q
   end
   
   def has_valid_components?

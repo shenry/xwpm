@@ -1,16 +1,14 @@
 #TODO
 * X Winery Bottling Spec Sheet - Make that shit shine
 * TIO Bottling Sheet
-* Authorization, flexible create w/ admin "Live"
 * State on PackagingComponents
-	* Admin State Change UI
 	* Clean up AR queries to reference state when appropriate (erm, always?)
 	* Default scopes would probably help here
 	* PackagingComponents should know the cost of their inventory (add something to ComponentEvent)
 * Add more analyses to Wines
 	* Add attachments to wines? What would we attach?
-* How do we walk projects through the State lifecycle? Drop-down inline on index table?
 * Add logic for over-order amt? Or keep that a GM thing?
+* Projects should not have the option of advancing state if they don't pass guards. Project#aasm.events should only return permitted events, no?
 
 	
 * Project packet ... this needs more thought

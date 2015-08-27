@@ -16,6 +16,7 @@ module ProjectsHelper
       [name.to_s.titleize, value]
     end
     disabled_names = project.aasm_state_names - project.permitted_aasm_state_names
+    puts "disabled_names = #{disabled_names.inspect}"
     options_for_select(friendly_names, selected: project.aasm_state.downcase, 
                       disabled: disabled_names)
   end
