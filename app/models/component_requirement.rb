@@ -33,4 +33,8 @@ class ComponentRequirement < ActiveRecord::Base
     num = project.packageable_units
     (num += packageable.fudge_factor(num)).to_i
   end
+  
+  def waiting_for_delivery?
+    packageable.quantity < required_quantity
+  end
 end

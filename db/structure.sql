@@ -657,7 +657,6 @@ CREATE TABLE purchase_orders (
     po_image character varying,
     bol_image character varying,
     total double precision,
-    receive_date timestamp without time zone,
     order_date timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1674,4 +1673,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150818212832');
 INSERT INTO schema_migrations (version) VALUES ('20150821034302');
 
 INSERT INTO schema_migrations (version) VALUES ('20150823211104');
+
+INSERT INTO schema_migrations (version) VALUES ('20150827041001');
 

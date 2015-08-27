@@ -186,13 +186,17 @@
 					<% collection.each do |requirement| %>
 						<tr class="component-item-row">
 							<td class="component-code"><%= requirement.packageable.to_s %></td>
-							<td><%= requirement.packageable.quantity %></td>
+							<td><%= number_with_delimiter(requirement.packageable.quantity.to_i) %></td>
 							<td>
-								<% if requirement.packageable.quantity < requirement.required_quantity %>
-									<%= requirement.packageable.quantity %>
+								<% if requirement.waiting_for_delivery? %>
+									<%= number_with_delimiter(requirement.packageable.pending_inventory.to_i) %>
 								<% end %>
 							</td>
-							<td><%= %></td>
+							<td>
+								<% if requirement.waiting_for_delivery? %>
+									<%= requirement.packageable.open_purchase_orders.map(&:number).join(", ") %>
+								<% end %>
+							</td>
 							<td></td>
 						</tr>
 					<% end %>

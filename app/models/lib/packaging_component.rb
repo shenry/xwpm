@@ -30,6 +30,10 @@ module PackagingComponent
     end
   end
   
+  def open_purchase_orders
+    purchase_orders.select { |po| po.open? == true }
+  end
+  
   def states
     ComponentState.states
   end
@@ -88,10 +92,13 @@ module PackagingComponent
   end
   
   def update_inventory(obj)
-    puts "................... UPDATING INVENTORY ......................."
+    puts "................... UPDATING INVENTORY ON #{obj.inspect} ......................."
     begin 
+      puts "self.quantity = #{self.quantity.inspect}"
       obj.inventory_action
+      puts "...... now self.quantity = #{self.quantity.inspect}"
       self.save
+      puts ".............. and now self.quantity = #{self.quantity.inspect}"
     end
   end
   

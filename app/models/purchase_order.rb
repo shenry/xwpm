@@ -28,8 +28,6 @@ class PurchaseOrder < ActiveRecord::Base
       
   accepts_nested_attributes_for :line_items
   
-  scope :open, -> { where(receive_date: nil) }
-  
   def to_s
     "PO##{number} - #{vendor.name} "
   end

@@ -31,7 +31,7 @@
 	<%= render partial: "packaging_components/upload" %>
 </div>
 <div class="row spacer">
-	<% unless @purchase_order.received? %>
+	<% if @purchase_order.open? %>
 		<%= render partial: "packaging_component_orders/new_line_item" %>
 	<% end %>
 	<div class="col-xs-12">

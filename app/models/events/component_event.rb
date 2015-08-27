@@ -25,7 +25,7 @@ class ComponentEvent < ActiveRecord::Base
     def inventory_action(options={})
       undo = options[:undo] || false
       action = undo ? :+ : :-
-      packageable.quantity = packageable.quantity.send(action, delta)
+      packageable.quantity = packageable.quantity.send(action, delta).to_i
       packageable.save
     end
   end
@@ -34,7 +34,7 @@ class ComponentEvent < ActiveRecord::Base
   def inventory_action(options={})
     undo    = options[:undo] || false
     action  = undo ? :- : :+
-    packageable.quantity = packageable.quantity.send(action, delta)
-    packageable.save
+    packageable.quantity = packageable.quantity.send(action, delta).to_i
+    packageable.save!
   end
 end

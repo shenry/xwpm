@@ -1,6 +1,6 @@
 class PurchaseOrdersController < ApplicationController
   def index
-    @purchase_orders = PurchaseOrder.open
+    @purchase_orders = PurchaseOrder.order("created_at DESC").page params[:page]
   end
   
   def show
