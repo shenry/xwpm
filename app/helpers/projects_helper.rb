@@ -1,8 +1,8 @@
 module ProjectsHelper
   
   def display_admin_project_state(project, options={})
-    user = options[:current_user]
-    if user && user.admin?
+    # user = options[:current_user]
+    if current_user_is_admin?
       render partial: "admin/project_state_select", locals: { project: project }
     else
       render partial: "projects/state_badge", locals: { project: project }

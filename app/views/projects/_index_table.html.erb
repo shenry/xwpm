@@ -12,9 +12,10 @@
 		<th>Cases</th>
 		<th class="col-sm-1">Bottling Date</th>
 		<th>Wine</th>
-		<th>Actions</th>
-		<th>&nbsp;</th>
-		<th>&nbsp;</th>
+		<th>Comments</th>
+		<% if current_user_is_admin? %>
+			<th colspan="2">Actions</th>
+		<% end %>
 	</tr>
 	<% for project in projects %>
 		<tr id="project-<%= project.id %>">
@@ -43,17 +44,19 @@
 					<% end %>
 				<% end %>
 			</td>
-			<td>
-				<%= link_to clone_project_path(project), data: { remote: true } do %>
-					<span class="glyphicon glyphicon-duplicate text-primary"></span>
-				<% end %>
-			</td>
-			<td>
-				<%= link_to project_path(project), data: { remote: true, method: :delete, 
-																					confirm: "Are you sure you want to permanently delete this Project?" } do %>
-					<span class="glyphicon glyphicon-trash text-primary"></span>
-				<% end %>
-			</td>
+			<% if current_user_is_admin? %>
+				<td>
+					<%= link_to clone_project_path(project), data: { remote: true } do %>
+						<span class="glyphicon glyphicon-duplicate text-primary"></span>
+					<% end %>
+				</td>
+				<td>
+					<%= link_to project_path(project), data: { remote: true, method: :delete, 
+																						confirm: "Are you sure you want to permanently delete this Project?" } do %>
+						<span class="glyphicon glyphicon-trash text-primary"></span>
+					<% end %>
+				</td>
+			<% end %>
 		</tr>
 	<% end %>
 	<% if projects.empty? %>
