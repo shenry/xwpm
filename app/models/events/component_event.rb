@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: component_events
+#
+#  id               :integer          not null, primary key
+#  packageable_id   :integer
+#  packageable_type :string
+#  actionable_id    :integer
+#  actionable_type  :string
+#  delta            :float
+#  user_id          :integer
+#  type             :string
+#
+
 class ComponentEvent < ActiveRecord::Base
   
   belongs_to :packageable, polymorphic: true

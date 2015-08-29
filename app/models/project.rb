@@ -27,6 +27,10 @@
 #  fso2_target       :string
 #  max_do            :string
 #  notes             :text             default("")
+#  aasm_state        :string
+#  bottled_at_id     :integer
+#  bottler_id        :integer
+#  need_id           :integer
 #
 
 class Project < ActiveRecord::Base
@@ -36,6 +40,7 @@ class Project < ActiveRecord::Base
   include AASM
 
   belongs_to  :wine, inverse_of: :projects
+  belongs_to  :need
   belongs_to  :customer, class_name: "Firm", counter_cache: true
   belongs_to  :bottler, class_name: "Firm"
   belongs_to  :produced_at, class_name: "Firm"

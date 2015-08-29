@@ -8,7 +8,6 @@
 #  po_image         :string
 #  bol_image        :string
 #  total            :float
-#  receive_date     :datetime
 #  order_date       :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

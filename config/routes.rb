@@ -35,6 +35,7 @@ X::Application.routes.draw do
     resources :projects, shallow: true
     resources :wine_shipments
     resources :sampled_wines
+    resources :needs
   end
   
   resources :vendors do

@@ -322,6 +322,16 @@ span.cancelled {
 	border: 1px solid hsla(0, 0%, 50%, 1);
 }
 
+.tabbed-content-container {
+	position:relative;
+}
+.right-link {
+/*float: right;*/
+position: absolute;
+top: 30px;
+right: 0;
+}
+
 #vanilla-state-title {
 	font-size: 18px !important;
 }

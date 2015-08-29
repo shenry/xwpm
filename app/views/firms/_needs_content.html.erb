@@ -1,0 +1,21 @@
+<%= link_to "Create New Need", new_customer_need_path(@firm), class: "right-link" %>
+<table class="table table-responsive">
+	<tr>
+		<th>Date</th>
+		<th>Vintage</th>
+		<th>Appellation</th>
+		<th>Variety</th>
+		<th>Price</th>
+		<th>Notes</th>
+	</tr>
+	<% @firm.needs.each do |need| %>
+		<tr>
+			<td><%= need.created_at.strftime("%m/%d/%y") %></td>
+			<td><%= need.vintage %></td>
+			<td><%= need.appellation %></td>
+			<td><%= need.variety %></td>
+			<td><%= need.price %></td>
+			<td><%= markup(need.notes) %></td>
+		</tr>
+	<% end %>
+</table>

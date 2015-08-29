@@ -22,7 +22,8 @@
 #  image            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  active           :boolean          default(TRUE)
+#  quantity         :integer          default(0)
+#  aasm_state       :string
 #
 
 class Bottle < ActiveRecord::Base

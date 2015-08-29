@@ -2,12 +2,12 @@
 <div class="row spacer">
 	<div class="col-xs-12">
 		<ul class="nav nav-tabs nav-justified" id="firm-show-subnav">
-			<%= sub_nav_link_for(:projects, default: true) %>
+			<%= sub_nav_link_for(:needs, default: true) %>
 			<%= sub_nav_link_for(:samples) %>
-			<%= sub_nav_link_for(:needs) %>
+			<%= sub_nav_link_for(:projects) %>
 		</ul>
 	</div>
 </div>
-<div class="col-xs-12 spacer" id="firm-show-category">
+<div class="col-xs-12 spacer tabbed-content-container" id="firm-show-category">
 	<%= render_firm_partial(@category) %>
 </div>

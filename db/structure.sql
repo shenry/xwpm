@@ -525,6 +525,42 @@ ALTER SEQUENCE front_labels_id_seq OWNED BY front_labels.id;
 
 
 --
+-- Name: needs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE needs (
+    id integer NOT NULL,
+    customer_id integer,
+    appellation character varying,
+    variety character varying,
+    vintage character varying,
+    budget character varying,
+    notes character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: needs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE needs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: needs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE needs_id_seq OWNED BY needs.id;
+
+
+--
 -- Name: packaging_component_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -623,7 +659,8 @@ CREATE TABLE projects (
     notes text DEFAULT ''::text,
     aasm_state character varying,
     bottled_at_id integer,
-    bottler_id integer
+    bottler_id integer,
+    need_id integer
 );
 
 
@@ -790,7 +827,8 @@ CREATE TABLE wine_shipments (
     updated_at timestamp without time zone NOT NULL,
     status character varying,
     accepted boolean DEFAULT false,
-    message character varying
+    message character varying,
+    need_id integer
 );
 
 
@@ -934,6 +972,13 @@ ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly
 --
 
 ALTER TABLE ONLY front_labels ALTER COLUMN id SET DEFAULT nextval('front_labels_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY needs ALTER COLUMN id SET DEFAULT nextval('needs_id_seq'::regclass);
 
 
 --
@@ -1086,6 +1131,14 @@ ALTER TABLE ONLY friendly_id_slugs
 
 ALTER TABLE ONLY front_labels
     ADD CONSTRAINT front_labels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: needs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY needs
+    ADD CONSTRAINT needs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1318,6 +1371,13 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 --
 
 CREATE UNIQUE INDEX index_front_labels_on_item_number ON front_labels USING btree (item_number);
+
+
+--
+-- Name: index_needs_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_needs_on_customer_id ON needs USING btree (customer_id);
 
 
 --
@@ -1675,4 +1735,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150821034302');
 INSERT INTO schema_migrations (version) VALUES ('20150823211104');
 
 INSERT INTO schema_migrations (version) VALUES ('20150827041001');
+
+INSERT INTO schema_migrations (version) VALUES ('20150829173224');
 

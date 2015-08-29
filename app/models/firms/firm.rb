@@ -19,7 +19,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  projects_count :integer
-#  code           :string
 #
 
 class Firm < ActiveRecord::Base

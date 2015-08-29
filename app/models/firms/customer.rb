@@ -19,13 +19,13 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  projects_count :integer
-#  code           :string
 #
 
 class Customer < Firm
   has_many  :projects, dependent: :destroy
   has_many  :wine_shipments, -> { order("ship_date DESC") }, dependent: :destroy
   has_many  :sampled_wines, through: :wine_shipments, source: :wine
+  has_many  :needs
   
   accepts_nested_attributes_for :projects, allow_destroy: true
   

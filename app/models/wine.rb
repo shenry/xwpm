@@ -13,6 +13,7 @@
 #  treatments      :text
 #  description     :text
 #  vinx2_reference :string
+#  aasm_state      :string
 #
 
 class Wine < ActiveRecord::Base

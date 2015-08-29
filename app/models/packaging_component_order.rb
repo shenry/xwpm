@@ -2,12 +2,13 @@
 #
 # Table name: packaging_component_orders
 #
-#  id                       :integer          not null, primary key
-#  component_requirement_id :integer
-#  purchase_order_id        :integer
-#  quantity                 :float            default(0.0)
-#  price                    :float            default(0.0)
-#  received                 :boolean          default(FALSE), not null
+#  id                :integer          not null, primary key
+#  purchase_order_id :integer
+#  quantity          :float            default(0.0)
+#  price             :float            default(0.0)
+#  aasm_state        :string
+#  packageable_id    :integer
+#  packageable_type  :string
 #
 
 class PackagingComponentOrder < ActiveRecord::Base

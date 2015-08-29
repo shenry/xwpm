@@ -15,6 +15,7 @@
 #  status          :string
 #  accepted        :boolean          default(FALSE)
 #  message         :string
+#  need_id         :integer
 #
 
 class WineShipment < ActiveRecord::Base
@@ -22,6 +23,7 @@ class WineShipment < ActiveRecord::Base
   
   belongs_to :customer, class_name: "Firm"
   belongs_to :wine
+  belongs_to :need
   
   validates :tracking_number, :ship_date, :customer_id, :wine_id, presence: true
   
