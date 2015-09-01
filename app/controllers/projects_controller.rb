@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
   # end
 
   def index
-    @projects = Project.fetch_filtered(params).text_search(params[:query]).page params[:page]
+    @projects = Project.fetch_filtered(params).order("bottling_date ASC").text_search(params[:query]).page params[:page]
     
     respond_to do |wants|
       wants.html
