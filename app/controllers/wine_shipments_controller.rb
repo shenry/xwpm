@@ -28,6 +28,7 @@ class WineShipmentsController < ApplicationController
   
   private
   def wine_shipment_params
-    params.require(:wine_shipment).permit(:ship_date, :tracking_number, :wine_id, :customer_id, :accepted, :feedback)
+    params.require(:wine_shipment).permit(:ship_date, :tracking_number, :wine_id, :customer_id, :accepted, :feedback,
+                                          :need_id)
   end
 end

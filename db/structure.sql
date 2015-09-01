@@ -537,7 +537,8 @@ CREATE TABLE needs (
     budget character varying,
     notes character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    cases character varying
 );
 
 
@@ -1737,4 +1738,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150823211104');
 INSERT INTO schema_migrations (version) VALUES ('20150827041001');
 
 INSERT INTO schema_migrations (version) VALUES ('20150829173224');
+
+INSERT INTO schema_migrations (version) VALUES ('20150830205139');
 

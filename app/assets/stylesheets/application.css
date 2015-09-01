@@ -278,7 +278,19 @@ table.no-margin { margin: 0px !important; }
 	width: 44px;
 }
 
+tr.naked { height: 51px; border: none; }
+tr.naked + tr td {
+	border: none !important;
+}
+
+textarea {
+	height: 9.6em;
+	width: 100%;
+}
+
 #project-state-control { color: #999; }
+
+.clickable_row tr:hover { cursor: pointer; }
 
 .project-status-button {
 	display: inline-block;

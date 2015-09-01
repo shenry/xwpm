@@ -8,8 +8,15 @@
 	<%= simple_form_for @wine_shipment, html: { class: 'in-place' } do |f| %>
 		<table class="table table-responsive no-top-border col-xs-12">
 			<tr>
-				<td class="col-xs-5">Tracking Number</td>
-				<td class="col-xs-7"><%= f.text_field :tracking_number, class: "col-xs-12" %></td>
+				<td class="col-xs-5">Need</td>
+				<td class="col-xs-7"><%= f.input :need_id, label: false, 
+					collection: @wine_shipment.customer.needs.collect { |n| [n.to_s, n.id] },
+						prompt: "Select a Need..." %>
+				</td>
+			</tr>
+			<tr>
+				<td>Tracking Number</td>
+				<td><%= f.text_field :tracking_number, class: "col-xs-12" %></td>
 			</tr>
 			<tr>
 				<td>Ship Date</td>

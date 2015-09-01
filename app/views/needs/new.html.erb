@@ -4,7 +4,53 @@
 	</div>
 </div>
 <div class="row spacer">
-	<%= simple_form_for [@customer, @need] do |f| %>
-		
+	<%= form_for [@customer, @need], html: { class: "in-place" } do |f| %>
+		<div class="col-xs-12 col-md-4">
+			<table class="table table-responsive no-top-border">
+				<tr>
+					<td class="col-xs-4">Vintage</td>
+					<td class="col-xs-8"><%= f.text_field :vintage %></td>
+				</tr>
+				<tr>
+					<td>Appellation</td>
+					<td><%= f.text_field :appellation %></td>
+				</tr>
+				<tr>
+					<td>Variety</td>
+					<td><%= f.text_field :variety %></td>
+				</tr>
+				<tr>
+					<td>Cases</td>
+					<td><%= f.text_field :cases %></td>
+				</tr>
+				<tr>
+					<td>Cost</td>
+					<td>
+						<div class="input-group">
+							<%= f.text_field :budget  %>
+							<span class="input-group-addon addon-right">$/gal</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<table class="table table-responsive no-top-border">
+				<tr class="naked">
+					<td class="col-xs-4">Notes</td>
+					<td class="col-xs-8">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<%= f.text_area :notes %>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<%= f.submit nil, class: "btn btn-primary col-xs-12" %>
+					</td>
+				</tr>
+			</table>
+		</div>
 	<% end %>
 </div>

@@ -152,4 +152,8 @@ function createVolumeCollection(volumes) {
 $(document).ready(function() {
   /* Activating Best In Place */
   jQuery(".best_in_place").best_in_place();
+	$("table.clickable_row tr").bind("click", function(){
+		var url = $(this).data("url");
+		window.location.href = url;
+	});
 });

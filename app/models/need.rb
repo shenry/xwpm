@@ -17,4 +17,8 @@ class Need < ActiveRecord::Base
   belongs_to  :customer
   has_many    :wine_shipments
   has_one     :project
+  
+  def to_s
+    vintage + " " + variety + " " + appellation
+  end
 end

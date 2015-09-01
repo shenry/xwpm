@@ -32,7 +32,7 @@ class Winery < Firm
     end
     
     def select_options
-      all.order(:name).map { |w| [w.id, w.to_s] }
+      all.order(:name).map { |w| [w.to_s, w.id] }
     end
     
     def bip_select_options_for(string)

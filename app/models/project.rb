@@ -92,13 +92,13 @@ class Project < ActiveRecord::Base
                   using: { tsearch: { dictionary: 'english' }, trigram: { threshold: 0.2 } }
                   
   aasm do
-    state :cancelled
     state :in_development, intial: true
     state :active
     state :ready
     state :bottled
     state :costed
     state :closed
+    state :cancelled
     
     event :activate do
       transitions from: [:in_development, :cancelled], to: :active

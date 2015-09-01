@@ -1,7 +1,8 @@
 <%= link_to "Create New Need", new_customer_need_path(@firm), class: "right-link" %>
-<table class="table table-responsive">
+<table class="table table-responsive clickable_row">
 	<tr>
 		<th>Date</th>
+		<th>Samples</th>
 		<th>Vintage</th>
 		<th>Appellation</th>
 		<th>Variety</th>
@@ -9,12 +10,13 @@
 		<th>Notes</th>
 	</tr>
 	<% @firm.needs.each do |need| %>
-		<tr>
+		<tr data-url="<%= customer_need_path(@firm,need) %>">
 			<td><%= need.created_at.strftime("%m/%d/%y") %></td>
+			<td><%= need.wine_shipments.size %></td>
 			<td><%= need.vintage %></td>
 			<td><%= need.appellation %></td>
 			<td><%= need.variety %></td>
-			<td><%= need.price %></td>
+			<td><%= need.budget %></td>
 			<td><%= markup(need.notes) %></td>
 		</tr>
 	<% end %>
