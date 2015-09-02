@@ -1,6 +1,6 @@
 class PackagingComponentsController < ApplicationController
   before_filter :get_type
-  before_filter :fetch_component, only: [:deactivate, :reactivate]
+  before_filter :fetch_component, only: [:deactivate, :reactivate, :adjust_inventory]
   # respond_to :html, :json
   
   def index
@@ -38,6 +38,17 @@ class PackagingComponentsController < ApplicationController
       wants.js {
         event = ComponentEvent::Reactivate.new
         @component.events << event 
+      }
+    end
+  end
+  
+  def adjust_inventory
+    respond_to do |wants|
+      wants.js {
+        adjusted  = params[component: :adjusted_inventory]
+        delta     = adjusted - @component.quantity
+        event = ComponentEvent::Adjust.new(user: current_user, delta: delta)
+        @component.events << event
       }
     end
   end

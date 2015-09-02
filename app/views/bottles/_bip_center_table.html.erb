@@ -19,4 +19,19 @@
 		<td>Pallet Configuration</td>
 		<td class="bold"><%= best_in_place @component, :pallet_config %></td>
 	</tr>
+	<tr>
+		<td>Inventory</td>
+		<td class="bold"><%= number_with_delimiter(@component.quantity) %></td>
+	</tr>
+	<tr>
+		<td>Set Inventory</td>
+		<td>
+			<div class="input-group">
+				<%= text_field_tag "component[adjusted_inventory]", "", placeholder: number_with_delimiter(@component.quantity), class: "form-control" %>
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-ok white"></span>
+				</span>
+			</div>
+		</td>
+	</tr>
 </table>

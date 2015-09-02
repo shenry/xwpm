@@ -54,7 +54,7 @@ X::Application.routes.draw do
   get "/projects/:id/spec_sheet", controller: "projects", action: "show_spec_sheet", as: :spec_sheet
   get "/projects/:id/vendors/:vendor_id/components", controller: "projects", action: "components_select"
   
-  put "/bottles", controller: "bottles", action: "update"
+  # put "/bottles", controller: "bottles", action: "update"
   
   post "projects/:id/add_components", controller: "projects", action: "add_components"
   post "/clear-project-comment", controller: "comments", action: "complete_action"
@@ -96,6 +96,7 @@ X::Application.routes.draw do
     resources component do
       put :deactivate
       put :reactivate
+      put :adjust_inventory
     end
   end
             
