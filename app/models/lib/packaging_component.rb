@@ -10,7 +10,9 @@ module PackagingComponent
       validates :item_number, uniqueness: true
       validates_numericality_of :quantity, only_integer: true, greater_than_or_equal_to: 0,
                                 message: "must be positive"
+                                
       
+      default_scope { joins(:vendor_product => :vendor) }
       scope :active, lambda { joins(:vendor).where(aasm_state: "Active") }
       scope :inactive, -> { joins(:vendor).where(aasm_state: "Inactive") }
       

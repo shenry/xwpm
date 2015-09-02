@@ -17,6 +17,8 @@ class ComponentRequirement < ActiveRecord::Base
   belongs_to  :packageable, polymorphic: true
   has_one     :event, class_name: "ComponentEvent", as: :actionable, dependent: :destroy
   
+  default_scope { includes(:project) }
+  
   has_ancestry orphan_strategy: :adopt
   
   validates :project_id, :packageable_id, :packageable_type, presence: true

@@ -22,6 +22,8 @@
 class Closure < ActiveRecord::Base
   include PackagingComponent
   
+  has_one   :vendor_product, as: :vendable, dependent: :destroy
+  has_one   :vendor, through: :vendor_product
   has_many  :component_requirements, as: :packageable, dependent: :destroy
   has_many  :projects, through: :component_requirements
   
