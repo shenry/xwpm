@@ -85,7 +85,7 @@ class ProjectsController < ApplicationController
     @project.bottling_date = Date.strptime(bottling_date, "%m/%d/%y")
     
     if @project.save
-      redirect_to customer_projects_path(@customer)
+      redirect_to projects_path
     else
       @project.bottling_date = formatted_date(params[:project][:bottling_date])
       render :new, { :project => @project, :customer => @customer }
