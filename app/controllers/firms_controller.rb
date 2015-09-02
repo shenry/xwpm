@@ -5,7 +5,7 @@ class FirmsController < ApplicationController
   # GET /firms.xml
   def index
     if @klass == Customer
-      @firms = @klass.includes(:projects).order(:name).page params[:page]
+      @firms = @klass.order(:name).page params[:page]
     else
       @firms = @klass.order(:name).page params[:page]
     end

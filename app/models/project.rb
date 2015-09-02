@@ -83,6 +83,7 @@ class Project < ActiveRecord::Base
   validates :target_cases, numericality: { only_integer: true }
   validate  :bottling_date_cant_be_in_the_past, on: :create
 
+  default_scope { includes([:customer, :wine]) }
   scope     :planned,  -> { where("bottling_date >= ?", 1.week.ago).order("bottling_date ASC").not_cancelled }
   scope     :not_cancelled, -> { where.not(aasm_state: [:cancelled, :closed]) }
   scope     :for_customer, ->(id) { where("customer_id = ?", id) }
