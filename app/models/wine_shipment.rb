@@ -46,6 +46,8 @@ class WineShipment < ActiveRecord::Base
       message = extract_message(tracker)
       self.status = tracker.status
       self.message= message
+    rescue
+      puts "@@@@@@@@@@@@@@@@@@@@@@ tracking number not found @@@@@@@@@@@@@@@@@@@@@@@@"
     end
   end
   
