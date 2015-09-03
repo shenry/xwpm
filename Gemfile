@@ -73,6 +73,7 @@ gem 'devise', '3.4.1'
 
 # Rails 12factor for Heroku: https://github.com/heroku/rails_12factor
 group :production do
+  gem 'heroku-deflater'
   gem 'rails_12factor'
 end
 
