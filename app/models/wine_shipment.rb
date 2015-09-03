@@ -35,7 +35,8 @@ class WineShipment < ActiveRecord::Base
   end
   
   def current_status
-    status.titleize
+    return status.titleize if status
+    "not found"
   end
 
   private
