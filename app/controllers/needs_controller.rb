@@ -22,7 +22,7 @@ class NeedsController < ApplicationController
   private
   
   def fetch_customer
-    @customer = Customer.joins(:needs).find(params[:customer_id])
+    @customer = Customer.includes(:needs).find(params[:customer_id])
   end
   
   def needs_params
