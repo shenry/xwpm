@@ -46,7 +46,7 @@ class Wine < ActiveRecord::Base
   end
   
   def to_s
-    "[" + sample_number + "] " + vinx2_reference + " " + vintage + " " + appellation + " " + variety
+    "[" + sample_number + "] " + vinx2_reference + " - " + vintage + " " + appellation + " " + variety
   end
   
   def self.select_options
